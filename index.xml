@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>eddiequinn.xyz</title>
     <link>http://eddiebquinn.github.io/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on eddiequinn.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://eddiebquinn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright><atom:link href="http://eddiebquinn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://eddiebquinn.github.io/about/</link>
+      <pubDate>Tue, 17 May 2022 00:26:12 +0100</pubDate>
+      
+      <guid>http://eddiebquinn.github.io/about/</guid>
+      <description>WhoAmI? 2020 was a hell of a year for the majority of people. Covid-19 hit and suddenly almost every person I knew was stuck inside with nothing to do and no one to see. This happened to me slap bang in the middle of my economics degree, and suddenly I had 2 months of lockdown ahead of me (or at least I thought it would be 2 months).
+Unlike most people, I did not see this as an opportunity to binge drink for sixty days (I was a student, I did not need a sixty-day lockdown as an excuse to do that).</description>
+    </item>
+    
   </channel>
 </rss>
