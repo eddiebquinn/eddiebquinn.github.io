@@ -1,0 +1,6 @@
+# My blog posts
+
+Part of the wider site, which is run off various repos' on my Github. All my blog posts are held in this repo in markdown format, so if I ever want to change how I host them they're easily portable. They're not organised in any particular order, however, that may be subject to change in the future, as I might organise them in subdirectories based on date or topic. 
+
+> "So you go from moving a folder incase you want to switch... To a full blown submodule" ~ My friend when he found out this is how im building my site 
+

@@ -6,7 +6,37 @@
     <description>Recent content on eddiequinn.xyz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright><atom:link href="http://eddiebquinn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 21 May 2022 08:06:49 +0100</lastBuildDate><atom:link href="http://eddiebquinn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crypto-watch: Rune</title>
+      <link>http://eddiebquinn.github.io/posts/cryptorune/</link>
+      <pubDate>Tue, 17 May 2022 00:26:12 +0100</pubDate>
+      
+      <guid>http://eddiebquinn.github.io/posts/cryptorune/</guid>
+      <description>Introduction As time goes on, the crypto market is beginning to mimic the legacy financial system; this is especially true in the notion of lack of privacy. Everywhere you go, you need to provide KYC (know your customer), all the services you use require an intermediary, and everything you do is tracked to a T. This was not Satoshi’s vision when he gifted us the block-chain, and it is concerning to many of us.</description>
+    </item>
+    
+    <item>
+      <title>Protonmail, a wolf in sheep&#39;s clothing?</title>
+      <link>http://eddiebquinn.github.io/posts/protonmail-wolfinsheep/</link>
+      <pubDate>Tue, 17 May 2022 00:26:12 +0100</pubDate>
+      
+      <guid>http://eddiebquinn.github.io/posts/protonmail-wolfinsheep/</guid>
+      <description>“I&amp;rsquo;m not upset that you lied to me, I&amp;rsquo;m upset that from now on I can&amp;rsquo;t believe you” ~ Friedrich Nietzsche
+  This article is going to discuss the controversial issue of why does Protonmail not actually measure up to what it claims to be. This article is going to annoy a lot of people inside the alt-tech domain, and I’m okay with this. This blog was never meant to be a place where I state popular opinions on things, it was always going to be a verbose and unapologetic collection of articles on subjects I find interesting.</description>
+    </item>
+    
+    <item>
+      <title>What are NFT-Domains and why should you care?</title>
+      <link>http://eddiebquinn.github.io/posts/nft-domains/</link>
+      <pubDate>Tue, 17 May 2022 00:26:12 +0100</pubDate>
+      
+      <guid>http://eddiebquinn.github.io/posts/nft-domains/</guid>
+      <description>&amp;ldquo;NFTs are the future. But it can be scary to get started.&amp;rdquo;
+  NFTs have been all the rage recently within the crypto space, and while they do deserve their own article, for now, I&amp;rsquo;m going to assume you know the basics. That being that now files can be committed to the blockchain, making it nigh-on impossible to get rid of them, these files can be image files, text files, and now domain names.</description>
+    </item>
+    
     <item>
       <title>WhoAmI?</title>
       <link>http://eddiebquinn.github.io/about/</link>
