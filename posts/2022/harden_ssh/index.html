@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>How to harden SSH - Basic guide &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>How to harden SSH - Basic guide</h1>
+    </header>
+    
+    <div class="content__body">
+        <p>This post (unlike my other two) is not going to be a ranty post about something that annoys me. This in truth is more of a reference guide on how to harden OpenSSH. I&rsquo;m not going to do a massive paragraph on what is ssh, if you reading this you likely already know - however for background, ssh stands for secure shell, and is one of the most popular ways to administer Linux (and sometimes windows) servers. Because it is so popular, it is often the first point of call when a hacker is looking for an attack vector.</p>
+<h2 id="step-1---creating-a-backup">STEP 1 - Creating a backup</h2>
+<p>SSH is one of the easier things to modify within Linux, however, it is always best practice to create a backup file incase you mess it up. You can do this using the following command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo cp /etc/ssh/sshd_config ~/sshd_config.bkup
+</span></span></code></pre></div><h2 id="step-2---basic-hardening">STEP 2 - Basic hardening</h2>
+<p>You are now going to want to access the original file, ill be using vim in this but you can swap that out for your prefered editor</p>
+<pre tabindex="0"><code>sudo vim /etc/ssh/sshd_config
+</code></pre><p>On a very basic level, you are going to want to change the following settings to these parameters</p>
+<ul>
+<li><code>AddressFamily inet</code> : Makes it so your server only accepts ipv4 ssh connections</li>
+<li><code>PermitRootLogin No</code> : This prevents the user from directly logging in as root, which is considered best practise</li>
+<li><code>MaxAuthTries 3</code> : This makes it so the user can only attempt 3 password entries before being booted, helping to slow down brute force attacks</li>
+<li><code>LoginGraceTime 20</code> : This sets it so the user only has 20s to log in before being booted</li>
+<li><code>PasswordAuthentication no</code> : Makes it so you authenticate with keys rather than passwords, making the server significantly more secure</li>
+<li><code>PermitEmptyPasswords no</code> : This prevents logins if a users password is set to a blank or empty value</li>
+</ul>
+<p>SSH also can let the user authenticate with other methods other than passwords (which we have already disabled) and keys. Given in 90% of cases we will not be using that, it makes sense to disable these to lower our attack surface</p>
+<ul>
+<li><code>KerberosAuthentication no</code></li>
+<li><code>GSSAPIAuthentication no</code></li>
+</ul>
+<p>There are a few other options you can disable if they are not being used on your server</p>
+<ul>
+<li><code>X11Forwarding no</code> : Prevents the display of remote graphics over ssh</li>
+<li><code>PermitUserEnviroment no</code> : Prevents client from passing in customer environment variables. If you do this make sure to <code>#</code> out any references to <code>AcceptEnv</code> in the config file</li>
+<li><code>AllowAgentForwarding no</code></li>
+<li><code>AllowTcpForwarding no</code></li>
+<li><code>PermitTunnel no</code></li>
+</ul>
+<p>Finally, you can disable the ssh banner that displays when you connect using the following</p>
+<ul>
+<li><code>DebianBanner no</code></li>
+</ul>
+<p>You reload the shhd settings using the following</p>
+<pre tabindex="0"><code>sudo service sshd reload
+</code></pre><h2 id="step-2---change-your-fking-port">STEP 2 - Change your f**king port</h2>
+<p>Look, this is <em>always</em> needed - In truth if you already did what I suggested above then your SSH is pretty secure. This being said it is considered best practice to change your ssh port away from the standard 22 to something random and high. I will be using the example 1234 in this <em>but</em> I would strongly advise against this, just use a random number generator and that will give you one to use.</p>
+<p>To do this first thing you want to do is go into your <code>sshd_config</code> file we were editing in the last step. Change the following parameter</p>
+<ul>
+<li><code>Port 1234</code></li>
+</ul>
+<p>Reload your ssh and now your port should be different. From now on your going to have to put <code>-p 1234</code> at the end when you ssh into a server.</p>
+<p>Now we&rsquo;re going to install a firewall, specifically the UFW. You <em>can</em> use IP tables, but in general, I like to apply the golden rule of KISS (Keep It Simple Stupid) - Don&rsquo;t overcomplicate it. On a Debian-based server, we would use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install ufw
+</span></span></code></pre></div><p>By default, your firewall isn&rsquo;t going to be up you can check that with the following command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo ufw status
+</span></span></code></pre></div><p>and it should come back with <code>Status: inactive</code>.</p>
+<p>Next were going to add out new ssh port using</p>
+<pre tabindex="0"><code>sudo ufw allow 1234
+</code></pre><p>Now your going to bring your server back up with</p>
+<pre tabindex="0"><code>sudo ufw enable
+</code></pre><p>Now before you log out, just try and log in from another terminal to make sure the firewall hasn&rsquo;t kicked you out - if it lets you in then you&rsquo;re set</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2022-10-12
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
