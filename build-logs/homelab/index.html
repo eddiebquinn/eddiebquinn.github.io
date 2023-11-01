@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>Homelab &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Homelab</h1>
+    </header>
+    
+    <div class="content__body">
+        <p>For a very long time, I have wanted to get a home lab up and running. This is for various reasons ranging from it being cheaper than renting VPSs, to it allowing me to hone my skills in running a data centre (albeit small). Officially my self-hosting journey began in 2020, and I even ran some projects on-prem, however for the sake of avoiding issues when I experienced a power outage many of my projects migrated to hosting providers. However, I have officially taken the first step in getting my home lab up and running.</p>
+<h2 id="0---planning-phase">0 - Planning Phase</h2>
+<p>The plan is to build a collection of raspberry-pi&rsquo;s held in a Pi-Cluster case, all of which run a dedicated service. The reason I choose this method is for two key reasons:</p>
+<ol>
+<li>I already have a couple of raspberry pi&rsquo;s lying around my house, and could no longer justify &ldquo;saving up for a server&rdquo;. If you are familiar with the concept of bikeshedding, this is definitely what I have been doing - I needed to just start at MVP, and then build up to an ideal, and then waste building that ideal.</li>
+<li>When I do eventually get a server, the pi&rsquo;s can be turned into a bare-metal K3S cluster.</li>
+</ol>
+<p>In its first form, the pis will be powered by an extension lead, however, I will change it later on. I plan to install a PoE hat onto all of the pi&rsquo;s and purchase a separate PoE switch to power them all from. The main reason I want to do this is to cut down on the amount of plugs into my extension lead, but I am sure there are other benefits of doing this that I have missed.</p>
+<p>The pi&rsquo;s themself generally will all hold an ubuntu image, because I am a strong believer in that distro stability and reliability. However, for special cases, I am planning on running other operating systems. The Wireguard server I am planning on bringing in I want to run on BSD, the reasons for this will be discussed in its own section.</p>
+<h2 id="1---pihole-and-unbound">1 - PiHole and Unbound</h2>
+<p>I had heard about <a href="https://pi-hole.net/">Pi-Hole</a> years ago on a Linus Tech Tips video about it (<a href="https://www.youtube.com/watch?v=KBXTnrD_Zs4">click here</a>). Since that point I have wanted to implement it, however, my first attempt miserably failed.</p>
+<p>I want to take this moment to say that BT is a terrible ISP, and if you are able to leave it then you should. Their provided routers are locked down to a degree that Apple would the zealous of, and their predatory business model is that of &ldquo;keep upselling vulnerable customers things they don&rsquo;t need, so if they ever do want to leave they would have to give up all the add ons&rdquo;. The original issue stemmed from the fact that their provided router does not allow you to set a custom DNS server, and this was fairly easily fixed just by buying 3rd party router (currently I use the TP-Link AX5400). The next issue comes from the fact that BT does not allow you to put their router into bridge mode, so currently, my new router is plugged into their router, which is plugged into the demarcation port on the wall. This does not present an issue currently, but I know it will when it comes to when I want to set up wireguard (I&rsquo;ll explain why in that section).</p>
+<p>PiHole is a network-wide ad blocker, and it does this through the power of DNS. DNS is a name resolution process that converts IPs to domain names, and it is both simple and complicated at the same time. Without getting into the rigmoral of root domains and top-level domains, the process of resolving an IP is as follows.</p>
+<ol>
+<li>The client reaches out to the DNS resolver server looking for the address of <code>eddiequinn.xyz</code>. If the resolver has the IP it will respond back to the client with an IP address. If not it continues to step 2</li>
+<li>If the DNS resolver has the address of the <code>.xyz</code> TLD server, you can move on to step 3. If not it will reach out to the DNS root Name Server. The root server responds with this address, and we move on to step 3.</li>
+<li>etc.</li>
+</ol>
+<p>Essentially the name resolution process works on a hierarchy, where each part of the domain has a name server that reaches out to another domain server and it goes down the chain until eventually you get the IP for <code>eddiequinn. xyz</code>. The place that pi-hole fits into this, is it has a list of all the major advertisement domains and if a name resolution request is made to it for one of these ad domains pi-hole will return <code>0.0.0.0</code>. If this domain is not in the list it will forward the request to the DNS resolver that you would normally use if PiHole wasn&rsquo;t there. While this is awesome, this is not the only reason I wanted to bring in PiHole. One of the other reasons is that as I scale out my home lab, I ideally don&rsquo;t want to remember a list of IPs - I would much rather type in <code>pihole.box</code> to reach the web server rather than <code>10.0.1.2</code>. Thankfully, given that Pi-hole is fundamentally a DNS server, it has a local DNS option which allows this. The other benefit is that I can set it up so PiHole calls out to another self-hosted DNS server, unbound.</p>
+<p>Unbound is a recursive DNS server, which is a type of DNS server that is responsible for fully resolving DNS queries by recursively traversing the DNS hierarchy. Recursion in this context means the resolver follows a chain of authoritative DNS servers from the root down to the specific domain being queried to find the answer. The primary role of a recursive DNS resolver is to provide complete and accurate DNS resolution for client requests. This is different from an authoritative DNS server, which is responsible for holding and providing authoritative DNS records for a specific domain. It doesn&rsquo;t perform recursive resolution but instead returns authoritative answers for queries related to the domain(s) it is responsible for. The main benefit of this is that my DNS server is now reaching out to the name servers directly, rather than going through a service like Google, or god forbid my ISP. This has the major benefit of increased privacy, and reduced dependency on external services.</p>
+<p>First and foremost in the process, I installed Ubuntu onto my Raspberry Pi 4 - I made the mistake of using the Raspberry Pi imager during this process, in future, I will just use the <code>dd</code> command. I say this because it came prepackaged with a lot of things I didn&rsquo;t want i.e. an Ubuntu user. Once it was installed I did some basic hardening: setting up automatic updates; creating a non-root user; setting up SSH public key authentication; <a href="https://eddiequinn.xyz/posts/2022/harden_ssh/">hardening SSH</a>; adding a firewall. These are all general steps I follow on every server I deploy, and I don&rsquo;t think there is any excuse not to. Also worth mentioning, I gave it a reserved IP address, to avoid setting it statically on the machine - this will mean less administrative overhead in the future. Once the basic preparation was done, it was time to install pi-hole using <code>curl -sSL https://install.pi-hole.net | bash</code>. This drops you into an install script, of which I just accepted all of the basic settings. Following this and updating the firewall to allow ports <code>80</code> and <code>53</code> PiHole was up and running</p>
+<p>Now for Unbound, which is a tad more complicated than PiHole. This is mainly because it requires you to &ldquo;write&rdquo; your own configuration profile - luckily PiHole has a premade one <a href="https://docs.pi-hole.net/guides/dns/unbound/">here</a>. I installed it using <code>apt</code>, and copied the configuration file to <code>/etc/unbound/unbound.conf/pi-hole.conf</code>. Theoretically, I could do some tinkering in this file in the future, but for now, it works fine. One thing of note is that Unbound on this configuration uses port <code>5335</code> - It seems obvious, but it does this because the standard DNS port <code>53</code> is already locally assigned to PiHole. After this, I started the service using <code>service unbound start</code> and performed a dig request on eddiequinn.xyz using localhost:5335 to make sure it was working. After confirming that, I pointed the upstream DNS server on PiHole to <code>127.0.0.1#5335</code>.</p>
+<p>For now, the system works but there are a couple of things I want to note down for the future:</p>
+<ul>
+<li>It is quite annoying that I have to type in <code>pihole.box/admin</code> to access the console, rather than just <code>pihole.box</code> - I&rsquo;m pretty sure this will be an easy fix, but I&rsquo;ll do it another day</li>
+<li>When I eventually segment my network to create a guest subnet, I&rsquo;ll have to think about what to do regarding DNS requests then. Do I still want to sinkhole them mainly?</li>
+<li>In future, especially once I get a K3S cluster going, there is a way to make a high-availability PiHole instance. Something to bear in mind if the time ever comes</li>
+</ul>
+<h2 id="2---wireguard-server">2 - Wireguard server</h2>
+<p>Having the ability to VPN into my home&rsquo;s network <em>generally</em> will be useful, I don&rsquo;t even think I need to justify that statement. However, as I scale out my home server, I want to have the ability to use the services even when I&rsquo;m not home.</p>
+<p>I&rsquo;m not going to go into much detail right now, but Im choosing to set up Wiregaurd on Open BSD. I am sure as I plan this out more I&rsquo;ll go into more detail about why I&rsquo;ve chosen this setup, but it&rsquo;s pretty well explained in <a href="https://www.youtube.com/watch?v=szGsh5J9bzY">this video</a> by Mental Outlaw.</p>
+<p>So back to the BT problem - Because my TP-Link router is not plugged into the demarcation port directly, all traffic still flows through the original ISP router, which is not in bridging mode. This presents some issues with setting up wireguard because of lining up ports - I&rsquo;m sure with enough fiddling this can be fixed with software, but frankly I would rather just be rid of the BT box entirely at this point. Thankfully is an easy fix, I just need to buy a modem and put that between the two - from doing some research the <code>Huawei HG612</code> is the model that was typically used by BT back in the day, and can still be bought from Ebay fairly cheaply (either that or I go ham and buy <a href="https://www.amazon.co.uk/gp/product/B0B3Y52BQW/ref=ewc_pr_img_2?smid=A1T68U0AS07YKL&amp;psc=1">this</a>). This does present a tiny problem however, our house phone runs on BT so we still need to keep the home hub to rectify this - but at least the internet will not go through it anymore. In the Long Long term, I would like to upgrade to a Ubiquiti Dream Machine Pro, because my understanding is that has an inbuilt modem, but realistically by the time I can afford that I would have moved out anyway.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-01
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
