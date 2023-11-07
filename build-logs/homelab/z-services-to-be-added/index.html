@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>Homelab &ndash; eddiequinn.xyz</title>
+    <head><title>Z - Services to Be Added &ndash; eddiequinn.xyz</title>
 <meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,26 +47,21 @@
 </header>
 
             <section class="page__body">
-    <h1 id="homelab">Homelab</h1>
+    <header class="content__header">
+        <h1>Z - Services to Be Added</h1>
+    </header>
     
-    <p>For a very long time, I have wanted to get a home lab up and running. This is for various reasons ranging from it being cheaper than renting VPSs, to it allowing me to hone my skills in running a data centre (albeit small). Officially my self-hosting journey began in 2020, and I even ran some projects on-prem, however for the sake of avoiding issues when I experienced a power outage many of my projects migrated to hosting providers. However, I have officially taken the first step in getting my home lab up and running.</p>
+    <div class="content__body">
+        <p>So as with all of my hyperfixations I think about all the things I want to add to my homelab. Some of the plans around all of these additions havent been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.</p>
+<ul>
+<li><strong>Ansible and IAC -</strong> So one thing I have alrady figured noticed that will get old quickly is configuring servers. I mentioned in the DNS Server section that i think configuring basic hardening is something that there is zero excuse not to do. I dont want to let my laziness get in the way of my principles, and thus now is the time to impliment &lsquo;Infrastructure as Code&rsquo;. Several of the youtubers I follow recommend Ansible for this, namingly NetworkChuck, Wolfgang, Jeff Geerling. I will write more about this when the time comes for me to actually impliment it, but this will allow me to atomte allot</li>
+<li><strong>Uptime Kuma -</strong> As my homelab grows I want to be able to monitor all of the services that I am running. Uptime Kuma is one of the easiest ways to do this that I know of.</li>
+<li><strong>Git server -</strong> I use github as my portfolio, and because of that I really want to avoid cluttering it with things like the files that this website is run on. For that reason I ideally</li>
+<li><strong>Certificate Autheority -</strong> I will get into why I want to do this more at the time when I actually do it. To keep things simple however it is mainly because I want to make sure that all my services communicate over HTTPS, and I dont want to make exceptions for their certificates on induvidual devices. Yes I can do that dodgy thing with cloudflare and subdomains, but frankly I want my network infrastucutre to be self sufficent.</li>
+</ul>
 
-    
-    <ul>
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/homelab/00-planning-and-infrastructure/">00 - Planning and Infrastructure</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/homelab/01-dns-server/">01 - DNS Server</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/">02 - VPN Server</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/homelab/z-services-to-be-added/">Z - Services to Be Added</a></li>
-
-    
-    </ul>
+    </div>
+    <footer class="content__footer"></footer>
 
             </section>
 
@@ -101,6 +96,14 @@
 </div>
                 <hr>
                 <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-07
+        </p>
+    
+
     
 
                 </div>

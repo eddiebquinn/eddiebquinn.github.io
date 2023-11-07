@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homelab on eddiequinn.xyz</title>
+    <link>https://eddiequinn.xyz/build-logs/homelab/</link>
+    <description>Recent content in Homelab on eddiequinn.xyz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
+    <lastBuildDate>Wed, 01 Nov 2023 01:05:29 +0000</lastBuildDate><atom:link href="https://eddiequinn.xyz/build-logs/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Z - Services to Be Added</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/z-services-to-be-added/</link>
+      <pubDate>Tue, 07 Nov 2023 16:12:32 +0000</pubDate>
+      
+      <guid>https://eddiequinn.xyz/build-logs/homelab/z-services-to-be-added/</guid>
+      <description>So as with all of my hyperfixations I think about all the things I want to add to my homelab. Some of the plans around all of these additions havent been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.
+Ansible and IAC - So one thing I have alrady figured noticed that will get old quickly is configuring servers.</description>
+    </item>
+    
+    <item>
+      <title>02 - VPN Server</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/</link>
+      <pubDate>Tue, 07 Nov 2023 16:11:08 +0000</pubDate>
+      
+      <guid>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/</guid>
+      <description>I have wanted to set up a VPN server into my home network since before I fully understood what a VPN server could do. Back then I knew it could facilitate me being able to access my files in my home network while remote, however, if you was to ask that version of me how to set it up he would wind up embarrassing himself. The fact of the matter is I have two key choices to be able to do this</description>
+    </item>
+    
+    <item>
+      <title>01 - DNS Server</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/01-dns-server/</link>
+      <pubDate>Tue, 07 Nov 2023 16:09:56 +0000</pubDate>
+      
+      <guid>https://eddiequinn.xyz/build-logs/homelab/01-dns-server/</guid>
+      <description>I had heard about Pi-Hole years ago on a Linus Tech Tips video about it (click here). Since that point I have wanted to implement it, however, my first attempt miserably failed.
+I want to take this moment to say that BT is a terrible ISP, and if you are able to leave it then you should. Their provided routers are locked down to a degree that Apple would the zealous of, and their predatory business model is that of &amp;ldquo;keep upselling vulnerable customers things they don&amp;rsquo;t need, so if they ever do want to leave they would have to give up all the add ons&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>00 - Planning and Infrastructure</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/00-planning-and-infrastructure/</link>
+      <pubDate>Tue, 07 Nov 2023 16:08:49 +0000</pubDate>
+      
+      <guid>https://eddiequinn.xyz/build-logs/homelab/00-planning-and-infrastructure/</guid>
+      <description>The plan is to build a collection of raspberry-pi&amp;rsquo;s held in a Pi-Cluster case, all of which run a dedicated service. The reason I choose this method is for two key reasons:
+I already have a couple of raspberry pi&amp;rsquo;s lying around my house, and could no longer justify &amp;ldquo;saving up for a server&amp;rdquo;. If you are familiar with the concept of bikeshedding, this is definitely what I have been doing - I needed to just start at MVP, and then build up to an ideal, and then waste building that ideal.</description>
+    </item>
+    
+  </channel>
+</rss>
