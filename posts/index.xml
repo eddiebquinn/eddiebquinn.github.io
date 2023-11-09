@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Wed, 25 Oct 2023 00:33:25 +0100</lastBuildDate><atom:link href="https://eddiequinn.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Nov 2023 16:25:05 +0000</lastBuildDate><atom:link href="https://eddiequinn.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Revisiting My Encryption Problem</title>
+      <link>https://eddiequinn.xyz/posts/2023/nov/revisiting-my-encryption-problem/</link>
+      <pubDate>Thu, 09 Nov 2023 16:25:05 +0000</pubDate>
+      
+      <guid>https://eddiequinn.xyz/posts/2023/nov/revisiting-my-encryption-problem/</guid>
+      <description>Earlier on this year I went down a strange rabbit hole on how I want to sign my posts using my GPG public key. In the end, I gave up because I couldn&amp;rsquo;t find a way to automate this, and at the time I blamed this on some limitations with Hugo. I now of course am walking that back, as theoretically it is perfectly possible. I want to discuss my plan to fix this.</description>
+    </item>
+    
     <item>
       <title>Where Do Governments Derive Their Right to Rule</title>
       <link>https://eddiequinn.xyz/posts/2023/oct/where-do-goverments-derive-their-right-to-rule/</link>
