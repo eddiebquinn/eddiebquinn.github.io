@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>3- Revisiting My Encryption Problem &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>3- Revisiting My Encryption Problem</h1>
+    </header>
+    
+    <div class="content__body">
+        <pre tabindex="0"><code>This was originally a blog post
+It may read differently from other build logs for that reason
+</code></pre><p>Earlier on this year I went down a strange rabbit hole on how I want to sign my posts using my GPG public key. In the end, I gave up because I couldn&rsquo;t find a way to automate this, and at the time I blamed this on some limitations with Hugo. I now of course am walking that back, as theoretically it is perfectly possible. I want to discuss my plan to fix this.</p>
+<h2 id="a-basic-explanation-of-public-key-cryptography">A basic explanation of public key cryptography</h2>
+<p>Despite illusions of security, a lot of modern-day societies&rsquo; interworkings are based on trust. A good example of this is that you likely trust that this post is written by me, and not by someone else. There is an old Russian proverb that was coopted by the Americans stating &ldquo;Trust but verify&rdquo;. It essentially means that it is okay to trust that this was written by me only if you have the option is there to verify that assertion. So this then asks what is verification. There are of course many answers to that question. but the best one is mathematics. There is a reason why maths was always my favourite subject at school, and it is because there is no ambiguity in the subject. Not only does every maths problem have one single answer, but this answer can be proven in multiple different ways.</p>
+<p>There is a mechanism for a mathematical proof to be presented to prove ownership (or in this case authorship) of data. This is called asymmetric (or public key) encryption and is probably one of the most important security technologies in circulation today. It brings into existence a keypair, one private key and one public key.</p>
+<ul>
+<li>The public key encrypts and the private key decrypts.</li>
+<li>The public key is made public for the whole world to see, and the private key is kept private.</li>
+</ul>
+<p>What this means is that if you want to send me a message that only I will be able to read, then you would use my publically available public key to encrypt it. I will then use my private key to decrypt it. If I want to reply, I will use your publically accessible public key to encrypt a message, and you will use your private key to decrypt it. This solves a major issue with the previously used symmetric encryption, as at no point is it required for any party to make public a key that could decrypt the message.</p>
+<p>What is often not discussed is the ability to sign messages. The private key can also encrypt messages (it is not exactly encryption but for the sake of simplicity we will call it that), and this encryption can be decrypted by the public key. You may ask what the point of this is. Well, the point is only you have your private key, and if only you have it then it it stands to reason that if a message was encrypted using it then it must have been encrypted by you. This method of verifying communication is used a lot in darknet communications. The reason behind this is that if done correctly TOR communications are one of the few bastions of truly anonymous communications left. There is however a need for people to adopt mathematically verifiable pseudonyms for communication and commerce. What this means is on these platforms your public key is your identity, and and if anyone else calls into question your identity you can prove it by signing a message with your private key.</p>
+<p>There are many other aspects of this technology and how it is used that can be discussed - How do you store your public key? What is the best way to keep your private key secure? What are some examples of how this is used in the modern day? These are all valid questions, however, they fall outside the scope of this post. I may write someday on the subject, however.</p>
+<h2 id="how-i-will-solve-my-encryption-problem">How I will solve my encryption problem</h2>
+<p>To solve my encryption problem, we need to follow a basic methodology.</p>
+<ol start="0">
+<li>Define the problem</li>
+<li>Define the current process</li>
+<li>Define the ideal process that solves the underlying problem</li>
+<li>Find the difference between the current process ideal process, and establish what needs to be done to move from point A to point b</li>
+</ol>
+<p>The problem itself is quite simple. I want every post on my website to be signed.</p>
+<p>So the current process for my publishing a post is such that the following will happen</p>
+<ol>
+<li>I create a new post using <code>hugo new</code></li>
+<li>After finishing the post I will proofread it</li>
+<li>I push up any changes to the relevant git repos</li>
+<li>I rebuild the site using <code>hugo -t risotto</code></li>
+<li>I push up the new files to the GitHub repo and the page is automatically deployed using GitHub actions</li>
+</ol>
+<p>It could become easy for me to get carried away with what an ideal process looks like for this because in my opinion there are <em>many</em> problems with this. Keeping strictly to talking about signing posts, however, then I believe the process should aim to be as automated as possible and not add any overhead to the current workflow (if anything take away). The way I envisage the new workflow is at some point a script is deployed that will sign all unsigned posts within the content directory, placing the signed post in a sub-directory. An example of what the directory may look like is this.</p>
+<pre tabindex="0"><code>├── _index.md
+├── posts
+│   └── post1.md
+└── signed-content
+    ├── posts
+    │   └── signed-post1.md
+    └── signed-_index.md
+</code></pre><p>Then during the Hugo build process, plain HTML pages for these will be generated and will be linked to by the original pages.</p>
+<p>So what needs to be done to get from point A to point b?
+0. I need to generate a GPG keypair - I had one before this, but I kept the private key stored on the keybase. This is ill-advised, and on my principles, I need to consider that keypair to be compromised because of this</p>
+<ol>
+<li>I need to add my public key to a key server and link there on my site somewhere</li>
+<li>A script needs to be generated that will sign all posts and place the signed posts into the relevant directories. This script will need to be item impotent, meaning it will not make any changes unless it has to. I will likely write this script in Python, but if I am feeling brave Rust is also an alternative (I&rsquo;m learning Rust now).</li>
+<li>A git hook will be made to run said script before pushing to the repo</li>
+<li>I need to edit the layouts my site uses so it automatically links to the signed posts underneath the posts. This may be tricky to do, but I&rsquo;m sure it&rsquo;s possible with enough research and tweaking.</li>
+</ol>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-09
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

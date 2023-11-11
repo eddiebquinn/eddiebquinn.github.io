@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>4- New Plan &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>4- New Plan</h1>
+    </header>
+    
+    <div class="content__body">
+        <p>So after writing he previous post on this matter I came to two conclsions</p>
+<ol>
+<li><strong>This website, and this induvidual project, requires its own build log -</strong> This was changed. The commit hashes are listed below</li>
+</ol>
+<pre tabindex="0"><code>site commit: 1503286ff0b39d3f502a70373e803ec0b381940d
+sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1 
+</code></pre><ol start="2">
+<li><strong>I am overcomplicating this</strong></li>
+</ol>
+<p>Hugo, unsuprisingly, has a features within it which solve every issue which I am trying to fix myself.</p>
+<h2 id="custom-output-formats">Custom Output Formats</h2>
+<p>From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across <a href="gohugo.io/templates/output-formats">this page</a>. If you read the page at some point you will encouter a string stating</p>
+<blockquote>
+<p>&ldquo;A page can be output in as many output formats as your want, and you can have an infinate amount of output formats desfined <strong>as long as they resolve a unique path on the file system</strong>&rdquo;</p>
+</blockquote>
+<p>This essentially does what I planned to do with my previous plan. The old plan was to have an entire sperate directory inside the content folder, which contained the signed posts and instructions in the front matter to use a different theme. This essentially doees the same but in a tidier way.</p>
+<p>To do this i basically need to edit my <code>hugo.toml</code> file with the <code>[outputFormats]</code> section. I need to define two formats, one which uses my current theme and one which outputs it in plain text (which there is a option for). It will look something like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-TOML" data-lang="TOML"><span style="display:flex;"><span>[<span style="color:#a6e22e">outputFormats</span>]
+</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">outputFormats</span>.<span style="color:#a6e22e">standardFormat</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;standard-format&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">baseName</span> = <span style="color:#e6db74">&#34;index&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">isPlainText</span> = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mediaType</span> = <span style="color:#e6db74">&#34;text/html&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">permalinkable</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">outputFormats</span>.<span style="color:#a6e22e">sigFormat</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;sig-format&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">baseName</span> = <span style="color:#e6db74">&#34;sig&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">isPlainText</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mediaType</span> = <span style="color:#e6db74">&#34;text/html&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;sigs&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">permalinkable</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>To take advantage of these two outputs I will need to call to these in the post-front matter. An example of this is shown below</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: &#39;test-page&#39;
+</span></span><span style="display:flex;"><span>date: 2023-11-11T12:09:10Z
+</span></span><span style="display:flex;"><span>draft: false
+</span></span><span style="display:flex;"><span>outputs:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">-</span> standard-format
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">-</span> sig-format
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>-----BEGIN PGP SIGNED MESSAGE-----
+</span></span><span style="display:flex;"><span>Hash: SHA256
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>this is a message signed by me - eddiequinn
+</span></span><span style="display:flex;"><span>-----BEGIN PGP SIGNATURE-----
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>iQIzBAEBCAAdFiEEWQTd1MwJCH3DFDZ0DiAAR72//sIFAmRXvT4ACgkQDiAAR72/
+</span></span><span style="display:flex;"><span>/sJ+Ow/9F9Uf8kYyROgDgG1pMVTcMNrCUmqozuzJNPObMeMPe0Xr8TEMnaahlLES
+</span></span><span style="display:flex;"><span>2XvPQp6lKjE6deLNaf7RJTlYor6hL5VCYT8JFxT0Y3T+benYd502nqJX8LewjRoY
+</span></span><span style="display:flex;"><span>BusT1TJ8wHsAGOWoUGPh5lGjV1ab2HDkxkOWXtTY17mxbkZ0anBLuNanoApzH2Pf
+</span></span><span style="display:flex;"><span>qL1eF/mMsrX1YYKkkpswDE/M+4YsdOi29dYpSZyTPn4+mC9bUFcpvDKS/V5AS9gF
+</span></span><span style="display:flex;"><span>HVw5VDBHpUGxvlYbZy6R2HAgnx03Tm4CTdwLj6Ou9H7vAuFQeX+qVeIlD/9S2cON
+</span></span><span style="display:flex;"><span>kYQXbNR44hPAFYeQYIStz7A3lJVhja2p70iP4Kse1lO/GarLWb2C1h9NLPQ3zdMf
+</span></span><span style="display:flex;"><span>jc65ni/EukU8aBITwUW+r49y+nFlyZxyae/ot4oQ2z1zP949ITRVWCZVnCncmi+8
+</span></span><span style="display:flex;"><span>4LjjZh4I8dFY11VCnco7ddrCFGnEJHSCTF4cgEx3dAtYm5cMfCS/aMy5JyRY4Vh+
+</span></span><span style="display:flex;"><span>do4l7xtfu0vBWTH3JRxQ9VddzXybidKj21DHJmZd0yktRzwZ2OtNt9noaiqZKzTF
+</span></span><span style="display:flex;"><span>qC2nWHRDqvSVsRDXj/SM92cNYhc9DeFLzN0HHvxXEf8GnHb/EVfubjLQbQMm5hIz
+</span></span><span style="display:flex;"><span>hEt4IPg/VXQ4eihib0DrZqG18c8DU4DzNwgmQF3T/vTcvK0MwR0=
+</span></span><span style="display:flex;"><span>=hJ13
+</span></span><span style="display:flex;"><span>-----END PGP SIGNATURE-----
+</span></span></code></pre></div><p>What this will do, assuming a post called &ldquo;test-page&rdquo;, will generate two pages, where the first one comes out regular and the second comes out plain text - links shown below:</p>
+<ul>
+<li><a href="https://test-site.com/test-page/">https://test-site.com/test-page/</a></li>
+<li><a href="https://test-site.com/sigs/test-page/">https://test-site.com/sigs/test-page/</a></li>
+</ul>
+<p>Am I under the impression this will work first time? lol no?</p>
+<h2 id="custom-singlehtml">Custom <code>single.html</code></h2>
+<p>One of the biggest issues I had with implimenting this before was it wound up making the pages look horrific. This is allot of the reason why I want the sigs on their own plaintext page, which is seperate from the actual post. There is a tiny problem wit this however, that being that I am storig the pages in the content directory sig appended. What this means is that I will need to define a custom layout for pages, where it strips all PGP artifacts from the page.</p>
+<p>Originally I was going to use <a href="gohugo.io/functions/strings/replacere">ReplaceRE</a> to do this. What this would do is run the <code>.content</code> variable throug a regex filter when the site is built. This would work if I didnt have pgp sigs in posts, like just above this. Im reluctant to say regex has limitation that would prevent me from doing this, but it definatley doesnt cope well with this kind of strings inside of strings enviroment. What I am instead going to do, is combine regex with python to do this.</p>
+<p>As with all other snippets posted here, please do not run this as go &ldquo;ThAt DoEsNt WoRk&rdquo; - The below snippet is just a rough draft. I havent debugged it, I havent even run it yet. I just wanted to get <em>something</em> typed out.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">strip_outer_pgp</span>(text):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Define regular expressions for matching PGP artifacts</span>
+</span></span><span style="display:flex;"><span>    pgp_signature_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;(?s)^-----BEGIN PGP SIGNATURE-----.+?-----END PGP SIGNATURE-----\n&#39;</span>, re<span style="color:#f92672">.</span>MULTILINE)
+</span></span><span style="display:flex;"><span>    pgp_signed_message_pattern <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;(?s)^-----BEGIN PGP SIGNED MESSAGE-----.+?-----BEGIN PGP SIGNATURE-----\n&#39;</span>, re<span style="color:#f92672">.</span>MULTILINE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find the outermost PGP signature and signed message</span>
+</span></span><span style="display:flex;"><span>    pgp_signature_match <span style="color:#f92672">=</span> pgp_signature_pattern<span style="color:#f92672">.</span>search(text)
+</span></span><span style="display:flex;"><span>    pgp_signed_message_match <span style="color:#f92672">=</span> pgp_signed_message_pattern<span style="color:#f92672">.</span>search(text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pgp_signature_match <span style="color:#f92672">and</span> pgp_signed_message_match <span style="color:#f92672">and</span> pgp_signature_match<span style="color:#f92672">.</span>start() <span style="color:#f92672">&lt;</span> pgp_signed_message_match<span style="color:#f92672">.</span>start():
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Remove the outermost PGP signature and signed message</span>
+</span></span><span style="display:flex;"><span>        stripped_text <span style="color:#f92672">=</span> text[:pgp_signature_match<span style="color:#f92672">.</span>end()] <span style="color:#f92672">+</span> text[pgp_signed_message_match<span style="color:#f92672">.</span>end():]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> stripped_text<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If no matches are found, return the original text</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> text
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    input string <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;Please input string&#34;</span>)
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> strip_outer_pgp(input_string)
+</span></span><span style="display:flex;"><span>    print(result)
+</span></span></code></pre></div><p>Ill then have to put something like this in the layout file so this filter is used</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ $content := .Content }}
+</span></span><span style="display:flex;"><span>{{ $filteredContent := printf &#34;%s&#34; $content | exec &#34;python filter.py&#34; }}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;content&#34;</span>&gt; {{ $filteredContent | safeHTML }} &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>I will have to debug the things ive discovered and coded today, and im definatley going to have to make a new branch on my hugo files for this while it is worked on. Atleast I have an idea on how I can achieve this now.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-11
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

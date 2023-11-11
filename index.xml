@@ -9,12 +9,23 @@
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
     <lastBuildDate>Fri, 23 Sep 2022 22:28:50 +0100</lastBuildDate><atom:link href="https://eddiequinn.xyz/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Revisiting My Encryption Problem</title>
-      <link>https://eddiequinn.xyz/posts/2023/nov/revisiting-my-encryption-problem/</link>
+      <title>4- New Plan</title>
+      <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/new-plan/</link>
+      <pubDate>Sat, 11 Nov 2023 12:09:10 +0000</pubDate>
+      
+      <guid>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/new-plan/</guid>
+      <description>So after writing he previous post on this matter I came to two conclsions
+This website, and this induvidual project, requires its own build log - This was changed. The commit hashes are listed below site commit: 1503286ff0b39d3f502a70373e803ec0b381940d sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1 I am overcomplicating this Hugo, unsuprisingly, has a features within it which solve every issue which I am trying to fix myself.
+Custom Output Formats From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across this page.</description>
+    </item>
+    
+    <item>
+      <title>3- Revisiting My Encryption Problem</title>
+      <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/</link>
       <pubDate>Thu, 09 Nov 2023 16:25:05 +0000</pubDate>
       
-      <guid>https://eddiequinn.xyz/posts/2023/nov/revisiting-my-encryption-problem/</guid>
-      <description>Earlier on this year I went down a strange rabbit hole on how I want to sign my posts using my GPG public key. In the end, I gave up because I couldn&amp;rsquo;t find a way to automate this, and at the time I blamed this on some limitations with Hugo. I now of course am walking that back, as theoretically it is perfectly possible. I want to discuss my plan to fix this.</description>
+      <guid>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/</guid>
+      <description>This was originally a blog post It may read differently from other build logs for that reason Earlier on this year I went down a strange rabbit hole on how I want to sign my posts using my GPG public key. In the end, I gave up because I couldn&amp;rsquo;t find a way to automate this, and at the time I blamed this on some limitations with Hugo. I now of course am walking that back, as theoretically it is perfectly possible.</description>
     </item>
     
     <item>
@@ -113,12 +124,12 @@ Reddit Is Killing The Best Way To Read The Site. The thought that instantly ente
     </item>
     
     <item>
-      <title>My encryption problem</title>
-      <link>https://eddiequinn.xyz/posts/2023/may/hugos-encryption-problem/</link>
+      <title>2- My encryption problem</title>
+      <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/</link>
       <pubDate>Sun, 07 May 2023 15:52:16 +0100</pubDate>
       
-      <guid>https://eddiequinn.xyz/posts/2023/may/hugos-encryption-problem/</guid>
-      <description>Two posts in one day, this has to be a record for me.
+      <guid>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/</guid>
+      <description>This was originally a blog post It may read differently from other build logs for that reason Two posts in one day, this has to be a record for me.
 So for this post to make sense it requires two bits of background knowledge
 This site is made using a static site generator using Hugo I wrote a post a few days ago called Encryption which can be found here With that out of the way, I can explain the issue I am having, and why I may finally have to bite the bullet and learn a tiny amount of web development.</description>
     </item>
@@ -142,14 +153,13 @@ This site is made using a static site generator using Hugo I wrote a post a few 
     </item>
     
     <item>
-      <title>Encryption</title>
-      <link>https://eddiequinn.xyz/posts/2023/april/encryption/</link>
+      <title>1- Encryption</title>
+      <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/encryption/</link>
       <pubDate>Thu, 27 Apr 2023 02:27:34 +0100</pubDate>
       
-      <guid>https://eddiequinn.xyz/posts/2023/april/encryption/</guid>
-      <description>Hey, been a while
-I won&amp;rsquo;t waste my time explaining where I have been - the truth is very few people read this blog and those that do know that I have been fairly busy for the past month. I am attempting to get back into the swing of things, but to make an incredibly long story short I am currently coming over a pretty hard burnout.
-PGP encryption, or encryption in general, has always been something the people that know me would probably feel comfortable assuming I know something about it.</description>
+      <guid>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/encryption/</guid>
+      <description>This was originally a blog post It may read differently from other build logs for that reason Hey, been a while
+I won&amp;rsquo;t waste my time explaining where I have been - the truth is very few people read this blog and those that do know that I have been fairly busy for the past month. I am attempting to get back into the swing of things, but to make an incredibly long story short I am currently coming over a pretty hard burnout.</description>
     </item>
     
     <item>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>2- My encryption problem &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>2- My encryption problem</h1>
+    </header>
+    
+    <div class="content__body">
+        <pre tabindex="0"><code>This was originally a blog post
+It may read differently from other build logs for that reason
+</code></pre><p>Two posts in one day, this has to be a record for me.</p>
+<p>So for this post to make sense it requires two bits of background knowledge</p>
+<ol>
+<li>This site is made using a static site generator using Hugo</li>
+<li>I wrote a post a few days ago called Encryption which can be found <a href="https://eddiequinn.xyz/posts/2023/april/encryption/">here</a></li>
+</ol>
+<p>With that out of the way, I can explain the issue I am having, and why I may finally have to bite the bullet and learn a tiny amount of web development.</p>
+<p>I want to start ending my posts with a PGP signature, and I don&rsquo;t know an elegant way to do this that doesn&rsquo;t sacrifice function. In an ideal world, I want the following things to happen</p>
+<h2 id="public-key-automation">Public key automation</h2>
+<p>I store my public key on Keybase so it is easy for normies to find it and use it. This key is more or less constantly kept up to date because of how the key base is, and because of that I want the public key on my site to not be static - I want it to be pulled directly from the key base</p>
+<p>There is a way for me to do this which is a bit hacky, but possible. This site is hosted on GitHub, so I could write a GitHub automation that every 24 hours pulls the key base key, and cross-references it against the key on the site. If they are different then update it. This theoretically should be a fairly simple Python script that I could write in an afternoon - so that clears that up.</p>
+<p>An easier option would be to make it a sidebar link that takes you directly to the key base but&hellip; no</p>
+<h2 id="sig-append">Sig append</h2>
+<p>I want to make it so that every file on the site links to a raw file, that shows the full signed post.</p>
+<p>For example, if the post only said &ldquo;This is a post signed by me - eddiequinn&rdquo; then the raw file would say</p>
+<pre tabindex="0"><code>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+this is a message signed by me - eddiequinn
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEWQTd1MwJCH3DFDZ0DiAAR72//sIFAmRXvT4ACgkQDiAAR72/
+/sJ+Ow/9F9Uf8kYyROgDgG1pMVTcMNrCUmqozuzJNPObMeMPe0Xr8TEMnaahlLES
+2XvPQp6lKjE6deLNaf7RJTlYor6hL5VCYT8JFxT0Y3T+benYd502nqJX8LewjRoY
+BusT1TJ8wHsAGOWoUGPh5lGjV1ab2HDkxkOWXtTY17mxbkZ0anBLuNanoApzH2Pf
+qL1eF/mMsrX1YYKkkpswDE/M+4YsdOi29dYpSZyTPn4+mC9bUFcpvDKS/V5AS9gF
+HVw5VDBHpUGxvlYbZy6R2HAgnx03Tm4CTdwLj6Ou9H7vAuFQeX+qVeIlD/9S2cON
+kYQXbNR44hPAFYeQYIStz7A3lJVhja2p70iP4Kse1lO/GarLWb2C1h9NLPQ3zdMf
+jc65ni/EukU8aBITwUW+r49y+nFlyZxyae/ot4oQ2z1zP949ITRVWCZVnCncmi+8
+4LjjZh4I8dFY11VCnco7ddrCFGnEJHSCTF4cgEx3dAtYm5cMfCS/aMy5JyRY4Vh+
+do4l7xtfu0vBWTH3JRxQ9VddzXybidKj21DHJmZd0yktRzwZ2OtNt9noaiqZKzTF
+qC2nWHRDqvSVsRDXj/SM92cNYhc9DeFLzN0HHvxXEf8GnHb/EVfubjLQbQMm5hIz
+hEt4IPg/VXQ4eihib0DrZqG18c8DU4DzNwgmQF3T/vTcvK0MwR0=
+=hJ13
+-----END PGP SIGNATURE-----
+</code></pre><p>I think automation may once again be the answer. I have stored my website across multiple reports for a while</p>
+<ul>
+<li>my-blog (parent repo)</li>
+<li>blog posts (just the blog posts)</li>
+<li>eddiequinn.github.io (the actual repo that holds the static files)</li>
+<li>site-theme (A modified version of the Cupper hugo theme)</li>
+</ul>
+<p>For a while, I have been considering making a workflow that once a week will rebuild the public files. Again these are all hosted on GitHub so it wouldn&rsquo;t be that hard, the program when triggered would just have to</p>
+<ol>
+<li>Clone the <code>my-blog</code> repo and recurse the submodules</li>
+<li>run the command <code>hugo -t site-theme</code> to remake the public files</li>
+<li>Commit and push this up to the public files repo</li>
+</ol>
+<p>If I did this, I could accommodate the raw files issue with some slight modifications</p>
+<ul>
+<li>I would create a hidden directory on the server that mimics the layout of the post, but just for the raw signed signatures</li>
+<li>Create a git hook that does two things: Adds a link to the signed post it is about to create to the end of the post, and then creates a plaintext signed version of the post and places it into the sig directory</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>I won&rsquo;t be signing my posts for the time being, however, when I get around to bringing these changes in then all posts will be signed.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-05-07
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

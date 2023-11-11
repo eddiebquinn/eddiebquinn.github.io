@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://eddiequinn.xyz/posts/</loc>
-    <lastmod>2023-11-09T16:25:05+00:00</lastmod>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/new-plan/</loc>
+    <lastmod>2023-11-11T12:09:10+00:00</lastmod>
   </url><url>
-    <loc>https://eddiequinn.xyz/posts/2023/nov/revisiting-my-encryption-problem/</loc>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/</loc>
+    <lastmod>2023-11-11T11:28:07+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/</loc>
+    <lastmod>2023-11-11T11:22:31+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/</loc>
     <lastmod>2023-11-09T16:25:05+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/build-logs/homelab/z-services-to-be-added/</loc>
@@ -25,6 +31,9 @@
   </url><url>
     <loc>https://eddiequinn.xyz/build-logs/homelab/</loc>
     <lastmod>2023-11-01T01:05:29+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/</loc>
+    <lastmod>2023-10-25T00:33:25+01:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/posts/2023/oct/where-do-goverments-derive-their-right-to-rule/</loc>
     <lastmod>2023-10-25T00:33:25+01:00</lastmod>
@@ -47,7 +56,7 @@
     <loc>https://eddiequinn.xyz/posts/2023/jun/the-best-way-to-use-reddit/</loc>
     <lastmod>2023-06-03T08:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://eddiequinn.xyz/posts/2023/may/hugos-encryption-problem/</loc>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/</loc>
     <lastmod>2023-05-07T15:52:16+01:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/posts/2023/may/dunning-kruger/</loc>
@@ -56,7 +65,7 @@
     <loc>https://eddiequinn.xyz/posts/2023/may/why-i-left-social-meedia/</loc>
     <lastmod>2023-05-02T16:39:22+01:00</lastmod>
   </url><url>
-    <loc>https://eddiequinn.xyz/posts/2023/april/encryption/</loc>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/encryption/</loc>
     <lastmod>2023-04-27T02:27:34+01:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/posts/2023/mar/certification-roadmap/</loc>
