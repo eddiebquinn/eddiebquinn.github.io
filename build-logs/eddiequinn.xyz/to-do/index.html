@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>eddiequinn.xyz &ndash; eddiequinn.xyz</title>
+    <head><title>Todo list &ndash; eddiequinn.xyz</title>
 <meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,20 +47,21 @@
 </header>
 
             <section class="page__body">
-    <h1 id="eddiequinn.xyz">eddiequinn.xyz</h1>
+    <header class="content__header">
+        <h1>Todo list</h1>
+    </header>
     
-    <p>This website has gone through many iterations as time has gone on. Originally this website was made to be a WordPress site which was hosted on Linode. In its current state, it is generated using Hugo and is hosted using GitHub pages. This build log was made predominately to track and discuss improvements I want to make to this site. Some of these were originally blog posts, but I have moved them over here for the sake of grouping them in a more organised way.</p>
+    <div class="content__body">
+        <p>As with all projects of mine, there is a list of things which I want to do with it when I find the time to do so. This is said list</p>
+<ul>
+<li><strong>Automate build process to occur daily -</strong> So in its current iteration my site is built by running <code>hugo -t risotto</code> and then committing any changes to the public submodule. It is then auto-built using GitHub pages. In an ideal world, this would all happen on a daily basis automatically, and this will be possible through the use of GitHub actions. I am however putting this on the back burner for now - The reason behind this is that as my homelab is built out further I eventually want to run a <a href="https://www.jenkins.io/">Jenkins</a> and <a href="https://about.gitea.com/">GitTea</a> server. Given this, I do not want to write out an automation file for GitHub when I will eventually have to write a separate one later on.</li>
+<li><strong>Set up TOR site -</strong> I eventually want to set up my site so it runs as a TOR-Hidden-Service. Why? Because it&rsquo;s cool. The actual catalyst for my wanting to do this was Network Chucks video <a href="https://www.youtube.com/watch?v=CurcakgurRE">here</a>. I am however relucatant to do this until I have set up the automated build process. The reason behind this is that I would be able to use that to automatically pull the site files on the host.</li>
+<li><strong>Set up a linktree page -</strong> This is something I have wanted to do for a while, and for the longest time, I wanted to do it using an open-source solution like <a href="https://github.com/heysagnik/Linkees">linktees</a>. In reality, I do not have anything nearly as complex as this, just a page on my site showing all my links. I would however like to have it set up so it&rsquo;s not just a series of hyperlinks - I can possibly use <a href="https://simpleicons.org/">SimpleIcons</a> to do this. I&rsquo;ll think about it. This <em>possibly</em> could present some issues for when I deploy a TOR site, as these links would likely lead to the clear net - for that reason, it&rsquo;s important I put on a banner stating this.</li>
+<li><strong>Security.txt -</strong> I might have one of these already, I doubt it though. One possible resource to do this in the future is <a href="https://github.com/davidsneighbour/hugo-modules/tree/main/modules/security">here</a>.</li>
+</ul>
 
-    
-    <ul>
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/">Signing Posts</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/to-do/">Todo list</a></li>
-
-    
-    </ul>
+    </div>
+    <footer class="content__footer"></footer>
 
             </section>
 
@@ -95,6 +96,14 @@
 </div>
                 <hr>
                 <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-13
+        </p>
+    
+
     
 
                 </div>

@@ -63,7 +63,7 @@ sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1
 </ol>
 <p>Hugo, unsuprisingly, has a features within it which solve every issue which I am trying to fix myself.</p>
 <h2 id="custom-output-formats">Custom Output Formats</h2>
-<p>From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across <a href="gohugo.io/templates/output-formats">this page</a>. If you read the page at some point you will encouter a string stating</p>
+<p>From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across <a href="https://gohugo.io/templates/output-formats">this page</a>. If you read the page at some point you will encouter a string stating</p>
 <blockquote>
 <p>&ldquo;A page can be output in as many output formats as your want, and you can have an infinate amount of output formats desfined <strong>as long as they resolve a unique path on the file system</strong>&rdquo;</p>
 </blockquote>
@@ -124,7 +124,7 @@ sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1
 <p>Am I under the impression this will work first time? lol no?</p>
 <h2 id="custom-singlehtml">Custom <code>single.html</code></h2>
 <p>One of the biggest issues I had with implimenting this before was it wound up making the pages look horrific. This is allot of the reason why I want the sigs on their own plaintext page, which is seperate from the actual post. There is a tiny problem wit this however, that being that I am storig the pages in the content directory sig appended. What this means is that I will need to define a custom layout for pages, where it strips all PGP artifacts from the page.</p>
-<p>Originally I was going to use <a href="gohugo.io/functions/strings/replacere">ReplaceRE</a> to do this. What this would do is run the <code>.content</code> variable throug a regex filter when the site is built. This would work if I didnt have pgp sigs in posts, like just above this. Im reluctant to say regex has limitation that would prevent me from doing this, but it definatley doesnt cope well with this kind of strings inside of strings enviroment. What I am instead going to do, is combine regex with python to do this.</p>
+<p>Originally I was going to use <a href="https://gohugo.io/functions/strings/replacere">ReplaceRE</a> to do this. What this would do is run the <code>.content</code> variable throug a regex filter when the site is built. This would work if I didnt have pgp sigs in posts, like just above this. Im reluctant to say regex has limitation that would prevent me from doing this, but it definatley doesnt cope well with this kind of strings inside of strings enviroment. What I am instead going to do, is combine regex with python to do this.</p>
 <p>As with all other snippets posted here, please do not run this as go &ldquo;ThAt DoEsNt WoRk&rdquo; - The below snippet is just a rough draft. I havent debugged it, I havent even run it yet. I just wanted to get <em>something</em> typed out.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> re
 </span></span><span style="display:flex;"><span>
