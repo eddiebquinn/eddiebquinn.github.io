@@ -70,13 +70,15 @@
 âââ static
 âââ themes
     âââ risotto (S - risotto)
-</code></pre><p>I <em>think</em> this is an encoding issue, but I will need to do some digging. I am using the Python script to tidy up some of these issues during the build. I would prefer it however if they <em>didn&rsquo;t</em> happen, however. When I eventually write the script for the previous task, it will probably be part of that.</p>
+</code></pre><p>One thing I have noticed is when I sign posts using keybase (<code>keybase pgp sign --clearsign -i text.txt</code>) this doesnt occour. I am using the Python script to tidy up some of these issues during the build. I would prefer it however if they <em>didn&rsquo;t</em> happen, however. When I eventually write the script for the previous task, so the fix will probably be part of that.</p>
 <h2 id="writing-enviroment">Writing-enviroment</h2>
 <p>When I used to work on coding discord bots we had development environments - They were just sandbox environments where breaking things was not a massive issue, at least not as big of an issue as it would have been if it was a production environment. I might need to bring into place a writing environment where I can write posts just in the content directory, and then it moves the post to the sig directory during the commit process.</p>
 <p>The main reason for this is because Hugo has this cool feature called <code>hugo server</code>. It basically is just a live web server that shows your site running on your machine on port <code>1313</code>. When you save a file the site would auto update. It made the process of editing and writing posts a lot faster, and frankly is one of Hugo&rsquo;s best features in my opinion. Because I now have a script that deletes, copies and modifies the posts in <code>content</code> during the build process, this has basically hamstrung <code>hugo server</code>.</p>
 <p>I&rsquo;ll think about what is the best way for me to do this</p>
 <h2 id="link-to-signed-post-at-bottom-of-the-post">Link to signed post at bottom of the post</h2>
 <p>At the moment, to get to a post you need to manually type in the URL. This is not a massive issue, but I would prefer it if, at the bottom of every post, there was a button that said &ldquo;click here to see post&rdquo;, or &ldquo;click here to copy curl script to verify post&rdquo;. I don&rsquo;t think this will be that hard to do, but we shall see.</p>
+<h2 id="potentially-fixing-issues-with-rss-feed">Potentially fixing issues with RSS feed</h2>
+<p>I imagine all these new <code>sig.txt</code> fileis are appearing in the RSS feed. In an ideal world that wouldn&rsquo;t happen, so I will have to fix that. I haven&rsquo;t confirmed if this is happening as of yet though.</p>
 
     </div>
     <footer class="content__footer"></footer>
