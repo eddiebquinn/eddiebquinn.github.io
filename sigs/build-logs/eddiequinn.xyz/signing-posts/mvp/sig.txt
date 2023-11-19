@@ -1,0 +1,56 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+So I've got to a point where I can call this MVP - It doesn't mean this is finished, however. This change while for the greater good has negatively affected my workflow, and one of the major goals of this project was to avoid just that. For that reason, I cannot consider this "finished". Below is the list of things I still need to bring in.
+
+
+## Auto-sign script
+So as mentioned in previous posts on this topic I needed to retire my old PGP key, as my private key was compromised - I have done this. I am still using Keybase as a keyserver, however, my private key is safely stored on my system, and I have zero intention of ever letting it touch the internet. This being said, when I switched over my keys I had to sign all my old posts. Due to some issues, I was running into with my automated pythonscript applying bad-signatures, I didn't wind up using an automated solution. I signed all of my posts by hand - it was not fun.
+
+I want to write a script that will sign my posts within the "sigs" repo. I wasn't it to only signposts that haven't been signed by default, *but* I want to be able to have the option to re-sign everything by giving it a flag. 
+
+## Post sign-formatting issues
+So currently there is an issue with the signing process where it will swap out "-" for "- -" at the start of lines. It will also randomly add "-" in place. As well as this if it doesn't recognise characters it will swap them out, for example, the file tree in [the previous post](/build-logs/eddiequinn.xyz/signing-posts/progress) currently appears as this
+
+```
+.
+âââ archetypes
+âââ content
+â   âââ sigs (S - blog-posts)
+â   â   âââ build-logs
+â   â   âââ nts
+â   â   âââ posts
+âââ layouts
+âââ public (S - eddiebquinn.github.io)
+âââ static
+âââ themes
+    âââ risotto (S - risotto)
+```
+
+I *think* this is an encoding issue, but I will need to do some digging. I am using the Python script to tidy up some of these issues during the build. I would prefer it however if they *didn't* happen, however. When I eventually write the script for the previous task, it will probably be part of that.
+
+## Writing-enviroment
+When I used to work on coding discord bots we had development environments - They were just sandbox environments where breaking things was not a massive issue, at least not as big of an issue as it would have been if it was a production environment. I might need to bring into place a writing environment where I can write posts just in the content directory, and then it moves the post to the sig directory during the commit process.
+
+The main reason for this is because Hugo has this cool feature called `hugo server`. It basically is just a live web server that shows your site running on your machine on port `1313`. When you save a file the site would auto update. It made the process of editing and writing posts a lot faster, and frankly is one of Hugo's best features in my opinion. Because I now have a script that deletes, copies and modifies the posts in `content` during the build process, this has basically hamstrung `hugo server`.
+
+I'll think about what is the best way for me to do this
+
+## Link to signed post at bottom of the post
+At the moment, to get to a post you need to manually type in the URL. This is not a massive issue, but I would prefer it if, at the bottom of every post, there was a button that said "click here to see post", or "click here to copy curl script to verify post". I don't think this will be that hard to do, but we shall see.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVaQjcACgkQvUo0nUeo
+F5w5IQ//bhFvBBf6FzcPAHvG8U4y9dGAUj8lCyaxeJm+Ekk2zh4nvjIZvxh9ENvm
+YCuJY1QjiG38sm6oPtoRFCjYgSCDeQnMX3rpdOTbJKUnKVA4i3aVQsVJ6SP96V2n
+JbIINmR8wKaSPbHjXqrS1I4D7MV0cFMXCZ8N9TI73C9Q7XhIbquzXCNwp7/9MjZi
+dmjzDe6jSPBeNhRHOhxnI/d6RcYgZH6K35t/VTa78RwWnYAYTNLKCTA41exSgCgb
+/6eMhOpr4B7kloA3QMpQ9KMqdjbKh089zUb77wlXof8hGmd1PclItXnyIotiorbI
+G772lKRaVqNRmCCKSoBsMviBXcZ7egHG5GfPzy2Uft9hRidzN5yO5XZLES8S6W7G
+RE+A2RRiDnMdLzAUUh9obx7YxXqBBlQQWzbzGV7cthDMpGTgw8EmtOcX7+CaRm1K
+jDIHeCSAQb62xxoPnuS/c/fPw+IEKvC7Zdhih1HunRzdQdPi6/pgOb3bLpFRBreK
+cyppf+Pd3IFxrZ5abfFKl1A3MdiFrpQ8apwUV6bO9s9JFs0gHGmRxBbfJenngto9
+N7CBfydku5u3FNsvZ33nDuKvQGARlm+LwCAeKrnYZmThnrd8T8BTHOk7bvdH9wAs
+c5H+ZBRJDzUJZwa3mpaMfMPl2nMnyQqvvF80epQNjEx8ggM6lfM=
+=eH9Z
+-----END PGP SIGNATURE-----
