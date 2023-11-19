@@ -1,0 +1,25 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+As with all projects of mine, there is a list of things which I want to do with it when I find the time to do so. This is said list
+
+- - **Automate build process to occur daily -** So in its current iteration my site is built by running `hugo -t risotto` and then committing any changes to the public submodule. It is then auto-built using GitHub pages. In an ideal world, this would all happen on a daily basis automatically, and this will be possible through the use of GitHub actions. I am however putting this on the back burner for now - The reason behind this is that as my homelab is built out further I eventually want to run a [Jenkins](https://www.jenkins.io/) and [GitTea](https://about.gitea.com/) server. Given this, I do not want to write out an automation file for GitHub when I will eventually have to write a separate one later on.
+- - **Set up TOR site -** I eventually want to set up my site so it runs as a TOR-Hidden-Service. Why? Because it's cool. The actual catalyst for my wanting to do this was Network Chucks video [here](https://www.youtube.com/watch?v=CurcakgurRE). I am however relucatant to do this until I have set up the automated build process. The reason behind this is that I would be able to use that to automatically pull the site files on the host.
+- - **Set up a linktree page -** This is something I have wanted to do for a while, and for the longest time, I wanted to do it using an open-source solution like [linktees](https://github.com/heysagnik/Linkees). In reality, I do not have anything nearly as complex as this, just a page on my site showing all my links. I would however like to have it set up so it's not just a series of hyperlinks - I can possibly use [SimpleIcons](https://simpleicons.org/) to do this. I'll think about it. This *possibly* could present some issues for when I deploy a TOR site, as these links would likely lead to the clear net - for that reason, it's important I put on a banner stating this.
+- - **Security.txt -** I might have one of these already, I doubt it though. One possible resource to do this in the future is [here](https://github.com/davidsneighbour/hugo-modules/tree/main/modules/security).
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUBcACgkQvUo0nUeo
+F5zEkw//fbp4D1I0GOIrfoK5Kez52flKE5d4j0VgQQzl1IObkreH9hQnP1Aln/tU
+38ersrvBkUxIU+lwnwhicKcfQltF4XEsBBHAMwEHlLkS9mXF4UjnfG21/oBL3LWl
+DPpy9tcoJgwQ/cO4NCQ+cV2YWuOjZEx6CSuqJp3cUVoSUU2WiTsti1mrfphh9ome
+JWmDXS/0FmxXGd/PKCOhcytTr79u2iJ6t5tHvkYx7RDBL924e2K22txGtxUDT+8c
+gWfWHuU1iM3jNV73hxEU1SJ5/oiLeoyXnXAwd570F9aSniuzHRQZnMWyNYKDXlJq
+PL5wNq/S3QWDzo/72dsSL8Hbkc2vvm+QIszDJFOI5NxvLya/yb3hMoezP5qGq4JZ
+VWveHpvczp2V0z+ExgVAlATATwy2sSQ81/MJsZCVLl4n2JZgNxV3r/DkiYTkTaLR
+tzEQHXLZE1tTbbsn9/Ik8zr36NCpk5DG5y8uwre3C+9To9k6kb4UaB3mhuVfpiJh
+emOBJGynE7fF6NglTZf0yeMzDxZZX1oaSrXlqu4TEvBfDidiqNiiTPa32vCSE/2n
+sMYVcaJI5/p8cwMdcUbJf79o1RfCzzfAZBUr/0wue8wf1Bk6moItHQ1ktrW3Zenq
+JmHB82zsgnkq4/cKq2Od7isH8fUhKslBr1SltATN8reaXi/44+c=
+=v+jF
+-----END PGP SIGNATURE-----

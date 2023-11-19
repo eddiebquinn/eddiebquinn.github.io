@@ -116,7 +116,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> message
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Gpg_client</span>:
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extract_content</span>(self, signed_message:str):
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">## Strip out begining</span>
 </span></span><span style="display:flex;"><span>        content_start_index <span style="color:#f92672">=</span> signed_message<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span>)
@@ -127,7 +127,7 @@
 </span></span><span style="display:flex;"><span>        sig_start_index <span style="color:#f92672">=</span> content<span style="color:#f92672">.</span>rfind(<span style="color:#e6db74">&#34;-----BEGIN PGP SIGNATURE-----&#34;</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> sig_start_index <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
 </span></span><span style="display:flex;"><span>            content <span style="color:#f92672">=</span> content[:sig_start_index]
-</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> content
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
@@ -136,7 +136,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, file:bool <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>):
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>file <span style="color:#f92672">=</span> file
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>string <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>extract_string()
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extract_string</span>(self):
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>file:
 </span></span><span style="display:flex;"><span>            path <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
@@ -153,30 +153,30 @@
 <p>So what is my new plan? Well, the new plan is a hit hacky&hellip; The original original plan was for me to have a directory in my content folder that mirrored the file structure of the parent directory. The only difference would be that the files inside would contain the signed posts. This plan is essentially the same thing, except a bit different.</p>
 <p>This is what the current directory structure looks like for my site - (S) means submodule</p>
 <pre tabindex="0"><code>.
-├── archetypes
-├── content (S - blog-posts)
-│   ├── build-logs
-│   ├── nts
-│   └── posts
-├── layouts
-├── public (S - eddiebquinn.github.io)
-├── static
-└── themes
-    └── risotto (S - risotto)
+âââ archetypes
+âââ content (S - blog-posts)
+â   âââ build-logs
+â   âââ nts
+â   âââ posts
+âââ layouts
+âââ public (S - eddiebquinn.github.io)
+âââ static
+âââ themes
+    âââ risotto (S - risotto)
 </code></pre><p>The new plan changes this file structure to look like the following
-│   │   ├── eddiequinn.xyz</p>
+â   â   âââ eddiequinn.xyz</p>
 <pre tabindex="0"><code>.
-├── archetypes
-├── content
-│   ├── sigs (S - blog-posts)
-│   │   ├── build-logs
-│   │   ├── nts
-│   │   └── posts
-├── layouts
-├── public (S - eddiebquinn.github.io)
-├── static
-└── themes
-    └── risotto (S - risotto)
+âââ archetypes
+âââ content
+â   âââ sigs (S - blog-posts)
+â   â   âââ build-logs
+â   â   âââ nts
+â   â   âââ posts
+âââ layouts
+âââ public (S - eddiebquinn.github.io)
+âââ static
+âââ themes
+    âââ risotto (S - risotto)
 </code></pre><p>What I am essentially going to do is change the location of the blog posts submodule to be in the <code>content/sigs</code> directory. What this allows me to do is store all my posts GPG signed. Then what I will do is run a script (based on the previous Python script) that will copy everything inside the <code>sigs</code> directory into the <code>.</code> directory, and then go through every file recursively and remove the PGP signature. I will likely add everything inside the <code>content</code> directory to the <code>.gitignore</code> however, because frankly, I do not need two copies of my posts in separate repo&rsquo;s.</p>
 <p>What needs to be done however is to set it up so whenever I run <code>hugo -t risotto</code>, the script is run just before. I don&rsquo;t know the best way to do this, possibly an alias. idk.</p>
 <h2 id="other-than-this">Other than this</h2>
@@ -197,6 +197,10 @@
 
 
 <ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
     
     <li>
         <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;

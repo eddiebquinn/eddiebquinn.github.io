@@ -1,0 +1,25 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+So as with all of my hyperfixations, I think about all the things I want to add to my homelab. Some of the plans around all of these additions haven't been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.
+
+- - **Ansible and IAC -** So one thing I have already noticed that will get old quickly is configuring servers. I mentioned in the DNS Server section that I think configuring basic hardening is something that there is zero excuse not to do. I don't want to let my laziness get in the way of my principles, and thus now is the time to implement 'Infrastructure as Code'. Several of the YouTubers I follow recommend Ansible for this, namely NetworkChuck, Wolfgang, and Jeff Geerling. I will write more about this when the time comes for me to actually implement it, but this will allow me to automate allot
+- - **Uptime Kuma -** As my home-lab grows I want to be able to monitor all of the services that I am running. Uptime Kuma is one of the easiest ways to do this that I know of.
+- - **Git server -** I use GitHub as my portfolio, and because of that I really want to avoid cluttering it with things like the files that this website is run on. For that reason I ideally
+- - **Certificate Authority -** I will get into why I want to do this more at the time when I actually do it. To keep things simple however, it is mainly because I want to make sure that all my services communicate over HTTPS, and I don't want to make exceptions for their certificates on individual devices. Yes, I can do that dodgy thing with Cloudflare and subdomains, but frankly, I want my network infrastructure to be self-sufficient.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZURAACgkQvUo0nUeo
+F5wBQw/+Nb87OFjfdLmNsypUH43ggum5J/0mIeneDFP6B1Pe4cFn3JUBqziuqr4r
+OUXUiq9NdpfADBoC5NsyfHt8RpKtXcFBV2y4yAefh+ZHT4sKKiwtgFUB4zUPyvX5
+i3fWFG0P8MnrODCZ2mJd3dK4pNPDxrN/x+J6nGFRuRTHMKRFN/F0wnS1UonoDwFA
+7X2aJKmY5y5+yyxa39yP4Qooqj1k08wM/0t/bwbz8OwvRtGdnDlFjRT4vfLFajyp
+0aaQrVa90yZwQ8DD8OoHOUvcx1BORFXH7ZhLJfM1yY6dlq9lTO9R+JQgNs5SNY9m
+ohjzYQqmSj7XHxZ4HWeY5FxE85lRnbDfHdSWU/bIasgy3Alw/eda+OHpF0bCLusC
+l16I+bDiIHTqLhqvOo0yGiA0ojGZ/KIK9zTaXpBkoxV/41fU0aykq67DLCyrh3OL
+MKL7RzeSSXHbMSTLO6C2EbLD5fWP+T6I53LlBeMN51CCsBao/kT5heiHWc/FCvd7
+Ne/rFlKwiSrSLVE3htVbTdbKaLSPIN7hVqdAirCXOby4fZSqVHGfrrq8zZgfGVw3
+n9Lv3GwZSjWw6lEhNKzEK3L6Fe/5LzBB9FZh3nyWdp4kmqO3aFQM325TtsJfwwFi
+iJx+NVM4906c78ux3oUh0Gz4zOGF8Iuo8jZ3exeE64bL9Uj3IeI=
+=oq7h
+-----END PGP SIGNATURE-----

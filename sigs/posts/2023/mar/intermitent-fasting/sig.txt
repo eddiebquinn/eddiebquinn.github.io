@@ -1,0 +1,37 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+During the original lockdown, I had just gotten out of what was hopefully the worst relationship of my life. I won't explain why this relationship was so bad, those who know - she has caused enough damage and I do not plan to invite anymore. Post break up I had what I think alcoholics refer to as a moment of clarity when all of the comforts fall away and you find yourself at rock bottom. I would write an unpublished post a year after this called "the view from halfway down", describing how after a year of self-improvement my foundations cracked and all my progress fell apart. The view from halfway down was a good case study in the sentiment that the hind-site is 20 20. While I did lose weight, conquer many demons, and become a better person overall,  I only manifested these changes due to a melancholic fury at my ex-girlfriend. I am glad I failed because it means I have finally moved on... I am however still trying to get back to where I was.
+
+At the start of this year, I laid out the goal I wanted to be healthier, and in the two months, I have been trying I have done two things that I didn't think I would be able to. I stopped ordering takeout and I stopped drinking energy drinks... The next step is for me to start trying to add good habits rather than taking away bad ones.
+
+## Intermitent fasting
+Intermittent fasting is essentially just skipping breakfast, or at least to a normal person. The reality of the situation is that it is a lot more, but the actual method behind it is as simple as "don't eat breakfast". It is not a diet, it is a pattern of eating that alternates between periods of fasting and feeding. Our bodies do this anyway - Assuming you get 8 hours of sleep, theoretically, you feed for 16 hours and fast for 8. IF is a habit of prolonging the fasting period, in an attempt to shorten the feeding period. You aren't limiting calories, just the opportunity to eat them.
+
+I made my decision at the start of the year quite clear - I am not aiming to lose weight, I am aiming to be *healthier*. I choose this terminology carefully, and I wanted it to be vague so I could adapt and change the goals I set for myself throughout the year. I am not choosing to reintroduce IF into my life in an attempt to lose weight, the truth is there is only one way to lose weight and that is to consume less than you burn. I have not laid the correct mental groundwork as of yet to truly give calorie limiting a real attempt, but IF stands to begin to pour that foundation.
+
+In my experience, IF brings two key benefits. It brings discipline, as it is a matter of "I cannot eat between these two times" and you need to choose to stick to that. It also brings a sense of mental clarity. It is a curious thing to be in a fast state, and I think more people should experience it. To feel hungry, but accept that hunger, dulls the background hum of anxiety. A comfortable mind is an anxious one, at least when you are hungry your mind doesn't invent reasons to be in disarray. The other two benefits were better sleep, and a more stable *poop* schedule.
+
+## Issues
+The key issue with IF and the reason why I haven't tried to reintroduce it sooner is that it is very time-based. I work a Panama shift pattern, meaning my sleep schedule is very unstable and subject to change every two weeks. The other main one and this is because esp a problem as you move into longer fasts (18h or OMAD) is when you eventually break a fast you tend to eat non-nutritionally_ complete food_*. If I am going to reintroduce IF I need to implement the following policies
+
+Two tackle the first problem I am going to build the feeding/fasting windows around my shift pattern. I work 7 - 7. My eating window has to be (assuming I am working days) 12 am - 8 pm. This means that I can eat a snack before going to bed in prep for the next shift. This means I will not be able to eat breakfast in the morning, and also means that when noon comes around I will need food nearby. This is where the next step of the plan is - I need to endeavor to bring a packed lunch to work and keep a back of Huel in my locker for when I can't. This means when the feeding window starts I can eat what should be a healthy meal, rather than whatever I find - I once ate mozzarella straight out of the bag, not my proudest moment.
+
+The most important thing I need to do however is kind to myself - It is okay to fail, but it is not okay to give up. I am going to implement the two-day rule, which states "it is okay to have a bad day, but not two in a row".
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV7MACgkQvUo0nUeo
+F5yEPA/+M5X+53Jf6xyXWRG4tGLXVsWIsOHrlqDnki1n1iBg12xpT5JMhc37W+Pa
+zLtO+lmztWQBe4HNUkKFe2IRcbZSS7vLlCrNguyTUZyTJW7JHiVxF7ifIehxEfFN
+nXHmO+SxxNYXLytKvLa5jjxJdcco/XAB/32e6oGrvcuN1+qqY/P94wJnqH9g80NU
+r9WR13+6ooTFuSRZrfwb33peKMxHE1gGfk1AXddSUqIo+sIe+9ZYpKtm/SVacxhR
+Iic4qpSIfYfTrEGiFo6qDUyzG8pKMxXTN+Th129q2fhwpadaEA75LH0zkmV4CS1I
+p5B4JdE+hoyqK0Zezwl3ZvDIKibgw7rdOlMmcxZ1iOvLeOA/i/ozhPk38MdDF9ti
+tQIHKZARntk14lG848z/6Ho0pB7UGVGxVNzGkVERqi76PK17M2ucxJuvQuHxMEny
+YHV7ydITfvyU5DMLyGsFA4YIPM4nxNrY1GWpbUHYJueNj29vbywQe+CUmHLEDCpP
+Z59rG429h9v5Kcb1pcEOdyO3PKgZxxozz2YeneCGOGjARit8bneRNEGXz2HeAcmo
+TFUc5Dn2bAsg5y18t7zVX6BKiYAIuvpwGnMTX8T8+vO8mUeHvTtV99OgGwpOMkdo
+hV20n/eoXApdqMpIJ2CPW/IGg+PWnubq1+adB5ydbAvAKxi0Jx0=
+=RrVr
+-----END PGP SIGNATURE-----

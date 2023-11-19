@@ -1,0 +1,20 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+For a very long time, I have wanted to get a home lab up and running. This is for various reasons ranging from it being cheaper than renting VPSs, to it allowing me to hone my skills in running a data centre (albeit small). Officially my self-hosting journey began in 2020, and I even ran some projects on-prem, however for the sake of avoiding issues when I experienced a power outage many of my projects migrated to hosting providers. However, I have officially taken the first step in getting my home lab up and running.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUFEACgkQvUo0nUeo
+F5xlYg//UZ39tNLrwQw78AvahBBRGymHIrBqWmRn+rdSN0Kxhcn4ZANdUwtyOzuX
+6GAW1Ijjj+9+3dduFKvmO8Kron/IK3bqhvHwzz3PCj+OkYPQ17YvsZB/e5/urOZ9
+WHJiGNXV79nMlzzEu2upqdRFE5z1tcf9ivDojylqGqVP78KcVWjqaiOXlezcOyJF
+mEnPaUA9EF9nQjZ/axMrsmqn+K3MPi3Fgxx/OdOJ6/HND57MnZbmrEoYy/K/ARXf
+3VTIaarr3r94zy9X6xwtw8Mr//K1iA2g+f6RdYAQHjrJz49bv9TbRPl7RVqiZfUA
+mZLFPMwCEPf+obT24+fQZQl67GlRcXp8Gbtvzu8eCtJW8Yh3SatulaM1oXkgxFwW
+HgFCqoxrEBYj3r99Cd3gKMvA3CUUBsvqXmCsms9HKPpmPNi/yq+T/2wtYsClWXP7
+HQepgofEG6FLNS0ZjaOVEpRnB//hu29581G8MO95H92in/uoz+Ch3k8W3uiuBmgp
+woI+2CninK6VLltGITa/rwZHRna75B+0LLD3GpUj7qJI6KEpLt1IbxVEDcFu0asp
+nDP6xR/RAQki59U6t7Owedm91QUSgprnHEquY1G4SEp30w+7NDozZ7G3RJL/dbLY
+LoeB7+KFgVxtk+WZYGOQRyRfm9Ls5W1Ta8Whuxa8l2Fig5E7oUA=
+=Ggvu
+-----END PGP SIGNATURE-----

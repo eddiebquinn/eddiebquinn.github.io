@@ -83,13 +83,13 @@ It may read differently from other build logs for that reason
 <li>I push up the new files to the GitHub repo and the page is automatically deployed using GitHub actions</li>
 </ol>
 <p>It could become easy for me to get carried away with what an ideal process looks like for this because in my opinion there are <em>many</em> problems with this. Keeping strictly to talking about signing posts, however, then I believe the process should aim to be as automated as possible and not add any overhead to the current workflow (if anything take away). The way I envisage the new workflow is at some point a script is deployed that will sign all unsigned posts within the content directory, placing the signed post in a sub-directory. An example of what the directory may look like is this.</p>
-<pre tabindex="0"><code>├── _index.md
-├── posts
-│   └── post1.md
-└── signed-content
-    ├── posts
-    │   └── signed-post1.md
-    └── signed-_index.md
+<pre tabindex="0"><code>âââ _index.md
+âââ posts
+â   âââ post1.md
+âââ signed-content
+    âââ posts
+    â   âââ signed-post1.md
+    âââ signed-_index.md
 </code></pre><p>Then during the Hugo build process, plain HTML pages for these will be generated and will be linked to by the original pages.</p>
 <p>So what needs to be done to get from point A to point b?
 0. I need to generate a GPG keypair - I had one before this, but I kept the private key stored on the keybase. This is ill-advised, and on my principles, I need to consider that keypair to be compromised because of this</p>
@@ -115,6 +115,10 @@ It may read differently from other build logs for that reason
 
 
 <ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
     
     <li>
         <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;

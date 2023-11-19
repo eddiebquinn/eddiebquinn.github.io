@@ -67,7 +67,9 @@
 </ul>
 <p>MFA is a beautiful concept because it is so simple. It allows for more secure login authentication at the cost of a slightly lower level of convenience. There are multiple levels you can take with it, for example, I use a hardware token as an MFA method, but no one is forcing you to do anything other than the bog-standard OTP SMS.</p>
 <h2 id="the-problem-child-in-the-mfa-family">The problem child in the MFA family</h2>
-<p>From the surface level, the uber hack shouldn&rsquo;t have happened. The user in question had her password exposed due to social engineering, however, he did have MFA enabled on his account. This theoretically means that the hacker wouldn&rsquo;t have been able to get any further, because he had only compromised a single factor of authentication, <em>however</em>, I would not be writing this post if that was what happened.</p>
+<ul>
+<li>From the surface level, the uber hack shouldn&rsquo;t have happened. The user in question had her password exposed due to social engineering, however, he did have MFA enabled on his account. This theoretically means that the hacker wouldn&rsquo;t have been able to get any further, because he had only compromised a single factor of authentication, <em>however</em>, I would not be writing this post if that was what happened.</li>
+</ul>
 <p>The biggest cyber-security threat that exists in any computer is the person using the computer. Picture this, you are at work and suddenly your phone gets a pop-up asking you to authenticate a login. You haven&rsquo;t tried to log in to anything, and your training has told you not to click <code>approve</code> unless that is the case, thus you ignore it. Five seconds later, another pop-up, and you ignore it again. Five seconds pass, and another one. Then another one. This continues for hours until eventually you click <code>accept</code> just to see if it makes it stop. Congratulations, you have just been a victim of an MFA fatigue attack.</p>
 <p>MFA-fatigue is a new-ish attack on the block, it was used in the Twilio attack late last august. I am very reluctant to call it breaching MFA, it is far closer to social engineering. That being said it does present an issue for MFA as a whole. The issue isn&rsquo;t necessarily that MFA has been broken, because if you follow news around this practice you would know that SMS-based authentication has been broken for a very long time. SIM-swapping is the act of having your number ported to an alternate SIM card without your permission, and it is concerningly easy to do. The difference between SIM-swapping and MFA Fatigue is that SIM-swapping requires to allot of prep, and sometimes even committing an overt in-person crime. MFA fatigue on the other hand can be done by a script kiddie on the internet, who accidentally found someone&rsquo;s password on a data leak. I am a strong believer in the sentiment that &ldquo;no system is safe&rdquo;, however, it is important to understand the difference in barrier to entry required for some hacks is what makes simple hacks like DDoS, Brutfocing, and now MFA-Fatigue that much scarier than XSS, Spear Phishing, and MIM attacks.</p>
 <h2 id="the-solution">The solution</h2>
@@ -95,6 +97,10 @@
 
 
 <ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
     
     <li>
         <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;

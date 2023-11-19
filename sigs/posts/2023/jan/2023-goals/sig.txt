@@ -1,0 +1,48 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+I made a lot of promises to myself of things I was going to do in 2023 - I overall have followed an interesting path over the past 3 years, and I do consider myself now to be entirely different to the person I was in 2020. I have hinted on this blog prior that I went to university, but have never gone into quite so much detail on my experience there - this blog is not going to be that tell-all, but I will say that I learnt to allot from university (none of it was even remotely related to economics, however). There does remain the fact however that there are parts of who I am that I want to improve, and I want to dedicate 2023 to that purpose
+
+Taking from one of my favourite creators [CGP Grey](https://www.cgpgrey.com/) and his themes framework, I'm not going to simply make a strict and non-forgiving single sentence like "I want to lose weight". A very famous einstein quote states
+
+> "Insanity is doing the same thing over and over again and expecting a different result"
+
+I have tried the approach of setting one goal and sticking to it before, as have many billions of other people. I am sure that there is an article out there somewhere stating why new years resolutions are destined to fail. The fact of the matter is however that having an inflexible approach to a year-long, likely life-altering, the process is destined to cause more harm than good. I am going to keep the aims themselves vague but place a 3-month objective underneath each one of what I want to achieve in that quarter
+
+## The goals
+### 1) I'm going to write more
+**Write 25 new blog posts by march**
+
+I found a challenge in the earlier parts of 2022 called [100 days to offload](100daystooffload.com) which requires you to write 100 blog posts throughout 365 days. When I made this blog I made it intending to be a replacement for my writing on social media, however, it has predominately become a tech blog. Technology, despite being at the forefront of my career and topics of conversation, makes up a very small facet of my overall personality. Because of this, provided this aim does get followed through on, the likelihood is that this blog will gradually move away from *just being about tech
+
+### 2) I'm going to be healthier
+**Do not order takeaways for solo consumption, you must be with friends or family**
+
+My weight has always been a major player in my insecurities. I have made many attempts to fix this, with varying degrees of success. I have chosen to change my overall approach this year however, I do not want to fix my weight, I want to be healthier. My predominate goal for these 3 months is that I want to not order any takeaways for solo consumption. What I mean by this is that if I order food It can only be if I am with friends or family. I cannot ferret it away into my room and eat it in shame.
+
+### 3) I going to have no account overdrawn
+**I want to have my emergency fund replenished by march**
+
+I made major strides over the past two years to move towards financial stability, however, I am still trying to clear all my overdrafts. I think the biggest step I can make with this is that I need to rebuild my emergency fund.
+
+### 4) I want to read more
+**I want to have read 5 books by march**
+I have set a goal that I want to read (not listen to) 20 books this year. I already have this well underway, I am currently reading the exam textbook for CompTIA A+ and a book called "how to take better notes"
+
+I have never been particularly good and ending these sorts of things, so I'm just going to sign off here
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZU+YACgkQvUo0nUeo
+F5wbug/9FuKWRBM2v+uZqke4xY+GFSvy6YcGwb59vfrkGEcGBbooW6TO3kFJPVgd
+sCd33SO1gIBikK0QmPxLpYGL35D2scctBBHNm2Cnxcp5/ihOcvkt3vJadV93wftD
+umg2r0ZZTkwEKWf89G7Od2+vxqAUlxlRfgJPEAvUxSPBShEpXh6MW2tBtP5orrUZ
+sutRcJTA6kDvSoWlqZS+5S19SjT4nOXEJvWbBxXRDTwWGJ/2/PwQpJfqQ9P5pS3n
+JNi5iVkQ/A3Rnyr42CrbtkEUISX/yAdMjmxMd8tqDzdE1cjpzyNNAZCVhoxzyPeg
+WfGRJH8INW0n6S4l0iIQwOBqbYSqpaylks6sUJ6nAfRkt6JIsH3+7wPJHBGqdBsM
+hJEps54uhfIQqQqXF+kJ+DqF8Ca+T0CfaMXHTWAp/12nhZ0OUK/zaT4rKV2Yk1C4
+M9p8sS/mcKtfS6Q/E8tS8G7HuKFzNegxCEkO/vGvOjiNhEIVUoT46KdBtmLrtEWU
+yBYZIH0hlvC1X1a2aAIuUvqXqJH1tTHZ9q4twcioxC9ZT0vbfi3GSONME4atMj+Z
+CU4NrVrjgiY6L34ntyFJUbiz6zCMSp366N5KEkDhYLHy4BbydcxFyripFUE+tngU
+B4T0IPtvcpIi4kdIHLAt58gLU3HoY+bpTlaYmWwBCDagLDw2MFI=
+=oGrh
+-----END PGP SIGNATURE-----

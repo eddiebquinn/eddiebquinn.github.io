@@ -1,0 +1,20 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+At any one point, I have various projects I am working on. For a while I have wanted to document the processes, thought patterns, and milestones of these projects. While eventually, it would be nice for me to move on to setting up a YouTube/Odysee channel for this, for the time being, I want to use this website to do so. Below you will find links to dedicated pages for each of these projects. Feel free to reach out if you have any questions or concerns.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUT0ACgkQvUo0nUeo
+F5ycmw/9GyfI3fY0Iq8SsdfxderVfJv1l7y9y7D4DYJ9hNZKgJWFz1qvSuRP8SDq
+ChAgNeLAqB5I67zE1blP9duEiZib0ty4Hsf2BrQ/BHNCU9YpHH4Y7DmUE+p5KH1/
+EvCR4/GF1jqX/P1wPalwNWkGkeZqp3rGE/sERPIhGRj4xBNPX0QW9F/szsYxLkN3
+h63MjZHSd0lXW3kyWwl6NjEFCYdTsRe0y9xjpbiqS1nfxBYXfcKKCewQLtABTzSi
+EDXEiPq/UKZ84I2gfURd61RrCtW345IPIC6sBY9e3t7+0RUUVayS/B7uljXvYsaz
+wl4nkoo1YtEyo1dIlhkzx3mfWBUU3VEe8unQzAIcjpRK1vbT+67LXXd17b7/xWqY
+DuZnoh28rQFkjxbzzf9bPB+ztfiDmGqAX85LCzYslrY/Zdj9vQUkzlCmEUE9z0xJ
+vb4U2UqW8eAFz+4eOyZ8xiNVahoukYVcRAqh5OYMTnC5NF0tZk16WCEs6pZQgW25
+QXrW5Et1cCuXEQ/3KXXoXWFdlWh7nD4PvZGOQGjF+pRFM2TirUiYgiop+/go6nSZ
++vDky6S9MHzier/LEKkarAExMZQaOoMQXrd2m9n+3OlANqRNV1LnNMpZkKTNzoRz
+Cplmkkyv31WND2JwHtbUxlxYdWKaw+FAbMdBbys2UgIpS4qQLmI=
+=5NwB
+-----END PGP SIGNATURE-----

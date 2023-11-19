@@ -58,7 +58,9 @@
 <blockquote>
 <p>&ldquo;There are two kinds of cryptography in this world: cryptography that will stop your kid sister from reading your files, and cryptography that will stop major governments from reading your files.&rdquo; ~ Bruce Schneier, Applied Cryptography: Protocols, Algorithms, and Source Code in C.</p>
 </blockquote>
-<p>From a high-level overview, the way cryptography works is a mathematical function used in the encryption and decryption process. The algorithm works in combination with a key (number, word, phrase) to encrypt the plaintext. The same plain text encrypts to different ciphertexts with different keys. Given this, the security of encrypted data is entirely dependent on two things: the strength of the algorithm, and the secrecy of the keys. Under conventional cryptography (symmetric cryptography) a single key was used for encryption and decryption e.g. the Ceaser cypher.</p>
+<ul>
+<li>From a high-level overview, the way cryptography works is a mathematical function used in the encryption and decryption process. The algorithm works in combination with a key (number, word, phrase) to encrypt the plaintext. The same plain text encrypts to different ciphertexts with different keys. Given this, the security of encrypted data is entirely dependent on two things: the strength of the algorithm, and the secrecy of the keys. Under conventional cryptography (symmetric cryptography) a single key was used for encryption and decryption e.g. the Ceaser cypher.</li>
+</ul>
 <p>Symmetric encryption is not considered to be secure by modern standards. The reason behind this is that key management under the advent of conventional encryption is <em>inherently</em> insecure. At some point, the secret key must be sent out into the aether for the receiving part to decrypt the message. You can layer on solutions to this like diffie-helman, but this does not change the fact that anything this important that is not verifiably air-gapped needs to be assumed to be compromised. Symmetric encryption is still used however, the reason is that it is significantly faster to compute than its alternative (we will discuss that in a moment). That being, very few security-conscious persons would ever use this method of encryption for anything other than encrypting data at rest.</p>
 <p>The downfalls of symmetric encryption are addressed by the entrance of Asymmetric Cryptography, more commonly called Public Key Cryptography. This is an encryption scheme that uses a pair of keys for encryption, one public and one private</p>
 <ul>
@@ -130,6 +132,10 @@ This is a very command certificate format. All X.509 certificates comply with th
 
 
 <ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
     
     <li>
         <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
