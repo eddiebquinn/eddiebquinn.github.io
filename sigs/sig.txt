@@ -16,20 +16,20 @@ This blog predominately serves to be my means of posting thoughts and opinions o
 
 # Other cool people
 - - **[Iron's Blog](https://blog.ironsm4sh.nl/) -** Hacker with a wide range of interests
-- - **[Mitchell's Site](http://mitchellton.com/) -** Electronics engineering student & Developer
+- - **[Mitchell's Site](https://garden.mitchellton.com/) -** Electronics engineering student & Developer
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZSxQACgkQvUo0nUeo
-F5xCHxAAhWtUAMYeh2RxEOiBxMf0j6chC9b2IDI63uxmveGoI1sPxjj0CGWaDRnv
-KWfdicVOvP9f9R+8rnFf6K1SsdfLfcpJlPeoOwchkAh1DSOOOn5VRH3wjql9FzaW
-7Nf12jko1nw43USgcg7FDh8dXzIs66Sb6Sxj6E2eoN5M7l9cm0OiSnjPtLWXs0XV
-6woYlkhCdsEXhsklvt6IcHy5YWU/fYPCzewhKicgdWjejeofoDziiQ1nKQZohrwW
-JnucSU1Z8JTAnbSh0+wdHz6rQbjq1UY+y2JwHkSR3PwSb5EWqHZFKN7ow+M8AuTt
-EkF838z/Nc54vamyX7eRAIrdpOItf2sD/UR6HQfcnIRYdgBgOYpfhkJCRXFYfuUD
-zEKp9B3ZVm9bKFIcAjRBEcEVmugbd+xdcnAWk9WIGzh4VSjgd9I+F+3wB+SAxM5Z
-u9UwQ2yRrWbHQHiJXbh+vxN6FV2lLhA7bufMd5AS8Tb3+cWTKQ9lkz600DiDeysz
-ReZF///52G1Qy01jZT0K1QWBj24P0iuq6pgHIIiBMBL1nzjSjS5o7g7onfz2wvq5
-srfJul8yq6zcjyHotSj4yVUqyvv/UxtLFR6iZks6xdUwRrxQxQTZvHieprzuiTI1
-FFiH8b1c/L0YZvE1/ztvKl3u5D3aFmnsTzqOxWiazSAEOruiihI=
-=9VTr
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVhOwIACgkQvUo0nUeo
+F5zF7w/+NLQE2tQ9jD8nDNlUAYEONYYikGi3eoa2m9s5/XXugfaCmyFVelgDqhE4
+cS8N5InFqRZkA2aL5F5P0/9FIJonsc1V0YYkeLIQElwRYZsoJagJahU1w7qbO0hi
+NTMQJHCNzLm9VS70cHdFLfWY3Jdyi0mjzwPoKbNj4/VsR9mj2Lb7mqYBfbiNaNwr
+e5Kz72IlqjHy5aYmFbEM1qpWVGGek2z2y9NkRTuIVdFtUoO5qIGGb1wboh6OAklY
+oHhj7u4xhOvPwo56V61u9Q+I8/QyTJ35gJHeIup0S3twsrhX/8ohKH6qjRSfxriz
+Pz6OHxA2n6+KTLhAp2kL8hxVO/c8DBg7AiLrPQLW3Vy8ZA2z+v2Ogpo/Oi2T0pTL
+VrOJJQ/yNUszr/ZTw2SycrjcH3olDTvviFzvWyHjb6gHwcZfw4gz0ma1C4G1cMwI
+323w8Z/fDe+foClqjaTRDKym40neDM5ciS1QfQgExAVuzdNOxFqRp+dbQ3MoKx35
++xYCiYKVrELUAVe2jHxcW554dN0ID01xj78MB2J2yw6CmkdYWnT/R1pLK0R9QtGq
+nAnnwOZMkZJaGW96PzDlxwe2/RTaj/phmHKMA1ejTr2ccZuMZYT3dQx/QEqBFVj+
+hTxI/8/l9v8gr2Qk3mhP6UAVVoahfLMhQG21uKmgVp1dtL6pV3g=
+=+tMh
 -----END PGP SIGNATURE-----
