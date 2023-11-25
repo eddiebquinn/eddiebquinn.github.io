@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>Signing Posts &ndash; eddiequinn.xyz</title>
+    <head><title>Verify this post (I dare you) &ndash; eddiequinn.xyz</title>
 <meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +48,7 @@
 
             <section class="page__body">
     <header class="content__header">
-        <h1>Signing Posts</h1>
+        <h1>Verify this post (I dare you)</h1>
     </header>
     
     <div class="content__body">
@@ -113,6 +113,27 @@
 <li>Copies all files out of the <code>sigs</code> directory into the content directory</li>
 <li>Recursivley edits all files to remove PGP artefacts and updates YAML to output it as the correct format</li>
 </ol>
+<h2 id="clarifications">Clarifications</h2>
+<p>There are limitations to this method.</p>
+<p>One that was brought up to me by a friend is that with pages like <a href="/build-logs">build-logs</a>, the links are not part of the signed post. This is mainly due to how the site is built. Within Hugo, there is a template called <code>list.html</code>. This template is used to output pages like <a href="/build-logs">build-logs</a>, where it acts as a directory too other posts.</p>
+<p>An example of this template is shown below</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ define &#34;main&#34; }}
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Title | urlize }}&#34;</span>&gt;{{ .Title | markdownify }}&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    {{ .Content }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ range .Pages }}
+</span></span><span style="display:flex;"><span>        {{ .Render &#34;li&#34; }}
+</span></span><span style="display:flex;"><span>    {{ end }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{{define &#34;aside&#34; }}
+</span></span><span style="display:flex;"><span>    {{ if .Params.description }}&lt;<span style="color:#f92672">p</span>&gt;{{ .Params.description }}&lt;/<span style="color:#f92672">p</span>&gt;{{ end }}
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div><p>The part that is signed is the <code>.Content</code>. I would argue that this makes sense, given I didn&rsquo;t put the links there, a script did <em>but</em> this does deserve to be clarified.</p>
 <h2 id="what-next">What next</h2>
 <p>I&rsquo;m going to go over my plans following this in the accompanying post I&rsquo;ll do in the build logs section, however in short this has somewhat negatively affected my workflow. I have plans to rectify this, mainly revolving around a few new scripts, and potentially cloning a repo and creating a &ldquo;writing environment&rdquo; where I can just write my posts. This has also messed with the formatting of some posts, but again, fairly easy to fix (I hope). Keep an eye out for that post!</p>
 
