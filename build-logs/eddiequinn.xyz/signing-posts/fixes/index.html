@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>Signing Posts &ndash; eddiequinn.xyz</title>
+    <head><title>7- Fixes &ndash; eddiequinn.xyz</title>
 <meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,37 +47,26 @@
 </header>
 
             <section class="page__body">
-    <h1 id="signing-posts">Signing Posts</h1>
+    <header class="content__header">
+        <h1>7- Fixes</h1>
+    </header>
     
-    <p>I&rsquo;ve discussed this at length in the posts below, but the jist of it is I want everything on this website signed with my PGP key. The reason for this is predominately proof of authorship/ownership, however, it does go deeper than that. I am a strong believer in practising what I preach, and I firmly believe that mathematics is the only secure way to prove anything. I want this form of authentication to become the defacto in modern society, and the only way only philosophically coherent way I can take that position is by making sure my services offer this (including this site).</p>
-<p>There is an argument to be made that I sign my git commits and therefore it makes this redundant, however, I do not think so. A git commit is simply a record of writing data to a repo, it does not necessarily mean that the data itself was placed inside the commit by you. The action and the content of the action are philosophically different things.</p>
-<p>Regardless, please find the relevant posts on this specific project below.</p>
+    <div class="content__body">
+        <p>I cannot spend too much time on this post because I have other things to do today. I have found possible solutions to all of the problems I mentioned in <a href="/build-logs/eddiequinn.xyz/signing-posts/mvp/">the previous post</a>. As per usual I have made a dog&rsquo;s ear over a very simple problem. I was however along the right lines with my previous idea of having an auto-sign script</p>
+<h2 id="the-issues">The issues</h2>
+<p>The way I see it there are three key issues</p>
+<p><strong>1) Auto-signing -</strong> I need a script to auto-sign the posts, because doing it by hand is tedious and I want to make it easier for me to write posts rather than harder
+<strong>2) Post-sign formatting -</strong> There are &ldquo;issues&rdquo; (not really issues, it&rsquo;s done for a reason) with gpg where it replaces &ldquo;-&rdquo; with &ldquo;&ndash;&rdquo; with a space between. It also converts the document to ASCII rather than UTF-8. This means the resulting text is sometimes mangled in some way.
+<strong>3) Writing environment -</strong> Because I can&rsquo;t use <code>hugo server</code> to see a live rendering of the site, this makes things difficult</p>
+<p>There are other issues but look at the previous post for those.</p>
+<h2 id="the-solutions">The solutions</h2>
+<p>The solution(s) are fairly simple. I don&rsquo;t know why I got it in my head that I need to have the posts saved in the git repo signed. The fact is it&rsquo;s a private repo, and will become even more private when I eventually put them on my git server i.e. they will never be seen publically. If I just write an auto-sign script that signs the posts during the publication process, then all my problems are solved.</p>
+<p>The auto-signing script is inherently going to be solved, evidenced by its meer existence. The post sign formatting will be solved because I do not need to convert the posts back to their original state post sign - this does present a minor issue that the post and the signed post may have minor differences, but that can be clarified in the post explaining this. The writing environment problem is solved, because I would be able to render the live site again</p>
+<h2 id="why-havent-i-dont-this-yet">Why haven&rsquo;t I dont this yet</h2>
+<p>I haven&rsquo;t done this yet because, despite my LARPing as a programmer, I am a glorified script kiddie. This is not to say I can&rsquo;t do it, because I can, after all, I wrote the last script. It is me saying that a script like this, which would take some of my friends half an hour, might take a few hours for me. I&rsquo;ll get around to it though.</p>
 
-    
-    <ul>
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/encryption/">1- Encryption</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/">2- My encryption problem</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/">3- Revisiting My Encryption Problem</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/new-plan/">4- New Plan</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/progress/">5- Progress?</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/mvp/">6- Mvp</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/fixes/">7- Fixes</a></li>
-
-    
-    </ul>
+    </div>
+    <footer class="content__footer"></footer>
 
             </section>
 
@@ -116,6 +105,14 @@
 </div>
                 <hr>
                 <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-28
+        </p>
+    
+
     
 
                 </div>

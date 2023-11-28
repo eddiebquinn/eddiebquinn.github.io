@@ -7,25 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Sun, 01 Oct 2023 07:48:00 +0100</lastBuildDate><atom:link href="https://eddiequinn.xyz/nts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Oct 2023 07:48:00 +0100</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/nts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Travel Checklist</title>
       <link>https://eddiequinn.xyz/nts/travel-checklist/</link>
       <pubDate>Sun, 01 Oct 2023 07:48:00 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/nts/travel-checklist/</guid>
       <description>The reason I am writing this note is that I am essentially declaring bankruptcy on my ability to prepare and pack for a trip with no external workflow. If you ever think you do not need this list Ed, I would like to remind you of the following events
 Lake district trip - Remember that time you forgot your braces and had to hold your trousers up for two weeks? I do Amsterdam trip - Remember how you have no good way to charge multiple devices at once?</description>
     </item>
-    
     <item>
       <title>My Distro Install Guide</title>
       <link>https://eddiequinn.xyz/nts/my-distro-install-guide/</link>
       <pubDate>Tue, 05 Sep 2023 09:43:28 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/nts/my-distro-install-guide/</guid>
       <description>One of the best things about Unix-based operating systems is how customisable they are. I originally came to Linux as a flex on my other nerdy friends, however, I stayed because for the first time in my life my machine was mine. Most Windows users wouldn&amp;rsquo;t appreciate this, some Linux users may not even - however there is a subset of Linux users who do understand this. ext4 becomes btrfs, sddm becomes ly, gnome/kde becomes BSPWM.</description>
     </item>
-    
   </channel>
 </rss>

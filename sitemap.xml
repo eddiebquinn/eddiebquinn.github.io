@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/fixes/</loc>
+    <lastmod>2023-11-28T09:55:41+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/fixes/sig.txt</loc>
+    <lastmod>2023-11-28T09:55:41+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/mvp/</loc>
     <lastmod>2023-11-19T16:45:36+00:00</lastmod>
   </url><url>
@@ -11,10 +17,10 @@
     <loc>https://eddiequinn.xyz/posts/</loc>
     <lastmod>2023-11-19T13:17:35+00:00</lastmod>
   </url><url>
-    <loc>https://eddiequinn.xyz/posts/2023/nov/signing-posts/</loc>
+    <loc>https://eddiequinn.xyz/posts/2023/nov/verify-this-post/</loc>
     <lastmod>2023-11-19T13:17:35+00:00</lastmod>
   </url><url>
-    <loc>https://eddiequinn.xyz/sigs/posts/2023/nov/signing-posts/sig.txt</loc>
+    <loc>https://eddiequinn.xyz/sigs/posts/2023/nov/verify-this-post/sig.txt</loc>
     <lastmod>2023-11-19T13:17:35+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/progress/</loc>

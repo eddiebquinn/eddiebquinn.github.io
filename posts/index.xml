@@ -7,246 +7,195 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Sun, 19 Nov 2023 13:17:35 +0000</lastBuildDate><atom:link href="https://eddiequinn.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Nov 2023 13:17:35 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Signing Posts</title>
-      <link>https://eddiequinn.xyz/posts/2023/nov/signing-posts/</link>
+      <title>Verify this post (I dare you)</title>
+      <link>https://eddiequinn.xyz/posts/2023/nov/verify-this-post/</link>
       <pubDate>Sun, 19 Nov 2023 13:17:35 +0000</pubDate>
-      
-      <guid>https://eddiequinn.xyz/posts/2023/nov/signing-posts/</guid>
+      <guid>https://eddiequinn.xyz/posts/2023/nov/verify-this-post/</guid>
       <description>Some of you may remember earlier on in the year I went through a phase of wanting to sign my posts with PGP. This plan fell to the wayside fairly quickly and got &amp;ldquo;placed on the backburner&amp;rdquo; i.e. I will fix this when I figure out how. Well, after finding myself away from work for a week I have taken the time to figure this out.
 Taking advantage of the new feature Before I get into how I did this I want to clarify how you can take advantage of this new feature.</description>
     </item>
-    
     <item>
       <title>PGP in Depth</title>
       <link>https://eddiequinn.xyz/posts/2023/nov/pgp-in-depth/</link>
       <pubDate>Tue, 14 Nov 2023 13:34:06 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/nov/pgp-in-depth/</guid>
       <description>If you pay attention to this site some of you may have noticed the inclusion of a new section of the site called build-logs. It essentially covers progress notes on various projects I am working on. One major project I am working on regarding this site is setting up automated PGP signing of the posts on it. I gave a brief explanation of how PGP works in one of the posts in that section, and I feel it gives a good and clear explanation of the concept of public key cryptography to a layman.</description>
     </item>
-    
     <item>
       <title>Where Do Governments Derive Their Right to Rule</title>
       <link>https://eddiequinn.xyz/posts/2023/oct/where-do-goverments-derive-their-right-to-rule/</link>
       <pubDate>Wed, 25 Oct 2023 00:33:25 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/oct/where-do-goverments-derive-their-right-to-rule/</guid>
       <description>So I am a libertarian - I hold opinions that are controversial in a traditional sense, but when you boil them down to their core sentiments, most people share. An example of this, I feel that gun ownership should be liberalised. The typical first reaction to this is &amp;ldquo;Oh so you don&amp;rsquo;t care at all about kids being murdered?&amp;rdquo;, which can be translated to &amp;ldquo;I disagree with your statement&amp;rdquo;. However, when I express my reasoning behind it, most people come to understand that the pro/anti-gun argument is a tad more complex than &amp;ldquo;gun kills person, and kil is bad&amp;rdquo;.</description>
     </item>
-    
     <item>
       <title>Hcpp 2023</title>
       <link>https://eddiequinn.xyz/posts/2023/sept/hcpp-2023/</link>
       <pubDate>Sat, 30 Sep 2023 11:52:24 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/sept/hcpp-2023/</guid>
       <description>I didn&amp;rsquo;t quite anticipate writing about this particular post. It started as me wanting to write down a list of everything I should bring with me when I travel for future reference. I however have found myself in a spot where I am quite taken aback by an event, and feel for the sake of my future self I need to write down my current thoughts to reflect on at some point.</description>
     </item>
-    
     <item>
       <title>My Search for Meaning</title>
       <link>https://eddiequinn.xyz/posts/2023/aug/my-search-for-meaning/</link>
       <pubDate>Wed, 09 Aug 2023 14:19:51 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/aug/my-search-for-meaning/</guid>
       <description>I tried to write a post yesterday about this topic, but it became a rambly mess about how I want to start a photography project. I have changed a lot since 2020, and at points, I am still trying to decide if it is for the better or the worse. In one way, I have become more self-reliant and grown up a lot. In another way, I have become more cynical and mistrusting of those around me.</description>
     </item>
-    
     <item>
       <title>The Best Way to Use Reddit</title>
       <link>https://eddiequinn.xyz/posts/2023/jun/the-best-way-to-use-reddit/</link>
       <pubDate>Sat, 03 Jun 2023 08:49:27 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jun/the-best-way-to-use-reddit/</guid>
       <description>The other day I was going through my RSS feeds and I encountered this article
 Reddit Is Killing The Best Way To Read The Site.
 The thought that instantly entered my head was &amp;ldquo;the best way to use reddit is to not use it at all&amp;rdquo;. I have mentioned before how I think reddit, inspite of my fond memories of it during the 2010&amp;rsquo;s, is a case study of everything wrong with the modern day internet.</description>
     </item>
-    
     <item>
       <title>Dunning Kruger</title>
       <link>https://eddiequinn.xyz/posts/2023/may/dunning-kruger/</link>
       <pubDate>Sun, 07 May 2023 12:50:08 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/may/dunning-kruger/</guid>
       <description>When I was in secondary school at some point a realisation hit me, this realisation as time has gone on I have discovered is only a partial truth. Relying on this assumption on a general basis to make sense of human behavior is not an effective way to do it on general basis, but it can be an effective model to understand some of it. The assumption is as such:</description>
     </item>
-    
     <item>
       <title>Why I Left Social Media</title>
       <link>https://eddiequinn.xyz/posts/2023/may/why-i-left-social-meedia/</link>
       <pubDate>Tue, 02 May 2023 16:39:22 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/may/why-i-left-social-meedia/</guid>
       <description>In January of 2023, I went to Amsterdam with a friend - Following my coming back I was going to make a post on the total sensory overload that I experienced there but I never got around to it. I had always wanted to go to Amsterdam, and now I have gone I fully intend to go back before the year is out. This post is not me chronicling that adventure, the truth is that spending two days smoking weed with my Dutch friend is just not that interesting of a story.</description>
     </item>
-    
     <item>
       <title>Certification Roadmap</title>
       <link>https://eddiequinn.xyz/posts/2023/mar/certification-roadmap/</link>
       <pubDate>Tue, 21 Mar 2023 01:58:39 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/mar/certification-roadmap/</guid>
       <description>I have mentioned my job on this blog a couple of times. I don&amp;rsquo;t want to get into that much detail about it - This has very little to do with any rules and regulations on my job itself, it is more related to I have found it to be best practice not to discuss these things online. That being said my continuous professional development and my job itself exist in different domains.</description>
     </item>
-    
     <item>
       <title>TENET and the reverse pincer movement</title>
       <link>https://eddiequinn.xyz/posts/2023/mar/tenet-a_film_about_a_military_tactic/</link>
       <pubDate>Sat, 18 Mar 2023 02:36:15 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/mar/tenet-a_film_about_a_military_tactic/</guid>
       <description>When I originally wrote this article I was going to go on a massive schpeel about the question of &amp;ldquo;what is art?&amp;rdquo; The questions itself has very little to do with the subject matter of this post, which is why I cut it out. That being said I do not want to discount what I wrote, that being that art itself doesn&amp;rsquo;t have rigid borders of what does and does not fall into the category.</description>
     </item>
-    
     <item>
       <title>Intermittent Fasting</title>
       <link>https://eddiequinn.xyz/posts/2023/mar/intermitent-fasting/</link>
       <pubDate>Thu, 16 Mar 2023 14:51:44 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/mar/intermitent-fasting/</guid>
       <description>During the original lockdown, I had just gotten out of what was hopefully the worst relationship of my life. I won&amp;rsquo;t explain why this relationship was so bad, those who know - she has caused enough damage and I do not plan to invite anymore. Post break up I had what I think alcoholics refer to as a moment of clarity when all of the comforts fall away and you find yourself at rock bottom.</description>
     </item>
-    
     <item>
       <title>2023 Goals - March update</title>
       <link>https://eddiequinn.xyz/posts/2023/mar/2023_goals-m_update/</link>
       <pubDate>Tue, 14 Mar 2023 20:30:04 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/mar/2023_goals-m_update/</guid>
       <description>This post is a tad overdue, a timeline of illness to birthday back to illness is to blame for that. I am very much playing catch-up now, intending to publish enough posts to make up for last month&amp;rsquo;s backlog, and this month&amp;rsquo;s quota.
 Overall February was somewhat of a success. I fell behind in regards to publishing blog posts and still haven&amp;rsquo;t made successful headway with the book&amp;rsquo;s goals, however in regards to my goals of being healthier and paying off my overdraft I have made progress.</description>
     </item>
-    
     <item>
       <title>Chess</title>
       <link>https://eddiequinn.xyz/posts/2023/mar/chess/</link>
       <pubDate>Sun, 05 Mar 2023 14:42:13 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/mar/chess/</guid>
       <description>I go through phases where I become obsessed with things for a couple of weeks, burn out, and then move on to something else. This cycle continues until a point where I wind up back to being in a fleeting-obsessive state about. The theory behind it, or at least the one that I have always subscribed to is that autistic people become obsessed with this in an attempt to understand it better, and in effect understand the world better.</description>
     </item>
-    
     <item>
       <title>Diet Drinks are Still Bad</title>
       <link>https://eddiequinn.xyz/posts/2023/feb/diet-drinks-still-bad/</link>
       <pubDate>Sun, 19 Feb 2023 00:56:10 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/feb/diet-drinks-still-bad/</guid>
       <description>In a recent post, I mentioned that as part of my trying move towards achieving my 2023 goal of &amp;ldquo;be healthier&amp;rdquo; I was going to quit energy drinks. There are multiple reasons for this, many of which I am going into detail in this post. What I did not quite anticipate is the human mind&amp;rsquo;s ability to move towards something just as bad when a crutch is taken away.
 Energy drinks, cigarettes, and car-parks I was emo, and arguably still am based on my Spotify Libary.</description>
     </item>
-    
     <item>
       <title>LDMR</title>
       <link>https://eddiequinn.xyz/posts/2023/feb/ldmr/</link>
       <pubDate>Sun, 12 Feb 2023 02:49:54 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/feb/ldmr/</guid>
       <description>When I was in sixth form one of the first things I was taught in economics is the law of diminishing marginal returns. LDMR states that as the quantity of a variable input used in production increases, while all other inputs are held constant, the marginal output of that input will eventually decrease. The common way to explain this is with the guns-and-butter framework, which refers to the trade-off between two competing priorities in an economy: military spending (represented by &amp;ldquo;guns&amp;rdquo;) and consumer goods spending (represented by &amp;ldquo;butter&amp;rdquo;).</description>
     </item>
-    
     <item>
       <title>2023 Goals Updates</title>
       <link>https://eddiequinn.xyz/posts/2023/feb/2023-goals-updates/</link>
       <pubDate>Sun, 05 Feb 2023 13:47:54 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/feb/2023-goals-updates/</guid>
       <description>Five days into the second month and I don&amp;rsquo;t appear to have successfully sat down to write a blog post - I must be slacking. This post is more of a self-check-in, to make sure that I&amp;rsquo;m trying to stick to the goals that I set for myself in the new year. It probably is not going to be as thought-provoking as other posts given that context.
 Goal 1) Im going to write more This goal is one of those which I want to say was a resounding success - Not only did I write the number of posts I needed to write for that month, I enjoyed it.</description>
     </item>
-    
     <item>
       <title>ChatGPT is a two-edged sword</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/gpt3-the-best-teacher-you-never-had/</link>
       <pubDate>Sat, 21 Jan 2023 22:53:30 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/gpt3-the-best-teacher-you-never-had/</guid>
       <description>I am quite a cynical person in general. I don&amp;rsquo;t think it is an unfair statement for me to say that I look at most things in life with an air of caution. This is not out of some unfounded paranoia of the world around me, conspiracy theories are fun but most are just fun and games. The thing is though when you look slightly below the surface level on most things you will understand the world is a very ugly place.</description>
     </item>
-    
     <item>
       <title>Finite by Design</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/finite-by-design/</link>
       <pubDate>Fri, 20 Jan 2023 03:33:44 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/finite-by-design/</guid>
       <description>I am reaching an odd point in life, one which I feel many people reach, where I have many many projects I want to work on and very little time to actually dedicate to them. This seems idiotic to actually write a post about, but when you come to accept that very few people actually read your blog, then it becomes more of a self-monologue than a communication to your peers.</description>
     </item>
-    
     <item>
       <title>LOL Limewire</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/lol-limewire/</link>
       <pubDate>Wed, 18 Jan 2023 00:07:10 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/lol-limewire/</guid>
       <description>After my recent stint of watching Hunting Hitler, I have found myself in that melancholy state that many do after finishing a good series, riddled with the question &amp;ldquo;what will I use to distract myself from actual tasks now&amp;rdquo;. After watching several case studies of mediocrity that occupy the current low-attention-span-cultural-zeitgeist I found the new Netflix series &amp;ldquo;The Playlist&amp;rdquo;. I am only two episodes in, but from my basic understanding It chronicles the creation of Spotify from multiple points of view.</description>
     </item>
-    
     <item>
       <title>The oddly freeing experience of studying in Starbucks</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/studying-in-starbucks/</link>
       <pubDate>Tue, 10 Jan 2023 16:23:21 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/studying-in-starbucks/</guid>
       <description>I think the lockdown taught a lot of people about themselves. The main thing it shed light on is that a lot of people live their lives in such a way, that &amp;ldquo;social distancing&amp;rdquo; didn&amp;rsquo;t pose such a disruption to their day to day. Don&amp;rsquo;t get me wrong, I am okay with not having a massive circle of friends, and while a younger version of me would have said that utterly disingenuously, I don&amp;rsquo;t.</description>
     </item>
-    
     <item>
       <title>A post where I talk about my weight</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/a-post-where-i-talk-about-my-weight/</link>
       <pubDate>Sat, 07 Jan 2023 10:11:24 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/a-post-where-i-talk-about-my-weight/</guid>
       <description>So admittedly this post was going to be a summary of a hacker news thread I saw called Ask HN: What is the best advice you received in 2022. I only recently joined HN, but it gives me a similar warm comfy feeling that old-school Reddit did. It encourages intelligent back-and-forth conversation, where having an unpopular opinion doesn&amp;rsquo;t automatically mean some gremlin bans you from commenting again in /r/whatever. In reality, I have only ever been banned from one subreddit, and that was before the CCP levels of over-moderation became commonplace, but that hasn&amp;rsquo;t stopped me from watching the site (I once was a happy member of) devolve into the cesspit it is today.</description>
     </item>
-    
     <item>
       <title>Choosing life isnt as bad as you think</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/choose-life/</link>
       <pubDate>Mon, 02 Jan 2023 14:08:41 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/choose-life/</guid>
       <description>I often find it hard to pick my favourite film or even my top ten favourite films. I have spent the past few years trying to expose myself to the best that the media industry has to offer. I will say that despite all of what I have watched no film has had such a large impact on me, and how I view the world, as Trainspotting. Ironically enough I have never read the original book, despite my long-term intentions to do so.</description>
     </item>
-    
     <item>
       <title>My goals for 2023</title>
       <link>https://eddiequinn.xyz/posts/2023/jan/2023-goals/</link>
       <pubDate>Sun, 01 Jan 2023 14:07:25 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2023/jan/2023-goals/</guid>
       <description>I made a lot of promises to myself of things I was going to do in 2023 - I overall have followed an interesting path over the past 3 years, and I do consider myself now to be entirely different to the person I was in 2020. I have hinted on this blog prior that I went to university, but have never gone into quite so much detail on my experience there - this blog is not going to be that tell-all, but I will say that I learnt to allot from university (none of it was even remotely related to economics, however).</description>
     </item>
-    
     <item>
       <title>How to harden SSH - Basic guide</title>
       <link>https://eddiequinn.xyz/posts/2022/harden_ssh/</link>
       <pubDate>Wed, 12 Oct 2022 15:08:39 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2022/harden_ssh/</guid>
       <description>This post (unlike my other two) is not going to be a ranty post about something that annoys me. This in truth is more of a reference guide on how to harden OpenSSH. I&amp;rsquo;m not going to do a massive paragraph on what is ssh, if you reading this you likely already know - however for background, ssh stands for secure shell, and is one of the most popular ways to administer Linux (and sometimes windows) servers.</description>
     </item>
-    
     <item>
       <title>Mfa Fatigue - The black sheep of the MFA family</title>
       <link>https://eddiequinn.xyz/posts/2022/mfa-fatigue/</link>
       <pubDate>Sun, 25 Sep 2022 23:33:22 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2022/mfa-fatigue/</guid>
       <description>In September 2022 Uber, the most popular ride-sharing service was hacked. An 18-year-old used a combination of social engineering, MFA fatigue, and directory pivoting to stumble into unfettered access to Uber&amp;rsquo;s internal network. This is an allegory of oversight in the cybersecurity field. I am not going to spend ten minutes ranting about this hack, because it has had an overbearing amount of coverage over the past two weeks. I am however going to talk about one of the techniques the hacker used to gain access to the account, MFA fatigue</description>
     </item>
-    
     <item>
       <title>Protonmail - A wolf in sheep&#39;s clothing</title>
       <link>https://eddiequinn.xyz/posts/2022/protonmail_wolfinsheepsclothing/</link>
       <pubDate>Fri, 23 Sep 2022 21:04:56 +0100</pubDate>
-      
       <guid>https://eddiequinn.xyz/posts/2022/protonmail_wolfinsheepsclothing/</guid>
       <description>This article is going to discuss the controversial issue of why does Protonmail not actually measure up to what it claims to be. This article is going to annoy a lot of people inside the alt-tech domain, and Iâm okay with this. This blog was never meant to be a place where I state popular opinions on things, it was always going to be a verbose and unapologetic collection of articles on subjects I find interesting.</description>
     </item>
-    
   </channel>
 </rss>
