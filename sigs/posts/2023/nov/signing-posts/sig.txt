@@ -75,21 +75,48 @@ To simplify its functionality, it does the following
 3) Copies all files out of the `sigs` directory into the content directory
 3) Recursivley edits all files to remove PGP artefacts and updates YAML to output it as the correct format
 
+## Clarifications
+There are limitations to this method.
+
+One that was brought up to me by a friend is that with pages like [build-logs](/build-logs), the links are not part of the signed post. This is mainly due to how the site is built. Within Hugo, there is a template called `list.html`. This template is used to output pages like [build-logs](/build-logs), where it acts as a directory too other posts.
+
+An example of this template is shown below
+```html
+{{ define "main" }}
+    <h1 id="{{ .Title | urlize }}">{{ .Title | markdownify }}</h1>
+
+    {{ .Content }}
+
+    <ul>
+    {{ range .Pages }}
+        {{ .Render "li" }}
+    {{ end }}
+    </ul>
+
+{{ end }}
+
+{{define "aside" }}
+    {{ if .Params.description }}<p>{{ .Params.description }}</p>{{ end }}
+{{ end }}
+
+```
+The part that is signed is the `.Content`. I would argue that this makes sense, given I didn't put the links there, a script did *but* this does deserve to be clarified.
+
 ## What next
 I'm going to go over my plans following this in the accompanying post I'll do in the build logs section, however in short this has somewhat negatively affected my workflow. I have plans to rectify this, mainly revolving around a few new scripts, and potentially cloning a repo and creating a "writing environment" where I can just write my posts. This has also messed with the formatting of some posts, but again, fairly easy to fix (I hope). Keep an eye out for that post!
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVaHq4ACgkQvUo0nUeo
-F5zpOg//eGaFCjlGgg3cJu8LhPhy2BR84ZUK3LpHecqU5EBSdiWQ6xlmmdBEuq4d
-BFwhL0M5eWABeq3W99vsmEjo9LMv/2jfUQk6EZT4tKYjvSAvQrnP6DShdTbn1ZSh
-TyUAvaBs/nqJ9AB2R0+j6i8eLMikc5zfN9DhpMJtMJCJu1wrh11TEUpi0WWkUAZm
-RBsbXtzWJshma6lKpohlD3L3bXShUc8UEuWYzMkKlJ24Q5NwulNQdoms/k9RFlY5
-jGroplQAQ3OER43Kcne7o55pkD4VIZcbLG+JoZOY9WRvw8F68EhnFkHp82alkHt6
-BwQKna7986a+jnItet5anhvbR+pUeAeiEHF8++/imvdjsicN6E3hq0H3JMqoUwzv
-DZ6nAzjuW1y3JUAulbG2ip3jUKTSg3s5/xy0RfDCsCrrXJz3GyQJDZsZUukkmy+V
-s8PxkaDVaBg80h5dcLkGdfW2i57Bsl3hk8wxveK8TzKgG8+63gceTVH9ZVl7ax8N
-XW3nsbkCkJzeExyMZkOHna2flGbKnvpTsWrPhk+2ieDWgEW2h4Fk4uxDby5/chLG
-7RpUq77SWTQaB44Us73a8RbCns7sOFvlsX3Y/IpiqkCJsUlKk7I3OrSx8wZ64y6d
-uOpKdvgS6d94SCMhkJebidTUTdodhxtVh12/8Rj4pJRHGJB8hVY=
-=kNtf
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVhRCUACgkQvUo0nUeo
+F5zPFg//alp38v3QzU7nZj5jhNJoWHZ1Z8L8vTyNTMamp6TAprKS6+p3ikM5ldpW
+vBYOTksataRzqLQIpb6yigeYWYUyicLAyMKS5V04DmItKJMLpgzF5kUkjhDbGliS
+M6YmJlS2EABHJAFnxM/vpCyQAM56ruKbiAGUS27iDOCsEBZUfzGwBOp/fmpkYNSj
+ySAnc8vaVMk0mjvZ8wszVCKrXNRZqUS8YGLWmDFqK52JWBeeiOkQdC9F1iKEWoaV
+dVzKd50O5oEu4qeZ313kaHf3E2Q+uxkgWL1QpbN6DKkdZAJcw5Uu6DseeNhioSdH
+qS4KUskhijgvQ7ng3/0LEoS/UPetTcBJJ1UCDxu7GvF2eMY7SUxedppK+g8pxz1y
+vaWkN0mgcI1Z45EWDX5dZw9qoo/xDWHQqLVvaJsmtgBJKS6yQUC0P2RTYn/gMEUc
+DvdhUWIIjgDsWd97SPoVTKiLDiKIm/eRl12BNzVReo5fghn/bAFKC/WqIhPkY8FN
+aoEHYa+U96GYtcoTnJzrkBApzBVunaCObiTwSVo0fffXJpRJjgAbuBoYs/fUBPmB
+0gbxKLglw8qCQ5R4iLrbC2wef7tA3y4qikSkLGqTb1PetVhEtNmj5TTAPvCdt0CO
+lOkFmqbYqWs/cX6bb4pfalChPgnFAz1Uyz/xxECrI8+QzE5iAXo=
+=bTPb
 -----END PGP SIGNATURE-----
