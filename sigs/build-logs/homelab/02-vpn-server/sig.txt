@@ -1,29 +1,131 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-I have wanted to set up a VPN server into my home network since before I fully understood what a VPN server could do. Back then I knew it could facilitate me being able to access my files in my home network while remote, however, if you was to ask that version of me how to set it up he would wind up embarrassing himself. The fact of the matter is I have two key choices to be able to do this
+I have wanted to set up a VPN server into my home network since before I fully understood what a VPN server could do. Back then I knew it could facilitate me being able to access my files in my home network while remote, however, if you were to ask that version of me how to set it up he would wind up embarrassing himself. The fact of the matter is I have two key choices to be able to do this
 
-1. Open up a series of ports on my router - As someone whose entire personality is bakes into privacy and security this just is not an option
+1. Open up a series of ports on my router - As someone whose entire personality is baked into privacy and security this just is not an option
 2. Set up a secure tunnel to access my resources outside the house
 
-In an ideal world, I want to set up Wiregard on Open BSD. The reason behind this is because, in my opinion, and many others, OpenBSD is one of the most secure server operating systems in circulation today. The reason behind this is that they implement a secure by default design, facilitated by its minimal attack surface. This is especially important because this is going to be the only port that will be open on my network. If I am going to open a hole in my perimeter, which anyone can scan or enumerate at any point, then I want to trust the tech stack that is running on that hole - this is especially true for the operation. This is a similar reason why in this ideal configuration I will be running Wiregaurd - while it is the new kid on the block, it does many things a lot better than allot of its competitors. The reason behind this is that the underlying protocol is very simple
+In an ideal world, I want to set up Wiregard on Open BSD. The reason behind this is because, in my opinion, and many others, OpenBSD is one of the most secure server operating systems in circulation today. The reason behind this is that they implement a secure by default design, facilitated by its minimal attack surface. This is especially important because this is going to be the only port that will be open on my network. If I am going to open a hole in my perimeter, which anyone can scan or enumerate at any point, then I want to trust the tech stack that is running on that hole - this is especially true for the operation. This is a similar reason why in this ideal configuration I will be running Wiregaurd - while it is the new kid on the block, it does many things a lot better than a lot of its competitors. The reason behind this is that the underlying protocol is very simple
 
 Notice however how I said ideal? Well, this is where we move into Agile territory, where that is the end goal but the MVP is going to be Wireguard running on Ubuntu. Now there is nothing wrong with this software combination; It works, and it is reasonably secure. I am choosing this to start with because there are many many tutorials, some from content creators that I trust, on setting up this sort of server (the one I will be following is [this one](https://www.youtube.com/watch?v=rtUl7BfCNMY) from wolfgangs channel). If it fails with wireguard however, I will settle for OpenVPN in the meantime while I learn more about WireGuards setup.
 
-Also worth mentioning here is my issue with BT. Now this is not a problem as long as I configure the VPN correctly, however, I do not want to be put in this position for much longer. Because my TP-Link router is not plugged into the demarcation port directly, all traffic still flows through the original ISP router, which is not in bridging mode. What this means is that my home network is essentially a private network, within a private network - which is cringe. This means if I want to port forward my VPN connection, I need to port forward it on the TP-Link router, with it pointing to the raspberry pi AND THEN port forward the BT Router to point to the TP-Link router. While this is not difficult to do, I do not like it, and because of that, I want to treat depreciating the BT router as a P2 in the medium term. I need to replace the BT Router with a modem, and from the research, I have done the `Huawei HG612` is the model that was typically used by BT back in the day, and can still be bought from eBay fairly cheaply (either that or I go ham and buy [this](https://www.amazon.co.uk/gp/product/B0B3Y52BQW/ref=ewc_pr_img_2?smid=A1T68U0AS07YKL&psc=1)). The only other issue is that one of our home lines runs into the BT Router - I think I can plug this directly into a phone itself, but I will need to look into this.
+Also worth mentioning here is my issue with BT. Now this is not a problem as long as I configure the VPN correctly, however, I do not want to be put in this position for much longer. Because my TP-Link router is not plugged into the demarcation port directly, all traffic still flows through the original ISP router, which is not in bridging mode. What this means is that my home network is essentially a private network, within a private network - which is cringe. This means if I want to port forward my VPN connection, I need to port forward it on the TP-Link router, with it pointing to the Raspberry Pi AND THEN port forward the BT Router to point to the TP-Link router. While this is not difficult to do, I do not like it, and because of that, I want to treat depreciating the BT router as a P2 in the medium term. I need to replace the BT Router with a modem, and from the research, I have done the `Huawei HG612` is the model that was typically used by BT back in the day, and can still be bought from eBay fairly cheaply (either that or I go ham and buy [this](https://www.amazon.co.uk/gp/product/B0B3Y52BQW/ref=ewc_pr_img_2?smid=A1T68U0AS07YKL&psc=1)). The only other issue is that one of our home lines runs into the BT Router - I think I can plug this directly into a phone itself, but I will need to look into this.
+
+## Open BSD + Wireguard (Attempt 1)
+So this is going to be me taking notes as I do this. I have the second Pi in the tower, the SD card hasn't arrived yet so I'm more researching how I am going to do this first. I know I said I would try Wireguard running on Ubuntu as a first try, but I will test this first just to see if it works. Please find a pic of the growing bramble below
+
+![image of two layer bramble](/two-layer-bramble.png)
+
+So the task at hand boils down to two sub-tasks
+1) Installing OpenBSD on a Raspberry Pi 4
+2) Installing and configuring Wireguard on OpenBSD
+
+I'll explore the research I've gathered on these two below
+
+**Installing OpenBSD**
+So I did some research on this last month and found [this video](https://www.youtube.com/watch?v=Sp-cqXisgaw) of someone who has done it before; this tells me it is at least possible, even if it is not widely covered. Devling deeper I found [this post](https://github.com/ashyisme/openbsd-rpi4) which details instructions. This is going to be a fairly complex process, so I'll detail it below for future me
+
+1) **Update EEPROM -** Log into vanilla raspery-pi-os. I'm going to want to update it using `apt` and update the `eeprom` using a separate command. Both below
+
+```bash
+apt update && apt upgrade -y
+rpi-eeprom-update
+```
+
+*(It might also be worth setting the DHCP for this MAC as a reserved address at this point also)*
+
+2) **Load the latest UEFI onto the sd card -** This can be done directly from the raspberry pi imager, I just need to choose the bootloader. I may let this Pi boot from USB, so I'll also choose the `USB boot` option. After this, I insert the SD card I have flashed the UEFI onto into the Pi. After turning it on the green activity light should start rapidly flashing, and if I have connected an HDMI monitor the screen will turn green if successful.
+
+3) **Set UEFI settings for OpenBSD compatibility -** I need to change three settings
+* Device Manager -> Raspberry Pi Configuration -> Advanced Configuration -> Limit RAM to 3 GB: Disabled
+* Device Manager -> Raspberry Pi Configuration -> Advanced Configuration -> System Table Selection: Device tree
+* Device Manager -> Raspberry Pi Configuration -> SD/MMC Configuration -> uSD/eMMC Routing: eMMC2 SDHCI
+
+4) **Install OpenBSD -** So now is probably a good time to mention I have never used any derivative of BSD, let alone installed it. I am moderately terrified, but also excited with this. It looks like to do this I need to go to the [this page](https://www.openbsd.org/ftp.html), choose a mirror, choose my architecture, and download the `miniroot` image file. I need to burn that into the SD card using `dd` and insert it into the Pi. With a keyboard and monitor attached, I can turn on the pi. I need to do any letter key press and backspace whatever I typed. Then I need to set `tty fb0` (more info on that [here](https://marc.info/?l=openbsd-arm&m=160683302013161&w=2)). Following this do a normal OpenBSD install, remembering the following
+* Set framebuffer as default console (as per Solskogens note) -> `echo "set tty fb0" >> /etc/boot.conf`
+* Enable X11 -> `rcctl enable xenodm`
+
+This being done *theoretically* I should have a working BSD box. Do I believe this will work the first time? Of course not. I will need to do my regular hardening i.e. automatic updates, ssh hardening, etc. I'm sure it's going to be fun for me to figure out how to do that.
+
+**Installing Wireguard**
+Once SSH'd into the box I will want to become root using `su`. Then run the following commands
+
+1) Install Wireguard -> `pkg_add wireguard_tools`
+2) Allow forwarding on server interface (ipv4)-> `sysctl net.inet.ip.forwarding=1`
+3) Write new config to `/etc/sysctl.cong` -> `echo "net.inet.ip.forwarding=1 >> /etc/sysctl.conf`
+4) Create Wireguard dir and cd into it -> `mkdir -p /etc/wireguard && cd /etc/wireguard`
+5) Create a private key -> `wg genkey > private.key`
+6) Create a public key -> `wg pubkey <private.key> public.key`
+7) Create/edit Wireguard config file -> `vim wg0.conf`
+8) Insert the following and save
+
+```toml
+[Interface]
+PrivateKey = {SERVER-PRIVATE-KEY}
+ListenPort = 51820
+
+# Client 1
+[Peer]
+PublicKey = {CLIENT-PUBLIC-KEY}
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+```
+
+9) Configure the filewall in `/etc/pf.conf`. Add the following
+
+```conf
+pass in on wg0
+pass in inet proto udp from any to any port 51820
+pass out on egress inet from (wg0:network) nat-to (vio0:0)
+```
+
+10) Restart firewall -> `pfctl -f /etc/pf.conf`
+11) Create hostname for `wg0` in `etc` -> `vim hostname.wg0`
+12) Inset the following
+
+```conf
+inet 10.0.10.1 255.255.255.0 NONE
+up
+!/usr/local/bin/wg setconf wg0 /etc/wireguard/wg.conf
+```
+
+13) On the client device install `wireguard-tools` -> `paru -S wireguard-tools`
+14) Create `/etc/wireguard` dir and `cd` into it -> `mkdir -p /etc/wireguard && cd /etc/wireguard`
+15) Generate public-private keypair -> `sudo wg genkey | tee private | wg pubkey > public.key && mv private private.key`
+16) Create/edit config file -> `vim wg0.conf` and insert the following
+```toml
+[Interface]
+PrivateKey = {CLIENT-PRIVATE-KEY}
+Address = 10.0.10.2/24
+
+[Peer]
+PublicKey = {SERVER-PUBLIC-KEY}
+Endpoint = 192.168.0.0:51820 #Your public IP address
+AllowedIPs = 0.0.0.0/0 ::/0
+PersistentKeepalive = 25
+```
+
+17) Start Wireguard interface on server-> `sh /etc/netstart wg0`
+18) Start Wireguard interface on client -> `sudo wg-quick up wg0`
+19) Ping out from the client device to see if it works
+
+It is worth mentioning the following
+* with steps `12` and `16`. With the IPs that you set - they need to exist within the same subnet, but cannot be the same. On the client side, you are declaring what the IP will be for that device. 
+* When I want to add a new peer, I will have to deliver that in `wg0.conf` on the server. This has the potential to add a lot of administrative overhead, so I will need to see about finding a way to automate this.
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUOQACgkQvUo0nUeo
-F5z1Gg//ZxDsIvVcue1IHLimjJnzU4egT1FrIkiHmBCemldxI85bWR/5k6RNDYg6
-F2ZMZgbtfpojA3cehLw/t+qpql3iXqXPmYH7myZqbideB8Sk+R4GA6Y9obgtIzCk
-qsCbdqFPwbo/+mRT7LlfEGVXkxqUbmVYrlDd4+aW4qJgL7Z9FVVIun3oKtU1We9y
-6CX+RYYyiZ0Jq+EkpM43tIt3YOKi6XW895/O8TQCYLR5OpezFHZQT6T3CY/rdd2P
-RynBwvAtQ0xEsNKBcrozs/MXZYfSQhZ7mOquGexAtmJ82z5eHVdZfD0RIBUdnaHA
-gj7e0KifmBxSYBDugsLAlBJY6USS3oM92URurejRK970TcPoGsKgIu98b2AI1fDY
-SzA/b5ZplqQW81pG4D2804/V3GoqQ/VlCvAx7JsD02cg2OudGIrEKnGawV6juYGZ
-URXekkBxpa75mQeikRO92HA80K2NaMXr36ISjQNJG+ggUwNuM8+ORl8fRn2hBn9E
-JqagBdUYodhiCtbHCHll2A19qBduYgMdJMTyjSDapbu5b6rk8Q8meavgTM3sCvP3
-3NsqNTpts/Xhuyu+RWRnuLvp37siZ1HCFfEYWuYH7028KePjlhrKR9fcCnWeKAhc
-M2eMiaVzD3wI7i5d24tMZnfhD+zgdfauwDVnnMcjVRT9qKmDBHU=
-=omCv
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVmIh8ACgkQvUo0nUeo
+F5zCaBAAn9tmaxBiUOfzQcoTVcgMezeoQD60MFTLPTv9uexqVFYTG9SMfb9Ni/OG
+cWZABrLmLj/sMy00SKMEjMQEdALsK5S/l9MNXpVJd/dmgg4XT4MHVxVpCndGtWX4
+xnDAbHkvQWi4utSzXNn2sWVeBuBvI2qk0IrIG2t9flGDBIyc7uSxNS5qU4e7yfhQ
+Dk1WxfugJJou6/IdsCaOQZmgqrzfyfIH/+7cJzif6rbL6xeJPL79mTau3rn/4/Rj
+kYYBFxgyx7eus1X6CMdi6tO1v3aAMrZqjJcE80CFLTvizUtMn60xgHOn5zvBVZFz
+KBVZXQxsSgOqRvNhElrhwj2tNK32YB/ZRr6uZ0zdcF/tl1MpKcdFRTjkWbR7GWyj
+uLmOHrc7yN2l7X8bYrTUMrcelOlBAoglM/MFxGZ91euM7ESbht4yIojMfYKSUG0C
+yJHSIvyflhaHaF0q0dhFWfWMrS5GUJ6AFie85fCh8Vr/queW3KLdELYvX2nQzdFV
+XoFv62UnyPHTgZS9P3YkqhQaxUfAm6EmP9gQ0lTfrx9OSQhQYf7K6NZfb9TLLz4W
+4+6kGXJ5/zIzUSF6txgcgyU2DKhT/iuPnnuILRuOMFpDW5Ey9Y8eJTQt3YIWLyPK
+jLccY2NzR8dzoltDkIZNGv68ptLakIKbje0ILFuDy7NcdVLRnUc=
+=RSsH
 -----END PGP SIGNATURE-----
