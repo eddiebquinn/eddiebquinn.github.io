@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Sun, 19 Nov 2023 13:17:35 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Nov 2023 22:39:35 +0000</lastBuildDate>
     <atom:link href="https://eddiequinn.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>IPoAC</title>
+      <link>https://eddiequinn.xyz/posts/2023/nov/ipoac/</link>
+      <pubDate>Sat, 25 Nov 2023 22:39:35 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/2023/nov/ipoac/</guid>
+      <description>I have been studying for my Network+ for the last few months. In doing so I have learnt to appreciate the inner workings of networking infrastructure, and how the modern-day internet functions and came to be. Truly, just for you to be reading this page is nothing short of a miracle - There is an incredibly noisy world just out of the scope of our senses that most people will never get a chance to learn about.</description>
+    </item>
     <item>
       <title>Verify this post (I dare you)</title>
       <link>https://eddiequinn.xyz/posts/2023/nov/verify-this-post/</link>
