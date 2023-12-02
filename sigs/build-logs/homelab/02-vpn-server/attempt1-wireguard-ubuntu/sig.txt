@@ -1,0 +1,27 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+So to make a long story short, I have my VPN server up and running using the confiration established in this post title. I do not feel proud of how this was achieved, however, as it feels like cheating. My initial plan, as I have gone over in a lot of depth, was to use Wireguard layered on top of OpenBSD. This quickly became complex, because I was having trouble just installing OpenBSD on the Pi. I fully intend to eventually implement this configuration, however, I needed to get A VPN server up and running this weekend and simply did not have time to troubleshoot the original plan. On top of this, there was a functionality that was missing in the original plan that this one covers, i.e. a web GUI. Eventually, I plan to upgrade to OpenBSD Wireguard, but for now, this works.
+
+The setup involved a fairly standard Ubuntu setup on a PI4, with my standard device hardening. I then used [this repo](https://github.com/WeeJeWel/pivpn-web) to install it alongside a web client. It worked straight out of the box, and the itch I had to work on a long complex project was once again thwarted by Docker. All I had to do was change the port forward settings on my router(s). My key issues with this setup are as follows.
+
+* The site runs on port `51821`, and cannot be easily reconfigured to `80` or `443`
+* The site comes bundled with Wireguard, meaning it is not as modular as I would have liked
+
+When I eventually get the OpenBSD Wireguard version up and running I want to find a way to deal with these issues.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVq23IACgkQvUo0nUeo
+F5zBGg/+NKE74SZMI3zk936QcxZgAt4dSSle5ZqAEPDiS5/zmN4R+bBCjWQp5CIG
+ef6W2zCBWgfYK2nvHcL6/SwaY9KkUP9dBhbagFB4olq/XW8Nw1rGlSSYWVDqMn6y
+I+Xq/ZlUhgdvMEhJ26PAsSHURgXC8v0dbraplGrL0yxdon9YsQA0dzO0oH3VPUua
+KEeYN7tEp426/w+fn1PkSauczEphkjHrgn3c/kELL1ukgV14pbih0//DV/YOXA1e
+8bOnGevZmwGItEgaPWrs75tfD7SD8k3JYDpzhhUw5Ak59YJqdELaGStvQzgLAzEm
+2QrOMSPamx0xYiNpRQxWtSB4H4/c38v/P2hD46Im+2SMXlX+qILxZZLCWbGf576n
+jsgu31wV/Yw+0d7OPdmypiGqUt9U8PZFPGArD1Qu94/PCAdlaf349+COErEZpxmn
+qRlRz1klm9GQ1h7cz5r0KbITOn6Pvvxh9geTMAZi9aDPKYHOFg5deO0QlVBOfV6t
+42mr5V/Vd5V6SjdsUcTKrBfoUD5vGrmor+dORSS7yRFQ9xGV1f0r0EvJfeSzv3f+
+8ae1W+XmuGkLgV6eyMUHSVO2Bj5GDVnUVv2WNGxnAAPIkTLcjJrLb0DRfHHgInUO
+x+ZZ6+GUqpHVLhxna77Doskcvnk1gqMvvLDKkIl0OYFH6HRqllw=
+=tRtp
+-----END PGP SIGNATURE-----

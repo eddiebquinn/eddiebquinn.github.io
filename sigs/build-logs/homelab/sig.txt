@@ -1,20 +1,23 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
+This is what my homelab currently looks like
+![image of two layer bramble](/two-layer-bramble.png)
+
 For a very long time, I have wanted to get a home lab up and running. This is for various reasons ranging from it being cheaper than renting VPSs, to it allowing me to hone my skills in running a data centre (albeit small). Officially my self-hosting journey began in 2020, and I even ran some projects on-prem, however for the sake of avoiding issues when I experienced a power outage many of my projects migrated to hosting providers. However, I have officially taken the first step in getting my home lab up and running.
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUFEACgkQvUo0nUeo
-F5xlYg//UZ39tNLrwQw78AvahBBRGymHIrBqWmRn+rdSN0Kxhcn4ZANdUwtyOzuX
-6GAW1Ijjj+9+3dduFKvmO8Kron/IK3bqhvHwzz3PCj+OkYPQ17YvsZB/e5/urOZ9
-WHJiGNXV79nMlzzEu2upqdRFE5z1tcf9ivDojylqGqVP78KcVWjqaiOXlezcOyJF
-mEnPaUA9EF9nQjZ/axMrsmqn+K3MPi3Fgxx/OdOJ6/HND57MnZbmrEoYy/K/ARXf
-3VTIaarr3r94zy9X6xwtw8Mr//K1iA2g+f6RdYAQHjrJz49bv9TbRPl7RVqiZfUA
-mZLFPMwCEPf+obT24+fQZQl67GlRcXp8Gbtvzu8eCtJW8Yh3SatulaM1oXkgxFwW
-HgFCqoxrEBYj3r99Cd3gKMvA3CUUBsvqXmCsms9HKPpmPNi/yq+T/2wtYsClWXP7
-HQepgofEG6FLNS0ZjaOVEpRnB//hu29581G8MO95H92in/uoz+Ch3k8W3uiuBmgp
-woI+2CninK6VLltGITa/rwZHRna75B+0LLD3GpUj7qJI6KEpLt1IbxVEDcFu0asp
-nDP6xR/RAQki59U6t7Owedm91QUSgprnHEquY1G4SEp30w+7NDozZ7G3RJL/dbLY
-LoeB7+KFgVxtk+WZYGOQRyRfm9Ls5W1Ta8Whuxa8l2Fig5E7oUA=
-=Ggvu
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVq1CIACgkQvUo0nUeo
+F5zEKQ//TIEIdTclrlWrCHB1nn22jSJRC+blqck6i4NIe+Ci1BXGMuyKhIjEvs7V
+wFJj5+Lf8i6BPO/saVm+INO1xaBUl62ljXm+eHoEY9ybLaIMTBH1ICIpQb4haxSG
+9WajtMb4dEuAiR6eqdNs1MUJLtjHhk7lEwrvBcN30gj/MZAiKLVmBxhZUGCrs/FY
+nCPwQecV04n8p2mAYb8ayOqVjaOe5RFavMyh5fJyfWbXulQjXlwHvDX4eIRdPy1o
+Wdq1mrUm87AKRrjzct+Y57BvyWhvVojF79sMgF/IepVPWxucaS89Sh0SV4WrI/L+
+a4mY5TpgAsQYHx2ykwiWBbb2cOKra3NHzr1mkYnB/Svu38fQAHnLJOXVJR8/psj8
+UpGuQBnOHmJR5sMlK1KoiaLAusp1Ro2ox5O7CZSxbgT3F+qrQFBdj6fCl/t5nwNC
+stzeYBmg+kpyLu98hIB3m7QwzwTfigZdh6FNAqyzFoXEqBcZw0ETY+9LjZDGBcRF
+cSy/UVYHc85STH50FAoxr71qEEquaRLs26VHh9+IDB17R0ji52o2DmkN0K/sYVqG
+BPgOus9xKC0UFC5tV5E+rFanhKHa4UtM6limCAaRCDi26h3JX40z6LFum8BfXj2Q
+IeTa7i3uZzMkh6V9aTk0gLj7Chw7u+owP1QG9n0UFWzfo0xZNCY=
+=f08c
 -----END PGP SIGNATURE-----

@@ -1,0 +1,120 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+```
+This attempt failed - Reasons why are spoke about in Attempt 1
+```
+
+The task at hand boils down to two sub-tasks
+1) Installing OpenBSD on a Raspberry Pi 4
+2) Installing and configuring Wireguard on OpenBSD
+
+I'll explore the research I've gathered on these two below
+
+**Installing OpenBSD**
+So I did some research on this last month and found [this video](https://www.youtube.com/watch?v=Sp-cqXisgaw) of someone who has done it before; this tells me it is at least possible, even if it is not widely covered. Devling deeper I found [this post](https://github.com/ashyisme/openbsd-rpi4) which details instructions. This is going to be a fairly complex process, so I'll detail it below for future me
+
+1) **Update EEPROM -** Log into vanilla raspery-pi-os. I'm going to want to update it using `apt` and update the `eeprom` using a separate command. Both below
+
+```bash
+apt update && apt upgrade -y
+rpi-eeprom-update
+```
+
+*(It might also be worth setting the DHCP for this MAC as a reserved address at this point also)*
+
+2) **Load the latest UEFI onto the sd card -** This can be done directly from the raspberry pi imager, I just need to choose the bootloader. I may let this Pi boot from USB, so I'll also choose the `USB boot` option. After this, I insert the SD card I have flashed the UEFI onto into the Pi. After turning it on the green activity light should start rapidly flashing, and if I have connected an HDMI monitor the screen will turn green if successful.
+
+3) **Set UEFI settings for OpenBSD compatibility -** I need to change three settings
+* Device Manager -> Raspberry Pi Configuration -> Advanced Configuration -> Limit RAM to 3 GB: Disabled
+* Device Manager -> Raspberry Pi Configuration -> Advanced Configuration -> System Table Selection: Device tree
+* Device Manager -> Raspberry Pi Configuration -> SD/MMC Configuration -> uSD/eMMC Routing: eMMC2 SDHCI
+
+4) **Install OpenBSD -** So now is probably a good time to mention I have never used any derivative of BSD, let alone installed it. I am moderately terrified, but also excited with this. It looks like to do this I need to go to the [this page](https://www.openbsd.org/ftp.html), choose a mirror, choose my architecture, and download the `miniroot` image file. I need to burn that into the SD card using `dd` and insert it into the Pi. With a keyboard and monitor attached, I can turn on the pi. I need to do any letter key press and backspace whatever I typed. Then I need to set `tty fb0` (more info on that [here](https://marc.info/?l=openbsd-arm&m=160683302013161&w=2)). Following this do a normal OpenBSD install, remembering the following
+* Set framebuffer as default console (as per Solskogens note) -> `echo "set tty fb0" >> /etc/boot.conf`
+* Enable X11 -> `rcctl enable xenodm`
+
+This being done *theoretically* I should have a working BSD box. Do I believe this will work the first time? Of course not. I will need to do my regular hardening i.e. automatic updates, ssh hardening, etc. I'm sure it's going to be fun for me to figure out how to do that.
+
+**Installing Wireguard**
+Once SSH'd into the box I will want to become root using `su`. Then run the following commands
+
+1) Install Wireguard -> `pkg_add wireguard_tools`
+2) Allow forwarding on server interface (ipv4)-> `sysctl net.inet.ip.forwarding=1`
+3) Write new config to `/etc/sysctl.cong` -> `echo "net.inet.ip.forwarding=1 >> /etc/sysctl.conf`
+4) Create Wireguard dir and cd into it -> `mkdir -p /etc/wireguard && cd /etc/wireguard`
+5) Create a private key -> `wg genkey > private.key`
+6) Create a public key -> `wg pubkey <private.key> public.key`
+7) Create/edit Wireguard config file -> `vim wg0.conf`
+8) Insert the following and save
+
+```toml
+[Interface]
+PrivateKey = {SERVER-PRIVATE-KEY}
+ListenPort = 51820
+
+# Client 1
+[Peer]
+PublicKey = {CLIENT-PUBLIC-KEY}
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+```
+
+9) Configure the filewall in `/etc/pf.conf`. Add the following
+
+```conf
+pass in on wg0
+pass in inet proto udp from any to any port 51820
+pass out on egress inet from (wg0:network) nat-to (vio0:0)
+```
+
+10) Restart firewall -> `pfctl -f /etc/pf.conf`
+11) Create hostname for `wg0` in `etc` -> `vim hostname.wg0`
+12) Inset the following
+
+```conf
+inet 10.0.10.1 255.255.255.0 NONE
+up
+!/usr/local/bin/wg setconf wg0 /etc/wireguard/wg.conf
+```
+
+13) On the client device install `wireguard-tools` -> `paru -S wireguard-tools`
+14) Create `/etc/wireguard` dir and `cd` into it -> `mkdir -p /etc/wireguard && cd /etc/wireguard`
+15) Generate public-private keypair -> `sudo wg genkey | tee private | wg pubkey > public.key && mv private private.key`
+16) Create/edit config file -> `vim wg0.conf` and insert the following
+```toml
+[Interface]
+PrivateKey = {CLIENT-PRIVATE-KEY}
+Address = 10.0.10.2/24
+
+[Peer]
+PublicKey = {SERVER-PUBLIC-KEY}
+Endpoint = 192.168.0.0:51820 #Your public IP address
+AllowedIPs = 0.0.0.0/0 ::/0
+PersistentKeepalive = 25
+```
+
+17) Start Wireguard interface on server-> `sh /etc/netstart wg0`
+18) Start Wireguard interface on client -> `sudo wg-quick up wg0`
+19) Ping out from the client device to see if it works
+
+It is worth mentioning the following
+* with steps `12` and `16`. With the IPs that you set - they need to exist within the same subnet, but cannot be the same. On the client side, you are declaring what the IP will be for that device. 
+* When I want to add a new peer, I will have to deliver that in `wg0.conf` on the server. This has the potential to add a lot of administrative overhead, so I will need to see about finding a way to automate this.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVq1OYACgkQvUo0nUeo
+F5zlww/8DwIrc1Ni5sfPEEK0IyyiNH+ybHGzYOWpC5DDjhvS/u2dauHYvZ1hll54
+Yvcvx3jQH7mgBB+tSOJI0/SnWFHWFqnX3/74nVyKM4xx4l5H0MsQqJhlx+cdkJqG
+et+Bhzy3lIWTSsAzKIuRYUqoEIlcXWE4GIqsNxgtZXmD7Z/kg45Y2q2UhI/AL5fj
+Wh1cUozvBJPfyx2/ubISaYpYUkkBK6zS4L9yInPH2GPGb5G2+6BI5NzaIBkzGUKv
+PE/PvL3nV/WD0BjcgGBc8vBgt1ydFhZHsKodIp8CZTaiAitDgagT9xSGwaOLRXPm
+i6dMv9bTyKG7ZNXl5DrWMENK2dgpEP+5a+w9+p6UelJ4ylw1pLoPXREm7rZFxyAz
+aVy85fqf3zutN+lxmTpHmruaYxiIpar8L8LjiRyJwwyevwsIXDZFd0+VaSq/+oHW
+bopjFwMmOgT8ikREFT95KgVyBdxbva6fmGQ3u3SqrWZ1elbsJKj3uIu7B7WwV5vr
+ABtb/7qgsSFnEsz4WEzxB/L4nul4oKF6VQAS8d5mEVDtEvNcJr+GWsX/DF184mHR
+8alGZGm15qovzKXbrPJNlyGP1oqxQ9PvwKmWeCq0PyK9uQfoRx0S5bP2kYeXAkkK
+xwT0cTliYZ+3nhKJXLioA+BoKFu3WQDFknX8MSVxMAZIO4NxU08=
+=/Edd
+-----END PGP SIGNATURE-----
