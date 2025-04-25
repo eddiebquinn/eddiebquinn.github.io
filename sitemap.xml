@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://eddiequinn.xyz/posts/2025/april/i-am-not-dead/</loc>
+    <lastmod>2025-04-25T11:52:24+01:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/sigs/posts/2025/april/i-am-not-dead/</loc>
+    <lastmod>2025-04-25T11:52:24+01:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/posts/</loc>
-    <lastmod>2023-12-09T14:25:16+00:00</lastmod>
+    <lastmod>2025-04-25T11:52:24+01:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/posts/2023/dec/2024-goals/</loc>
     <lastmod>2023-12-02T10:21:51+00:00</lastmod>
@@ -309,10 +315,6 @@
     <lastmod>2022-09-23T21:04:56+01:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/categories/</loc>
-  </url><url>
-    <loc>https://eddiequinn.xyz/posts/2025/april/i-am-not-dead/</loc>
-  </url><url>
-    <loc>https://eddiequinn.xyz/sigs/posts/2025/april/i-am-not-dead/</loc>
   </url><url>
     <loc>https://eddiequinn.xyz/series/</loc>
   </url>
