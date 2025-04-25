@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Signing Posts on eddiequinn.xyz</title>
+    <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/</link>
+    <description>Recent content in Signing Posts on eddiequinn.xyz</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
+    <lastBuildDate>Tue, 28 Nov 2023 09:55:41 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>7- Fixes</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/fixes/</link>
+      <pubDate>Tue, 28 Nov 2023 09:55:41 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/fixes/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;p&gt;I cannot spend too much time on this post because I have other things to do today. I have found possible solutions to all of the problems I mentioned in &lt;a href=&#34;https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/mvp/&#34;&gt;the previous post&lt;/a&gt;. As per usual I have made a dog&amp;rsquo;s ear over a very simple problem. I was however along the right lines with my previous idea of having an auto-sign script&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-issues&#34;&gt;The issues&lt;/h2&gt;&#xA;&lt;p&gt;The way I see it there are three key issues&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>6- Mvp</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/mvp/</link>
+      <pubDate>Sun, 19 Nov 2023 16:45:36 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/mvp/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;p&gt;So I&amp;rsquo;ve got to a point where I can call this MVP - It doesn&amp;rsquo;t mean this is finished, however. This change while for the greater good has negatively affected my workflow, and one of the major goals of this project was to avoid just that. For that reason, I cannot consider this &amp;ldquo;finished&amp;rdquo;. Below is the list of things I still need to bring in.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>5- Progress?</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/progress/</link>
+      <pubDate>Fri, 17 Nov 2023 18:10:01 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/progress/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;p&gt;My friend has an API that if called will return a picture of an anime girl, and will return a new one every 24 hours (I think that&amp;rsquo;s how it works, truthfully I&amp;rsquo;ve never curl&amp;rsquo;d it). Thinking about that combined with a rant Luke Smith once made about fixing pull requests on his GitHub, I wish there was an API I could call to give me a random picture of a Pink Wojack every 24 hours. It would help me get across my current&amp;hellip; mood? Is mood the right word?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>4- New Plan</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/new-plan/</link>
+      <pubDate>Sat, 11 Nov 2023 12:09:10 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/new-plan/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;p&gt;So after writing he previous post on this matter I came to two conclsions&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;This website, and this induvidual project, requires its own build log -&lt;/strong&gt; This was changed. The commit hashes are listed below&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;site commit: 1503286ff0b39d3f502a70373e803ec0b381940d&#xA;sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;&lt;strong&gt;I am overcomplicating this&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Hugo, unsuprisingly, has a features within it which solve every issue which I am trying to fix myself.&lt;/p&gt;&#xA;&lt;h2 id=&#34;custom-output-formats&#34;&gt;Custom Output Formats&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across &lt;a href=&#34;https://gohugo.io/templates/output-formats&#34;&gt;this page&lt;/a&gt;. If you read the page at some point you will encouter a string stating&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&amp;ldquo;A page can be output in as many output formats as your want, and you can have an infinate amount of output formats desfined &lt;strong&gt;as long as they resolve a unique path on the file system&lt;/strong&gt;&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>3- Revisiting My Encryption Problem</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/</link>
+      <pubDate>Thu, 09 Nov 2023 16:25:05 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;This was originally a blog post&#xA;It may read differently from other build logs for that reason&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Earlier on this year I went down a strange rabbit hole on how I want to sign my posts using my GPG public key. In the end, I gave up because I couldn&amp;rsquo;t find a way to automate this, and at the time I blamed this on some limitations with Hugo. I now of course am walking that back, as theoretically it is perfectly possible. I want to discuss my plan to fix this.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>2- My encryption problem</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/</link>
+      <pubDate>Sun, 07 May 2023 15:52:16 +0100</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;This was originally a blog post&#xA;It may read differently from other build logs for that reason&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Two posts in one day, this has to be a record for me.&lt;/p&gt;&#xA;&lt;p&gt;So for this post to make sense it requires two bits of background knowledge&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;This site is made using a static site generator using Hugo&lt;/li&gt;&#xA;&lt;li&gt;I wrote a post a few days ago called Encryption which can be found &lt;a href=&#34;https://eddiequinn.xyz/posts/2023/april/encryption/&#34;&gt;here&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;With that out of the way, I can explain the issue I am having, and why I may finally have to bite the bullet and learn a tiny amount of web development.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>1- Encryption</title>
+      <link>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/encryption/</link>
+      <pubDate>Thu, 27 Apr 2023 02:27:34 +0100</pubDate>
+      <guid>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/encryption/</guid>
+      <description>&lt;p&gt;&amp;mdash;&amp;ndash;BEGIN PGP SIGNED MESSAGE&amp;mdash;&amp;ndash;&#xA;Hash: SHA256&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;This was originally a blog post&#xA;It may read differently from other build logs for that reason&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Hey, been a while&lt;/p&gt;&#xA;&lt;p&gt;I won&amp;rsquo;t waste my time explaining where I have been - the truth is very few people read this blog and those that do know that I have been fairly busy for the past month. I am attempting to get back into the swing of things, but to make an incredibly long story short I am currently coming over a pretty hard burnout.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

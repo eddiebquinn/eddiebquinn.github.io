@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>7- Fixes &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>7- Fixes</h1>
+    </header>
+    
+    <div class="content__body">
+        <p>&mdash;&ndash;BEGIN PGP SIGNED MESSAGE&mdash;&ndash;
+Hash: SHA256</p>
+<p>I cannot spend too much time on this post because I have other things to do today. I have found possible solutions to all of the problems I mentioned in <a href="/build-logs/eddiequinn.xyz/signing-posts/mvp/">the previous post</a>. As per usual I have made a dog&rsquo;s ear over a very simple problem. I was however along the right lines with my previous idea of having an auto-sign script</p>
+<h2 id="the-issues">The issues</h2>
+<p>The way I see it there are three key issues</p>
+<p><strong>1) Auto-signing -</strong> I need a script to auto-sign the posts, because doing it by hand is tedious and I want to make it easier for me to write posts rather than harder
+<strong>2) Post-sign formatting -</strong> There are &ldquo;issues&rdquo; (not really issues, it&rsquo;s done for a reason) with gpg where it replaces &ldquo;-&rdquo; with &ldquo;&ndash;&rdquo; with a space between. It also converts the document to ASCII rather than UTF-8. This means the resulting text is sometimes mangled in some way.
+<strong>3) Writing environment -</strong> Because I can&rsquo;t use <code>hugo server</code> to see a live rendering of the site, this makes things difficult</p>
+<p>There are other issues but look at the previous post for those.</p>
+<h2 id="the-solutions">The solutions</h2>
+<p>The solution(s) are fairly simple. I don&rsquo;t know why I got it in my head that I need to have the posts saved in the git repo signed. The fact is it&rsquo;s a private repo, and will become even more private when I eventually put them on my git server i.e. they will never be seen publically. If I just write an auto-sign script that signs the posts during the publication process, then all my problems are solved.</p>
+<p>The auto-signing script is inherently going to be solved, evidenced by its meer existence. The post sign formatting will be solved because I do not need to convert the posts back to their original state post sign - this does present a minor issue that the post and the signed post may have minor differences, but that can be clarified in the post explaining this. The writing environment problem is solved, because I would be able to render the live site again</p>
+<h2 id="why-havent-i-dont-this-yet">Why haven&rsquo;t I dont this yet</h2>
+<p>I haven&rsquo;t done this yet because, despite my LARPing as a programmer, I am a glorified script kiddie. This is not to say I can&rsquo;t do it, because I can, after all, I wrote the last script. It is me saying that a script like this, which would take some of my friends half an hour, might take a few hours for me. I&rsquo;ll get around to it though.
+&mdash;&ndash;BEGIN PGP SIGNATURE&mdash;&ndash;</p>
+<p>iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVlvQUACgkQvUo0nUeo
+F5zo7A/9H5sqWkf6Iy1zYu1kWvN+nbSunEAxHVk/mj1lg84327KkwcUAWnTEYdjG
++SIJURHB8gSGgs5GQk2zOHM57Ol2annbR/2ADmdoJuLsc53lZW7IWeeI7Rpn81tA
+IKKEvz61qVmg0bt1RfrV/28j6trFw9q4pgpdA4mElKyvya3beF++I83yC6n0iFW5
+iz3ORQSSs2skZ5FZChDuFT13DbrJoFFzNEzneqlDijs4NZJYDTAPb/jGybFtx6X7
+eN6120giL0f9Vb1OxTDvcZOVoGlk3nw1WslVVmsQpmEvnfd3jJn0O5Pri7zlPopc
+8nKE5My1R/u8lOc7eWYDoeTUcz+/dW0h2Gyn8zjpyBueRdmHdXQmuqKwLPcO6GK5
+RVpZRsL5LjO3fWgUY724rlgCntQnnqCtZp4Bsba7/hcQrCCbqMTZ7yqbi1/63zGe
+0rDGKsj6S1CMen/BMmopZxl2uMKcjkyr3N929r5nV//7y8JxTF4jgfQ8cQMi1CAu
+rRG6IPls6iq3wiVwvk0ZCKxQoZhHuKw6xuJuqo3m3cnKlBliO+QggS6EkFm/3mzr
+L3cpgQIWPP3FCAAeRfSiqnSBogkvBpBzCxu0li2/6/BqRXuhTvMzKfZtpIY5Ti32
+Tk+go+nRG+lDpl66LsM7i2VhthrRpsEVpe0kiDlYXq3ykTwpB6o=
+=GiCl
+&mdash;&ndash;END PGP SIGNATURE&mdash;&ndash;</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-28
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active">$ echo $LANG<br/><b></b></span><br/>
+
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

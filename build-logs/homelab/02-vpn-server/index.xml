@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>02 - VPN Server on eddiequinn.xyz</title>
+    <link>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/</link>
+    <description>Recent content in 02 - VPN Server on eddiequinn.xyz</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
+    <lastBuildDate>Sat, 02 Dec 2023 07:01:04 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Attempt 1 - Wireguard Ubuntu</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/attempt1-wireguard-ubuntu/</link>
+      <pubDate>Sat, 02 Dec 2023 07:01:04 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/attempt1-wireguard-ubuntu/</guid>
+      <description>&lt;p&gt;So to make a long story short, I have my VPN server up and running using the confiration established in this post title. I do not feel proud of how this was achieved, however, as it feels like cheating. My initial plan, as I have gone over in a lot of depth, was to use Wireguard layered on top of OpenBSD. This quickly became complex, because I was having trouble just installing OpenBSD on the Pi. I fully intend to eventually implement this configuration, however, I needed to get A VPN server up and running this weekend and simply did not have time to troubleshoot the original plan. On top of this, there was a functionality that was missing in the original plan that this one covers, i.e. a web GUI. Eventually, I plan to upgrade to OpenBSD Wireguard, but for now, this works.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Attempt 0 - Wireguard OpenBSD</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/attempt0-wiregaurd-openbsd/</link>
+      <pubDate>Tue, 07 Nov 2023 16:11:08 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/attempt0-wiregaurd-openbsd/</guid>
+      <description>&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;This attempt failed - Reasons why are spoke about in Attempt 1&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The task at hand boils down to two sub-tasks&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Installing OpenBSD on a Raspberry Pi 4&lt;/li&gt;&#xA;&lt;li&gt;Installing and configuring Wireguard on OpenBSD&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;I&amp;rsquo;ll explore the research I&amp;rsquo;ve gathered on these two below&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Installing OpenBSD&lt;/strong&gt;&#xA;So I did some research on this last month and found &lt;a href=&#34;https://www.youtube.com/watch?v=Sp-cqXisgaw&#34;&gt;this video&lt;/a&gt; of someone who has done it before; this tells me it is at least possible, even if it is not widely covered. Devling deeper I found &lt;a href=&#34;https://github.com/ashyisme/openbsd-rpi4&#34;&gt;this post&lt;/a&gt; which details instructions. This is going to be a fairly complex process, so I&amp;rsquo;ll detail it below for future me&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

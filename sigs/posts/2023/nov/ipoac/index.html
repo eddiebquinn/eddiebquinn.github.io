@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>IPoAC &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>IPoAC</h1>
+    </header>
+    
+    <div class="content__body">
+        <p>&mdash;&ndash;BEGIN PGP SIGNED MESSAGE&mdash;&ndash;
+Hash: SHA256</p>
+<p>I have been studying for my Network+ for the last few months. In doing so I have learnt to appreciate the inner workings of networking infrastructure, and how the modern-day internet functions and came to be. Truly, just for you to be reading this page is nothing short of a miracle - There is an incredibly noisy world just out of the scope of our senses that most people will never get a chance to learn about.</p>
+<p>What I did not anticipate is learning about is <code>IPoAC</code>. This <em>(thank god)</em> does not fall into the curriculum of Network+. It is not even really taken at all seriously as an actual standard, for obvious reasons. It is however something that made me chuckle, and I want to share it.</p>
+<h2 id="in-the-beginning">In the beginning</h2>
+<p>Allow me to introduce Columba Liva domestica or the humble Domestic Pigeon.</p>
+<p><img src="https://cdn.download.ams.birds.cornell.edu/api/v1/asset/308065631/1800" alt="This should be a picture of a pigeon"></p>
+<p>Often called the rats of the sky, these feathered friends are derived from rock pigeons, the oldest domesticated bird on record. Records of these beaked brethren go all the way back to 5,000 years ago on Mesopotamian cuneiform tablets. They hold historic importance in human society, taking reverence as everything from food to holy animals. What is most important however is their homing ability.</p>
+<p>The homing pigeon is a variety of domestic pigeons, selectivley bread for its ability to find its way home over an incredibly long distance (upwards of 1800km). This innate homing ability is chopped down to magnetoreception, which in layman&rsquo;s terms means that the pigeon can detect the earth&rsquo;s magnetic field.</p>
+<p>One of the most common uses of this is message carrying, but there is also a booming pigeon racing industry (yes I&rsquo;m serious). A name often attributed to using pigeons to carry messages is &ldquo;pigeon post&rdquo; or &ldquo;war pigeons&rdquo;. I would encourage you to watch the Disney film Valiant, as this is a great resource on this subject (please don&rsquo;t actually watch it). Prior to the introduction of the telephone, this was a very effective way of transmitting communication.</p>
+<p>The way it works is you have a pigeon being kept at a central location. You take the pigeon away, attach a note to its leg, and let it go. Generally, the pigeon will return home. I am sure many of you are questioning what this has to do with computer networking - well, I would say this. Is placing a message in a little container on a pigeon&rsquo;s leg not essentially the same as encapsulating data into a frame, and then into a packet? Pigeons, my dear reader, are the Layer 3 Packets of the analogue world.</p>
+<h2 id="ipoac-aka-rfc-1149">IPoAC aka <a href="https://datatracker.ietf.org/doc/html/rfc1149">RFC 1149</a></h2>
+<p>IPoAC stands for Internet Protocol over Avian Carriers. It is a proposal to carry IP packets by birds (i.e. pigeons), facilitating a high delay, low bandwidth, low altitude data transmission service. It does this using a single point-to-point connection for each carrier, with the opportunity to use many carriers without network uptime being affected (outside of certain times of the year). Due to the advantages of the underlying routing TPU, there is an inherent collision avoidance system, increasing availability compared to alternative systems like IEEE802.3.</p>
+<p>The way the frames are formatted is that the IP datagram is printed on a small scroll of paper in hexadecimal, with each octet separated by a space. Example shown below</p>
+<pre tabindex="0"><code>55 57 55 20 69 6D 20 61 20 73 75 73 73 79 20 62 61 6B 61
+</code></pre><p>The scroll of paper is then wrapped around the carrier&rsquo;s leg, or placed into a small metal circular attached to the leg. The bandwidth of this method is limited by the leg length of the carrier. The MTU is variable, but generally increases carrier age s carrier strength increases. Typically the MTU is 256 milligrams.</p>
+<p>Other things of note</p>
+<ul>
+<li>Multiple types of this service can be provided with a prioritised pecking order</li>
+<li>Most carriers allow for built-in worm detection and eradication</li>
+<li>IP only guarantees best-effort delivery, i.e. loss of a carrier can be tolerated</li>
+<li>Given adequate time and a safe environment carriers are self-replicating</li>
+<li>While broadcasting is not specified in the standard, storms can cause data loss</li>
+<li>There is a persistent delivery retry until the carrier itself drops</li>
+<li>Audit trail is automatically generated, and can generally be found on logs and cable trays</li>
+</ul>
+<p>In later revisions i.e <a href="https://datatracker.ietf.org/doc/html/rfc2549">RFC 2549</a> and <a href="https://datatracker.ietf.org/doc/html/rfc6214">RFC 6214</a> this original RFC is built upon. Mostly with more bird puns that are also related to networking.</p>
+<h2 id="the-beak-ernet">The <em>beak</em>-ernet</h2>
+<p>This, obviously, was written as a joke. It is one of the many examples of nerds making nerdy jokes about serious subjects. All this being said this has been proven to work, and can even provide very fast data transfer speeds under the right circumstances. On the 28th of April 2001, this was implemented by the Bergen Linux user group, where they sends night packets over a distance of 5km. This was rather beautifully represented by the below terminal output</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Script started on Sat Apr <span style="color:#ae81ff">28</span> 11:24:09 <span style="color:#ae81ff">2001</span>
+</span></span><span style="display:flex;"><span>$ /sbin/ifconfig tun0
+</span></span><span style="display:flex;"><span>tun0      Link encap: Point-to-Point Protocol
+</span></span><span style="display:flex;"><span>          inet addr:10.0.3.2  P-t-P:10.0.3.1  Mask:255.255.255.255
+</span></span><span style="display:flex;"><span>          UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:150  Metric:1
+</span></span><span style="display:flex;"><span>          RX packets:1 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span style="display:flex;"><span>          TX packets:2 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span style="display:flex;"><span>          collisions:0
+</span></span><span style="display:flex;"><span>          RX bytes:88 <span style="color:#f92672">(</span>88.0 b<span style="color:#f92672">)</span>  TX bytes:168 <span style="color:#f92672">(</span>168.0 b<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ ping -c <span style="color:#ae81ff">9</span> -i <span style="color:#ae81ff">900</span> 10.0.3.1
+</span></span><span style="display:flex;"><span>PING 10.0.3.1 <span style="color:#f92672">(</span>10.0.3.1<span style="color:#f92672">)</span>: <span style="color:#ae81ff">56</span> data bytes
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>6165731.1 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>3211900.8 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>5124922.8 ms
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>6388671.9 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- --- 10.0.3.1 ping statistics ---
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span> packets transmitted, <span style="color:#ae81ff">4</span> packets received, 55% packet loss
+</span></span><span style="display:flex;"><span>round-trip min/avg/max <span style="color:#f92672">=</span> 3211900.8/5222806.6/6388671.9 ms
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Script <span style="color:#66d9ef">done</span> on Sat Apr <span style="color:#ae81ff">28</span> 14:14:28 <span style="color:#ae81ff">2001</span>
+</span></span></code></pre></div><p>I do want to say that despite my fondness for this joke, I do not take it seriously. I think a lot of people think I am quirk bordering on nuts with the projects I take on. My friend <a href="https://ironsm4sh.nl/">Iron</a> politely told me to touch grass the other day when I told him I was thinking about coding my own static site generator (he likely had a point).</p>
+<p><em>However</em> I will say this for IPoAC, *it can be a reasonable way to send massive amounts of data. There is a reason why Amazon has its <a href="https://aws.amazon.com/snowmobile/">AWS Snowmobile</a> or Microsoft the <a href="https://azure.microsoft.com/en-gb/products/databox">Azure Databox</a>. When the sheer amount of data you need to send is that massive, sometimes the sneakernet is the best way to do it. If two hackerspaces within a reasonable distance of one another decided to set up a pigeon coop and periodically drove a &ldquo;homed&rdquo; pigeon to one another, then they could set up (I am so sorry about this) a &ldquo;beakernet&rdquo;. Am I saying this is a practical way of communication? Absolutely not. I am however saying this would be incredibly funny.</p>
+<p>Also, and I am not quite sure if this is more or less nerdy than the last suggestion, this also works in Dungeons and Dragons. I play Dungeons and Dragons every week at my local pub, which is a shock to absolutely nobody that fat arch user plays DND. In our last session, we found ourselves in a position where we had acquired a tavern, by scaring the previous owner away and declaring it now belonged to us. We then had an issue, how can we run a bar while staying on our adventures? We theoretically have a semi-soviet workforce of bugbears extracting minerals from Wave Echo Cave, and if we managed to get a message to them Gunk the foreman could send a bugbear over to man the bar. Of course, then I realised, what if we set up an ad-hoc internet across our DND world using IPoAC. If we set up a pigeon-post in every town we visited the network would grow, and before we knew it we had a DNDesk ISP on our hands. I assure you, I was wetting myself with laughter at this thought.</p>
+<p>I suppose my overarching point in this post is this - Pigeons have an incredible knack for being funny when appropriately paired with networking technology.
+&mdash;&ndash;BEGIN PGP SIGNATURE&mdash;&ndash;</p>
+<p>iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVl4/YACgkQvUo0nUeo
+F5yrSRAAnyzqqvS16sBrTZlXeX9UBSnwLUYJV2DlYUGYRgkUfA7ecd4TdN6g9rH6
+JtjeAHMIE3wjXJzWEJSq78uapyk8VIHGMYDzdYSyk6nxj9aAWNZAuRmluBwlc5cI
+KvxkJNlFCIfRu7sQ1XF7plJL8VdKPvQ3Ye7UtVYo/Awe+QFR4wQdnPuCoDzuCOJo
+WBm71QtESbtPeFT8KPI6eA4tzXlJEH2qseP8g9+MlodPkqFloII+xIGhBLGbbOYt
+TCWjZ1q0JKVpRfApk+VwvLIJ1U9k4ABusOJr6hW9s1FmJCWgMP9nPhpJBa0K67FE
+cSKz2LmZRb92F7Ngmnz3MCf6eanHabdz/LdCQbKs1rPouQ0lI0aV/PrD1tWo1KgZ
+ayDqn2xW+X4Rsfw4/mj5mA1INJSsNHScAEfqXO/2utkKZi3BgUZXtMun42OoqTzb
+mcSQ3cCVB0oSs+1d0IUxhNfk+1Ki4A9c9tJnO3XCskYy+QRXSBJyZGs00WOII5ET
+gRxQRavmnChxBLHpwf0VVrvWvnoJk0p8Lq14w16uOlMuNLOfueIFAnKNPJ4INgpK
+SQzNaY7YsPkzv0FiJh8ZNSm2ou9ezlsBEc3Xncc0gAaeYbXGmvuxb0NLZKXf6f7n
+CLXNyW7k6EQpaxROBUrxr0FoRARtgPl+FTsu8NGAFugIFQXAv68=
+=JyMm
+&mdash;&ndash;END PGP SIGNATURE&mdash;&ndash;</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-25
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active">$ echo $LANG<br/><b></b></span><br/>
+
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

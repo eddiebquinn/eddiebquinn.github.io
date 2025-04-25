@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>6- Mvp &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+    <h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>6- Mvp</h1>
+    </header>
+    
+    <div class="content__body">
+        <p>&mdash;&ndash;BEGIN PGP SIGNED MESSAGE&mdash;&ndash;
+Hash: SHA256</p>
+<p>So I&rsquo;ve got to a point where I can call this MVP - It doesn&rsquo;t mean this is finished, however. This change while for the greater good has negatively affected my workflow, and one of the major goals of this project was to avoid just that. For that reason, I cannot consider this &ldquo;finished&rdquo;. Below is the list of things I still need to bring in.</p>
+<h2 id="auto-sign-script">Auto-sign script</h2>
+<p>So as mentioned in previous posts on this topic I needed to retire my old PGP key, as my private key was compromised - I have done this. I am still using Keybase as a keyserver, however, my private key is safely stored on my system, and I have zero intention of ever letting it touch the internet. This being said, when I switched over my keys I had to sign all my old posts. Due to some issues, I was running into with my automated pythonscript applying bad-signatures, I didn&rsquo;t wind up using an automated solution. I signed all of my posts by hand - it was not fun.</p>
+<p>I want to write a script that will sign my posts within the &ldquo;sigs&rdquo; repo. I wasn&rsquo;t it to only signposts that haven&rsquo;t been signed by default, <em>but</em> I want to be able to have the option to re-sign everything by giving it a flag.</p>
+<h2 id="post-sign-formatting-issues">Post sign-formatting issues</h2>
+<p>So currently there is an issue with the signing process where it will swap out &ldquo;-&rdquo; for &ldquo;- -&rdquo; at the start of lines. It will also randomly add &ldquo;-&rdquo; in place. As well as this if it doesn&rsquo;t recognise characters it will swap them out, for example, the file tree in <a href="/build-logs/eddiequinn.xyz/signing-posts/progress">the previous post</a> currently appears as this</p>
+<pre tabindex="0"><code>.
+âââ archetypes
+âââ content
+â   âââ sigs (S - blog-posts)
+â   â   âââ build-logs
+â   â   âââ nts
+â   â   âââ posts
+âââ layouts
+âââ public (S - eddiebquinn.github.io)
+âââ static
+âââ themes
+    âââ risotto (S - risotto)
+</code></pre><p>One thing I have noticed is when I sign posts using keybase (<code>keybase pgp sign --clearsign -i text.txt</code>) this doesnt occour. I am using the Python script to tidy up some of these issues during the build. I would prefer it however if they <em>didn&rsquo;t</em> happen, however. When I eventually write the script for the previous task, so the fix will probably be part of that.</p>
+<h2 id="writing-enviroment">Writing-enviroment</h2>
+<p>When I used to work on coding discord bots we had development environments - They were just sandbox environments where breaking things was not a massive issue, at least not as big of an issue as it would have been if it was a production environment. I might need to bring into place a writing environment where I can write posts just in the content directory, and then it moves the post to the sig directory during the commit process.</p>
+<p>The main reason for this is because Hugo has this cool feature called <code>hugo server</code>. It basically is just a live web server that shows your site running on your machine on port <code>1313</code>. When you save a file the site would auto update. It made the process of editing and writing posts a lot faster, and frankly is one of Hugo&rsquo;s best features in my opinion. Because I now have a script that deletes, copies and modifies the posts in <code>content</code> during the build process, this has basically hamstrung <code>hugo server</code>.</p>
+<p>I&rsquo;ll think about what is the best way for me to do this</p>
+<h2 id="link-to-signed-post-at-bottom-of-the-post">Link to signed post at bottom of the post</h2>
+<p>At the moment, to get to a post you need to manually type in the URL. This is not a massive issue, but I would prefer it if, at the bottom of every post, there was a button that said &ldquo;click here to see post&rdquo;, or &ldquo;click here to copy curl script to verify post&rdquo;. I don&rsquo;t think this will be that hard to do, but we shall see.</p>
+<h2 id="potentially-fixing-issues-with-rss-feed">Potentially fixing issues with RSS feed</h2>
+<p>I imagine all these new <code>sig.txt</code> fileis are appearing in the RSS feed. In an ideal world that wouldn&rsquo;t happen, so I will have to fix that. I haven&rsquo;t confirmed if this is happening as of yet though.</p>
+<p>&mdash;&ndash;BEGIN PGP SIGNATURE&mdash;&ndash;</p>
+<p>wsFcBAEBCAAQBQJlWkh5CRC9SjSdR6gXnAAACVAQAE3V3Lndv318arDbAGVIDtD9
+PQ5RBCy1goC3wYbx3w3rmDk60d0Pmtshd2JohPSKbL7Y7n6HJ4ZIvPqYzZ1nG7iC
+WyyyFsd121en3S4kisuOQ/PRpNClwxgx6vZx4S7siKJcSX1UGVUJzc7pwFldbZxO
+a9xVQAGK6E6r2U4S93j3uJ+/TCol2Jt3NuBs1Fa/0aOHNhMgu6wm4mTTRyBhSXWv
+259tw3GatjDWSdd42qApkzcSNSgZJ+8qwhPs2pHwkHdWSYpSIqBXjHaa9J4UeIUj
+TuvMIzXXb7iwsswlI4zEVNTuG2OHPnIYCYTaCHslB1NdTXBeFCV5e1RxIfZ553Ht
+3YYFdNzzEtBFyWA6uaa1LtJSi8oDkXVhzXL3tQ7QR7DP7r44/YApFUl7rYTMqWvI
+Us4KlT+neMqKqxzk8ZKlOd/HQR3LDhhxuMjSqUdP1fOvld98IRVIQPKNNfa3TW8J
+EDG6TRbfJcSL+OVY6JnQ29trCcqdVDV9sy9QhDxfzugP1gAApVYOEjdv4ep9+9io
++jrDal2YnH2Z2ydcZIwr8YOFlfMxRmZKG6vqKYQEqdLnCAgXTrcdnY7obAtJfWMH
+uM5qVEvEadU8XzFJN28A5gsTNqT6vRoGeetqDYX5t9TkSHV3PArcLmzutrWIznhd
+h+lOCGZEHkamDwW5QUzs
+=F9Fb
+&mdash;&ndash;END PGP SIGNATURE&mdash;&ndash;</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please dont hesistate to reach out if you have any questions</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-19
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active">$ echo $LANG<br/><b></b></span><br/>
+
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

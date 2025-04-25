@@ -4,19 +4,17 @@
     <title>eddiequinn.xyz</title>
     <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/</link>
     <description>Recent content on eddiequinn.xyz</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Sat, 11 Nov 2023 11:22:31 +0000</lastBuildDate><atom:link href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Nov 2023 16:21:24 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Todo list</title>
       <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/to-do/</link>
       <pubDate>Mon, 13 Nov 2023 16:21:24 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/to-do/</guid>
-      <description>As with all projects of mine, there is a list of things which I want to do with it when I find the time to do so. This is said list
-Automate build process to occur daily - So in its current iteration my site is built by running hugo -t risotto and then committing any changes to the public submodule. It is then auto-built using GitHub pages. In an ideal world, this would all happen on a daily basis automatically, and this will be possible through the use of GitHub actions.</description>
+      <description>&lt;p&gt;As with all projects of mine, there is a list of things which I want to do with it when I find the time to do so. This is said list&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Automate build process to occur daily -&lt;/strong&gt; So in its current iteration my site is built by running &lt;code&gt;hugo -t risotto&lt;/code&gt; and then committing any changes to the public submodule. It is then auto-built using GitHub pages. In an ideal world, this would all happen on a daily basis automatically, and this will be possible through the use of GitHub actions. I am however putting this on the back burner for now - The reason behind this is that as my homelab is built out further I eventually want to run a &lt;a href=&#34;https://www.jenkins.io/&#34;&gt;Jenkins&lt;/a&gt; and &lt;a href=&#34;https://about.gitea.com/&#34;&gt;GitTea&lt;/a&gt; server. Given this, I do not want to write out an automation file for GitHub when I will eventually have to write a separate one later on.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Set up TOR site -&lt;/strong&gt; I eventually want to set up my site so it runs as a TOR-Hidden-Service. Why? Because it&amp;rsquo;s cool. The actual catalyst for my wanting to do this was Network Chucks video &lt;a href=&#34;https://www.youtube.com/watch?v=CurcakgurRE&#34;&gt;here&lt;/a&gt;. I am however relucatant to do this until I have set up the automated build process. The reason behind this is that I would be able to use that to automatically pull the site files on the host.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Set up a linktree page -&lt;/strong&gt; This is something I have wanted to do for a while, and for the longest time, I wanted to do it using an open-source solution like &lt;a href=&#34;https://github.com/heysagnik/Linkees&#34;&gt;linktees&lt;/a&gt;. In reality, I do not have anything nearly as complex as this, just a page on my site showing all my links. I would however like to have it set up so it&amp;rsquo;s not just a series of hyperlinks - I can possibly use &lt;a href=&#34;https://simpleicons.org/&#34;&gt;SimpleIcons&lt;/a&gt; to do this. I&amp;rsquo;ll think about it. This &lt;em&gt;possibly&lt;/em&gt; could present some issues for when I deploy a TOR site, as these links would likely lead to the clear net - for that reason, it&amp;rsquo;s important I put on a banner stating this.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Security.txt -&lt;/strong&gt; I might have one of these already, I doubt it though. One possible resource to do this in the future is &lt;a href=&#34;https://github.com/davidsneighbour/hugo-modules/tree/main/modules/security&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -67,8 +67,7 @@ sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1
 <li>From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across <a href="https://gohugo.io/templates/output-formats">this page</a>. If you read the page at some point you will encouter a string stating</li>
 </ul>
 <blockquote>
-<p>&ldquo;A page can be output in as many output formats as your want, and you can have an infinate amount of output formats desfined <strong>as long as they resolve a unique path on the file system</strong>&rdquo;</p>
-</blockquote>
+<p>&ldquo;A page can be output in as many output formats as your want, and you can have an infinate amount of output formats desfined <strong>as long as they resolve a unique path on the file system</strong>&rdquo;</p></blockquote>
 <p>This essentially does what I planned to do with my previous plan. The old plan was to have an entire sperate directory inside the content folder, which contained the signed posts and instructions in the front matter to use a different theme. This essentially doees the same but in a tidier way.</p>
 <p>To do this i basically need to edit my <code>hugo.toml</code> file with the <code>[outputFormats]</code> section. I need to define two formats, one which uses my current theme and one which outputs it in plain text (which there is a option for). It will look something like this</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-TOML" data-lang="TOML"><span style="display:flex;"><span>[<span style="color:#a6e22e">outputFormats</span>]
@@ -226,6 +225,17 @@ sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1
       
     
     
+    
+      
+      
+          
+            
+            
+                <br/><span class="active">$ echo $LANG<br/><b></b></span><br/>
+
+            
+          
+      
     
 </p>
 <br /><br />

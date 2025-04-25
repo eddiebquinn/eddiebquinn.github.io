@@ -4,48 +4,31 @@
     <title>Homelab on eddiequinn.xyz</title>
     <link>https://eddiequinn.xyz/build-logs/homelab/</link>
     <description>Recent content in Homelab on eddiequinn.xyz</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Wed, 01 Nov 2023 01:05:29 +0000</lastBuildDate><atom:link href="https://eddiequinn.xyz/build-logs/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Nov 2023 16:12:32 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/build-logs/homelab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Z - Services to Be Added</title>
       <link>https://eddiequinn.xyz/build-logs/homelab/z-services-to-be-added/</link>
       <pubDate>Tue, 07 Nov 2023 16:12:32 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/build-logs/homelab/z-services-to-be-added/</guid>
-      <description>So as with all of my hyperfixations, I think about all the things I want to add to my homelab. Some of the plans around all of these additions haven&amp;rsquo;t been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.
-Ansible and IAC - So one thing I have already noticed that will get old quickly is configuring servers.</description>
+      <description>&lt;p&gt;So as with all of my hyperfixations, I think about all the things I want to add to my homelab. Some of the plans around all of these additions haven&amp;rsquo;t been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Ansible and IAC -&lt;/strong&gt; So one thing I have already noticed that will get old quickly is configuring servers. I mentioned in the DNS Server section that I think configuring basic hardening is something that there is zero excuse not to do. I don&amp;rsquo;t want to let my laziness get in the way of my principles, and thus now is the time to implement &amp;lsquo;Infrastructure as Code&amp;rsquo;. Several of the YouTubers I follow recommend Ansible for this, namely NetworkChuck, Wolfgang, and Jeff Geerling. I will write more about this when the time comes for me to implement it, but this will allow me to automate a lot&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Uptime Kuma -&lt;/strong&gt; As my home lab grows I want to be able to monitor all of the services that I am running. Uptime Kuma is one of the easiest ways to do this that I know of.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Git server -&lt;/strong&gt; I use GitHub as my portfolio, and because of that, I want to avoid cluttering it with things like the files that this website is run on. For that reason I ideally&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Certificate Authority -&lt;/strong&gt; I will get into why I want to do this more at the time when I do it. To keep things simple however, it is mainly because I want to make sure that all my services communicate over HTTPS, and I don&amp;rsquo;t want to make exceptions for their certificates on individual devices. Yes, I can do that dodgy thing with Cloudflare and subdomains, but frankly, I want my network infrastructure to be self-sufficient.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;PiKVM -&lt;/strong&gt; I have a post I am writing where I go through the list of things I have saved in my RSS &amp;ldquo;read later&amp;rdquo; folder. One of the links was an LTT video on PiKVM. It made me realise I may benefit from having 1 (or 3) of these. One hooked up to my main pc, another given to my parents to allow me to remote onto their PC and help out from anywhere, and one that I can potentially use as a drop box to get remote access during pen-testing (although this would require some modifications to work). It&amp;rsquo;s not strictly speaking part of my home lab, but if I was to ever upgrade to a server I would need something like this.&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
-    <item>
-      <title>02 - VPN Server</title>
-      <link>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/</link>
-      <pubDate>Tue, 07 Nov 2023 16:11:08 +0000</pubDate>
-      
-      <guid>https://eddiequinn.xyz/build-logs/homelab/02-vpn-server/</guid>
-      <description>I have wanted to set up a VPN server into my home network since before I fully understood what a VPN server could do. Back then I knew it could facilitate me being able to access my files in my home network while remote, however, if you was to ask that version of me how to set it up he would wind up embarrassing himself. The fact of the matter is I have two key choices to be able to do this</description>
-    </item>
-    
     <item>
       <title>01 - DNS Server</title>
       <link>https://eddiequinn.xyz/build-logs/homelab/01-dns-server/</link>
       <pubDate>Tue, 07 Nov 2023 16:09:56 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/build-logs/homelab/01-dns-server/</guid>
-      <description>I had heard about Pi-Hole years ago on a Linus Tech Tips video about it (click here). Since that point I have wanted to implement it, however, my first attempt miserably failed.
-I want to take this moment to say that BT is a terrible ISP, and if you are able to leave it then you should. Their provided routers are locked down to a degree that Apple would the zealous of, and their predatory business model is that of &amp;ldquo;keep upselling vulnerable customers things they don&amp;rsquo;t need, so if they ever do want to leave they would have to give up all the add ons&amp;rdquo;.</description>
+      <description>&lt;p&gt;I had heard about &lt;a href=&#34;https://pi-hole.net/&#34;&gt;Pi-Hole&lt;/a&gt; years ago on a Linus Tech Tips video about it (&lt;a href=&#34;https://www.youtube.com/watch?v=KBXTnrD_Zs4&#34;&gt;click here&lt;/a&gt;). Since that point I have wanted to implement it, however, my first attempt miserably failed.&lt;/p&gt;&#xA;&lt;p&gt;I want to take this moment to say that BT is a terrible ISP, and if you are able to leave it then you should. Their provided routers are locked down to a degree that Apple would the zealous of, and their predatory business model is that of &amp;ldquo;keep upselling vulnerable customers things they don&amp;rsquo;t need, so if they ever do want to leave they would have to give up all the add ons&amp;rdquo;. The original issue stemmed from the fact that their provided router does not allow you to set a custom DNS server, and this was fairly easily fixed just by buying 3rd party router (currently I use the TP-Link AX5400). The next issue comes from the fact that BT does not allow you to put their router into bridge mode, so currently, my new router is plugged into their router, which is plugged into the demarcation port on the wall. This does not present an issue currently, but I know it will when it comes to when I want to set up wireguard (I&amp;rsquo;ll explain why in that section).&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>00 - Planning and Infrastructure</title>
       <link>https://eddiequinn.xyz/build-logs/homelab/00-planning-and-infrastructure/</link>
       <pubDate>Tue, 07 Nov 2023 16:08:49 +0000</pubDate>
-      
       <guid>https://eddiequinn.xyz/build-logs/homelab/00-planning-and-infrastructure/</guid>
-      <description>The plan is to build a collection of raspberry-pi&amp;rsquo;s held in a Pi-Cluster case, all of which run a dedicated service. The reason I choose this method is for two key reasons:
-I already have a couple of raspberry pi&amp;rsquo;s lying around my house, and could no longer justify &amp;ldquo;saving up for a server&amp;rdquo;. If you are familiar with the concept of bikeshedding, this is definitely what I have been doing - I needed to just start at MVP, and then build up to an ideal, and then waste building that ideal.</description>
+      <description>&lt;p&gt;The plan is to build a collection of raspberry-pi&amp;rsquo;s held in a Pi-Cluster case, all of which run a dedicated service. The reason I choose this method is for two key reasons:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;I already have a couple of raspberry pi&amp;rsquo;s lying around my house, and could no longer justify &amp;ldquo;saving up for a server&amp;rdquo;. If you are familiar with the concept of bikeshedding, this is definitely what I have been doing - I needed to just start at MVP, and then build up to an ideal, and then waste building that ideal.&lt;/li&gt;&#xA;&lt;li&gt;When I do eventually get a server, the pi&amp;rsquo;s can be turned into a bare-metal K3S cluster.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;In its first form, the pis will be powered by an extension lead, however, I will change it later on. I plan to install a PoE hat onto all of the pi&amp;rsquo;s and purchase a separate PoE switch to power them all from. The main reason I want to do this is to cut down on the amount of plugs into my extension lead, but I am sure there are other benefits of doing this that I have missed.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
