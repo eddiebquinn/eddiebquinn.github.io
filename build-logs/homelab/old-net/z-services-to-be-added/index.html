@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>Z - Services to Be Added &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Z - Services to Be Added</h1>
+    </header>
+    <div class="content__body">
+        <p>So as with all of my hyperfixations, I think about all the things I want to add to my homelab. Some of the plans around all of these additions haven&rsquo;t been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.</p>
+<ul>
+<li><strong>Ansible and IAC -</strong> So one thing I have already noticed that will get old quickly is configuring servers. I mentioned in the DNS Server section that I think configuring basic hardening is something that there is zero excuse not to do. I don&rsquo;t want to let my laziness get in the way of my principles, and thus now is the time to implement &lsquo;Infrastructure as Code&rsquo;. Several of the YouTubers I follow recommend Ansible for this, namely NetworkChuck, Wolfgang, and Jeff Geerling. I will write more about this when the time comes for me to implement it, but this will allow me to automate a lot</li>
+<li><strong>Uptime Kuma -</strong> As my home lab grows I want to be able to monitor all of the services that I am running. Uptime Kuma is one of the easiest ways to do this that I know of.</li>
+<li><strong>Git server -</strong> I use GitHub as my portfolio, and because of that, I want to avoid cluttering it with things like the files that this website is run on. For that reason I ideally</li>
+<li><strong>Certificate Authority -</strong> I will get into why I want to do this more at the time when I do it. To keep things simple however, it is mainly because I want to make sure that all my services communicate over HTTPS, and I don&rsquo;t want to make exceptions for their certificates on individual devices. Yes, I can do that dodgy thing with Cloudflare and subdomains, but frankly, I want my network infrastructure to be self-sufficient.</li>
+<li><strong>PiKVM -</strong> I have a post I am writing where I go through the list of things I have saved in my RSS &ldquo;read later&rdquo; folder. One of the links was an LTT video on PiKVM. It made me realise I may benefit from having 1 (or 3) of these. One hooked up to my main pc, another given to my parents to allow me to remote onto their PC and help out from anywhere, and one that I can potentially use as a drop box to get remote access during pen-testing (although this would require some modifications to work). It&rsquo;s not strictly speaking part of my home lab, but if I was to ever upgrade to a server I would need something like this.</li>
+</ul>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-11-07
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

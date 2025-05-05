@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>02 - VPN Server &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <h1 id="02-vpn-server">02 - VPN Server</h1>
+    
+    <p>I have wanted to set up a VPN server into my home network since before I fully understood what a VPN server could do. Back then I knew it could facilitate me being able to access my files in my home network while remote, however, if you were to ask that version of me how to set it up he would wind up embarrassing himself. The fact of the matter is I have two key choices to be able to do this</p>
+<ol>
+<li>Open up a series of ports on my router - As someone whose entire personality is baked into privacy and security this just is not an option</li>
+<li>Set up a secure tunnel to access my resources outside the house</li>
+</ol>
+<p>In an ideal world, I want to set up Wiregard on Open BSD. The reason behind this is because, in my opinion, and many others, OpenBSD is one of the most secure server operating systems in circulation today. The reason behind this is that they implement a secure by default design, facilitated by its minimal attack surface. This is especially important because this is going to be the only port that will be open on my network. If I am going to open a hole in my perimeter, which anyone can scan or enumerate at any point, then I want to trust the tech stack that is running on that hole - this is especially true for the operation. This is a similar reason why in this ideal configuration I will be running Wiregaurd - while it is the new kid on the block, it does many things a lot better than a lot of its competitors. The reason behind this is that the underlying protocol is very simple</p>
+<p>Notice however how I said ideal? Well, this is where we move into Agile territory, where that is the end goal but the MVP is going to be Wireguard running on Ubuntu. Now there is nothing wrong with this software combination; It works, and it is reasonably secure. I am choosing this to start with because there are many many tutorials, some from content creators that I trust, on setting up this sort of server (the one I will be following is <a href="https://www.youtube.com/watch?v=rtUl7BfCNMY">this one</a> from wolfgangs channel). If it fails with wireguard however, I will settle for OpenVPN in the meantime while I learn more about WireGuards setup.</p>
+<p>Also worth mentioning here is my issue with BT. Now this is not a problem as long as I configure the VPN correctly, however, I do not want to be put in this position for much longer. Because my TP-Link router is not plugged into the demarcation port directly, all traffic still flows through the original ISP router, which is not in bridging mode. What this means is that my home network is essentially a private network, within a private network - which is cringe. This means if I want to port forward my VPN connection, I need to port forward it on the TP-Link router, with it pointing to the Raspberry Pi AND THEN port forward the BT Router to point to the TP-Link router. While this is not difficult to do, I do not like it, and because of that, I want to treat depreciating the BT router as a P2 in the medium term. I need to replace the BT Router with a modem, and from the research, I have done the <code>Huawei HG612</code> is the model that was typically used by BT back in the day, and can still be bought from eBay fairly cheaply (either that or I go ham and buy <a href="https://www.amazon.co.uk/gp/product/B0B3Y52BQW/ref=ewc_pr_img_2?smid=A1T68U0AS07YKL&amp;psc=1">this</a>). The only other issue is that one of our home lines runs into the BT Router - I think I can plug this directly into a phone itself, but I will need to look into this.</p>
+
+    
+    <ul>
+    
+        <li><a href="https://eddiequinn.xyz/build-logs/homelab/old-net/02-vpn-server/attempt0-wiregaurd-openbsd/">Attempt 0 - Wireguard OpenBSD</a></li>
+
+    
+        <li><a href="https://eddiequinn.xyz/build-logs/homelab/old-net/02-vpn-server/attempt1-wireguard-ubuntu/">Attempt 1 - Wireguard Ubuntu</a></li>
+
+    
+    </ul>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

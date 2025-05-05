@@ -1,23 +1,24 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-This is what my homelab currently looks like
-![image of two layer bramble](/two-layer-bramble.png)
+My homelab journey can be seperated into two key peroids
+- - **old-net -** This was a two-pi bramble that exsisted prior to me moving out
+- - **bartmos-1 -** This the current state
 
-For a very long time, I have wanted to get a home lab up and running. This is for various reasons ranging from it being cheaper than renting VPSs, to it allowing me to hone my skills in running a data centre (albeit small). Officially my self-hosting journey began in 2020, and I even ran some projects on-prem, however for the sake of avoiding issues when I experienced a power outage many of my projects migrated to hosting providers. However, I have officially taken the first step in getting my home lab up and running.
+I have kept the build logs for `old-net`, however these are no longer maintained. They are there just to keep record of what I did and that alone. Please do not attempt to follow them as a guide, not give me critiques on what I did. I have not changed these at all, including the tense they are prestened in or spelling mistakes.
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVq1CIACgkQvUo0nUeo
-F5zEKQ//TIEIdTclrlWrCHB1nn22jSJRC+blqck6i4NIe+Ci1BXGMuyKhIjEvs7V
-wFJj5+Lf8i6BPO/saVm+INO1xaBUl62ljXm+eHoEY9ybLaIMTBH1ICIpQb4haxSG
-9WajtMb4dEuAiR6eqdNs1MUJLtjHhk7lEwrvBcN30gj/MZAiKLVmBxhZUGCrs/FY
-nCPwQecV04n8p2mAYb8ayOqVjaOe5RFavMyh5fJyfWbXulQjXlwHvDX4eIRdPy1o
-Wdq1mrUm87AKRrjzct+Y57BvyWhvVojF79sMgF/IepVPWxucaS89Sh0SV4WrI/L+
-a4mY5TpgAsQYHx2ykwiWBbb2cOKra3NHzr1mkYnB/Svu38fQAHnLJOXVJR8/psj8
-UpGuQBnOHmJR5sMlK1KoiaLAusp1Ro2ox5O7CZSxbgT3F+qrQFBdj6fCl/t5nwNC
-stzeYBmg+kpyLu98hIB3m7QwzwTfigZdh6FNAqyzFoXEqBcZw0ETY+9LjZDGBcRF
-cSy/UVYHc85STH50FAoxr71qEEquaRLs26VHh9+IDB17R0ji52o2DmkN0K/sYVqG
-BPgOus9xKC0UFC5tV5E+rFanhKHa4UtM6limCAaRCDi26h3JX40z6LFum8BfXj2Q
-IeTa7i3uZzMkh6V9aTk0gLj7Chw7u+owP1QG9n0UFWzfo0xZNCY=
-=f08c
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgL1hEACgkQvUo0nUeo
+F5wuvw/+JciDob6dTA/EKaniLWcoZzZ/ruwg7kgRLceZO2ogvZfLYXXM29MKh/zR
+DnqQxNNOp1D7tE5C5hPHaG+j1qyt9LfuHjtlp/LCb3Mz39q0sCDzlPYFjESRcBMM
+nSOcSGGIcgCWFKY7JRwclIS7+Gk9MSjVp0ztQafv2aAlhw94ZA3N3b6pTVUDXoxn
+1vIpEQQMaBM7iE4K5eSjdQb3D0OZ4uca2rsR+xhsdeKO6ev6rStOkS8qBkVb2Xsi
+auMILaa9R/J4epqYLZZWYkuffNiICKNlRqwyLstUkESH3gny/njDLBRvojzcZLeB
+O4zAcDYd2js3JAQxFCpjpXL6fdzwoMrvgPPTLQnHk1ce8YEG3T6DXjQtBrpWoKeh
+P3T3258fBuIDFbn3xtFqrh7l2yTdhHgRRqY6Zij6oNGoKRyD+Ldm3zDQKSIx/QuO
+SVJ/pZv1YBxSsnax36myBhuxNUxrJBBRZ4jXZtSRNvk46JtfbQVNmvfJ/22FT0Ae
+5nJFoz+VKfdcXFTmt47QIKihWugvEpo+8vJiIqJbAtoWCTdN0JKnIkUHuhp1BtYD
+3JDd8Q4Sbl0TOPA+d0CuE7H8kMCLcII7e5FfSr4vwjo7hFb71NcIvXbsjSIVAXrb
+ifs5jUApXrve68l2L7XY0LEqhiQJ4vM/z9MxYIE34Fow2HJa4T0=
+=lhh4
 -----END PGP SIGNATURE-----

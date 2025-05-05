@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>Attempt 1 - Wireguard Ubuntu &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Attempt 1 - Wireguard Ubuntu</h1>
+    </header>
+    <div class="content__body">
+        <p>So to make a long story short, I have my VPN server up and running using the confiration established in this post title. I do not feel proud of how this was achieved, however, as it feels like cheating. My initial plan, as I have gone over in a lot of depth, was to use Wireguard layered on top of OpenBSD. This quickly became complex, because I was having trouble just installing OpenBSD on the Pi. I fully intend to eventually implement this configuration, however, I needed to get A VPN server up and running this weekend and simply did not have time to troubleshoot the original plan. On top of this, there was a functionality that was missing in the original plan that this one covers, i.e. a web GUI. Eventually, I plan to upgrade to OpenBSD Wireguard, but for now, this works.</p>
+<p>The setup involved a fairly standard Ubuntu setup on a PI4, with my standard device hardening. I then used <a href="https://github.com/WeeJeWel/pivpn-web">this repo</a> to install it alongside a web client. It worked straight out of the box, and the itch I had to work on a long complex project was once again thwarted by Docker. All I had to do was change the port forward settings on my router(s). My key issues with this setup are as follows.</p>
+<ul>
+<li>The site runs on port <code>51821</code>, and cannot be easily reconfigured to <code>80</code> or <code>443</code></li>
+<li>The site comes bundled with Wireguard, meaning it is not as modular as I would have liked</li>
+</ul>
+<p>When I eventually get the OpenBSD Wireguard version up and running I want to find a way to deal with these issues.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2023-12-02
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

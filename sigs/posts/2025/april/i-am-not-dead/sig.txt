@@ -1,0 +1,73 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+It is a bit of a joke that I play on many people that when they say "How are you" I will respond with "I am not dead". Some laugh it off, some say it's a bit of a dismal thing to say, and some respond with "same". I have always found it very interesting to see how others respond to this. I often can tell how well I will get on with them based entirely on the response. In any case, given it has been more than a year since my last post I feel the need to say that I am not dead.
+
+## Where have I been?
+This is a good question... 2024 was by far one of the strangest years of my life, and by far has held one of the largest adventures. I have very much neglected this blog because of this, but I want to actually explain where I have been now.
+
+Many of you know I work in tech support. There is a lot to be said about the applications of autism within the world of work, but for me specifically, I fully weaponised mine in my role. If you read my LinkedIn you will see many boasts about things I have achieved and whatnot. I would like to say however, that despite many people saying that I am good at my job, I am only good at my job because of the people and resources that have been made available to me - I listen, I engage, I digest, I perform. If I do not understand something I will ask for clarification. I do not care about appearing stupid. With my attitude, when I started in my role I very quickly became one of the top performers and would be my manager and shift lead go-to guy for anything that required more than five minutes of attention. I was at a point where I could and did, take the piss in my role because I knew if they fired me they would be screwed. Despite this, I was miserable and was genuinely considering quitting at many points.
+
+Around January of 2024, I was going through my department's knowledge base and found an article on automatically provisioning new-starter accounts with an automated script. For context, this action could take anywhere between 20 minutes to 1 hour twice a week. It was something which I knew could be scripted, and even attempted to do it before using AutoHotKey (this did not work). Finding this article was no small feat for me, and one might of assumed I swapped out my MultiVitmain for Viagra that morning post I discovered it. I quickly messaged the person who wrote the article, and within a few days, I was set up on the script. This script despite how it was made out on the Confluence article was not just a script for setting up new starters, it was a full suite of scripts used to automate actions within Jira and Active Directory. With it I was fully capable of logging every job I did automatically and automating various actions. For the first time in months, something in my role excited me, and my monthly ticket count rose by almost 300%.
+
+I very quickly also began to help develop this script and from this began to develop a working relationship with the team who built it. I realised very quickly they were far more knowledgeable than me. I leaned on them to solve problems which I did not even know we could solve. I continued to cement my place within my team as one of their top performers... Then I quickly became miserable once again. I can't get into why because it would involve me bad-mouthing my employer, and at this precise moment in time I am happy in my role and want to continue to grow with the company - Those that know what I was going through however know that I was effectively "king of shit mountain". For the sake of my mental health, I had to get out.
+
+Remember that site that site that developed the script originally? They had a job opening. I got told this in passing by the team lead, the person who wrote the script, the person who had become quite a good friend at this point. I told him I was interested in taking on that job role, something he was shocked at at first. Within a month, it went from "I am trying to leave my job" to "I am moving out from my parents from London to Warwickshire to work with a group of guys, most of which I have never spoken to and those that I have I have only spoken to on Slack, for a job which pays the same and I would effectively be shot back down to the bottom of the food chain". Everyone in my personal and professional life thought I was mad, myself included.
+
+May came along and, my dad and my brother packed a sofa, a chair, a mattress, my computer, a tent and sleeping bag, and two large storage tubs into a van and drove up to my new life. We unpacked, I said goodbye and began putting things away... I then fell asleep, woke up and then put the tent and sleeping bag into my car, and drove to EMF festival. Yes, I moved out of my parent's house, relocated jobs, and attended the UK's largest hacker camp all within one weekend. Yes, this was an insane idea. No, I do not regret doing this. No the voices have not stopped Mum, and I think I need to seek spiritual guidance at some point.
+
+I then spent two months in my role site, still working for my old site but remotely because they *just were not ready to let me go yet*, and gradually got acclimatised. My old site eventually freed me. I have now been with this new team for close to a year, and despite the fact I shifted my entire life up north on a whim, I genuinely regret nothing. I have never been happier, and I think this is a true testament to the fact that sometimes it's better to just make the insane decision that might make you happy rather than playing it safe and being miserable.
+
+## What have I been up to?
+Oh, so you thought that my moving out was the only thing I did last year? You are dead wrong sir.
+
+One of the glorious benefits of moving out of your parent's house is the fact that I can just do insane shit now without the need to consult my parents anymore. I kept a pretty detailed build log of my previous home lab on my blog, this however is *woefully* out of date. Please see the image below for what I mean.
+
+![image of two layer bramble](/homelab-comparison.png)
+
+The image on the right is a two-pi bramble - Please don't get excited, it wasn't clustered or anything. One was running PiHole and Unbound, the other was running a wire guard server for me to access my network remotely. The image on the left is `bartmos-1`.
+
+I will do a more extensive write-up on this at a later date *but* to clear a few things up. In its current state `bartmos-1` (referring to the rack and its contents) is a VEVOR 12U Adjustable OpenFrame rack, currently containing my ISP router and a Dell R730 Poweredge Server running ProxmoxVE. Most applications are deployed via docker, with the plan to eventually switch to K3S. All applications are exposed internally via Traefikv3 reverse proxy and externally using a Cloudflare tunnel being passed to the traefik proxy. I have extensive plans to add to this - This includes but is not limited to:
+
+- - Two R210ii's running open sense handling two load-balanced WAN connections in failover mode
+- - A 3-node ProxmoxVE cluster
+- - A 14 Pi K3S cluster
+
+Now, for the FAQ:
+
+- - **Why?** - Because I can
+- - **No but seriously why?** - A combination of me enjoying playing with enterprise gear, enterprise solutions, and over-engineering things to the nth degree. Do I need all of this, absolutely not - I could probably achieve the same things with a couple of NUC's and a shitty Netgear switch.
+- - **Do I have any friends?** - Yes, they are also massive nerds and are planning on doing something similar so we can start our own community cloud.
+- - **How am I paying for all this?** - I plead the fifth, next question
+
+`Bartmos-1` is not the only thing I have been working on, however. I will list them below.
+
+1. I got back into writing poetry in the last year
+2. I got *really* into 3d printing, and even have a second printer now - A Bambu P1P (yes I know it is filthy propriety tech, no I do not care yes, yes I will print something for you if you pay for time and materials)
+3. Me and a couple of friends have started the beginnings of a hackerspace we are trying to establish - Do not get excited, it is early days and we are using the term hackerspace very loosely.
+
+## So is this blog dead
+No, not. I have some pretty big plans for it, it's just a matter of me finding the time to do it. I'm sure to the -3 of you that are reading this you understand that the last year and three months have been quite hectic, and I just haven't had time to post. I also haven't had time to fix the broken RSS feed. I'm not at all saying that I am suddenly going to jump into action and start posting all the time again, but I am aiming for one post a month and for me to update my home lab build-log.
+
+The main things I want to do in the next few months
+1. Get it so the blog is not being hosted on GitHub pages anymore and in my home lab - yes it will mean it will be laggy but realistically no one reads this
+2. Possibly look into using another SSG other than Hugo - Yes Hugo is good, but the PGP sig thing I layered on top of it is just a bit clunky. Maybe I'll write my own? IDK
+3. Get it so the site auto-builds whenever I push a new post to my blog posts repo - The more I can automate this, the less friction there is to my posting. The less friction, the more chaotic ramblings I can inflict on the world
+
+In any case, I hope all of you are happy and well - until the next post :)
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgLtrAACgkQvUo0nUeo
+F5z50xAAh0f8gbX45XHkvJ8P/YtIIE1VergYaPD5LaiJoWQOPasgAI+c/FEOWAh9
+wUw1HPjwSlt9MrIiFYPxitcqihPfKW8w0oU3A17JGSufhGzqsA0Pp/8fOQ1TTO2B
+8qZ0sNHraKVwMhXYpZEZjuP9AItmzzvr+6pa13CGABIR7tAoP5mFYbo1Bgpc2gis
+VCKF3Kk4IHuE50wCXh23362Q/7ZBenB70Ru7LEYwNO35mRoWz5tomu2yhPB5iCyi
+0Lp3ePSPZr7kPWhvCGImElAz+bUbGSTeCWOPFjGRn1BirAA0mxFAlvJeeiAXf9ea
+9KtocwMYdGD8ZiCMpFNUo923/E7Y6lVj58j3II0rzTBoYFMj/d7DZU3kWMg+2aTi
+qQ4zsEpXUvxkeH66PUSYJGoFG+b3gGNsXYfDW3y4434nhpVZv/TQIA+AMHt2hRaP
+ao4o58COu+EJLJCDyxhm+rZpEhEBSrrL3Ze8xNiCb87b0I/32E9ZtF8aSs2Y3Qr/
++5ObTKF217Jtvvf7jaAGV3ZZxoxe+qeOfrNWUPQ3aCtKi+S0DYQAzMZYKE9QiHN6
+gakGAoEZihALnJPLLIn1+3A+HvWKmm/N+0/Eay8m9JxLOJZkXY/0j7FAQSQuGNEW
+EmZSSDxETXZi8irrHecS9upkyMSolH3fSnaij0OatYOypOSew7U=
+=xM2n
+-----END PGP SIGNATURE-----
