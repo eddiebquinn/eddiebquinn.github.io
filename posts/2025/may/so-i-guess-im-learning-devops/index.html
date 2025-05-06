@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>So... I Guess I&#39;m Learning DevOps? &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>So&hellip; I Guess I&rsquo;m Learning DevOps?</h1>
+    </header>
+    <div class="content__body">
+        <p>As promised, another post (whoopie).</p>
+<p>My blog has needed a bit of TLC for a while. Some of these are backend issues related to the build process and some of these are front end issues. The main one you will notice is that there is no longer an annoying <code>$echo $LANG</code> line at the bottom of every post. This was an artifact of the theme I&rsquo;m using, fairly easily fixed by setting a site-specific version of the lang.html file. The RSS feed is still showing duplicate entries (one for the post, one for the PGP signature). I haven&rsquo;t fixed it yet, but it&rsquo;s on my radar. What is most important however is that the site builds without error. So what does this mean? It means I can finally dip my toe into the wonderful world of DevOps. Yay?</p>
+<h2 id="part-1-building-and-deploying-with-jenkins">Part 1: Building and Deploying with Jenkins</h2>
+<p>Basically the way I build my site currently is I post something to my <code>blog-posts</code> repo and then manually rebuild it using a python script. Once that is done I push it up to the GitHub repo which hosts my site. It’s all very manual, and for some time I have wanted to automate this process, so when I push something to the blog-posts repo it automatically builds and deploys. I also would like to take this a step further and make it so my site is no longer hosted using GitHub pages, and is instead hosted within my homelab itself.</p>
+<p>So I spent today looking around for the best way to do this and this is how I imagine this is going to go</p>
+<p><strong>1) I push a post to the <code>blog-posts</code> repo -</strong> This originally was on GitHub, but has since been rehomed to my private Gitea service within my homelab. The reason for this is because my GitHub was always supposed to be a portfolio, and over time has slowly become just a dump for all projects I do which involve git, which is just about everything I do.</p>
+<p><strong>2) Gitea triggers a webhook -</strong> This is fairly simple, on push Gitea triggers a webhook to notify the CI/CD tool I&rsquo;m going to use.</p>
+<p><strong>3) Jenkins builds site -</strong> Yes, I’m using Jenkins. Yes, I know it’s wildly overpowered for this. No, I don’t care. Upon receiving the webhook, Jenkins will clone the repo, run the Python script I wrote to extract signed markdown content and remove the inline PGP blocks, run <code>hugo -t risotto</code> to rebuild the static pages in the <code>public</code> repo, and then push the changes in <code>public</code> to my GitHub pages repo.</p>
+<p>Sounds easy enough? I’m under no illusion that it actually will be. I have been tinkering with technology long enough to know I am being lulled into a false sense of security, and I am going to get a rude wakeup call. I look forward to it&hellip; Because I hate myself.</p>
+<h2 id="part-2-gitops--argo-cd">Part 2: GitOps &amp; Argo CD</h2>
+<p>So I mentioned that I eventually want to host the site on <code>bartmos-1</code>, my homelab (specifically the rack). I will go into more details on this at a later date, most likely in the build-logs section of this site when I actually sit down and update it. I <em>generally</em> am trying to build my homelab out using IAC principles, and specifically using GitOps to do this. Given how my site is built and deployed (even now), it lends itself nicely to me being able to deploy my site on-prem using GitOps.</p>
+<p>The workflow will change slightly. Steps 1–3 remain mostly the same, but now in step 3 Jenkins also updates a K3S manifest file.</p>
+<p><strong>4) Argo CD watches the deployment repo and redeploys-</strong> Given I eventually want to switch my docker hosts into a K3S cluster, and since Argo CD is a tried-and-tested way to implement GitOps with Kubernetes, it seemed like a natural fit. A lot of the tutorials I have seen that are to do with K3S clusters within a homelab also seem to use Argo CD, so it seemed like a good choice.</p>
+<p>The reason why this is Phase 2 and not part of Phase 1 is simply because I just haven&rsquo;t gotten around to setting up K3S yet. It has been something I have been planning to do since at least March, and whenever I think I am ready I discover a new tidbit of information that makes me reconsider what I am planning to do. For example, today I found out that using longhorn is probably not the best choice for distributed storage across the nodes given they will be done on LXC containers. I’ve also decided I should replace Uptime Kuma with a Grafana + Loki + Prometheus + InfluxDB stack first for monitoring should probably be done <em>before</em> I do my K3S build, just so that I have an actual monitoring solution in place when it happens. <em>I’m also considering provisioning the LXC containers using Terraform instead of doing it all manually—but that’s a whole other rabbit hole.</em></p>
+<p>This project hinges on a few other pieces falling into place before I can properly tackle it.</p>
+<h2 id="overkill-goals">Overkill Goals</h2>
+<p>This did not need to be its own heading&hellip; I also want to eventually deploy my website to TOR and I2P also, but this is not something which I am even thinking about properly yet. I kind of know how to host something on TOR, I do not know the first thing about hosting something on I2P. You may question why I want to do this, and the answer is quite simple&hellip; I think it will be cool.</p>
+<p>In actuality it is the case that I believe that tools like TOR and I2P are very important for the modern day. I also believe that if you don&rsquo;t use something then you do not get to complain when you loose it. TOR alone is in danger of being corrupted almost constantly. I2P, while more secure, is frankly even more in danger simply because its limited userbase compared to its big brother. <em>Also selfishly, I think it would look really cool on a CV that I host my site on those networks aswell as the clear net</em>.</p>
+<p>I’ll write more once I’ve got Jenkins doing what I want—or once it breaks everything and I regret all my life choices.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2025-05-05
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
