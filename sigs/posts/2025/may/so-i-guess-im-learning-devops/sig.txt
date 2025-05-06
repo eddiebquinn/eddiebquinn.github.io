@@ -3,7 +3,7 @@ Hash: SHA256
 
 As promised, another post (whoopie).
 
-My blog has needed a bit of TLC for a while. Some of these are backend issues related to the build process and some of these are front end issues. The main one you will notice is that there is no longer an annoying `$echo $LANG` line at the bottom of every post. This was an artifact of the theme I'm using, fairly easily fixed by setting a site-specific version of the lang.html file. The RSS feed is still showing duplicate entries (one for the post, one for the PGP signature). I haven't fixed it yet, but it's on my radar. What is most important however is that the site builds without error. So what does this mean? It means I can finally dip my toe into the wonderful world of DevOps. Yay?
+My blog has needed a bit of TLC for a while. Some of these are backend issues related to the build process and some of these are front end issues. The main one you will notice is that there is no longer an annoying `$echo $LANG` line at the bottom of every post. This was an artifact of the theme I'm using, fairly easily fixed by setting a site-specific version of the lang.html file. The RSS feed is still showing duplicate entries (one for the post, one for the PGP signature). I haven't fixed it yet, but it's on my radar (I fixed this shortly after publishing this post). What is most important however is that the site builds without error. So what does this mean? It means I can finally dip my toe into the wonderful world of DevOps. Yay?
 
 ## Part 1: Building and Deploying with Jenkins
 Basically the way I build my site currently is I post something to my `blog-posts` repo and then manually rebuild it using a python script. Once that is done I push it up to the GitHub repo which hosts my site. It’s all very manual, and for some time I have wanted to automate this process, so when I push something to the blog-posts repo it automatically builds and deploys. I also would like to take this a step further and make it so my site is no longer hosted using GitHub pages, and is instead hosted within my homelab itself.
@@ -37,17 +37,17 @@ In actuality it is the case that I believe that tools like TOR and I2P are very 
 I’ll write more once I’ve got Jenkins doing what I want—or once it breaks everything and I regret all my life choices.
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgaQocACgkQvUo0nUeo
-F5ySvw/+KjFzOInmG3+YY9Dayyr2pyiC5ePiXU5+HRlepobfcHGMTJ6GeeYFmrnr
-R2PMRWR8+qGY+1pT4n7R0j6cl54OZLUNy5aE6pA11XPHp546BtXL7m2Nb0y1KtZg
-jekWLNcquEr9ewcJwZBkMB2UFTP+bQw/zPlGbZvjS/62eysraIievBjzTZnwZt+7
-ZFK3KRz3EKFvu+G2c/nlwxBx6pTPkdYJiIZUYMiZ29TWyRWQvxMNbduNcsa+2MRV
-G8PF19lSemyBE/66/azcgTLozkvJZmGPYo3YhKcaJZSbGe9o2xb2z8IYRovoUGQ6
-g7c73cyIilTD5pBVb7nElnFIZESLJVHPKIKfNalYtyC65PPF06Ue5Tk8TeH2S4l+
-w5aBluKc0M7qSj96uU1ovgGXneEWTsip1thBR969CL1sUILoPeuPSAKWprzOkI8p
-SBT5DeIXF7RmGvykhGs7vg9Wzgg9F5wHGN233CCqjUFGvetiQ9Rea3Ca1HKPHgVr
-ov0bLynzxT/7ZLBPKBo+2voPChIPiSZxkNYfBgnusgKKTSAy/0ZRzerwQjdzeGiR
-s69CD+0oekntz9aVebQM/I5aNRsJS8w20hdrE4deWTWDmt57gZvyV88FjMs9DEI2
-oVkUtr/mNvLPRB6qKOCu61IE+Yt0YcbTwyKzJlM5xTWL5ufoFeE=
-=iUrk
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgaRvkACgkQvUo0nUeo
+F5xr5g/9EF87mwAaxrnwwqo+a5IA8RB5tutgVPG0rWANxMVcP4gHBZ+DgogJ8rPd
+rhiBtEJtvMf9+m+6LOSMvHVa2tkqGkmrY9EfjGcPp4uaAsp13JT5xICfe9hE2eSt
+SxnvOWWQFn5vMTxKCtunJaTp0BCIgKX+wahUGwf/TJULDcBSQ8N9njh2iozvVXZv
+sOf3481sKCQ5ArGjnoGt/M3SI0P1tS3Ae9WQbwxRgIfY4AKIf7P8Mc4frFhKoh0t
+nGcLviDIw+W7yFol5T12d7m4manGjKnz/Y7eoDIiDmUD3/delgkXO60jOwz4YYKv
++HEpol4aSvntCe5DCEv+RMEEmJ1wbzm1gFgszhmhcjfQnzd5/GQPCDq1m/Rr7BaG
+OZw4OQ+/4NPo5oYGmzO0lMHJnzgLjx3nqhuef2fhc/hPKsX5z49qJmrlCWqh7ALN
+m0dWwZnDKUJlfeXQPS33F4+ZEMCuerXcqxiRXHH1lLzc9fZx+Sjk2itsTQoN2OcK
+gaWiDJXXp+AS/TY4JjsA6gtNLyESzbTAwGNuNA61dK/9Qmrxop1Lef4AVIJhYQHP
+xzzSa7XyXc/rQg4Hokihiu47AGx0BtfSYmr+i4JPhx9LhSQG3xc/Wtj6YriJThEi
+QLFLjBvX25BboTtUqhRVE+9dj6HP/x3A7JfIeHedPoAnd+41fl0=
+=50CN
 -----END PGP SIGNATURE-----
