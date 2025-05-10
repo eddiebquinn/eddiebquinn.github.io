@@ -11,17 +11,20 @@ This post (or build log) is going to go over what I have actually done so far, a
 
 ## Where I am at
 
-So I fully anticipated that I would move into the world of CICD bright eyed and bushy tailed, and promptly get swallowed up and shat back out not to dissimilar to Indian street food. What I have come to understand is that despite Jenkins being a cruel, unforgiving, and vindictive she-witch of which only the most inane forms of evil could spawn into existence, the odd bits of validation it gives make every ounce of abuse worth it. Draw conclusions you will about my relationships from that, I digress. To be fair to Jenkins, this can also be applied to GitHub actions, and is also entirely my fault because I am essentially YOLOing my way into an entire IT discipline I do not know of, just picking up bits and pieces of information as/when I need it. Overall, it has been a fairly pleasant experience.
+So I fully anticipated that I would move into the world of CICD bright eyed and bushy tailed, and promptly get swallowed up and shat back out not to dissimilar to Indian street food. What I have come to understand is that despite Jenkins being a cruel, unforgiving, and vindictive she-witch of which only the most inane forms of evil could spawn into existence, the odd bits of validation it gives make every ounce of abuse worth it. Draw what conclusions you will about my relationships from that. To be fair to Jenkins, this can also be applied to GitHub actions, and is also entirely my fault because I am essentially YOLOing my way into an entire IT discipline I have no knowledge/experiance in, just picking up bits and pieces of information as/when I need it. Overall, it has been a fairly pleasant experience.
 
 As it currently stands, my site does not auto build, and I am still building out a Jenkins Pipeline to do this. I am making small but meaningful bits of progress. The workflow, in essence, does the following.
 
 **1) Git clones my `hugo-site` repo, which holds all the information required to build my site -** It is worth mentioning that I prefer to interact with Git via SSH, yes, this matters, and this will become relevant later on
+
 **2) Run the Python script -** I wrote this script to copy the pgp-signed posts to the posts/ directory, and extract signed markdown content and remove the inline PGP block.
+
 **3) Build the site -** Fairly simple, it will just run the `hugo -t risotto` command
+
 **4) Push the updated HTML files to the [eddiebquinn.github.io](https://github.com/eddiebquinn/eddiebquinn.github.io) -** From there, GitHub pages does the rest
 
 ## Cloning the repo
-If I were willing to use HTTP to clone git repos and create submodules, this step would have been fairly easy. All it would have required would be for me to create a Personal Access Token for my `jenkins-agent` service account on my network, add the credentials to Jenkins, and it would just clone the repo and submodules with no problems. I can hear you asking "why don't you just do that", to which the answer is, I tried. The issue boils down to even if I attempt to authenticate via HTTP to the root repo, the submodules are done via SSH. Why I prefer to use SSH rather than HTTP could be a blog post on its own, but *in general* it is because I believe it is more secure. So I had two choices to fix this. I either change submodules to being HTTP references, in doing so corrupt how I fundamentally choose to use Git... Or I just learn to fix the problem.
+If I were willing to use HTTP to clone git repos and create submodules, this step would have been fairly easy. All it would have required would be for me to create a Personal Access Token for my `jenkins-agent` service account, add the credentials to Jenkins, and it would just clone the repo and submodules with no problems. I can hear you asking "why don't you just do that", to which the answer is, I tried. The issue boils down to even if I attempt to authenticate via HTTP to the root repo, the submodules are done via SSH. Why I prefer to use SSH rather than HTTP could be a blog post on its own, but *in general* it is because I believe it is more secure. So I had two choices to fix this. I either change submodules to being HTTP references, in doing so corrupt how I fundamentally choose to use Git... Or I just learn to fix the problem.
 
 So I went to googling, and found [this blog post](https://www.coachdevops.com/2021/06/how-to-integrate-jenkins-github-using.html) which informed that I can add an SSH key as a credential to Jenkins. I created one for the service account, added it, and updated the pipeline - It worked. Now enter the next problem.
 
@@ -32,7 +35,7 @@ fatal: Could not read from remote repository.
 
 I am not a total noob with SSH, I have a basic idea how it works. What is important in this error message is `Host key verification failed`. This error occurs when the SSH client refuses to connect because the SSH server's public key is not present in the `known_hosts` file client side, or the key has changed. SSH is saying, "I have never met this man in my life". After pretty extensively checking that the SSH keys I have given it can  connect to the Gitea server, and some quick Googlefu, I found the ssh-agent plugin has a snippet to fix this
 
-```
+```yml
 steps {
     sshagent(credentials: ['ssh-credentials-id']) {
       sh
@@ -43,31 +46,31 @@ steps {
 }
 ```
 
-I was not familiar with the ssh-keyscan command before this, so finding out a new nugget of information got me quite excited. What this in essence does is create the `.ssh` directory with the correct permission, and scans the SSH server for it's public key and places it within the `known_hosts` file. So I would need to adapt my Jenkins pipeline so it does this prior to attempting to do anything with the git repos (both GitHub and Gitea).
+I was not familiar with the `ssh-keyscan` command before this, so finding out a new nugget of information got me quite excited. What this in essence does is create the `.ssh` directory with the correct permission, and scans the SSH server for it's public key and places it within the `known_hosts` file. So I would need to adapt my Jenkins pipeline so it does this prior to attempting to do anything with the git repos (both GitHub and Gitea).
 
 I then exploded with excitement to discover that I can now clone the repo.
 
 ## Where I am now
 So the first stages of the pipeline are completed and now I can build the repo, and it worked the first time, and I live happily ever after - the end... Yeah no. So to build the repo, Jenkins required both Python and Hugo - I don't have either of these. To make matters worse, my Jenkins instance is installed with Docker, as this is the deployment method I prefer, so installing these two is not as simple as `sudo apt install hugo python3 python3-pip`. The internet recommends using a Docker file... The internet doesn't understand how much of a pain in the ass that is for me.
 
-This part probably deserves its blog post, but here’s a quick overview of my homelab architecture. So every server that I have is almost exclusively hosted via Docker. All of my Docker container configs are declared via Docker Compose files that are stored on my GitHub server. I currently use Portainer to deploy these containers by pulling the `docker-compose.yml` file directly from the Gitea repo - this allows me some GitOps functionality. I can implement a Dockerfile into this deployment method, as both `docker-compose.yml` and Docker files can coexist, and Portainer supports this. However, also use a tool called Watchtower. This tool is on each of my servers to update the Docker containers within an established maintenance window. The way Watchtower works is that when it updates, it pulls from a remote registry. The popular belief is that if you use Watchtower, a Dockerfile just won't work, and this is not true. Watchtower *can* update containers built from a Dockerfile *if* they are published to a registry, either public or private, meaning that the solution here is for me to host my private registry... yay.
+This part probably deserves its blog post, but here’s a quick overview of my homelab architecture. So every server that I have is almost exclusively hosted via Docker. All of my Docker container configs are declared via Docker Compose files that are stored on my Gitea server. I currently use Portainer to deploy these containers by pulling the `docker-compose.yml` file directly from the Gitea repo - this allows me some GitOps functionality (something I plan to expand on later on down the road). I can implement a Dockerfile into this deployment method, as both `docker-compose.yml` and Docker files can coexist, and Portainer supports this. However, I also use a tool called Watchtower. This tool is on each of my servers to update the Docker containers within an established maintenance window. The way Watchtower works is that when it updates, it pulls from a remote registry. The popular belief is that if you use Watchtower, a Dockerfile just won't work, and this is not true. Watchtower *can* update containers built from a Dockerfile *if* they are published to a registry, either public or private, meaning that the solution here is for me to host my private registry... yay.
 
-Despite my sarcasm, I am somewhat okay with doing this, There are some benefits of me doing this - For one, it allows me to host custom Docker files in such a way that it still works within my network, which solves the problem I just outlined. For two, it will increase speed and availability as it's pulling from the local network, and I am not limited by my ISP's bandwidth. There are also added security benefits such as protection from supply chain attacks, vulnerability scanning and image signing, and offline availability. This is probably an overkill way to solve the problem I am having, but given my "in for a penny" attitude I seem to have adopted with this whole process, this seems to be the next logical step... Also, saying "I host a private Docker Registry" feels like a cool flex. I am looking at possibly using [Harbor](https://goharbor.io/) for this, but I'm still doing research.
+Despite my sarcasm, I am somewhat okay with doing this, as there are some benefits - For one, it allows me to host custom Docker files in such a way that it still works within my network, which solves the problem I just outlined. For two, it will increase speed and availability as it's pulling from the local network, and I am not limited by my ISP's bandwidth. There are also added security benefits such as protection from supply chain attacks, vulnerability scanning and image signing, and offline availability. This is probably an overkill way to solve the problem I am having, but given my "in for a penny" attitude I seem to have adopted with this whole process, this seems to be the next logical step... Also, saying "I host a private Docker Registry" feels like a cool flex. I am looking at possibly using [Harbor](https://goharbor.io/) for this, but I'm still doing research.
 
 So this is where I am at. You will likely see some updates from me on this shortly - I need to look up some tutorials.
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgemPMACgkQvUo0nUeo
-F5yZ2BAAhnZ0a88lmaOTNeHgKdfVKJvg9Y5BEvFbdHTXdKaY8F471wrzuYDhImoc
-xEL1IHrdl2jDCT3bTWQy55RpiqxHWgycJuHdTZjqEJZGxkLMWOD0dt1DTCt4ZWJ5
-bIPkpflF32eacfNXitFykyyL1DhLRQq/sGOh5ZI9MBBX1XOXMK6R6KsV/BEPWmIV
-VLa6uGq96+4zMa9NB0iIxX69CzikwsjSMuXCGnlWxDI11UdsYCHzrm6iihtUAYuJ
-CDluUEgTVKllJXeCsIa3HNuEmBTFYJfDYTMACOCN0J8lKaSk1ddSO4vElF/RR9Ww
-19gD0vYvqJCF2ByeA60ys4VOLZgIMN/t2BDgwqtMZtSBmdsjuYTGUlo9gEBB+8zD
-yPm1H1vQIT20Mv1/MMiWNpM+Pcy8MMZmfgPDG4zywHHckoyjUnQOqTVIdYd3IsVX
-LuycrwstMB6PfhbzEzos84U+taEREQU1I/8QwRT/bKf8tSO+jUe+kQLOIvZpb7aQ
-B44veeIRcdHc0vQAEo8eFhrBNKufwlzW+GllWkcQCYRoRyIOfROgBAzF+mOVgoQU
-AMDIzI6DklqNagkDxLQmOoNUw4YG3DYkcmTTgR1nel3h878nZGDWW7DF4OWsNhAR
-ulZwJCC7YOkVQOBuA7ESRj6X9i076SRNaAdyriAvE4VkgSC7efM=
-=h54P
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmge1FkACgkQvUo0nUeo
+F5wmjg//RQRBOefOKa60FdOg4e5t+DSo4bQ2sWzJv3l59c5941/cgFx8OMg7uKFJ
+BCR1o6Wq9cs/VS84NRRMsjrOQ8OJf0HfzYD9NYEqeKiaWk+uRrhe/Z8VkfpJt0K8
+vq1aBnV11vYdlN/iISfUc+2hHwCgVoloSRSfBLhRni8rrBFDkmc3HhvaII+kccGX
+b/3y0DR6gAENp78l0/JD5Am96FBTbZ7vNhgccPVOSh7OK2hzBeXtSqnK+ZwRYHEF
+L3V69r0BmLkg+Z5kYcUjNTpyhgngLTXIFHwmm+wRJD8l0f9x7VCI0/wQegx2HU65
+jeg5WlwKhfICbtgTPn5bvjCXPT+c7oXDDB6e8rR2LPR8VYXbf9ltHH7F9K3L3W4X
+GX++4eq/bIHVU8wU8yhlmyvqkXc5gZITAFlpfPVRpn1rQY9moKctP6FQESdxmM7s
+iYxxHyxwDomKtQ605T+1FiWqGnaYXIzQ1MDWqXWuzUTk4KWcO2KfWHBoAfxuxLBf
+mgNrWVqL98LYaMaOSxQAva7BWR1NLG07luScCIiNef0lhs6tnTlwjLTpTzOVaP0a
+ezLRd7lDIPTu2UqsLCqCDqOFKXpVXF+8z+YOrA11nJGsRJjZyb2SHYWmgMLFVter
+IScUy5sRhc3y/7m4Zb40lepV1R7g+U4jwok0XGTuZr3mPO1c4t4=
+=porM
 -----END PGP SIGNATURE-----
