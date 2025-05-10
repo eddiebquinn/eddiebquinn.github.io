@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>1 -I Suprisingly Dont Hate CICD &ndash; eddiequinn.xyz</title>
+<meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/nts/" title="">nts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>1 -I Suprisingly Dont Hate CICD</h1>
+    </header>
+    <div class="content__body">
+        <p>Hey there, been a while? Did you miss me? It&rsquo;s cool, I wouldn&rsquo;t either.</p>
+<p>So there has been a project I have wanted to do with my blog for some time, and I have <em>finally</em> gotten around to doing it. I touched on this in my blog post <a href="https://eddiequinn.xyz/posts/2025/may/so-i-guess-im-learning-devops/">So… I Guess I’m Learning DevOps?</a>, or at least the plans around it.</p>
+<p>My current workflow involves manually rebuilding the site whenever I post something, but I want to automate it, so pushing to my blog-posts repo triggers an automatic build and deployment. I’m using Jenkins for this, and even though I know it’s overkill, I don’t care. The reason why I picked Jenkins is long-term term I want to dip my toes even further into the world of DevOps, and I would rather have a fully fledged tool like Jenkins deployed, ready for me to do that. In the future, I also plan to move my site off GitHub Pages and onto my Homelab. Part 2 of the plan involves setting up GitOps with Argo CD and K3S for deployment, though I still have some groundwork to do, like setting up monitoring and distributed storage.</p>
+<p>This post (or build log) is going to go over what I have actually done so far, as I have made some progress.</p>
+<h2 id="where-i-am-at">Where I am at</h2>
+<p>So I fully anticipated that I would move into the world of CICD bright eyed and bushy tailed, and promptly get swallowed up and shat back out not to dissimilar to Indian street food. What I have come to understand is that despite Jenkins being a cruel, unforgiving, and vindictive she-witch of which only the most inane forms of evil could spawn into existence, the odd bits of validation it gives make every ounce of abuse worth it. Draw conclusions you will about my relationships from that, I digress. To be fair to Jenkins, this can also be applied to GitHub actions, and is also entirely my fault because I am essentially YOLOing my way into an entire IT discipline I do not know of, just picking up bits and pieces of information as/when I need it. Overall, it has been a fairly pleasant experience.</p>
+<p>As it currently stands, my site does not auto build, and I am still building out a Jenkins Pipeline to do this. I am making small but meaningful bits of progress. The workflow, in essence, does the following.</p>
+<p><strong>1) Git clones my <code>hugo-site</code> repo, which holds all the information required to build my site -</strong> It is worth mentioning that I prefer to interact with Git via SSH, yes, this matters, and this will become relevant later on
+<strong>2) Run the Python script -</strong> I wrote this script to copy the pgp-signed posts to the posts/ directory, and extract signed markdown content and remove the inline PGP block.
+<strong>3) Build the site -</strong> Fairly simple, it will just run the <code>hugo -t risotto</code> command
+<strong>4) Push the updated HTML files to the <a href="https://github.com/eddiebquinn/eddiebquinn.github.io">eddiebquinn.github.io</a> -</strong> From there, GitHub pages does the rest</p>
+<h2 id="cloning-the-repo">Cloning the repo</h2>
+<p>If I were willing to use HTTP to clone git repos and create submodules, this step would have been fairly easy. All it would have required would be for me to create a Personal Access Token for my <code>jenkins-agent</code> service account on my network, add the credentials to Jenkins, and it would just clone the repo and submodules with no problems. I can hear you asking &ldquo;why don&rsquo;t you just do that&rdquo;, to which the answer is, I tried. The issue boils down to even if I attempt to authenticate via HTTP to the root repo, the submodules are done via SSH. Why I prefer to use SSH rather than HTTP could be a blog post on its own, but <em>in general</em> it is because I believe it is more secure. So I had two choices to fix this. I either change submodules to being HTTP references, in doing so corrupt how I fundamentally choose to use Git&hellip; Or I just learn to fix the problem.</p>
+<p>So I went to googling, and found <a href="https://www.coachdevops.com/2021/06/how-to-integrate-jenkins-github-using.html">this blog post</a> which informed that I can add an SSH key as a credential to Jenkins. I created one for the service account, added it, and updated the pipeline - It worked. Now enter the next problem.</p>
+<pre tabindex="0"><code>Host key verification failed.
+fatal: Could not read from remote repository.
+</code></pre><p>I am not a total noob with SSH, I have a basic idea how it works. What is important in this error message is <code>Host key verification failed</code>. This error occurs when the SSH client refuses to connect because the SSH server&rsquo;s public key is not present in the <code>known_hosts</code> file client side, or the key has changed. SSH is saying, &ldquo;I have never met this man in my life&rdquo;. After pretty extensively checking that the SSH keys I have given it can  connect to the Gitea server, and some quick Googlefu, I found the ssh-agent plugin has a snippet to fix this</p>
+<pre tabindex="0"><code>steps {
+    sshagent(credentials: [&#39;ssh-credentials-id&#39;]) {
+      sh
+          [ -d ~/.ssh ] || mkdir ~/.ssh &amp;&amp; chmod 0700 ~/.ssh
+          ssh-keyscan -t rsa,dsa example.com &gt;&gt; ~/.ssh/known_hosts
+          ssh user@example.com ...
+    }
+}
+</code></pre><p>I was not familiar with the ssh-keyscan command before this, so finding out a new nugget of information got me quite excited. What this in essence does is create the <code>.ssh</code> directory with the correct permission, and scans the SSH server for it&rsquo;s public key and places it within the <code>known_hosts</code> file. So I would need to adapt my Jenkins pipeline so it does this prior to attempting to do anything with the git repos (both GitHub and Gitea).</p>
+<p>I then exploded with excitement to discover that I can now clone the repo.</p>
+<h2 id="where-i-am-now">Where I am now</h2>
+<p>So the first stages of the pipeline are completed and now I can build the repo, and it worked the first time, and I live happily ever after - the end&hellip; Yeah no. So to build the repo, Jenkins required both Python and Hugo - I don&rsquo;t have either of these. To make matters worse, my Jenkins instance is installed with Docker, as this is the deployment method I prefer, so installing these two is not as simple as <code>sudo apt install hugo python3 python3-pip</code>. The internet recommends using a Docker file&hellip; The internet doesn&rsquo;t understand how much of a pain in the ass that is for me.</p>
+<p>This part probably deserves its blog post, but here’s a quick overview of my homelab architecture. So every server that I have is almost exclusively hosted via Docker. All of my Docker container configs are declared via Docker Compose files that are stored on my GitHub server. I currently use Portainer to deploy these containers by pulling the <code>docker-compose.yml</code> file directly from the Gitea repo - this allows me some GitOps functionality. I can implement a Dockerfile into this deployment method, as both <code>docker-compose.yml</code> and Docker files can coexist, and Portainer supports this. However, also use a tool called Watchtower. This tool is on each of my servers to update the Docker containers within an established maintenance window. The way Watchtower works is that when it updates, it pulls from a remote registry. The popular belief is that if you use Watchtower, a Dockerfile just won&rsquo;t work, and this is not true. Watchtower <em>can</em> update containers built from a Dockerfile <em>if</em> they are published to a registry, either public or private, meaning that the solution here is for me to host my private registry&hellip; yay.</p>
+<p>Despite my sarcasm, I am somewhat okay with doing this, There are some benefits of me doing this - For one, it allows me to host custom Docker files in such a way that it still works within my network, which solves the problem I just outlined. For two, it will increase speed and availability as it&rsquo;s pulling from the local network, and I am not limited by my ISP&rsquo;s bandwidth. There are also added security benefits such as protection from supply chain attacks, vulnerability scanning and image signing, and offline availability. This is probably an overkill way to solve the problem I am having, but given my &ldquo;in for a penny&rdquo; attitude I seem to have adopted with this whole process, this seems to be the next logical step&hellip; Also, saying &ldquo;I host a private Docker Registry&rdquo; feels like a cool flex. I am looking at possibly using <a href="https://goharbor.io/">Harbor</a> for this, but I&rsquo;m still doing research.</p>
+<p>So this is where I am at. You will likely see some updates from me on this shortly - I need to look up some tutorials.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keybase.io/eddiequinn/pgp_keys.asc?fingerprint=551d835e4f1549e058c53eafbd4a349d47a8179c" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:info@pranonym.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2025-05-10
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
