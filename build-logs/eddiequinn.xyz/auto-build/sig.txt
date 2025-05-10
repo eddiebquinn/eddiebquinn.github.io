@@ -1,0 +1,22 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+The Autobuild project is a personal DevOps initiative where I'm automating the process of building and deploying my static blog site. It replaces a previously manual workflow—where I’d write a post, run a Python script to clean and prep it, build the site with Hugo, and push it to GitHub—with an automated CI/CD pipeline using Jenkins. When I push a new post to my private blog-posts repo (now hosted on my homelab Gitea instance), it triggers Jenkins via a webhook. Jenkins then pulls the code, runs my script, builds the site, and deploys it to GitHub Pages.
+
+Eventually, this will evolve into a GitOps-based deployment using Argo CD and K3S within my homelab, where Jenkins will also update Kubernetes manifests and Argo CD will handle the redeployment. It's part learning exercise, part infrastructure overhaul, and part fun—driven by a desire to gain hands-on experience with tools like Jenkins, GitOps, and container orchestration.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgenO4ACgkQvUo0nUeo
+F5xqOw//QlEv0HCGtv9OlxS0slOMl9MoYxyyNK2kfkymfM8yWw55h3j1uPErUTjo
+KUighh2gwKl0el9FD0XT2T4zxhUVFuj68pfvKwS+a518KHHE1EnomwZjGL2BD4I8
+Y8x4SfZ3PEB4EL9m7kRoQuYDjtO5bfuFza0tdt4su4AB4qdk/Nh1G7OjrVwd8+6d
+a5Gd0gWo9dVrVzDd9EmgtRe2CR2Qcm8sHOKVvkDGBqW7rMqj623OzhjcqHPCp64n
+8zJt9J0+XknZwX3ORRlIE6/pXhYNvtyAY75GdOSWccm63fdDER85kResE926uAGN
+hFM0cFKoyTXlpzpFOkYcqFZKMtPS/xR01LqvF/1wAVK76BlC9xD0gQ1liusEjgBf
+1dLJRsVD24eEMcY2iFLRdUj+Uk9TBiry7Ene00cb0+M6lMnMpFYCrPsOpw52gZau
+HgQzoo04gaCHT79E1M2xOAYp/ZIprpia61POlqGcD1OEhlGO9dNmvAJfH1DY6JQw
+N3lZ/1nP4lcUGVzdjeSCk3hhc4J7jPR92Bnxvfex3uUpOEJIaAyZAv+ykz7CI4xZ
+zp6hckEjee30FIDXea91g0smwzHutp9U1bOyZm+iua4qlHWGzfGkv+8MC/C7yzJg
+6TPp8hP6+oqt56N47wUkRJsPReWs4BJbuAYOfK9w4K7uGEk/uhc=
+=R7Zn
+-----END PGP SIGNATURE-----

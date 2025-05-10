@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>eddiequinn.xyz &ndash; eddiequinn.xyz</title>
+    <head><title>Auto Build &ndash; eddiequinn.xyz</title>
 <meta name="description" content="A general purpose blog for me to braindump anything I might be thinking about. Please don’t hesitate to reach out if you have any questions.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,20 +50,15 @@
 </header>
 
             <section class="page__body">
-    <h1 id="eddiequinn.xyz">eddiequinn.xyz</h1>
+    <h1 id="auto-build">Auto Build</h1>
     
-    <p>This website has gone through many iterations as time has gone on. Originally this website was made to be a WordPress site which was hosted on Linode. In its current state, it is generated using Hugo and is hosted using GitHub pages. This build log was made predominately to track and discuss improvements I want to make to this site. Some of these were originally blog posts, but I have moved them over here for the sake of grouping them in a more organised way.</p>
+    <p>The Autobuild project is a personal DevOps initiative where I&rsquo;m automating the process of building and deploying my static blog site. It replaces a previously manual workflow—where I’d write a post, run a Python script to clean and prep it, build the site with Hugo, and push it to GitHub—with an automated CI/CD pipeline using Jenkins. When I push a new post to my private blog-posts repo (now hosted on my homelab Gitea instance), it triggers Jenkins via a webhook. Jenkins then pulls the code, runs my script, builds the site, and deploys it to GitHub Pages.</p>
+<p>Eventually, this will evolve into a GitOps-based deployment using Argo CD and K3S within my homelab, where Jenkins will also update Kubernetes manifests and Argo CD will handle the redeployment. It&rsquo;s part learning exercise, part infrastructure overhaul, and part fun—driven by a desire to gain hands-on experience with tools like Jenkins, GitOps, and container orchestration.</p>
 
     
     <ul>
     
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/">Auto Build</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/">Signing Posts</a></li>
-
-    
-        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/to-do/">Todo list</a></li>
+        <li><a href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/">1 -I Suprisingly Dont Hate CICD</a></li>
 
     
     </ul>
