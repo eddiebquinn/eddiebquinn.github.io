@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on eddiequinn.xyz</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://eddiequinn.xyz/tags/</link>
     <description>Recent content in Tags on eddiequinn.xyz</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
     <lastBuildDate>Thu, 16 Mar 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://eddiequinn.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2023-Goals</title>
-      <link>http://localhost:1313/tags/2023-goals/</link>
+      <link>https://eddiequinn.xyz/tags/2023-goals/</link>
       <pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/2023-goals/</guid>
+      <guid>https://eddiequinn.xyz/tags/2023-goals/</guid>
       <description></description>
     </item>
   </channel>

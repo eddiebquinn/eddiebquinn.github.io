@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nts on eddiequinn.xyz</title>
-    <link>http://localhost:1313/nts/</link>
+    <link>https://eddiequinn.xyz/nts/</link>
     <description>Recent content in Nts on eddiequinn.xyz</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
     <lastBuildDate>Sun, 01 Oct 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/nts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://eddiequinn.xyz/nts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Travel Checklist</title>
-      <link>http://localhost:1313/nts/travel-checklist/</link>
+      <link>https://eddiequinn.xyz/nts/travel-checklist/</link>
       <pubDate>Sun, 01 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/nts/travel-checklist/</guid>
+      <guid>https://eddiequinn.xyz/nts/travel-checklist/</guid>
       <description>&lt;p&gt;The reason I am writing this note is that I am essentially declaring bankruptcy on my ability to prepare and pack for a trip with no external workflow. If you ever think you do not need this list Ed, I would like to remind you of the following events&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Lake district trip -&lt;/strong&gt; Remember that time you forgot your braces and had to hold your trousers up for two weeks? I do&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Amsterdam trip -&lt;/strong&gt; Remember how you have no good way to charge multiple devices at once? I do&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;HCCPP 2023 -&lt;/strong&gt; Remember how you messed this one up and forgot soap, charging facilities, a padlock, a sewing kit, etc.? I do&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Ed - this is for your good. This shouldn&amp;rsquo;t be that hard, you love checklists?&lt;/p&gt;</description>
     </item>
     <item>
       <title>My Distro Install Guide</title>
-      <link>http://localhost:1313/nts/my-distro-install-guide/</link>
+      <link>https://eddiequinn.xyz/nts/my-distro-install-guide/</link>
       <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/nts/my-distro-install-guide/</guid>
+      <guid>https://eddiequinn.xyz/nts/my-distro-install-guide/</guid>
       <description>&lt;p&gt;One of the best things about Unix-based operating systems is how customisable they are. I originally came to Linux as a flex on my other nerdy friends, however, I stayed because for the first time in my life my machine was &lt;em&gt;mine&lt;/em&gt;. Most Windows users wouldn&amp;rsquo;t appreciate this, some Linux users may not even - however there is a subset of Linux users who do understand this. &lt;code&gt;ext4&lt;/code&gt; becomes &lt;code&gt;btrfs&lt;/code&gt;, &lt;code&gt;sddm&lt;/code&gt; becomes &lt;code&gt;ly&lt;/code&gt;, &lt;code&gt;gnome&lt;/code&gt;/&lt;code&gt;kde&lt;/code&gt; becomes &lt;code&gt;BSPWM&lt;/code&gt;. The modularity of the system allows you to take various things you find interesting and combine them into a system that you have curated. The issue with this, as it is an issue, is that when it comes to installing my system on a new PC I suddenly find myself having to drag out old YouTube videos, blog posts, and mailing lists so I can reproduce what I have on my other machines.&lt;/p&gt;</description>
     </item>
   </channel>
