@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on eddiequinn.xyz</title>
-    <link>https://eddiequinn.xyz/categories/</link>
+    <link>http://localhost:41117/categories/</link>
     <description>Recent content in Categories on eddiequinn.xyz</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <atom:link href="https://eddiequinn.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:41117/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
