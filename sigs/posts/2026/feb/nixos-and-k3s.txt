@@ -1,0 +1,319 @@
+Hey, been a while... as usual. This is very much thrown together as a post, probably wont even post this, as i seem to be in the habit recently of writing a post a giving up halfway through. None the less, i actually finially have gotten k3s deployed in my homelab, and i now use Nix. Wanna say this is not a tutorial or guide, run the commands here at your own risk, if they dont work then they dont work.
+
+## I use Nix BTW
+I think a real background to this is that I have also finially moved away from using arch to using Nix. It seemed like a natrual next step in me becoming an insufferable no-lifer. I wont pitt kubernates and nix against each other for which one I have intended to switch for longer, but have held court in the taattered throne-room that is my Prefrontal Cortex for so long they were being treated as jesters rather than legitmate guests. I only really moved over to NixOS around four months ago because my Arch (i used arch btw) instal finially keeled over and died, and i could either prolonge my pain using it or just install Nix like i had been saying i wanted to do for atleast two years at that point. I bit the bullet, created incredibly misguided abomination of a flake. I then proceeed to break the flake after three days, and then proceeded to use a nix build two generations old for four months.
+
+Why i eventually fixed this I do not know. It may be as simple as one day at work a coworker was pissing me off and i decided to plan out a new Git Repo called atlantis, and this threw fresh goals onto the smithery inside my brain. Atlantis was born, so called after the club ocupied by merc's in night city in cyberpunk 2020. Atlantis was going to be different, elegant, stable... Atlatnis sat for two weeks and marnated, as just as the coals were about to cough their last plume the NixOS jester spilt hes flaggon atop them, and the ethanol lit a three day spint of building, tweaking, commiting, and reverting. I had a functioning git backed, fully declarative operating system at my finger prints. It is rare that i actually leave a project feeling fulfilled, but this was one of those times that i genuinley felt happy with what I have achieved.
+
+### I have new GPG keys btw
+I think the coolest thing I did in all of this was unify my GPG and SSH setup. This is actually something I had wanted to do for an incredibly long time, the only issue was for me to do it would require me to expended an inordernate amount of effort learning and then tinkering on my machine. Then in six months when my arch install broke again, i would yet again have to go through this learning and tinkering process. I just came to the conclusion that if i was going to go down this road, i would end up spending more time fixing this on every reinstall that I would if if just made new ssh-keys each time. Then of course NixOS came along, and i realised that I only had to set this up once. 
+
+Thus i planned. Despite me cosplaying as a cyber security expert, i am very far from it - i just know enough long words to convince skids that I am better than them. When i intially set up my GPG keys i made a series of mistakes.
+
+1) Uploading my root key to Keybase was one - You private key should never touch the internet, ever... and i knew this and decided to do it anyway
+2) Not using subkeys was another
+3) Not uploading my key to a key server was ANOTHER - Keybase i thought was a viable alternative, it arguably is but I have changed my tune on this
+
+I could probably come up with more but I wont.
+
+Over the course of a wet-febuary evening I installed TailsOS onto a USB stick, got my encrypted USB stick out, booted into trails, and generated the following
+
+```
+pub   ed25519/0xB254FBF3F060B796 2026-02-05 [SC] [expires: 2031-02-04]
+      Key fingerprint = CA98 D594 6FA3 A374 BA7E  2D8F B254 FBF3 F060 B796
+uid                   [ultimate] Eddie Brinton-Quinn <eddie@b-quinn.com>
+sub   ed25519/0x72E0089944E7C367 2026-02-05 [S] [expires: 2027-02-05]
+      Key fingerprint = F63C A733 5EBE CBBD 1961  AF28 72E0 0899 44E7 C367
+sub   cv25519/0x51FC7D57ABD18A33 2026-02-05 [E] [expires: 2027-02-05]
+      Key fingerprint = E98F 1A2B 7172 F95D D2D6  553C 51FC 7D57 ABD1 8A33
+sub   ed25519/0x4AAC046885DFBC2B 2026-02-05 [A] [expires: 2027-02-05]
+      Key fingerprint = 7A24 5FCA 611D EB71 6537  D34C 4AAC 0468 85DF BC2B
+sub   ed25519/0xBFEEDA71CC19B0C6 2026-02-05 [A] [expires: 2027-02-05]
+      Key fingerprint = 3204 96A4 40EE 45CD 13DE  1DCD BFEE DA71 CC19 B0C6
+```
+
+That, my inner demons, is a root key with four sub keys - each serving a specfic purpose
+- One for signing
+- One for encryption
+- Two for authentication (one for each of my devices)
+
+From here on began six hours that resulted in a `+85 -7` line merge request. The file doing most of the work being this one
+
+```nix
+{ config, pkgs, lib, ... }:
+
+{
+  programs.gpg = {
+    enable = true;
+    settings = {
+      keyserver = "hkps://keys.openpgp.org";
+    };
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    enableZshIntegration = true;
+    pinentry.package = pkgs.pinentry-gtk2;
+    defaultCacheTtl = 3600;
+    maxCacheTtl = 86400;
+  };
+
+  programs.zsh.initContent = ''
+    export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
+  '';
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+
+    matchBlocks."all" = {
+      host = "*";
+      identityAgent = "/run/user/1000/gnupg/S.gpg-agent.ssh";
+    };
+  };
+}
+```
+
+I am proud of this... I maintain being proud of this. I do still have some tidying up to do, all of my old posts are still signed with the old key and i need to fix that. I also want to get a NitroKey and use that as my main auth key rather than machine bound keys. The first I likley will not do until I actually get the CICD pipeline running in my blog, the latter requires money.. Soon though.
+
+## I use K3S btw
+So now for the actual reason i started writing this. I am sure you are wondering why i would do this to myself, i recall my friend iron telling me a few years ago "just dont" when i said i want to do this.
+
+In some regards the reason why was a real thirst for knowledge and wanting to push gitops, virtualisation, docker, and just all these technologies i have grown to love to their limits. With that in mind K3s seemed like the next viable step, and I imagine several months (or hours) from now I will want to deploy a K8S cluster. In a seperate regard, since moving to this job i am surrounded by people who also have homelabs. I began using docker to deploy most of my stuff rather than the proxmox helper scripts, and they followed - I am nothing if not a petty and vindicative loser, and thus this internal rage festered within me until such a point where i forced myself to learn open-tofu, ansible, and kubernates and got around to doing this. So yeah...
+
+This was not my first attempt, many in the past have resulting in many a toxic crashout on discord (now element). Most of my issues stemmed from my instance to use LXC containers rather than just use VM's like a normal person (something i am now doing), the other issue came from a much deeper more philosphical issue i have. You may not realise this by looking at my sleep deprived mobidly obease and desheveled frame, but I am an incredibly lazy person - shocker, i know. It is a tad more complicated than that (this is not cope i promise), as an autistic person I just don't like doing pointless things. I will happily spend six hours configuring a nix backed GPG system, but twenty min's configuring seven VM's to run K3S no. This is becasue the first one I only have to do once, and the second one I will have to conintue to do in perpetuity. I did not want to have to keep manually building up and tearing down these LXC/VM's every time i found something new that i had to fix... I needed an IAC solution, i needed terraform.
+
+## I use OpenTofu btw
+
+> "But ed, i though you said you used open tofu"
+
+That you are right disembodied voice, that you are right... I won't get much into this as I am new to the space, but functionally OpenTofu and Terraform obstesivley do the same thing - they are both IAC tools that let you define and manage VM's / Networks / Cloud-Services. They only real difference between the two is governance and licencing.
+
+- Terraform moved to a BSL licence in 2023 from its MPL-2.0 licence. This restrictions certain commercial uses.
+- OpenTofu is a fork of terraform managed by the community that uses the MPL-2.0 licence still
+
+Think of it like MySQL vs MariaDB (there probably are differences but I dont care nough to check, and most people will understand what i mean by that).
+
+The issue is... I am lazy... This wasnt an exsistential laziness that I described a few mins ago, this is "i cant be bothered to learn this tech knowledge laziness"... maybe that was cope before... I cannot quite explain why I eventually decided to actually do this, I think it came off the coat tails of me doing the reinstall of NixOS and wanting to do another big project, but one night i decided to throw some more coal on the K3S furnance and warm myself next to the embers. Wit the aid and assistance for a few LLM's and youtube i wrote the following
+
+**`provider.tf`**
+```tf
+resource "proxmox_vm_qemu" "k3s" {
+  for_each = local.nodes
+
+  name        = "${var.name_prefix}-${each.key}"
+  target_node = var.target_node
+  clone       = var.clone_template
+  vmid        = each.value.vmid
+  full_clone  = true
+  tags        = "k3s-cluster"
+
+  agent                  = 1
+  define_connection_info = false
+  skip_ipv6              = true
+
+  cpu {
+    cores = each.value.cpu
+    type  = "host"
+  }
+
+  memory  = each.value.mem
+  os_type = "cloud-init"
+
+  disks {
+    scsi {
+      scsi0 {
+        disk {
+          storage = var.storage
+          size    = var.disk_size
+        }
+      }
+    }
+    ide {
+      ide2 {
+        cloudinit {
+          storage = var.storage
+        }
+      }
+    }
+  }
+
+  network {
+    id      = 0
+    model   = "virtio"
+    bridge  = var.bridge
+    macaddr = each.value.macaddr
+  }
+
+  ciuser    = var.ci_user
+  sshkeys   = var.ssh_public_key
+  ipconfig0 = var.ipconfig0
+}
+```
+
+**`variables.tf`**
+```
+variable "control_plane" {
+  description = "Control-plane node map (name => spec)"
+  type = map(object({
+    vmid    = number
+    cpu     = number
+    mem     = number
+    macaddr = string
+  }))
+  default = {
+    cp-1 = { vmid = 611, cpu = 2, mem = 2048, macaddr = "BC:24:11:9E:CB:35" }
+    cp-2 = { vmid = 612, cpu = 2, mem = 2048, macaddr = "BC:24:11:DD:46:8D" }
+    cp-3 = { vmid = 613, cpu = 2, mem = 2048, macaddr = "BC:24:11:30:89:D6" }
+  }
+}
+
+variable "workers" {
+  description = "Worker node map (name => spec)"
+  type = map(object({
+    vmid    = number
+    cpu     = number
+    mem     = number
+    macaddr = string
+  }))
+  default = {
+    wk-1 = { vmid = 621, cpu = 2, mem = 4096, macaddr = "BC:24:11:F6:84:1A" }
+    wk-2 = { vmid = 622, cpu = 2, mem = 4096, macaddr = "BC:24:11:A1:09:03" }
+    wk-3 = { vmid = 623, cpu = 2, mem = 4096, macaddr = "BC:24:11:1B:7B:E7" }
+    wk-4 = { vmid = 624, cpu = 2, mem = 4096, macaddr = "BC:24:11:F6:74:82" }
+  }
+}
+
+# Defaults (kept variable-driven; override in tfvars if needed)
+variable "name_prefix" {
+  description = "Prefix for VM names (final name is <prefix>-<node_key>)"
+  type        = string
+  default     = "k3s"
+}
+
+variable "target_node" {
+  description = "Proxmox node to place VMs on"
+  type        = string
+  default     = "arasaka-1"
+}
+
+variable "clone_template" {
+  description = "Name of the Proxmox VM template to clone"
+  type        = string
+  default     = "cloudinit-base"
+}
+
+variable "storage" {
+  description = "Proxmox storage target for VM disks and cloud-init"
+  type        = string
+  default     = "datafortress-1"
+}
+
+variable "disk_size" {
+  description = "Root disk size (e.g. 32G)"
+  type        = string
+  default     = "32G"
+}
+
+variable "bridge" {
+  description = "Proxmox bridge"
+  type        = string
+  default     = "vmbr0"
+}
+
+variable "ci_user" {
+  description = "Cloud-init username"
+  type        = string
+  default     = "semaphore-agent"
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key injected via cloud-init"
+  type        = string
+  sensitive   = true
+}
+
+variable "ipconfig0" {
+  description = "Cloud-init network config for NIC0"
+  type        = string
+  default     = "ip=dhcp"
+}
+```
+
+There are other files, i have not included them - if you want to see the full repo ask. What this effectively does is create seven virtual machines, cloning from a premade tempalte (i made this by hand, i dont see the point in implimenting packer yet), applying a pre reserved mac address. I also discovered some cool stuff i can do with NixOS here too, using the combination of direnv and flakes I can create folder devlopment enviroments with the combo of direnv and flakes. So when i open the directory it runs the flake and installs a load of dependencies, and when i leave directory they uninstall. Did I need nix to do this, probably not, but still.
+
+I then provision it further using an ansible playbook which I will not share, becasue it is long and I feel like you already would of stopped reading after the previous wall of code (if you want to see it ask). What I ended up with was seven vm's ready for the sauce.
+
+## I use k3sup btw
+K3sup is a lightweight cli tool that installs and managed k3s over ssh, not too disimmilar to ansible. It allows you to quickly boostrap and manage kubernates control planes or worker joined nodes without manually handling installation scripts, tokens, kubeconfig files. The lethagy ofd this application sickens me, and yet i have grown to love it... in a "it can fix me" sort of way.
+
+Thew first command was fairly simple. It installs the first master control plane node on 10.0.6.11.
+```sh
+k3sup install \
+	--ip 10.0.6.11 \
+	--tls-san 10.0.6.10 \
+	--cluster \
+	--user k3s-agent \
+	--local-path ~/.kube/config \
+	--context k3s-ha \
+	--k3s-extra-args "disable servicelb --node-ip 10.0.6.11"`
+```
+This does a couple of interesting things, the main ones you should focus on are the following
+- `tls-san` tells it to also generate a certificate for 10.0.6.10 (more on this later)
+- `cluster` tells it to use an etcd database
+
+Now that 10.0.6.10 ip is important. I was going for a HA cluster, meaning that i could not afford to have my `kubectl` bound to just one IP, and this is where kubevip comes in. Kubevip in this usecase spins up a virtual IP that loadbalances requests across the three control plane nodes... I just had to set it up first
+
+First i needed to install the rbac manifest
+```sh
+kubectl apply -f https://kube-vip.io/manifests/rbac.yaml\
+```
+
+Then i needed to ssh into the control nodes and pull the lastest version of kubevipe, and set up an alias
+```sh
+ctr image pull docker.io/plndr/kube-vip:latest
+alias kube-vip='ctr run -rm --net-host docker.io/plndr/kube-vip:latest vip /kube-vip
+```
+
+THEN i needed to create the kubevip deamonset
+```sh
+kube-vip manifest deamonset 
+--arp 
+-- interface eth0 
+-- address 10.0.6.10
+-- controlplane 
+-- leaderElection 
+-- taint 
+-- inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+```
+
+and from here the 10.0.6.10 IP was live. From here i edited my loval `.kube/config` to use `10.0.6.10` rather than `10.0.6.11` and set up the rest of the cluster using the following commands, swapping out IP's and removiung the `--server` flag when doing worker nodes.
+
+```sh
+k3sup join 
+-- ip 10.0.6.12 \
+--user k3s-agent \
+-- sudo \
+-- k3s-channel stable \ 
+-- server \
+-- server-ip 10.0.6.10 \ 
+-- server-user k3s-agent \ 
+-- k3s-extra-args "disable servicelb --node-ip 10.0.6.12" 
+```
+
+And this left me with the following
+```sh
+[eddie@blackhand]:~ $ kubectl get nodes -o wide
+NAME       STATUS   ROLES                AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+k3s-cp-1   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.11     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-cp-2   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.12     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-cp-3   Ready    control-plane,etcd   9h    v1.34.3+k3s1   10.0.6.13     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-1   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.21     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-2   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.22     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-3   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.23     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-4   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.24     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+```
+
+## Aftercare
+All in all, i have to say this - Don't do this.

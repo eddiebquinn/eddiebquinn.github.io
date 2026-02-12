@@ -1,0 +1,144 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+So after writing he previous post on this matter I came to two conclsions
+1) **This website, and this induvidual project, requires its own build log -** This was changed. The commit hashes are listed below
+```
+site commit: 1503286ff0b39d3f502a70373e803ec0b381940d
+sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1
+```
+2) **I am overcomplicating this**
+
+Hugo, unsuprisingly, has a features within it which solve every issue which I am trying to fix myself.
+
+## Custom Output Formats
+- - From digging around stack overflow and several carefully worded messages to our favourite dimwitted genius (chat gpt) i came across [this page](https://gohugo.io/templates/output-formats). If you read the page at some point you will encouter a string stating
+
+> "A page can be output in as many output formats as your want, and you can have an infinate amount of output formats desfined **as long as they resolve a unique path on the file system**"
+
+This essentially does what I planned to do with my previous plan. The old plan was to have an entire sperate directory inside the content folder, which contained the signed posts and instructions in the front matter to use a different theme. This essentially doees the same but in a tidier way.
+
+To do this i basically need to edit my `hugo.toml` file with the `[outputFormats]` section. I need to define two formats, one which uses my current theme and one which outputs it in plain text (which there is a option for). It will look something like this
+
+```TOML
+[outputFormats]
+    [outputFormats.standardFormat]
+        name = "standard-format"
+        baseName = "index"
+        isPlainText = false
+        mediaType = "text/html"
+        path = ""
+        permalinkable = true
+        weight = 1
+
+    [outputFormats.sigFormat]
+        name = "sig-format"
+        baseName = "sig"
+        isPlainText = true
+        mediaType = "text/html"
+        path = "sigs"
+        permalinkable = true
+        weight = 2
+```
+
+To take advantage of these two outputs I will need to call to these in the post-front matter. An example of this is shown below
+
+```md
+- ---
+title: 'test-page'
+date: 2023-11-11T12:09:10Z
+draft: false
+outputs:
+    - standard-format
+    - sig-format
+- ---
+- -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+this is a message signed by me - eddiequinn
+- -----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEWQTd1MwJCH3DFDZ0DiAAR72//sIFAmRXvT4ACgkQDiAAR72/
+/sJ+Ow/9F9Uf8kYyROgDgG1pMVTcMNrCUmqozuzJNPObMeMPe0Xr8TEMnaahlLES
+2XvPQp6lKjE6deLNaf7RJTlYor6hL5VCYT8JFxT0Y3T+benYd502nqJX8LewjRoY
+BusT1TJ8wHsAGOWoUGPh5lGjV1ab2HDkxkOWXtTY17mxbkZ0anBLuNanoApzH2Pf
+qL1eF/mMsrX1YYKkkpswDE/M+4YsdOi29dYpSZyTPn4+mC9bUFcpvDKS/V5AS9gF
+HVw5VDBHpUGxvlYbZy6R2HAgnx03Tm4CTdwLj6Ou9H7vAuFQeX+qVeIlD/9S2cON
+kYQXbNR44hPAFYeQYIStz7A3lJVhja2p70iP4Kse1lO/GarLWb2C1h9NLPQ3zdMf
+jc65ni/EukU8aBITwUW+r49y+nFlyZxyae/ot4oQ2z1zP949ITRVWCZVnCncmi+8
+4LjjZh4I8dFY11VCnco7ddrCFGnEJHSCTF4cgEx3dAtYm5cMfCS/aMy5JyRY4Vh+
+do4l7xtfu0vBWTH3JRxQ9VddzXybidKj21DHJmZd0yktRzwZ2OtNt9noaiqZKzTF
+qC2nWHRDqvSVsRDXj/SM92cNYhc9DeFLzN0HHvxXEf8GnHb/EVfubjLQbQMm5hIz
+hEt4IPg/VXQ4eihib0DrZqG18c8DU4DzNwgmQF3T/vTcvK0MwR0=
+=hJ13
+- -----END PGP SIGNATURE-----
+```
+
+What this will do, assuming a post called "test-page", will generate two pages, where the first one comes out regular and the second comes out plain text - links shown below:
+
+- - https://test-site.com/test-page/
+- - https://test-site.com/sigs/test-page/
+
+Am I under the impression this will work first time? lol no?
+
+## Custom `single.html`
+One of the biggest issues I had with implimenting this before was it wound up making the pages look horrific. This is allot of the reason why I want the sigs on their own plaintext page, which is seperate from the actual post. There is a tiny problem wit this however, that being that I am storig the pages in the content directory sig appended. What this means is that I will need to define a custom layout for pages, where it strips all PGP artifacts from the page.
+
+Originally I was going to use [ReplaceRE](https://gohugo.io/functions/strings/replacere) to do this. What this would do is run the `.content` variable throug a regex filter when the site is built. This would work if I didnt have pgp sigs in posts, like just above this. Im reluctant to say regex has limitation that would prevent me from doing this, but it definatley doesnt cope well with this kind of strings inside of strings enviroment. What I am instead going to do, is combine regex with python to do this.
+
+As with all other snippets posted here, please do not run this as go "ThAt DoEsNt WoRk" - The below snippet is just a rough draft. I havent debugged it, I havent even run it yet. I just wanted to get *something* typed out.
+
+```python
+import re
+
+def strip_outer_pgp(text):
+    # Define regular expressions for matching PGP artifacts
+    pgp_signature_pattern = re.compile(r'(?s)^-----BEGIN PGP SIGNATURE-----.+?-----END PGP SIGNATURE-----\n', re.MULTILINE)
+    pgp_signed_message_pattern = re.compile(r'(?s)^-----BEGIN PGP SIGNED MESSAGE-----.+?-----BEGIN PGP SIGNATURE-----\n', re.MULTILINE)
+
+    # Find the outermost PGP signature and signed message
+    pgp_signature_match = pgp_signature_pattern.search(text)
+    pgp_signed_message_match = pgp_signed_message_pattern.search(text)
+
+    if pgp_signature_match and pgp_signed_message_match and pgp_signature_match.start() < pgp_signed_message_match.start():
+        # Remove the outermost PGP signature and signed message
+        stripped_text = text[:pgp_signature_match.end()] + text[pgp_signed_message_match.end():]
+
+        return stripped_text.strip()
+
+    # If no matches are found, return the original text
+    return text
+
+if __name__ == "__main__":
+    input string = input("Please input string")
+    result = strip_outer_pgp(input_string)
+    print(result)
+```
+
+Ill then have to put something like this in the layout file so this filter is used
+
+```html
+{{ $content := .Content }}
+{{ $filteredContent := printf "%s" $content | exec "python filter.py" }}
+<div class = "content"> {{ $filteredContent | safeHTML }} </div>
+```
+
+## Conclusion
+I will have to debug the things ive discovered and coded today, and im definatley going to have to make a new branch on my hugo files for this while it is worked on. Atleast I have an idea on how I can achieve this now.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZTnYACgkQvUo0nUeo
+F5zB0w/8CYYMsQ/sLN07Own/mV34/i/CDmS7MrBHKtQ7S2R+Ulv0r9i0Rf25scnk
+3osVQUSuZMTSCcpdebNYbJTyrN5qmJTsPGF4YHyldLuqKWQ7hhgqqUz9Vsqc+LhT
+lg1FzeKgYGsOznzuDX4grUnT3g12STGTxVCjUBWT3zQMspnsWfV52xgwaWzbE438
+S/Duht6tDO2DKzhRedTZD8BonlaK5CmGaXLLA7NXIqVlWkFV7ViSA21pErjQZrrN
+8y6/6KpArvFInK93DeIEYlM/StLUKaFIFkli0W8I/B6L81reC89BIkUl+bNuPATw
+1QRpjCiP2v7rU5NgKZylXlBSRDqucD7kmwRwyr2z/53X/4CGSPEejZlMGgHN9N9X
+dUM8NGQQa2GjFPWz8NRHKX883mKM7aUnvdtiVU9y9r/KRdD6nQZzftBa+XqLVgyI
+0knNZnsiec/SFIqzjG8QWzjaA2PUGJPaO2LllkFTHKeWUtqdHaJGSI7PQQWM1sA5
+2SFCAP6pYd991Z6ErRj38Km6hxMdOg7IXw2MWGvXyQMuF70mgTYChnASNSszncUv
+aG43j5d3iQMtcnGkLEznhQCKHZO9FdRddBYmaun0zPo2m2Cag2xH5DIy10xfVL8M
+1EiHtx1LuyLHCAw9arGX2aN1IVC4ujqV/uaBAsErtI/AWl+eThY=
+=lbHj
+-----END PGP SIGNATURE-----

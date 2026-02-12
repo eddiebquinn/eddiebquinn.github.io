@@ -1,0 +1,243 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+One of the best things about Unix-based operating systems is how customisable they are. I originally came to Linux as a flex on my other nerdy friends, however, I stayed because for the first time in my life my machine was *mine*. Most Windows users wouldn't appreciate this, some Linux users may not even - however there is a subset of Linux users who do understand this. `ext4` becomes `btrfs`, `sddm` becomes `ly`, `gnome`/`kde` becomes `BSPWM`. The modularity of the system allows you to take various things you find interesting and combine them into a system that you have curated. The issue with this, as it is an issue, is that when it comes to installing my system on a new PC I suddenly find myself having to drag out old YouTube videos, blog posts, and mailing lists so I can reproduce what I have on my other machines.
+
+This post is an instruction set for my future self so I no longer have to do this.
+
+It is also worth mentioning that allot of this process could be automated - if I ever get bored enough I may even write a bash script to do it for me.
+
+## 0 - Prep
+This post assumes that you have a USB stick with [Ventoy](https://www.ventoy.net/en/index.html) installed. For this reason, there is no process of burning the `.iso` file to the USB stick. If you were to do that you would use the use `dd` command
+
+1. **Go to [archlinux.org](https://archlinux.org/download/) and download the `.iso` file and the iso PGP signature.**
+I will one day write a post on why dislike `systemd`. I am not as dogmatic about this as other UNIX users, however, as I have grown to appreciate the modularity of UNIX systems I have grown to disapprove of `systemd`. I by no means look down on people who system `systemd`, at the end of the day it is still better than Microsoft's black box init system. I reluctantly still use Arch, but in the future, I fully intend to leave this system for one that facilitates moving away from `systemd`
+2. **Verify the arch file with gpg**
+This will typically be done with the following command (swapping out the filename of course)
+```bash
+gpg --verify archlinux.iso.sig
+```
+If the signature matches then you are good to carry on
+
+3. **Insert and mount Ventoy USB**
+This can be done with the following command, run `lsblk` so you have the right path first
+```bash
+udisksctl mount -b /dev/sdY
+```
+4. **Transfer the file to the Ventoy USB and unmount**
+I am not going to write how to move the file, however, to unmount run the following command (again, ensure you are using the right file path)
+```bash
+udisksctl unmount -b /dev/sdY
+```
+
+5. **Use Venoy to boot into the `.iso` file**
+
+6. **Connect to the internet via ethernet cable**
+Yes, it is very possible to connect to wifi during an arch install - however, it is more trouble than it is worth. Just connect via ethernet.
+
+7. **Boot in via SSH**
+One thing that is really cool about arch Linux is that its installer ships with an SSH daemon, which means that you are perfectly able to boot into the installer from your main PC using an SSH session. You need to follow a few simple steps to do so which are listed below
+```
+7a. Ping your router to make sure you have network connectivity (use `ip a` to find that out if you do not know its IP)
+7b. Set a password for your root user. You can do this using `password`
+7c. Use `systemctl status sshd` to see the status and presence of this daemon
+7d. Use `systemctl start sshd` to start the daemon, and use the command in 7c to confirm it is working
+7e. Use `ip a` to find your local IP, and ssh in
+```
+
+## 1 -Creating and mounting drives
+This is typically where this begins to get complex, with a lot of different tutorials spanning into one. This install will be encrypted, however, it will not be full disk encryption (my threat model does not require this yet).
+
+1. **Check if the system is `UEFI` or `MBR`**
+As most of my installs are done on MBR this current iteration of instructions is based on the system being `MBR`, maybe I will update it in the future (probably not though). You can check if it `UEFI` or `MBR` using
+```bash
+ls /sys/firmware/efi/efivars
+```
+If you get a response then your system is running `UEFI`. Generally speaking, I will set up my machine using MBR *anyway*, but UEFI does allow more partitions and is technically more secure (arguable but this is the wrong post for that). At this moment in time, while my main PC does support UEFI my laptops do not. If there ever comes a point when Framework Laptops support coreboot, I will make the switch from `BIOS` to `UEFI`,
+
+2. **Wipe drive**
+This is optional, however, I would generally recommend doing this. If the glow boys ever do get hold of your laptop it can stop them from doing any meta-analysis on the laptop itself to see how much of the disk you are actually using. This is a lengthy process, but if you want to do it the command is
+```bash
+dd bs=4096 if=/dev/urandom iflag=nocache of=/dev/sdX oflag=direct status=progress || true
+```
+once it is done it also recommends you run the `sync` command
+
+3. **Create partitions**
+The way I partition my disk has adapted as time has gone on. Most people start with a simple all-encompassing `/root` partition, and then most graduate onto a separate `/home` partition. I typically set up my partitions in the following way (in this order)
+```
+/boot           (rw)                            Fat32   1Gb
+/                                               ext4    50Gb
+/home           (rw,nosuid,nodev)               BTRFS   (rest of the disk)
+```
+
+What I will say is that if I wasnt running an `MBR` style system, I would also have:
+
+- - `/var/log`
+- - `/var/log/audit`
+- - `/var/tmp`
+
+If I ever switch to UEFI I will implement this.
+
+I typically do this using `fdisk`
+
+4. **Encrypt the partitions**
+Okay, this is (IMO) where this process gets very complicated. I am going to start off by saying that out of our six partitions `/` encrypted with a password, `/boot` is not encrypted, and the rest are encrypted with key files that are stored in `/`. The theory goes that by booting up the system, you decrypt `/`, at which point the rest of the system is decrypted automatically using the key files stored within.
+
+First and foremost, make a directory called `/keyfiles`. You are going to go into the directory and generate a key file for each of the partitions you are going to decrypt this way, you do that using this command
+```bash
+dd if=/dev/urandom of=home-keyfile bs=1024 count=4
+```
+Don't worry about changing the permissions of the file yet, we will do that later on.
+
+Next, we are going to encrypt and open our root partition. We do this with the following commands
+```bash
+cryptsetup luksFormat /dev/sda2
+cryptsetup luksOpen /dev/sda2 crypt-root
+```
+You can theoretically name the partition whatever you want, you do not need it to be called crypt-root.
+
+Now we encrypt and open the rest of our partitions without key files
+```bash
+cryptsetup luksFormat --key-file=keyfiles/home-keyfile /dev/sda3
+cryptsetup luksOpen --key-file=keyfiles/home-keyfile /dev/sda3 crypt-home
+```
+
+Congratulations - you have done the first stage of the encryption process. Now we carry on as normal, until later on
+
+5. **Create file systems on the new partitions**
+This again is subject to change as I find which filesystems I prefer on which partition. At this current time, I prefer having a `fat32` on my boot and `btrfs` on my home. One thing I need to do is change these instruction instructions on how to actually utilise `BTRFS` with subvolumes.
+
+``` bash
+mkfs.fat -F32 /dev/sdX1
+mkfs.btrfs /dev/mapper/crypt-home
+mkfs.ext4 /dev/mapper/crypt-root
+```
+
+6. **Mounting the drives**
+Use the commands below
+```bash
+mount /dev/mapper/crypt-root /mnt
+mount /dev/mapper/crypt-home /mnt/home --mkdir
+mount /dev/sda1 /mnt/boot --mkdir
+```
+
+## 2 - Installing the system
+Congratulations, you have made your partitions and mounted them. Now the hard part is theoretically over we can install the actual system
+
+1. **Install the system**
+You're going to run the following command to install the system.
+```bash
+reflector --country "United Kingdom" --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+pacstrap -i /mnt base base-devel linux linux-firmware grub networkmanager cryptsetup lvm2 vim vi git
+```
+
+Note, that the first command is optional. It simply just gets the latest mirrors based in the UK and sorts them by rate. It's helpful if your network connection is playing up.
+
+2. **Generate `fstab` and prep for grub**
+First what you going to do is run `genfstab -U /mnt >> /mnt/etc/fstab`. The `fstab` file is the file that Linux uses to know where it wants to mount drives. By using the `>> /etc/...` we are appending that to the fstab file on our system.
+
+Now what we are going to do is type in `lsblk -f >> /mnt/etc/default/grub`. What `lsblk -f` does it display all your drives with their associated `UUID`'s, appending`>> /etc/..` will append it to the file so we can use it later.
+
+3. **Copy your key files directory onto the system**
+Fairly self explanatory, just copy it over.
+
+## 3 - Settings config
+Okay, with the system installed. Now to configure it
+
+1. **chroot into the system**
+This is done using `arch-chroot /mnt`. It basically places you inside the new system drive.
+
+2. **Edit FSTAB**
+We are going to go into our `fstab` file now and check to see if everything is okay and change some of the permissions so it aligns with our desired partition layout. Refer to step 1.3 for this information.
+
+3. **Edit crypttab**
+Now you are going to edit `/etc/crypttab` so our partitions are automatically decrypted during the startup process. It should look something like this
+```
+home    /dev/sda3   /keyfiles/home-keyfile
+
+```
+4. **Edit the permissions for the keyfiles**
+You do this by using `chmod -R 400 keyfiles`
+
+5. **Set time zone**
+```bash
+ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
+hwclock --systohc
+```
+
+5. **Locale's**
+Add the following lines to `/etc/locale.conf` using the following
+```bash
+echo "export LANG="en_GB.UTF-8"" > /etc/locale.conf
+```
+
+You will also want to open `locale.gen` and uncomment the ones you want to use. After that run `locale-gen`
+
+6. **Name your new system**
+I typically use cyberpunk character names for my systems (I'm so edgy right?) however you do not have to. To easily do this run the command
+```bash
+echo "rouge" > /etc/hostname
+```
+
+after that you're going to want to `/etc/hosts` and add some details
+```bash
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   rouge.localdomain    rouge
+```
+
+7. **Emable the network manager**
+
+```bash
+systemctl enable NetworkManager
+```
+
+8. **Passwords and users**
+Here we are going to set the passwords for the account
+```bash
+passwd #This sets the password for root, so make it something strong
+
+useradd -G wheel -m eddie
+passwd eddie
+```
+
+You are also going to want to run `visudo` and allow members of the wheel group to use sudo
+
+One thing to note is that when you have an encrypted drive you need to type in your decryption password to log in. You can set up your system so it auto logs you in to avoid you typing in two passwords too. Obviously you are going to have to weigh up the pros and cons on whether or not you want to do this, but in case you do you would edit the `/etc/runit/sv/agetty-tty1/conf` with the following line
+```bash
+GETTY_ARGS="--noclear --autologin eddie"
+```
+
+9. **Setting up drive decryption at boot**
+
+Okay, so now we are going to set it up that our system attempts to decrypt our drive on startup. This is not difficult but it is long-winded.
+
+Firstly you are going to edit `/etc/mkinitcpio.conf` so the words `encrypt` and `lvm2` are close to the end (preferably after keyboard) in the `HOOKS` section. You then run `mkinitcpio -p linux` to refresh the config.
+
+Open the `/etc/default/grub` file and scroll to the bottom. This is the output we added in *1.7*. You are safe to delete most of this but keep the `UUID` for the encrypted partition, and the UUID for the decrypted part of the partition. You are then going to add them to the top of the file. You are then going to edit the `GRUB_CMDLINE_LINUX_DEFAULT` so it says this
+```bash
+loglevel=3 quiet cryptdevice=UUID={sda2 UUID}:crypt-root root=UUID={/dev/mapper/crypt-root UUID}
+```
+
+10. **Install GRUB**
+Now we want to install the `GRUB` bootloader. To do this you type
+```bash
+grub-install /dev/sdX
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUXAACgkQvUo0nUeo
+F5zKgw/7BBnW6c6VGm/JC0CAmb9vwmXWEZVXQgt21/V7tBmnRVAvjKx0kgyxZEO2
+GBXhhHRCkkBBLklg0cGkBCcrA1oIdd5QZgbliRYfkG2ys1uItcMHDQTkLcM64xnO
+BLIIzCrtIQloMZgeru2EoZYj9eN3zvMSYfH2FHSNYjM7nLkrUxGwxPERFEuLDTVx
+I25ZI3yfys3ZWMRpG0ScyPIH9e8QyXv3ksknMDKGguDCK5wEC5Lwh1OTXQYKZgXv
+kM+G74U6ev+HoKJWQOqTUxfKrKnQGxNxVm7Z8Ta9lyrP2y0cBf++8rtPgaKwmQPu
+bg/XDvCsBNPZWput9mUJi3xFPwDCqKwsF+zPC6OFQIHKbDnlSNqovtlaB0eB95sC
+8g9pv3Q3C0kgcAX2muUj10em9sTr+Lab+izPneh1aDGvZo33PdNj9ibmuGEbo8K9
+Iwka3ftrE2/l/4jii57hYBugzkMcKUvQXAaYlnN3PFADVGYS8ALuPR7idKCstZu/
+sNbKx+8kX1eHPIf+/53fAZNUu7D2eK0DibcjJgqO8TJm0rUVr2UW48uoyCMBCd7N
+aj8az3nnzrYvG1dIs4SWJ/j3HdAlonhton+ULUD6sHPCbi4RbBNe02hkUk+PP8BT
+ImNiIwCQY9lmi1q3Tlsc09qQj5ENVtvzxlTayJyIhblYNyXNttQ=
+=k9Fr
+-----END PGP SIGNATURE-----

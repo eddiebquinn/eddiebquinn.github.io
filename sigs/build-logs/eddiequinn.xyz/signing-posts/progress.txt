@@ -1,0 +1,185 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+My friend has an API that if called will return a picture of an anime girl, and will return a new one every 24 hours (I think that's how it works, truthfully I've never curl'd it). Thinking about that combined with a rant Luke Smith once made about fixing pull requests on his GitHub, I wish there was an API I could call to give me a random picture of a Pink Wojack every 24 hours. It would help me get across my current... mood? Is mood the right word?
+
+I've made progress - I am even at a point where I could have this finished tonight. Needless to say, the route we were taking has changed.
+
+## Previous plan
+For more details on this, I would recommend reading the post before this *but* for a summary... The plan was to use Hugo OutputFormats to generate two outputs from the same markdown file, one regular and one plaintext. I would then use a Python script to strip the PGP artefacts from the content.
+
+This made a series of stupid *stupid* assumptions, all of which I have had to make some cringe/genius solutions for
+- - You can create separate `text/html` outputs, and apply a different theme to them
+- - That I can deploy a Python script to filter out the `. Content` data during the build process from within the `single.html` template.
+
+I will detail how I have-fixed/am-going-to-fix these in the sections below. I would like to mention, however, that as much as I want to lobotomise myself right now as a relaxation exercise, this experience has been fun and informative.
+
+## Applying separate themes to `text/html` outputs
+Is this possible? No. I'm sure with enough fiddling it is possible, however, I ideally wanted to do this with minimal edits to the theme I am using. I have been avoiding learning HTML and CSS for 25 years, and I want to have a long happy life without ever breaking this streak.
+
+What I did instead of using separate themes is read the documentation (and reach out for help on one or two Discord servers). So as I mentioned before, Hugo can support separate OutputFormats. By default, it uses `text/html` for pages, but within the `text` category there is also `text/plain`. Now I made the mistake originally of assuming declaring `isPlainText = false` in my `hugo.toml` file would have the same effect - I was wrong (I don't know what that flag does). Given this, I edited my `hugo.toml` file so it now looks like this
+
+```toml
+[outputFormats]
+    [outputFormats.standardFormat]
+        name = "standard-format"
+        baseName = "index"
+        isPlainText = false
+        mediaType = "text/html"
+        path = ""
+        permalinkable = true
+        weight = 1
+
+    [outputFormats.sigFormat]
+        name = "sig-format"
+        baseName = "index"
+        isPlainText = true
+        mediaType = "text/plain"
+        path = "sigs"
+        permalinkable = true
+        weight = 2
+```
+
+What also needs to be done is you need to make a template for this `.txt` file. So I made a file called `layouts/_default/single.sig-format.txt` which contained the following
+
+```html
+{{ .Plain }}
+```
+
+With these changes theoretically, these two pages should be made - The top one being regular, and the second being a plaintext version with the signature.
+
+- - https://eddiequinn.xyz/test/
+- - https://eddiequinn.xyz/sigs/test/index.txt
+
+Of course, it wasn't that simple. You see `.Plain` is meant to return the rendered content of the given page, removing all HTML tags... This is not what I wanted, and even if it was it still doesn't remove all the html *artefacts* i.e. `Microsoft&rsquo;s` will appear rather than `Microsoft's`. Encountering this problem I did some googling and encountered [this post](https://discourse.gohugo.io/t/generating-custom-text-output-from-markdown-with-regular-expressions/27707) which detailed how she was having a similar issue, with [a link to GH](https://github.com/Princeton-CDH/startwords/blob/main/themes/startwords/layouts/article/single.txt) and how she solved it. So I used her code, and `single.sig-format-txt` became the following
+
+```html
+{{- $rawContent := .RawContent -}}
+{{- range .Site.Data.article_txt_replace.args -}}
+  {{- if not .skip -}}
+    {{- $rawContent = $rawContent | replaceRE .pattern .replacement -}}
+  {{- end -}}
+{{- end -}}
+{{ $rawContent }}
+```
+
+Following this I signed a post using `gpg --clearsign`, and used `hugo server` to generate it. I then `curl`'d down the content, and used `gpg --verify` to confirm it works - No errors, so looks like *for now* are good. I should probably initiate an automated test to confirm the sig checks out, but that will be a job for once this is done.
+
+## `.Content` filter
+So this one is a tad annoying, but not as much as it could have been. The original plan was to use something like this to filter out the `Content` data during the build process, by editing the theme. See if you can spot the issue.
+
+```html
+{{ $content := .Content }}
+{{ $filteredContent := printf "%s" $content | exec "python filter.py" }}
+<div class = "content"> {{ $filteredContent | safeHTML }} </div>
+```
+
+If you didn't know and don't worry if you didn't, it's the use of `exec`. Hugo doesn't let you do this, and I was an idiot for assuming that I would.
+
+What is even more potentially idiotic is I write the Python script to strip the PGP first. I say this is idiotic because if it turned out I wasted time writing that, I could have risked rage quitting this whole endeavour (luckily I think I have found a workaround). Regardless, for the sake of people not thinking I am a total idiot with Python, based on my potential code last post, here is the new script that works
+
+```python
+import sys
+
+def main():
+    raw_data = RawData(file=True).string
+    gpg_client = Gpg_client()
+    message = gpg_client.extract_content(raw_data)
+
+    return message
+
+class Gpg_client:
+
+    def extract_content(self, signed_message:str):
+        ## Strip out begining
+        content_start_index = signed_message.find('\n\n')
+        if content_start_index != -1:
+            content = signed_message[content_start_index + 2:]
+
+        ## Strip out signature at the end
+        sig_start_index = content.rfind("-----BEGIN PGP SIGNATURE-----")
+        if sig_start_index != -1:
+            content = content[:sig_start_index]
+
+        return content
+
+
+class RawData:
+
+    def __init__(self, file:bool = True):
+        self.file = file
+        self.string = self.extract_string()
+
+    def extract_string(self):
+        if self.file:
+            path = sys.argv[1]
+            with open(path, 'r') as file:
+                contents = file.read()
+                return contents
+        else:
+            return sys.argv[1]
+
+if __name__ == "__main__":
+    message = main()
+    print(message)
+```
+
+It's not the best thing I have ever written, but the way it works is to say you have a file called `text.txt.asc` - You would run `python3 strip_pgp.py text.txt.asc` and it would spit out the text with all PGP artefacts removed.
+
+So what is my new plan? Well, the new plan is a hit hacky... The original original plan was for me to have a directory in my content folder that mirrored the file structure of the parent directory. The only difference would be that the files inside would contain the signed posts. This plan is essentially the same thing, except a bit different.
+
+This is what the current directory structure looks like for my site - (S) means submodule
+```
+.
+âââ archetypes
+âââ content (S - blog-posts)
+â   âââ build-logs
+â   âââ nts
+â   âââ posts
+âââ layouts
+âââ public (S - eddiebquinn.github.io)
+âââ static
+âââ themes
+    âââ risotto (S - risotto)
+```
+
+The new plan changes this file structure to look like the following
+â   â   âââ eddiequinn.xyz
+```
+.
+âââ archetypes
+âââ content
+â   âââ sigs (S - blog-posts)
+â   â   âââ build-logs
+â   â   âââ nts
+â   â   âââ posts
+âââ layouts
+âââ public (S - eddiebquinn.github.io)
+âââ static
+âââ themes
+    âââ risotto (S - risotto)
+```
+
+What I am essentially going to do is change the location of the blog posts submodule to be in the `content/sigs` directory. What this allows me to do is store all my posts GPG signed. Then what I will do is run a script (based on the previous Python script) that will copy everything inside the `sigs` directory into the `.` directory, and then go through every file recursively and remove the PGP signature. I will likely add everything inside the `content` directory to the `.gitignore` however, because frankly, I do not need two copies of my posts in separate repo's.
+
+What needs to be done however is to set it up so whenever I run `hugo -t risotto`, the script is run just before. I don't know the best way to do this, possibly an alias. idk.
+
+## Other than this
+I think once that is done strictly speaking I'm at MVP - I would like it though if all the posts had a link underneath saying "Click here to see sig". Pretty sure I can do that by editing the `single.html` file, but I've not looked too much into this yet.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZTwwACgkQvUo0nUeo
+F5ztkQ//cjKiwZmGnCu41tcwnvx0BXmvzWFvbDsc7FBBsHnC8Lmji2IWOoKBZMBA
+auZtcp9vc2THkIzFeoWqfyt70iMTAPhA2A27Wk4vZh3binkWZknAOHFgTI48FtU3
+vwM/SSijT8p0697g/gmq6A6EUmjpzyINy9ty8Dd/c0SJCCwq9pkeaKeX4YebO02F
+Cjdzg1ZUmmjF8aCyf/QLAe8T0EXiL8PWrREBXf8BiKnB+Yw2T6par/4EpKJopFrF
+nvKBErhZs2iGKovpFJgxF51GsgRu7uDtlvmkTFTNJOTN7GdDbaq9IksiUwoXZL4N
+vVtr+5VHc6QPOF35JbE1Fm0KtWvC3I69jc+H8HubAMmGT53nrECa7RftE6cDB40d
+3Hfqasb9Yu+P1epuJNWVsd9i2BjZNgGrOzX+4LoSYddyISJ3xN0pwl84GfT71C4F
+GEwCBCHiTQa/e2YSqfkK6YU6DAp/CADxnQTh6su7cKOPtL11ELg1BPtkKHOxMYYY
+ooVRbYDCwWiajrnxExBnjuPcCVV4up57V/SzXATDm2BH12QToeWP+1A1Ux705R9J
+i84EgG3lHr8XJ5dR9p1PLJtbNpqbnslWTWp4V4HlAIniMcfZm75zPwv1CUonG7To
+BpXoJD/w+5mnpnKjseNm9Wg91NXs6Y6r36Lsu+ZBZXxj0TmxUf4=
+=nHcc
+-----END PGP SIGNATURE-----

@@ -1,0 +1,35 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+# Eddie B-Quinn
+I am an analytical problem solver with a passion for privacy and security. I question established ways of doing things and have a strong preference for automation and optimization. I have interests in philosophy, technology, mathematics, and politics/economics.
+
+This blog predominately serves to be my means of posting thoughts and opinions online, as I do not have social media (outside of Linkedin). Please feel free to reach out if you have any questions.
+
+# Skills
+- - Python3, Javascript, NodeJS, Java, Rust
+- - Google Cloud Platform, Azure
+
+# Highlited Projects
+- - **[Brainf-ck](https://github.com/eddiebquinn/Brainfuck) -** A simple brainf-ck interpreter written in Python
+- - **[Huffman encoder](https://github.com/eddiebquinn/huffman-code) -** A version of the Huffman compression algorithm written in JS
+
+# Other cool people
+- - **[Iron's Blog](https://blog.ironsm4sh.nl/) -** Hacker with a wide range of interests
+- - **[Mitchell's Site](https://garden.mitchellton.com/) -** Electronics engineering student & Developer
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVhOwIACgkQvUo0nUeo
+F5zF7w/+NLQE2tQ9jD8nDNlUAYEONYYikGi3eoa2m9s5/XXugfaCmyFVelgDqhE4
+cS8N5InFqRZkA2aL5F5P0/9FIJonsc1V0YYkeLIQElwRYZsoJagJahU1w7qbO0hi
+NTMQJHCNzLm9VS70cHdFLfWY3Jdyi0mjzwPoKbNj4/VsR9mj2Lb7mqYBfbiNaNwr
+e5Kz72IlqjHy5aYmFbEM1qpWVGGek2z2y9NkRTuIVdFtUoO5qIGGb1wboh6OAklY
+oHhj7u4xhOvPwo56V61u9Q+I8/QyTJ35gJHeIup0S3twsrhX/8ohKH6qjRSfxriz
+Pz6OHxA2n6+KTLhAp2kL8hxVO/c8DBg7AiLrPQLW3Vy8ZA2z+v2Ogpo/Oi2T0pTL
+VrOJJQ/yNUszr/ZTw2SycrjcH3olDTvviFzvWyHjb6gHwcZfw4gz0ma1C4G1cMwI
+323w8Z/fDe+foClqjaTRDKym40neDM5ciS1QfQgExAVuzdNOxFqRp+dbQ3MoKx35
++xYCiYKVrELUAVe2jHxcW554dN0ID01xj78MB2J2yw6CmkdYWnT/R1pLK0R9QtGq
+nAnnwOZMkZJaGW96PzDlxwe2/RTaj/phmHKMA1ejTr2ccZuMZYT3dQx/QEqBFVj+
+hTxI/8/l9v8gr2Qk3mhP6UAVVoahfLMhQG21uKmgVp1dtL6pV3g=
+=+tMh
+-----END PGP SIGNATURE-----

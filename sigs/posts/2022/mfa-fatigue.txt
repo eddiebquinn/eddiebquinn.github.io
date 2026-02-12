@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+In September 2022 Uber, the most popular ride-sharing service was hacked. An 18-year-old used a combination of social engineering, MFA fatigue, and directory pivoting to stumble into unfettered access to Uber's internal network. This is an allegory of oversight in the cybersecurity field. I am not going to spend ten minutes ranting about this hack, because it has had an overbearing amount of coverage over the past two weeks. I am however going to talk about one of the techniques the hacker used to gain access to the account, MFA fatigue
+
+## What is Multi-Factor Authentication
+When you log into a website you will typically be asked to authenticate who you are, usually with a username and password. There are typically three forms of authentication in which a computer can challenge you Something you know
+
+1) Something you know
+2) Something you are
+3) Something you have
+
+A password, which you would use to log into the previously mentioned web app falls into the first category. Now this password by itself is what is referred to as single-factor authentication *because* it only encompasses a single one of these forms. Multi-factor authentication, on the other hand, is when you use more than one of these i.e. when your bank sends you a one-time passcode (OTP) to authenticate a login. This falls under the:
+
+- - Something you know - The password you used to log into the account
+- - Something you have - Your phone which you receive the next one
+
+MFA is a beautiful concept because it is so simple. It allows for more secure login authentication at the cost of a slightly lower level of convenience. There are multiple levels you can take with it, for example, I use a hardware token as an MFA method, but no one is forcing you to do anything other than the bog-standard OTP SMS.
+
+## The problem child in the MFA family
+- - From the surface level, the uber hack shouldn't have happened. The user in question had her password exposed due to social engineering, however, he did have MFA enabled on his account. This theoretically means that the hacker wouldn't have been able to get any further, because he had only compromised a single factor of authentication, *however*, I would not be writing this post if that was what happened.
+
+The biggest cyber-security threat that exists in any computer is the person using the computer. Picture this, you are at work and suddenly your phone gets a pop-up asking you to authenticate a login. You haven't tried to log in to anything, and your training has told you not to click `approve` unless that is the case, thus you ignore it. Five seconds later, another pop-up, and you ignore it again. Five seconds pass, and another one. Then another one. This continues for hours until eventually you click `accept` just to see if it makes it stop. Congratulations, you have just been a victim of an MFA fatigue attack.
+
+MFA-fatigue is a new-ish attack on the block, it was used in the Twilio attack late last august. I am very reluctant to call it breaching MFA, it is far closer to social engineering. That being said it does present an issue for MFA as a whole. The issue isn't necessarily that MFA has been broken, because if you follow news around this practice you would know that SMS-based authentication has been broken for a very long time. SIM-swapping is the act of having your number ported to an alternate SIM card without your permission, and it is concerningly easy to do. The difference between SIM-swapping and MFA Fatigue is that SIM-swapping requires to allot of prep, and sometimes even committing an overt in-person crime. MFA fatigue on the other hand can be done by a script kiddie on the internet, who accidentally found someone's password on a data leak. I am a strong believer in the sentiment that "no system is safe", however, it is important to understand the difference in barrier to entry required for some hacks is what makes simple hacks like DDoS, Brutfocing, and now MFA-Fatigue that much scarier than XSS, Spear Phishing, and MIM attacks.
+
+## The solution
+Remember how I said that MFA is a beautiful system because it trades a slight inconvenience for a major bump in security? It is important to understand that if a service is offering a convenient solution, in exchange you are almost always trading either your privacy, security, or both. Push-notification-based MFA is making MFA more convenient, and the pattern followed.
+
+Am I saying the standard should be abolished? Of course not. Even if I wanted it to, the cat is out of the bag and someone is inevitably still going to be using it no matter how many hacks happen due to it. Pushing that aside, MFA fatigue wasn't the sole reason behind the uber hack. The employee who was socially engineered was one of the reasons, and the moron who left admin login credentials *just sitting in a shared network drive* is another reason. The solution is never eradication, it is education and updating your organization's minimum security guidelines to match your threat model. On a personal level do a simple audit of your password manager.
+- - Are your passwords strong enough
+- - Do you have a tried and tested MFA form on your accounts?
+- - Have you closed all the accounts you don't use to minimize your attack surface?
+
+Regardless, this is where I need to close this blog off. Stay safe friends!
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUhcACgkQvUo0nUeo
+F5ydUQ/+PaKP/vNsXLxcl2R8NKAllDiw4flz7B0AFSypQTyuswii6swVr/wfMXZP
+WB1DvpnOJ12c6ayjTSvtsjKnD2Bl17EZikrUvosGPYhdOlRl/bNGvY9ksEX1hiRr
+WDreBuqMIWymaf+FESxDG/3Lvs8dNJjcGm6+IhNQ6NcM8E2hxT/i0hScdSyOVtjr
+d696m9Pq1yeaYpUEebdH7+NXRlggC91YKEUaXI4sUpt7u7Cj/Y6vQAVGril4bznn
+7Wcb5W3o74bCIdmw7XD34aPhxUtH8KBwFqM5BaoqY+Bzyomjpie8JRZbl8OFSmYH
+RySrAk9vCRgFBZkSG2cb166w6Oj0lN/tIdW5CJ4WwNyEdoWwX/1dXUljdC42DEt+
+17JM4z7iSqwXwsKpapvS5FMi8hMp3dJzpVrwH5e8JOXUhSZeSjDe+0o0vyoiM8eb
+BS5Fq4BE/x6eyyULDFBHlW65vdKHzjuT/nAGHIfCHrSczJzFYW3+JwgRCRtkhsoO
+nvOjs1mnCA54d773b/JRXW/i4BEoi3lkxnTA2yeYHgCmyBc6TKblSQ+x4A2oUcev
+RQix3Faeln4SgtkVb00S7fhOt6NJi6GwP88KurTl9M5wBr5kOsZRuKQ95TYud/tJ
+B6QEW93lloj5VHSJ7Qrix7C/PRQt6ouCxrutHWyBVnG8WXHZtN4=
+=UIrX
+-----END PGP SIGNATURE-----

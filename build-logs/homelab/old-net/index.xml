@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Old-Net on eddiequinn.xyz</title>
+    <link>https://eddiequinn.xyz/build-logs/homelab/old-net/</link>
+    <description>Recent content in Old-Net on eddiequinn.xyz</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
+    <lastBuildDate>Tue, 07 Nov 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/build-logs/homelab/old-net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>00 - Planning and Infrastructure</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/old-net/00-planning-and-infrastructure/</link>
+      <pubDate>Tue, 07 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/build-logs/homelab/old-net/00-planning-and-infrastructure/</guid>
+      <description>The plan is to build a collection of raspberry-pi&amp;rsquo;s held in a Pi-Cluster case, all of which run a dedicated service. The reason I choose this method is for two key reasons:&#xA;I already have a couple of raspberry pi&amp;rsquo;s lying around my house, and could no longer justify &amp;ldquo;saving up for a server&amp;rdquo;. If you are familiar with the concept of bikeshedding, this is definitely what I have been doing - I needed to just start at MVP, and then build up to an ideal, and then waste building that ideal.</description>
+    </item>
+    <item>
+      <title>01 - DNS Server</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/old-net/01-dns-server/</link>
+      <pubDate>Tue, 07 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/build-logs/homelab/old-net/01-dns-server/</guid>
+      <description>I had heard about Pi-Hole years ago on a Linus Tech Tips video about it (click here). Since that point I have wanted to implement it, however, my first attempt miserably failed.&#xA;I want to take this moment to say that BT is a terrible ISP, and if you are able to leave it then you should. Their provided routers are locked down to a degree that Apple would the zealous of, and their predatory business model is that of &amp;ldquo;keep upselling vulnerable customers things they don&amp;rsquo;t need, so if they ever do want to leave they would have to give up all the add ons&amp;rdquo;.</description>
+    </item>
+    <item>
+      <title>Z - Services to Be Added</title>
+      <link>https://eddiequinn.xyz/build-logs/homelab/old-net/z-services-to-be-added/</link>
+      <pubDate>Tue, 07 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/build-logs/homelab/old-net/z-services-to-be-added/</guid>
+      <description>So as with all of my hyperfixations, I think about all the things I want to add to my homelab. Some of the plans around all of these additions haven&amp;rsquo;t been fully fleshed out, and therefore are not deserving (in their current form) of a whole section. However, I do want to write down what I want to add, and why I want to add them.&#xA;Ansible and IAC - So one thing I have already noticed that will get old quickly is configuring servers.</description>
+    </item>
+  </channel>
+</rss>

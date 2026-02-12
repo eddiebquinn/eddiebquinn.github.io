@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+This post is a tad overdue, a timeline of illness to birthday back to illness is to blame for that. I am very much playing catch-up now, intending to publish enough posts to make up for last month's backlog, and this month's quota.
+
+Overall February was *somewhat* of a success. I fell behind in regards to publishing blog posts and still haven't made successful headway with the book's goals, however in regards to my goals of being healthier and paying off my overdraft I have made progress. All of these will be expanded on below
+
+## Goal 1) Im going to write more
+This very much took a back seat this month - The key reason for this is I currently have had to move up my timeline to achieve my CompTIA A+ and needed to dedicate the majority of my free time to getting that done. I thought this was a worthwhile trade of my time, and still do. I am however aware now That to meet my quota for March, and clear last month's backlog of blog posts I need to publish a post every 1.25 days. I think my strategy for this is going to be altering my current workflow.
+
+I have recently done a course in AGILE - The reason for this is that part of the skills matrix at my job demanded a basic understanding of AGILE concepts. I have been aiming to target the areas in which I am the lowest rank, as these seemed to be the easiest ones to improve on. The reasons behind my doing the course aside, it made me understand I could adopt a sprint-based workflow for publishing blog posts.
+
+My current workflow was to think of a post and capture that in my to-do list system. After this, I would sit down and write it, edit it, and publish it in one sitting. I would not move on to the next one until this was done. This method *works* for a degree for low throughput posting, however, it has proven itself to not be enough for this task. I think the new workflow is going to be
+
+1) Capture ideas in the todo list
+2) Write out a bear bones structure for the post, don't worry about spelling/grammar - just get it committed
+3) At the end of the week go through all the posts that have been written, fix grammar and edit
+4) Once all posts are edited, publish
+
+I think this workflow would be good to experiment with. The main issue with writing posts is the edits and grammatical issues, the writing of the subject matter is rather frictionless for more as I enjoy it. For this reason, I think addressing all the grammatical issues is better suited to the large task done once a week, rather than a series of small tasks. The only issue with this workflow is that even though the posts will *say* they were written on different days, they will be posted all at once. This may make it look odd to any subbed to this blog, **but** let's face it - no one is reading my blog.
+
+## Goal 2) I am going to healthier
+So my goal for last month was to stop drinking monster - A task which I think I have smashed, it went so well that I adapted it to all fizzy drinks. I have partaken in a fizzy drink occasionally, but the key factor is I quit monster. I think the main reason behind this is I attached a Tamagotchi to my water bottle, and every time it makes a noise I have a sip. This strategy has recently met a speed bump, as the chain holding it to my bottle broke **however** it did lay the groundwork for a rather workable strategy.
+
+After discussing this with friends... I think the next goal, which I will begin to consider at the start of next week is to start intermittent fasting again. The reason behind this is that when I lost a large quantity of weight in the past, one of the strategies I employed was intermittent fasting. To be clear, I am not employing this for weight loss, my goal was to be healthier, not to lose weight - I choose that wording deliberately. The reason I am bringing this back is it will teach me better discipline with my food intake, and I recall a sense of clarity when I employed it in the past. The only issue with it is that IF doesn't play well with my current work schedule, however, I intend to write a post on this shortly with a plan on how I can implement this.
+
+## Goal 3) I am going to have no account overdrawn
+My three-month goal was to have my emergency fund rebuilt by the end of march - I currently have half of it rebuilt. Provided I am not stupid between now and the paycheck then I should have it replenished. I think the key to this is just budgeting, and discipline - Hardly sexy, or even innovative solutions.
+
+I think that once I have it rebuilt I need to do two things
+1) Make a budget for going out
+2) Establish how much money needs to be saved each month to clear my overdraft by the end of the year
+
+## Goal 4) I want to read more
+This hasn't even been touched. I have a theory that I want to test, however. I think that the reason why I am choosing not read books at the moment is that I spend my free time with other high dopamine tasks i.e. discord. I think the key to this is for me to try and limit my time on these sites - I have been considering leaving discord for a very long time, and this may be the point where I seriously consider if it is time or not.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVvwACgkQvUo0nUeo
+F5wC4xAAm2ATRRXuaNI8fUjrdDCu5KyLJUvTwJ8vnl/2fItAcgPgfNmMv919rzGZ
+hMF7YUv6QG+FE6F9jX/QAqrsbhv6rmaYhbPjMXcKmwudw0vRtGAbc8cCGVKtOmJC
+TKjIiuXoUl5dBVnsyY7OB5Au+yksQQtzCaYcBZDHxlWAjOHyK8BkFd4O6fb5lUku
+hDIzYv9mGFCV+f1R/tT3XH6/HlUT7LTCwO9RVGuQCIEIUo6QZHOv+d4n63088ffv
+XWQwD9ISwkXua7XjM/1RlbPM0xJmk1cSUAe/bPGRMCq+rlaSnM5vWqJXqUwQ2hAM
+1yD/t3vuQwuMqwQhjT7ej43AxN15NBjFq+xWmOjL5VCYCLl4AVW03HgtUQCIKoXY
+xHcM/MpYwWVf+Z2otVFsLnLd16zSpPN7cZITFfU52vr7SclG09Ai1Ejyd2ej1Dg9
+SHLGT9wDQ1ZVARk138qbgiK4SDHOjMwT5aTMOpRiIq0mEHVd0Tr8tdK/3uffNhHE
+fVrXGs5VfLXXRaUT3UwgR9zPE8u6T/RK/5hdf8HTq7s4V9WVVJfPrgWeneDcVpU+
+0qnO30Ot9OoOPuKJOduoxLoAEL/vQFBMU1qsObEdnvcmgRV1sutDQdmZcOxw/pIE
+YRAwSk7W1F2XDwfNaOLJJ2fbxBeyL+Jq4OHahzjaMcxcRpRxSWY=
+=r5Ew
+-----END PGP SIGNATURE-----

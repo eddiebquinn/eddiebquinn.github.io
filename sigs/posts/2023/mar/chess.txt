@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+I go through phases where I become obsessed with things for a couple of weeks, burn out, and then move on to something else. This cycle continues until a point where I wind up back to being in a fleeting-obsessive state about. The theory behind it, or at least the one that I have always subscribed to is that autistic people become obsessed with this in an attempt to understand it better, and in effect understand the world better. Regardless of the reasons behind, it this is part of who I am.
+
+The current flavor of the week is chess
+
+## My relationship with chess
+My relationship with chess, as is with all things it seems, is quite an odd one. I learned the game when I was very young, but never really got *into _it_, at least not to the degree I was *into* Aliens and Guns at that age. I only really started paying attention when I went to sixth form, and a group of people who I was kind-of-friends with was playing it. Richard, for reasons that were never quite explained to me, was just objectively good at the game.
+
+I played him a couple of times, and the boy could just see everything on the board. At the time I didn't understand how, but as I have improved it has somewhat become apparent - I will get into the life lessons that chess has taught me later on. It then reared its head again during the lockdown, where I was playing a lot of chess with randoms on Discord. It was at this point that I decided to finally actually learn some basic strategies. Suddenly, the game which I thought was just checkers on steroids, was transformed into an all-out battle arena.
+
+I want to preface all of this, I am by no means a *good* chess player. I'm above average, but my ELO is still less than 1000. When I was learning to code, there was an issue I had to close and I considered closing this issue the death of my script kiddie days (ofc it wasn't, but at the time I was quite proud) - Getting past 1000 ELO is a similar thing for me here.
+
+## What I have learned from chess
+One of my greatest strengths has always been that I can think outside the box - however, being different does not always mean you are useful. An ability to think differently, without the ability to apply it to real-life scenarios is like having the ability to memorize the entirety of Eminem's rap god, but you're mute; yes it is cool, but good luck doing something useful with it. Since I started actively playing and trying to improve in chess, it taught me the ability to turn outside-the-box thinking into practical output. Being able to see lines your opponent can is helpful, but not inherently useful - Just because you can launch an attack on the diagonal and take your opponent's rook, does not necessarily mean that you won't lose your rook the next move because as a result. See the lines, but consider what they mean - war dogs that sniff landmines wind up as mulch.
+
+This leads to another key benefit that chess has taught me, something I also picked from meditation. Stop riding the first thought that pops into your head. If you abstract the concepts of you and your thoughts, then consider the following metaphor. Your thoughts are a constant stream of cars on a road in front of you. By default, you may feel the urge to jump into the first thought that appears in front of you, but it is okay to let it go and just view the flow. In chess, the first move you think of is not always, in fact rarely the best one. Currently, the main Black opening I have in my repertoire ware is The Scandinavian defense
+
+![Scandinavian Defense](https://i2.wp.com/chesspathways.com/wp-content/uploads/2019/08/2f.png?resize=298%2C300&ssl=1)
+
+The Scandinavian defense is one of my favorites because it forces the issue instantly and lets the player know what kind of match he is in for. You let him take your black pawn, just to come out with the queen immediately after. Some players even quit straight after (less so once you get to 650+). The lesson is apparent from this because that pawn looks like it is easy prey. In less politically correct terms - slow the f\*\*k down and think about things before your bum rushes into a terrible decision because someone baited you into it. This is not to say that taking the pawn is the worst option, there is a line called the Leonhardt Gambit - this is not the point though, the point is that when it's advantageous to think about what you are doing before you do it. In short
+
+> "System 1 is gullible and biased to believe, System 2 is in charge of doubting and unbelieving, but System 2 is sometimes busy, and often lazy." (Thinking fast and slow - Chapter 3, p. 69)
+
+## Where do we go
+Despite my love of the Scandinavian defense and the Vienna game openings, my current repotwaire - I feel for me to begin to progress in chess, I need to start to explore new openings.
+
+I think for white the one I wasn't to explore is the Italian game, mainly because it lends itself to the fried liver attack. I have wanted to do an FL attack since I originally found out about it from Gotham Chess, but playing a Vienna game as my default white start meant I couldn't. If I attempt to build out my white game to encompass the Italian game but default, then I can transition into using an FL attack as I get better with it (in the time since I originally wrote this, this is what I have done)
+
+Black is where things get complicated - One of the main people I play chess against uses a Queens Pawn opening, something my current opening repertoire is woefully ill-prepared to handle. If it wasn't for that I would opt to try out the Caro-Kann as my next black opening, but I think for the sake of versatility I will learn the Dutch defense.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV38ACgkQvUo0nUeo
+F5zNdRAAhK2zgLpHxiH4ypwvhED1bs8hWg7+Q2AP3qbTH5UvQPy2L+bwNHn770PV
+4NDfIECVu//HbBPG2GVRxpx1DE2E8blm0C6Dik3ckIoBn8O5hdEguKc5PNJKOL0b
+m3H++HABsDYY5Yr0l2yvWpWCm+Y66W8nsHGCdLyIiU8hFst437s+PwsZ2gaByvGf
+FkgQHa0d7OnTPjbjnbblQ0huqIW7REiYdBMDPQ19gTarbTgoWYDH8rc+Tiohf3/P
+kAK6///Ufb9VsKmQ7L1d3whIz1fG9nARlYu8gxddX3a7uGUXLY5lXMl2kQzf3A6i
+KNsU6owZYaDRl/sckOMpgG/ym/65P/WwkWpmT0QSTFh32taqHZ10rarhNTvOIXVz
+DvKc264cQ92qhn/If0j98zZ3SRB6ZLSyg3tj35uupUbAk9At7cCdrP+Fxi9eZ7FE
+1zELs5YOPIibZSb6kWppYbhe44BSfn64LA3co6G7FDZOb6UXtW1W8mBWnYso9gh3
+Qg9Tyo6Yl1sZ1fAYUfvddqO9aoh8EGN3qNwZuuSEfNhgqszBcY4tKoHXpZa/Q5wo
+GOLSa9wqNmeoPdpz2cg9FaFi/4BFC90yrtZy9a1H8jocpDH0dJ9V/65SQ0k+VcwV
+xJjs5PZV0ux3mnnLXbloq2/bgNMeV3gH5ZCGOPpqyy65NtPjND4=
+=XPLr
+-----END PGP SIGNATURE-----

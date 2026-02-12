@@ -1,0 +1,76 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+This article is going to discuss the controversial issue of why does Protonmail not actually measure up to what it claims to be. This article is going to annoy a lot of people inside the alt-tech domain, and Iâm okay with this. This blog was never meant to be a place where I state popular opinions on things, it was always going to be a verbose and unapologetic collection of articles on subjects I find interesting. I am a customer of Protonmail and have been for many years, and I am likely to remain so for many years to come, but this does not mean that Protonmail does not deserve to be critiqued.
+
+## What is Protonmail
+
+Before we begin Iâm going to explain briefly what Protonmail is, because while this name is thrown around a lot inside the alt-tech industry, few people outside of this group know what it is. Protonmail is an end-to-end encrypted email service. It was founded in 2013 in Geneva, Switzerland. It uses client-side encryption to protect both email content, as well as user data before being sent to the centralised Protonmail server, a service not offered by the leading entities within the email space i.e. Gmail or Outlook. The service can be accessed through the web-mail client, the TOR network, and dedicated iOS and Android apps.
+
+Encryption wise Protonmail uses public-key cryptography. When the user creates a Protonmail account, their browser generates a pair of public and private RSA keys. The public key is used to encrypt the userâs email and other user data, while the private key is capable of decrypting the user data, and is symmetrically encrypted with the user's mailbox password. This symmetrical encryption happens in the user's web browser using the popular AES-256 algorithm. Upon logging in, the user has to provide their password to decrypt the mailbox. The decryption takes place client-side, either inside the web browser or natively inside the app. The public key and the encrypted private key are both stored on Protonmail servers, thus Protonmail staff are unable to retrieve user emails or reset user mailbox passwords. This system absolves Protonmail from the ability to:
+
+Store unencrypted data or mailbox passwords
+Divulge the contents of past emails
+Decrypt the mailbox if requested by a court order
+Protonmail exclusively supports HTTPS and uses TLS with ephemeral key exchange to encrypt all internet traffic between users and Protonmail servers. Their 4096-bit RSA SSL certificate is signed by QuoVadis Trustlink Schweiz AG and supports Extended Validation, Certificate Transparency, Public Key Pinning, and Strict Transport Security. Protonmail holds an A+ rating from Qualys SSL Labs.
+
+If all of that went over your head it means that on paper, Protonmail is a safe and secure way to store and send an email.
+
+## The problem
+
+Now all of the claims made by Protonmail are quite bold, especially the ones about âend-to-end encryption and the âanonymous email serviceâ. In the past, there was a private email service called cock.li (yes this was a real thing), it was marketed as a private email client, but in their words, âwith cocksâ. If you signed up you would get an email with a cock themed email domain, for example:
+
+- -cock.li
+- -420blaze.it
+- -waifu.club
+- -cocaine.ninja
+- -horsefucker.org
+
+Now you may be questioning what this has to do with Protonmail, and I wouldnât blame you for that. Cock.li notoriously had a section at the bottom right of their site titled âhow can I trust youâ, to which they responded with âyou canâtâ. What they said was that they didnât parse your email to provide you with targeted ads, nor does it read your email unless court ordered. However, they were very open about the fact that it is 100% possible for them to read the user's email. The reason for this is that IMAP/SMTP does not provide user/client-side encryption. Any encryption implementation would also be useless because while email can be stored as encrypted, emails could easily be intercepted by sniffing
+
+the SMTP port whilst being sent/received
+the IMAP port whilst the client is reading them
+They stated the way the user could achieve privacy with email would be to encrypt their emails using PGP via a mail client ad-don like Enigmail, or downloading their mail locally with POP and regularly deleting mail from their centralised server.
+
+Now while you may rip cock.li for their weird domain names, they laid out in honest terms what a private email service can do for you, which is not much. Nothing about email is private because it was never designed to be private. You can layer privacy on top of it, but fundamentally no matter how well a house is built, if the foundations are weak then it will eventually collapse. Regardless of the claims of cock.li or Protonmail, on a technical level, you still have to put your trust in the claims of the service provider not to invade your privacy.
+
+All this being said, it is perfectly understandable from a capitalist perspective why Protonmail would not take this 100% transparency approach. Protonmail is trying to build their market presence, and if they were to come out and say openly that they can only do as much as outlook or Gmail in the way of guaranteeing privacy, they likely wouldnât have found the success they have.
+
+## The claims
+
+Now with this information being established, the claims made by Protonmail begin to fall apart. When looking specifically at the claim about end-to-end encryption, in the past a security researcher called âNadmin Kobeissiâ and a YouTuber called âLive Overflowâ stated that their encryption is not nearly as robust as they claim. The argument they presented was that Protonmail should discontinue their web-mail client due to JavaScriptâs shortcomings with the implementation of PGP encryption inside a web-mail ecosystem. Nadminâs core argument is that âProtonmailâs cryptographic architecture ultimately does not guarantee end-to-end encryption for the majority of usersâ, the majority of users referring to the users who access their mailbox via their browser as opposed to natively via an app.
+
+The reason for this discrepancy between the web-mail app and the smartphone app is technical but simple to communicate; its about trust. Protonmail provides a user-friendly interface to facilitate the exchange of encryption keys using PGP protocol, currently considered one of the highest standards for securing communications. The problem with PGP is that its implementation used to be too complex for the end-user. However after the NSA leaks this lit a fire underneath the alt-tech communities proverbial arse to make this technology more user friendly. This fire leads to the inception of Signal messenger, and our very own Protonmail. The key difference between Signal messenger and Protonmail however, is that Signal messenger does not provide a web-based interface, only the native mobile and desktop apps. Protonmail being an email client did not have the luxury to circumvent the web-mail ecosystem at first, and only later brought about the ability the view/interact with your mailbox with an app. Now the problem with this is that every time you log into your Promotional account inside your web browser, you have to completely trust the JavaScript being run is correctly implementing PGP and is not trying to steal your private keys and read your emails. This problem is minimised with the apps, because for the app to be available the code needs to be both signed by both the author and the platform, in this case, the author being Protonmail, and the platform being either Google or Apple. This discrepancy is what causes web-mail services to be verifiably less secure than native apps. However, it is important to mention that Protonmail does not hide this, and even states on their threat model page that Protonmail is not for the next Edward Snowden, it is for average people who just want to break out advertisement industrial complex.
+
+Protonmailâs system does however also fall short because of the reasons discussed above the shortcoming of email itself as a protocol. There is a difference between inter-domain email and intra-domain email in this use case. Intra-domain would be the case where one Protonmail user is sending an email to another Protonmail user. In this case, it can be encrypted provided the Protonmail offers this. However in the case where a user was to send an email to a Gmail address, this would be an inter-domain transfer, and iwould be not possible for the email to remain encrypted. This transfer requires two different mail transfer agents, in this case using SMTP port 25 which cannot be encrypted. This would have to occur in plain text, and anyone sniffing the traffic on port 25 would be able to see all traffic coming in and out in plain text. As well as this, regardless of if it is inter or intra domain, the meta-data in your emails in both of these cases would not be encrypted. This metadata includes your IP address, the email server's IP address, the name of your computer, time stamps, subjects, and the email address of both the sender and the recipient.
+
+With all this established, we will re-examine the claims made by Protonmail about end-to-end encryption where they themselves say âwe use end-to-end encryption and zero access encryption to secure your email. This means even we cannot decrypt and read your emails. As a result, your encrypted emails cannot be shared with third parties.â Now the only way to read this as factually correct is that they cannot read your emails when you are sending emails inter-domain, because any other domain would be in plain text. Taking this aside, while you can encrypt the body of an email using PGP using proton mail, the metadata is still plain text, and this metadata can sometimes provide far more useful information than the body could ever hope to. The reason for this is metadata is far less subjective, and therefore far easier to automatically prepare, process, and analyse.
+
+Then of course there is the onion site, which many agree is useless. The reason for this is because it has a fatal flaw that will deanonymise you. Despite the site having a V3 address, as soon as you click âCreate Accountâ you are instantly brought to a clear web address. I try to abide by the mantra to not assign blame to malice where it could just as easily be explained by incompetence, but this flaw in their system more or less makes the use of an onion site pointless. This is further compacted by the fact that you either have to provide a recovery email/phone number to create this account or pay using a debit/credit card. In other words, there is no way to create an anonymous account on Protonmail, which negates their claim of anonymous email.
+
+There claim states âNo personal information is required to create your secure email account. By default, we do not keep any logs which can be liked to your anonymous email account. Your privacy comes firstâ. The first half of this claim is an outright lie, the only way around this would be to use a burner phone with a prepaid sim, but that is hardly a solution for your average user which is Protonmailâs target market. The other half about IPâs is nice to say, but in reality, it breaks down. They may not keep IP logs, but in practice, they require your IP for the service to work because the networking protocol used by Protonmail. For this second half of the claim to be true requires you the user to trust them not to log it.
+
+## This is not necessarily their fault
+
+Now following this article and the points raised may cause you to ask âwell if Protonmail canât be trusted, what email provider can be?â Unfortunate the bad news here is that none of them can be. I do plan to one day do an article on the history of email, but as I said earlier email is not secure because it was never designed to be secure. Even in the case where you was to self-host your email server and set it up in such a way that the data would be lost if the intrusion was detected:
+
+the SMTP port will always have the flaw that it cannot be encrypted
+Intra domain messages will always be sent in plain text
+Email is the legacy system that cannot be replaced, and the moral of the story here is that your threat model has zero-tolerance for data leaks then email is not something you should be using. All this being said, Protonmail is still a far better option than Gmail or Outlook, and that is why despite all the points Iâve raised in this article I still use it. Sometimes it is simply about taking the least worst option, and in time hopefully, some of the issues with Protonmail that are their fault will be plugged.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUmMACgkQvUo0nUeo
+F5zAnw/+Jq3/5fyskOyEs3goRT20EGR0e++2PHJurcqHyD8DhanYAHNj+OvN4QGB
+1x7yYxjs5vnSSp2Jz1KDvG3a2pBn0u3q5S6vP/YFlbvxpqH7QH5dEPSktR+AubXI
+RNzxmSffQi6jgGGxHXmZ9+hVS+bGdT6Yk7/hxZ21CL6BLBAZB2xwoZFpAaOyRzwj
+1pKNlB6xLw2PcHoKHBzGajYyWKAzvvrccCZDpwZfL6dWSHUawa0xjl2vcDGLWdPI
+tW+vdqsEBwJI3IWmv8NMmK09VPV7S0c9PpXsEKZRD4C/ayoY4151sPR9tXiTVMc8
+OZPsitjYpcT+RlP/eXZ5mGjNofqmfDv1j4vBbmDWU8BTcwWx0ds3WzSWf1zLuuTI
+VfH084TSiN9zG4TTLjMZHPBWLf69EaA59OiPLFSSgGuDpkjuUFGeixYhXVUP1EW1
+ACG+zbm83B23Iqis5nsBKewPYx1ZbHMvMmmuiLzPuefBcZ8TvWlxFereJbU/py+n
+ZIpyF9omOVvq85AU1B/vy+Dlel0NJPAHz3J0bh2QwiCpialTDHe3Dwil1Ox0UveZ
+t5fGVhfw0u5aei6QZjKxb6EsZZh3+WFV+pSWGTntuo3QXF1CTTgL4YbOnmiGEsqu
+MPpMkG+SDYeATLL45ia5jkqg2zJQJ+bb5mtA6Y8pRyQfPCYFiN0=
+=LpyA
+-----END PGP SIGNATURE-----

@@ -1,0 +1,65 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+I do not have social media - If there was every a phrase which I say too much it is that. I have Linkedin, Github, and this blog. I am however not stranded away from newsfeeds, I just consume them in a different way. RSS has made a resurgance in recent years, with people like myself using it to aggregeate various sources into one unified newsfeed. It is a good solution to the key issue of leaving social media, that you now do not know how to keep in the loop. This is also the reason why I get boderline pissed-off when people say "RSS is a dying technology"; It is not, and when you say that it discourgaes sites to impliment it (this is a gripe for another day).
+
+I have never implimented a workflow into my media conumpiton, and that is mainly because it is meant to be an action of leisure. I scroll through the posts in my feed, if I find something that interests me I will read it or add it to my "Read Later" folder. This works briliantly if you have spare time, which I do not. My mind is constantly racing from one project to the other, and I never actually sit and go through this pile of "read later" - This means over the course of this year I have amassed 937 posts which I want to "read later". 
+
+I think allot of the reason why I havent got rid of any of these links is becasue I want to essentially save them for later. The titles resinated with me in some way, and I do not want to forget the content. While they sit in this pile, there is the promise one day I will record my thoughts on these topics - enter this post. In an ideal world I would use an obsidian vault, but this is not an ideal world. I have never quite nailed the second-brain memory management system for things outside of education - one day i might move the content here into that, but for now I need to solve this problem and start clearing out my "read later" pile.
+
+This post will be laid out like this - A subtitle with the post name, and this subtitle will also be a link. Below will be a one paragraph summary of what is in it. I likley will not do all of the links, but the simple ones I will.
+
+## [ I couldn’t do my job without this. - PiKVM ](https://www.youtube.com/watch?v=232opnNPGNo)
+This details LTT Anthonys experiance with PiKVM. PiKVM is a RasperryPi hat you can attach to a pi to turn it into a KVMoIP. It can allow you to interact with a computer (including the bios) remotley. It does this by taking HDMI and USB (used for peripherals, booting from USB, network bridge, etc.) inputs from the device. This sort of thing has exsisted for a LONG TIME (usually called IPMI), but has never been so cheap and accessible. This is something I saved intending to make one in the future, and I honestly plan now to make 2: one to access my personal computer at home, and the other as a box my family can plug into any PC to allow me to troubleshoot their device when I am not at home. I will update my homelab build log to acomodate these ideas later on.
+
+## [Let's Cook - Extra Chunky Beef Stew](https://odysee.com/@AlphaNerd:8/let's-cook-extra-chunky-beef-stew:d)
+I saved this becasue I wanted to cook it - I did cook it and it was nice. I don't really have a recipe book to record the recipe, but I might submit a PR on [based.cooking](https://based.cooking) to get this added if the creator hasnt already. FOr those that dont know, Luke Smith and Mental Outlaw are good friends so it would probably be funny for me to submit this as a PR on lukes recipe site.
+
+## [Retro Printer Module](https://www.retroprinter.com/)
+I am not 100% sure why I decided to save this - I have a feeling it was something to do with my angst against printer comapnies, and the fact there is a not a good open source pritner (and their predatory buisness model). It is baically a RasperryPi hat that connects the latest networking and USB capabilties to a centronic port. It essentially can turn old school (retro, if you will) printer into modern(ish) printers, atleast as far as features goes. I doubt I will make and run my own version of this, but it is cool none the less.
+
+## [Research Links Aspartame to Anxiety](https://news.fsu.edu/news/university-news/2022/12/08/fsu-research-links-common-sweetener-with-anxiety/)
+Allot of bad news has come out about Aspartame this year, i distinctly remmeber my team lead at work doing a 30m google search trying to find an article saying "no, aspartame is perfectly fine". This very much echos back to one of my previous posts called [diet drinks are still bad](/posts/2023/feb/diet-drinks-still-bad). I imagine this may of even been a direct cause of me writing that post, given its proximity to it being added to my "read later" pile and that post comming out. Its just further evidence to me I need to quit (or atleast cut down on) drinking fizzy drinks, something I plan to do in 2024
+
+## [Writing at work](https://lcamtuf.substack.com/p/writing-at-work)
+Fun fact, the pciture in this article is from Mad Men (a great TV show everyone should watch atleast once). This article is a gold mine for advice on writing. It is specifically geared for wtiting things down at work, but it also works for allot of this blog. The poitns boil down to three key ones
+
+* The way you want something to read, and the way it actually does are not the same thing
+* If it doesnt relate back the title, it doesnt belong in the post
+* Write for your audiance, not for yourself - This article is after all for work, so while * If you are writing for an audiance get on their level - Anticipate questions, and dont bore with detail
+* Keep it simple stupid - The post details two resorces for this: [The Economist Style Guide](https://www.amazon.com/Style-Guide-Economist-Books/dp/1610399811) and [The Chicago Manual of Style](https://www.amazon.com/Chicago-Manual-Style-17th/dp/022628705X).
+* Address the correct issue to get the correct the solution - "Work harder" is not as useful as "we need to achieve x by y - we need to either reallocate resouece, or get more resources".
+* If dealing with an argument find the underlying issue - find the facts that both agree on, else you are wating everyones time
+
+With longer form text i.e. these posts he suggests the following four step process
+1) Start with a rough draft - Nothing iron cald, just ideas in an order to get the idea o the flow
+2) Begin fleshing out paragraphs
+3) Edit this so it appicable for the read
+4) Final tweaks
+
+This is a bit tricky for me with thr reader part - This blog has always been for me. Truthfully I do not actually care of other people read it, much less understand it. My target audiance is me. Perhaps there is still seomthing to be learnt here however - I should write for my future self, as he is the one who is reading it. 
+
+## [eIDAS 2.0 Sets a Dangerous Pecedent for Web Security](https://www.amazon.com/Chicago-Manual-Style-17th/dp/022628705X)
+This is related to `eIDAS` which "enables" online transactions across countries in the EU. This article mentions changes to that legislation related to European Digital Identity Wallet, which would be a goverment app for storing inofrmation on drivers liecences, bank card, and allows users to make payments via smartphone. It essentially stated that browsers must keep EU member state-issues CA's and no remove them even if they are unsafe. I have a gripe with goverments heavy handed approach to web security, because frankly most goverments are run by old fools who dont actually understand the teach they are trying to legislate. This article annoyed me then, it annoys me now - I probably saved it as evidence of goverment idiocy to pull up in future.
+
+## [What I learned at GitLab that I don't want to forget](https://boleary.dev/what-i-learned-at-gitlab-that-i-dont-want-to-forget/)
+This boils down to a users experiance leaving a company he enjoyed working at. While he was there he learned 3 key things
+1) Write everything down - This is usually percieved as a task for later, but shouldnt be. Write it down now and it becomes a single source of truth allowing everyone to collabortate easier. This is something I have tried to impliment at my job by continiously updating documention in the knowledge base
+2) 
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVrOcAACgkQvUo0nUeo
+F5wd9A/9GMRqrac2dvAhvVUnywIr5QHwUvrjeUG5LZcMjsWKmpE2+i6kesnw3L52
+VTmNw2aZYhnrBGwLYM7M62dboHzllIEtMj5mtcU4kHYkHF1dVU3a3R34jRsfGzai
+dXsvAvkgfuruK2wd1Gq/7LK5rRMebM+NvJOcpC2hysmHwc9dNLvqlg68dQPupuSw
+d6+qaFJcSifNa98KfUxC2Q4LxH38DIPibb60y0J9d9wjhlU9ONaXhnai1uEJ9SmR
+otU/hGEwG+wKjP81ZHNnrIhqLTjBz/TbnfGavn/zdSacBFLlsgCN5m3rF3Wwo3js
+DQg2B2OyDZ0Supms/rbtubYdN9hKi+s9A9p1kuNR6x2Ue42dqQURjYbrb1UdyMET
+7JlICWt3j7z9/WUGLsF2RoN+X1tRhXfLsgvVtK8+3azPg0JI/WQxGFYKMQGKsPmY
+4ARM69rQl5nOivkjpyEwim7Rm98jAcwbYsK2FaxK25/bpG/nq/XDDOQF+LrjaGba
+oXBRB40vtw3ehATdecUsyywL/NPABlR0llZQqhzlDwB7KkvyLKF+wZx4U8mGrAzv
+mZJ8qX+XzeBkZr+SD7sKbwxrdh/W5Hgz80DXuRcMy14ElEiZ+caNVORuBTfyiie3
+/NAGJ8t1GFz1jAh8J3wasMFKaPqMdQttI0/89ZV+ievon8wq2M8=
+=Twid
+-----END PGP SIGNATURE-----

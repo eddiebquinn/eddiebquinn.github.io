@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Auto Build on eddiequinn.xyz</title>
+    <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/</link>
+    <description>Recent content in Auto Build on eddiequinn.xyz</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
+    <lastBuildDate>Sat, 10 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1 -I Suprisingly Dont Hate CICD</title>
+      <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/</link>
+      <pubDate>Sat, 10 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/</guid>
+      <description>Hey there, been a while? Did you miss me? It&amp;rsquo;s cool, I wouldn&amp;rsquo;t either.&#xA;So there has been a project I have wanted to do with my blog for some time, and I have finally gotten around to doing it. I touched on this in my blog post So… I Guess I’m Learning DevOps?, or at least the plans around it.&#xA;My current workflow involves manually rebuilding the site whenever I post something, but I want to automate it, so pushing to my blog-posts repo triggers an automatic build and deployment.</description>
+    </item>
+  </channel>
+</rss>

@@ -75,43 +75,8 @@ It may read differently from other build logs for that reason
 Hash: SHA256
 
 this is a message signed by me - eddiequinn
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEWQTd1MwJCH3DFDZ0DiAAR72//sIFAmRXvT4ACgkQDiAAR72/
-/sJ+Ow/9F9Uf8kYyROgDgG1pMVTcMNrCUmqozuzJNPObMeMPe0Xr8TEMnaahlLES
-2XvPQp6lKjE6deLNaf7RJTlYor6hL5VCYT8JFxT0Y3T+benYd502nqJX8LewjRoY
-BusT1TJ8wHsAGOWoUGPh5lGjV1ab2HDkxkOWXtTY17mxbkZ0anBLuNanoApzH2Pf
-qL1eF/mMsrX1YYKkkpswDE/M+4YsdOi29dYpSZyTPn4+mC9bUFcpvDKS/V5AS9gF
-HVw5VDBHpUGxvlYbZy6R2HAgnx03Tm4CTdwLj6Ou9H7vAuFQeX+qVeIlD/9S2cON
-kYQXbNR44hPAFYeQYIStz7A3lJVhja2p70iP4Kse1lO/GarLWb2C1h9NLPQ3zdMf
-jc65ni/EukU8aBITwUW+r49y+nFlyZxyae/ot4oQ2z1zP949ITRVWCZVnCncmi+8
-4LjjZh4I8dFY11VCnco7ddrCFGnEJHSCTF4cgEx3dAtYm5cMfCS/aMy5JyRY4Vh+
-do4l7xtfu0vBWTH3JRxQ9VddzXybidKj21DHJmZd0yktRzwZ2OtNt9noaiqZKzTF
-qC2nWHRDqvSVsRDXj/SM92cNYhc9DeFLzN0HHvxXEf8GnHb/EVfubjLQbQMm5hIz
-hEt4IPg/VXQ4eihib0DrZqG18c8DU4DzNwgmQF3T/vTcvK0MwR0=
-=hJ13
------END PGP SIGNATURE-----
-</code></pre><p>I think automation may once again be the answer. I have stored my website across multiple reports for a while</p>
-<ul>
-<li>my-blog (parent repo)</li>
-<li>blog posts (just the blog posts)</li>
-<li>eddiequinn.github.io (the actual repo that holds the static files)</li>
-<li>site-theme (A modified version of the Cupper hugo theme)</li>
-</ul>
-<p>For a while, I have been considering making a workflow that once a week will rebuild the public files. Again these are all hosted on GitHub so it wouldn&rsquo;t be that hard, the program when triggered would just have to</p>
-<ol>
-<li>Clone the <code>my-blog</code> repo and recurse the submodules</li>
-<li>run the command <code>hugo -t site-theme</code> to remake the public files</li>
-<li>Commit and push this up to the public files repo</li>
-</ol>
-<p>If I did this, I could accommodate the raw files issue with some slight modifications</p>
-<ul>
-<li>I would create a hidden directory on the server that mimics the layout of the post, but just for the raw signed signatures</li>
-<li>Create a git hook that does two things: Adds a link to the signed post it is about to create to the end of the post, and then creates a plaintext signed version of the post and places it into the sig directory</li>
-</ul>
-<h2 id="conclusion">Conclusion</h2>
-<p>I won&rsquo;t be signing my posts for the time being, however, when I get around to bringing these changes in then all posts will be signed.</p>
-
+-
+</code></pre>
     </div>
     <footer class="content__footer"></footer>
 
