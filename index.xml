@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Sat, 10 May 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://eddiequinn.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nixos and K3S</title>
+      <link>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</link>
+      <pubDate>Mon, 09 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</guid>
+      <description>Hey, been a while… as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.&#xA;⚠️ Warning: This is not a tutorial or guide. Please run the commands in this post at your own risk.&#xA;I use Nix BTW I finally moved from using Arch Linux as my OS of choice to running NixOS.</description>
+    </item>
     <item>
       <title>1 -I Suprisingly Dont Hate CICD</title>
       <link>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/</link>
@@ -330,13 +337,6 @@
       <pubDate>Fri, 23 Sep 2022 00:00:00 +0000</pubDate>
       <guid>https://eddiequinn.xyz/posts/2022/protonmail_wolfinsheepsclothing/</guid>
       <description>This article is going to discuss the controversial issue of why does Protonmail not actually measure up to what it claims to be. This article is going to annoy a lot of people inside the alt-tech domain, and Iâm okay with this. This blog was never meant to be a place where I state popular opinions on things, it was always going to be a verbose and unapologetic collection of articles on subjects I find interesting.</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</guid>
-      <description>Hey, been a while… as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.&#xA;⚠️ Warning: This is not a tutorial or guide. Please run the commands in this post at your own risk.&#xA;I use Nix BTW I finally moved from using Arch Linux as my OS of choice to running NixOS.</description>
     </item>
   </channel>
 </rss>
