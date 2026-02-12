@@ -1,0 +1,20 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+This website has gone through many iterations as time has gone on. Originally this website was made to be a WordPress site which was hosted on Linode. In its current state, it is generated using Hugo and is hosted using GitHub pages. This build log was made predominately to track and discuss improvements I want to make to this site. Some of these were originally blog posts, but I have moved them over here for the sake of grouping them in a more organised way.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZT88ACgkQvUo0nUeo
+F5zSCA//a9U4jRIyIfUcla6+SKcZD/ZuempbSR82H9duJiKUZPb+p+qJPokce/s0
+u3q0zo7oLWUtInY9tQXgt3If0FTz/3+HrbP1AqzulGt1De1DgrxlhsgkM2p001uj
+GazDjZpSu5s83U2t+e2uu23zYIPBHIrnjH/u23X+bGrYfPQx+YWrnx2pyZFHZwhP
+eY0MzODlSRQWTTAjH8QPCNrU10xFIEhkAbujIv9bMxOVM3heii2iC3uRAVrTb+nw
++CXflbASzTxgmQlBjeQ6VtHhuLrjEkId3+Q/IFyL4Q0FnBpRODCpx5PK5dyFFsPk
+WENwuAXKqnQhVR/2iZ7ArV/jftTAsteMBX51M5+9o1e0/HujFbdJVQjibvDOh5XE
+aZpQL3Kdhd9PlldyNZWHngy457EJloPA0GF+MbXGEy0UtTNOGq/h5zQhGhU8gqcK
+RJf6ECtX3okWMDdDEdOU3muDm57wok9Co8igxUSDN8NoN4EvGIfFNIphLzZIb3mS
+ExHcGkMlc1gIZx0lmtKmMVcFg9zhJcirr/wN4oZsXiMOPANMRMxXm4uWkviORsEj
+b5pP2ULa/sfZu7POYm5rKMJ8QKm+voZ4ASruaaMwq0qFoT46MwxsuVP3ZAPznpf6
+bMB5/GVBVti7fDZ4Re6wu5BTLW+5Li2Rg/eik8I/ZGB5gAoawAQ=
+=nkDf
+-----END PGP SIGNATURE-----

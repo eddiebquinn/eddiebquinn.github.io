@@ -1,0 +1,37 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+I am reaching an odd point in life, one which I feel many people reach, where I have many many projects I want to work on and very little time to actually dedicate to them. This seems idiotic to actually write a post about, but when you come to accept that very few people actually read your blog, then it becomes more of a self-monologue than a communication to your peers. I am writing this for myself to organise my thoughts around this topic. I read an article earlier last year about the act of 'selfish writing', and how writing with the intent of entertaining others and writing with the intent of entertaining yourself do not always go hand in hand. I could write a post with the intent to inform or describe how to harden an SSH server, and I have in the past. However, thousands of others do the same. I do not personally want to write that, and the community does not need another tutorial.
+
+I have an interesting history with weed. I had my first real brush in with it during university. I had a few joints here and there during sixth form, including one very traumatic dose of synthetic weed one night in a park, however, my true relationship with it began at \*\*\*\*\*\*\*\* university. I became a functional stoner during my time in \*\*\*\*\*\*\*\*, a trait I carried over to my second university. When lockdown eventually happened and I came home to my parents I made a deal with myself that the only time I am allowed to use it is if I go to Amsterdam. It was a hard limit I set to prevent myself from building up a dependency on it again. I went to Amsterdam the other day and took an inhale - then, for what felt like the first time in my life, I didn't think of anything.
+
+My mind is a curious thing. A trait I share with my autistic people is I have a very hard time switching off. This has left me with a very poor sleep pattern, and multiple ongoing projects. I tried to suppress this for many years, but I found that trying to hold back the torrent of mania that is my thought pattern only seems to make me depressed. I made a deal with myself during lockdown that I would not pretend to be someone I am not anymore, and however non-sensical and frustrating my constant inner monologue is I shouldn't try and tame it. Despite how frustrating it is, it is who I am, and since I gave in it I am probably the happiest I have been in my life. It is hard to improve who you are when you are pretending to be someone else.
+
+This however does lead me to a predicament - Accepting the river of thoughts has caused me to have what feels like dozens of unfinished projects, all of which I want to work on. I need to adapt my current workflow to allow me to work on these. So this is what this post is - a collection of things to do that will allow me to better manage my time
+
+- - **Change my mindset -** What needs to be accepted here is oddly reminiscent of Jock Willick's idea behind extreme responsibility. Extreme responsibility states that I need to accept that if I get myself into a bad situation it's no one's fault but my own, and I need to get myself out of it. It is not that there are not enough hours in a day, it is the things I am not doing that I simply haven't made time for.
+- - **Hell yes or not -** I need to accept that I can't do everything. I have a finite amount of time in a day, and that time needs to be dedicated in a way that respects that my time is finite. I cannot waste time doing things that do not actively excite me. This does not always stick, there are things I need to do which will never excite me i.e. tidying my room, however for things that are not chores then this principle should be adhered to.
+- - **Daily highlight -** This comes from the book make time. The idea behind it is that every day I should dedicate an hour or two to something I want to do that you in any other case don't have time for. This is something I used to do, but I think I lost the point of it. I cannot dedicate this to maintenance tasks, I need to dedicate it to things that I cannot find the time for. I think the best way for me to do this is to only have one P1 every day, and everything else is either a P2 or a P3. I also think that I should make my maintenance tasks P2 and everything else P3.
+- - **Time blocking -** I kind of do this already, but I think that I need to change how I do it. Currently, I do it a week in advance, however, because of the way I live my life this is not an effective way to do these things. I need to either the day before or the start of every day, time block out what I'm doing. I will experiment with doing that at the start of every day
+- - **What is the dollar value of my time -** If there are tasks that I need to get done but don't personally want to do if I value my time at $15 an hour then sometimes it makes more sense just to pay the $15. An example of this is it makes sense for me to pay my brother $15 to tidy my room.
+
+I think I also need to do these two things. I need to understand and appreciate that my "will" meter lessens as the day goes on. I am more likely to go to the gym when I wake up than when I have just got home from work. I also need to appreciate that I cannot fit everything in one day, so I need to start keeping somewhat of a schedule for those long-haul tasks that take a lot of time.
+
+Fundamentally I called this post 'Finite by design' because that is what time is. Time is precious because you only get so much of it. When you are young it is quite hard to actually appreciate the years that are passing you by. This underappreciation is evidenced y the fact many children wish they were older. I am 24 now, theoretically I'm 30% through my life. I want to start managing my time better to make the next 60% more productive.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVIMACgkQvUo0nUeo
+F5zHyxAAmB+H1i+GG2KVS7lR4YSJeA4qFDgWdakFyLtJumae+wq8TvpcW7J3+i1y
+hdMj+0WsbA6Uq12nGLHkLB3qfWuq9BnFeN87PU1jtGNYL6NA62d0k38ceS252NMk
+DnLdV8qvaBapGZMAzdzmWphOdPONBV2oZxhSVhYSWwHt/r2fdHCF1uBw6AuQM20e
+0gaqH6h/J8ePK/xqbsIbVtlKjEwmwd4JWwoOhcp1Sju8SVzVqcMhkK/aX2Xt6ZQo
+5/6aGs0feqnLJSWTkk8Y6ggBQL6PcqmCGkloELKsx423dICx7Xjoe8lYa1xnaT7o
+Va6tW5NgeNqyI+/I7P/bBcRO4A/sACsf4TRrfr37qXmFkw6pfLDUTX8vH3bp6/Pf
+h6cwM2rH2GY9G/R6GywuDNBUxYNyxjLdSgklgdGGjNvplQRSUGJyelUW00VI4Ki2
+e5IJYdrhbZDf6koyeNS8KohB3Ag2CLcPZ1l3YLLzTFrFZYu/RicDVMFYwguwCZJ1
+DIcuR/tMK6Jrky3iimJKpLIIuO36ko3RzZBWnItl4Gj9TZXTUKVmI6Gz4GZp53zY
+S0Ljeh0J3Vs5fBk8/95J2q/t5wdLzwZUllX3Sz9bhcq80ItL5K9q8U+K6/eS1wSI
+oa7qVL9T7294I2d0y6+T9URy8PWYcmaXf2FYIeY6OvKMaO1KCiE=
+=E3lp
+-----END PGP SIGNATURE-----

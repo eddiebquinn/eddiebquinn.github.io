@@ -1,0 +1,76 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+```
+This was originally a blog post
+It may read differently from other build logs for that reason
+```
+Earlier on this year I went down a strange rabbit hole on how I want to sign my posts using my GPG public key. In the end, I gave up because I couldn't find a way to automate this, and at the time I blamed this on some limitations with Hugo. I now of course am walking that back, as theoretically it is perfectly possible. I want to discuss my plan to fix this.
+
+## A basic explanation of public key cryptography
+Despite illusions of security, a lot of modern-day societies' interworkings are based on trust. A good example of this is that you likely trust that this post is written by me, and not by someone else. There is an old Russian proverb that was coopted by the Americans stating "Trust but verify". It essentially means that it is okay to trust that this was written by me only if you have the option is there to verify that assertion. So this then asks what is verification. There are of course many answers to that question. but the best one is mathematics. There is a reason why maths was always my favourite subject at school, and it is because there is no ambiguity in the subject. Not only does every maths problem have one single answer, but this answer can be proven in multiple different ways.
+
+There is a mechanism for a mathematical proof to be presented to prove ownership (or in this case authorship) of data. This is called asymmetric (or public key) encryption and is probably one of the most important security technologies in circulation today. It brings into existence a keypair, one private key and one public key.
+
+- - The public key encrypts and the private key decrypts.
+- - The public key is made public for the whole world to see, and the private key is kept private.
+
+What this means is that if you want to send me a message that only I will be able to read, then you would use my publically available public key to encrypt it. I will then use my private key to decrypt it. If I want to reply, I will use your publically accessible public key to encrypt a message, and you will use your private key to decrypt it. This solves a major issue with the previously used symmetric encryption, as at no point is it required for any party to make public a key that could decrypt the message.
+
+What is often not discussed is the ability to sign messages. The private key can also encrypt messages (it is not exactly encryption but for the sake of simplicity we will call it that), and this encryption can be decrypted by the public key. You may ask what the point of this is. Well, the point is only you have your private key, and if only you have it then it it stands to reason that if a message was encrypted using it then it must have been encrypted by you. This method of verifying communication is used a lot in darknet communications. The reason behind this is that if done correctly TOR communications are one of the few bastions of truly anonymous communications left. There is however a need for people to adopt mathematically verifiable pseudonyms for communication and commerce. What this means is on these platforms your public key is your identity, and and if anyone else calls into question your identity you can prove it by signing a message with your private key.
+
+There are many other aspects of this technology and how it is used that can be discussed - How do you store your public key? What is the best way to keep your private key secure? What are some examples of how this is used in the modern day? These are all valid questions, however, they fall outside the scope of this post. I may write someday on the subject, however.
+
+## How I will solve my encryption problem
+To solve my encryption problem, we need to follow a basic methodology.
+
+0. Define the problem
+1. Define the current process
+2. Define the ideal process that solves the underlying problem
+3. Find the difference between the current process ideal process, and establish what needs to be done to move from point A to point b
+
+The problem itself is quite simple. I want every post on my website to be signed.
+
+So the current process for my publishing a post is such that the following will happen
+1. I create a new post using `hugo new`
+2. After finishing the post I will proofread it
+3. I push up any changes to the relevant git repos
+4. I rebuild the site using `hugo -t risotto`
+5. I push up the new files to the GitHub repo and the page is automatically deployed using GitHub actions
+
+It could become easy for me to get carried away with what an ideal process looks like for this because in my opinion there are *many* problems with this. Keeping strictly to talking about signing posts, however, then I believe the process should aim to be as automated as possible and not add any overhead to the current workflow (if anything take away). The way I envisage the new workflow is at some point a script is deployed that will sign all unsigned posts within the content directory, placing the signed post in a sub-directory. An example of what the directory may look like is this.
+
+```
+âââ _index.md
+âââ posts
+â   âââ post1.md
+âââ signed-content
+    âââ posts
+    â   âââ signed-post1.md
+    âââ signed-_index.md
+```
+
+Then during the Hugo build process, plain HTML pages for these will be generated and will be linked to by the original pages.
+
+So what needs to be done to get from point A to point b?
+0. I need to generate a GPG keypair - I had one before this, but I kept the private key stored on the keybase. This is ill-advised, and on my principles, I need to consider that keypair to be compromised because of this
+1. I need to add my public key to a key server and link there on my site somewhere
+2. A script needs to be generated that will sign all posts and place the signed posts into the relevant directories. This script will need to be item impotent, meaning it will not make any changes unless it has to. I will likely write this script in Python, but if I am feeling brave Rust is also an alternative (I'm learning Rust now).
+3. A git hook will be made to run said script before pushing to the repo
+4. I need to edit the layouts my site uses so it automatically links to the signed posts underneath the posts. This may be tricky to do, but I'm sure it's possible with enough research and tweaking.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZT1IACgkQvUo0nUeo
+F5yIZQ/9GUUtjGF3Woyk2OoSCpnFcK9NcURlkJoKGpJRm2txs1XQ1AIupO67u0PM
+sNI9946PJDwyFzGyXrpSq6b6vCYipOZVvU/INdI0ZvwqDVM2qkeQMFU/T8UEO0kE
+wUy8KXIYY95wrnjCI0MrCR5aQ+be+61MkVtFJ4ZyFlk3ky4DGsFJj1jjfxqq+Dvb
+Abvbx7yfKzSv3DabERmL1+UgMJZjkGg8qUD2HdSnzok3GJzOVXnTh0b8ZOzDmb2H
+566D2voh4mW6lruLhDhjgRkZlKty1rDGxGKzsp5S3e11IVfTyXQN9rBK4w9LaIVb
+Mg5jhAQdjGq+4Q0am4Ry+W6GEDFqSnXjb1fHbmM/i/FhU19krYKoRzeL/sG21lYe
+vFROfYQxSfn1VFmVK21P758/ypnRJ4L7DzxtA+8FL4PjDEDssOrv9b6ZvG38KZY6
+Tjs0v5U8yLYdvHzghnsCwRaDmhwe5o+BbBQFZ+eRI2eSZV8kgddOLE2dL9Q4TchY
+pJ2QrK3LZ4KEacCx+3/uNOJgvYb1N7mKJJtbwcdXvD8Sarts+q5mOg0gjdiPo8zK
+esSWnQOsaWtSaMD1IAI5uL6xttwHdyPJJAzFp+53Q3yyHmGOPAz/F8b/8YijfE+r
+vbwJtLxYQGw+UJiSOCc1qJYBaBtACSt+zQuppro9TU0q9Oicc1s=
+=xsTq
+-----END PGP SIGNATURE-----

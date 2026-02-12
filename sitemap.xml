@@ -2,124 +2,244 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/sig.txt</loc>
+    <lastmod>2025-05-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/sig.txt</loc>
+    <lastmod>2025-05-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/sig.txt</loc>
     <lastmod>2025-05-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/auto-build/sig.txt</loc>
     <lastmod>2025-05-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://eddiequinn.xyz/</loc>
-    <lastmod>2025-05-10T00:00:00+00:00</lastmod>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/bartmos-1/sig.txt</loc>
+    <lastmod>2025-05-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/bartmos-1/sig.txt</loc>
     <lastmod>2025-05-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/</loc>
+    <lastmod>2025-05-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2025/may/so-i-guess-im-learning-devops/sig.txt</loc>
+    <lastmod>2025-05-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2025/may/so-i-guess-im-learning-devops/sig.txt</loc>
     <lastmod>2025-05-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/sig.txt</loc>
+    <lastmod>2025-04-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/sig.txt</loc>
+    <lastmod>2025-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2025/april/i-am-not-dead/sig.txt</loc>
     <lastmod>2025-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2025/april/i-am-not-dead/sig.txt</loc>
     <lastmod>2025-04-25T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/02-vpn-server/sig.txt</loc>
+    <lastmod>2023-12-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/02-vpn-server/sig.txt</loc>
+    <lastmod>2023-12-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/02-vpn-server/attempt1-wireguard-ubuntu/sig.txt</loc>
     <lastmod>2023-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/02-vpn-server/attempt1-wireguard-ubuntu/sig.txt</loc>
     <lastmod>2023-12-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/dec/2024-goals/sig.txt</loc>
+    <lastmod>2023-12-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/dec/2024-goals/sig.txt</loc>
     <lastmod>2023-12-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/fixes/sig.txt</loc>
+    <lastmod>2023-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/fixes/sig.txt</loc>
     <lastmod>2023-11-28T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/nov/ipoac/sig.txt</loc>
+    <lastmod>2023-11-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/nov/ipoac/sig.txt</loc>
     <lastmod>2023-11-25T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/mvp/sig.txt</loc>
+    <lastmod>2023-11-19T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/mvp/sig.txt</loc>
+    <lastmod>2023-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/nov/verify-this-post/sig.txt</loc>
     <lastmod>2023-11-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/nov/verify-this-post/sig.txt</loc>
     <lastmod>2023-11-19T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/progress/sig.txt</loc>
+    <lastmod>2023-11-17T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/progress/sig.txt</loc>
     <lastmod>2023-11-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/nov/pgp-in-depth/sig.txt</loc>
+    <lastmod>2023-11-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/nov/pgp-in-depth/sig.txt</loc>
     <lastmod>2023-11-14T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/to-do/sig.txt</loc>
+    <lastmod>2023-11-13T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/to-do/sig.txt</loc>
     <lastmod>2023-11-13T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/new-plan/sig.txt</loc>
+    <lastmod>2023-11-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/new-plan/sig.txt</loc>
+    <lastmod>2023-11-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/sig.txt</loc>
     <lastmod>2023-11-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/sig.txt</loc>
     <lastmod>2023-11-11T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/sig.txt</loc>
+    <lastmod>2023-11-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/sig.txt</loc>
     <lastmod>2023-11-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/sig.txt</loc>
+    <lastmod>2023-11-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem/sig.txt</loc>
     <lastmod>2023-11-09T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/00-planning-and-infrastructure/sig.txt</loc>
+    <lastmod>2023-11-07T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/00-planning-and-infrastructure/sig.txt</loc>
+    <lastmod>2023-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/01-dns-server/sig.txt</loc>
     <lastmod>2023-11-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/01-dns-server/sig.txt</loc>
     <lastmod>2023-11-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/02-vpn-server/attempt0-wiregaurd-openbsd/sig.txt</loc>
+    <lastmod>2023-11-07T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/02-vpn-server/attempt0-wiregaurd-openbsd/sig.txt</loc>
+    <lastmod>2023-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/z-services-to-be-added/sig.txt</loc>
     <lastmod>2023-11-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/z-services-to-be-added/sig.txt</loc>
     <lastmod>2023-11-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/sig.txt</loc>
+    <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/sig.txt</loc>
     <lastmod>2023-11-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/homelab/old-net/sig.txt</loc>
+    <lastmod>2023-11-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/sig.txt</loc>
     <lastmod>2023-11-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/oct/where-do-goverments-derive-their-right-to-rule/sig.txt</loc>
+    <lastmod>2023-10-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/oct/where-do-goverments-derive-their-right-to-rule/sig.txt</loc>
     <lastmod>2023-10-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/nts/</loc>
+    <lastmod>2023-10-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/nts/travel-checklist/sig.txt</loc>
+    <lastmod>2023-10-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/nts/travel-checklist/sig.txt</loc>
     <lastmod>2023-10-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/sept/hcpp-2023/sig.txt</loc>
+    <lastmod>2023-09-30T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/sept/hcpp-2023/sig.txt</loc>
     <lastmod>2023-09-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/nts/my-distro-install-guide/sig.txt</loc>
+    <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/nts/my-distro-install-guide/sig.txt</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/aug/my-search-for-meaning/sig.txt</loc>
+    <lastmod>2023-08-09T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/aug/my-search-for-meaning/sig.txt</loc>
     <lastmod>2023-08-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jun/the-best-way-to-use-reddit/sig.txt</loc>
+    <lastmod>2023-06-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jun/the-best-way-to-use-reddit/sig.txt</loc>
     <lastmod>2023-06-03T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/sig.txt</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/hugos-encryption-problem/sig.txt</loc>
+    <lastmod>2023-05-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/may/dunning-kruger/sig.txt</loc>
     <lastmod>2023-05-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/may/dunning-kruger/sig.txt</loc>
     <lastmod>2023-05-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/may/why-i-left-social-meedia/sig.txt</loc>
+    <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/may/why-i-left-social-meedia/sig.txt</loc>
     <lastmod>2023-05-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/signing-posts/encryption/sig.txt</loc>
+    <lastmod>2023-04-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/encryption/sig.txt</loc>
     <lastmod>2023-04-27T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/mar/certification-roadmap/sig.txt</loc>
+    <lastmod>2023-03-21T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/mar/certification-roadmap/sig.txt</loc>
     <lastmod>2023-03-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/mar/tenet-a_film_about_a_military_tactic/sig.txt</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/mar/tenet-a_film_about_a_military_tactic/sig.txt</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/tags/2023-goals/</loc>
+    <lastmod>2023-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/mar/intermitent-fasting/sig.txt</loc>
     <lastmod>2023-03-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/mar/intermitent-fasting/sig.txt</loc>
@@ -128,49 +248,97 @@
     <loc>https://eddiequinn.xyz/tags/</loc>
     <lastmod>2023-03-16T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/mar/2023_goals-m_update/sig.txt</loc>
+    <lastmod>2023-03-14T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/mar/2023_goals-m_update/sig.txt</loc>
     <lastmod>2023-03-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/mar/chess/sig.txt</loc>
+    <lastmod>2023-03-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/mar/chess/sig.txt</loc>
     <lastmod>2023-03-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/feb/diet-drinks-still-bad/sig.txt</loc>
+    <lastmod>2023-02-19T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/feb/diet-drinks-still-bad/sig.txt</loc>
     <lastmod>2023-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/feb/ldmr/sig.txt</loc>
+    <lastmod>2023-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/feb/ldmr/sig.txt</loc>
     <lastmod>2023-02-12T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/feb/2023-goals-updates/sig.txt</loc>
+    <lastmod>2023-02-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/feb/2023-goals-updates/sig.txt</loc>
     <lastmod>2023-02-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/gpt3-the-best-teacher-you-never-had/sig.txt</loc>
+    <lastmod>2023-01-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/gpt3-the-best-teacher-you-never-had/sig.txt</loc>
     <lastmod>2023-01-21T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/finite-by-design/sig.txt</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/finite-by-design/sig.txt</loc>
     <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/lol-limewire/sig.txt</loc>
+    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/lol-limewire/sig.txt</loc>
     <lastmod>2023-01-18T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/studying-in-starbucks/sig.txt</loc>
+    <lastmod>2023-01-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/studying-in-starbucks/sig.txt</loc>
     <lastmod>2023-01-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/a-post-where-i-talk-about-my-weight/sig.txt</loc>
+    <lastmod>2023-01-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/a-post-where-i-talk-about-my-weight/sig.txt</loc>
     <lastmod>2023-01-07T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/choose-life/sig.txt</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/choose-life/sig.txt</loc>
     <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2023/jan/2023-goals/sig.txt</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2023/jan/2023-goals/sig.txt</loc>
     <lastmod>2023-01-01T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/posts/2022/harden_ssh/sig.txt</loc>
+    <lastmod>2022-10-12T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2022/harden_ssh/sig.txt</loc>
     <lastmod>2022-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2022/mfa-fatigue/sig.txt</loc>
+    <lastmod>2022-09-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2022/mfa-fatigue/sig.txt</loc>
     <lastmod>2022-09-25T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://eddiequinn.xyz/sig.txt</loc>
+    <lastmod>2022-09-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://eddiequinn.xyz/sigs/sig.txt</loc>
+    <lastmod>2022-09-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2022/protonmail_wolfinsheepsclothing/sig.txt</loc>
     <lastmod>2022-09-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/sigs/posts/2022/protonmail_wolfinsheepsclothing/sig.txt</loc>

@@ -1,0 +1,24 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+My homelab journey can be seperated into two key peroids
+- - **old-net -** This was a two-pi bramble that exsisted prior to me moving out
+- - **bartmos-1 -** This the current state
+
+I have kept the build logs for `old-net`, however these are no longer maintained. They are there just to keep record of what I did and that alone. Please do not attempt to follow them as a guide, not give me critiques on what I did. I have not changed these at all, including the tense they are prestened in or spelling mistakes.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgL1hEACgkQvUo0nUeo
+F5wuvw/+JciDob6dTA/EKaniLWcoZzZ/ruwg7kgRLceZO2ogvZfLYXXM29MKh/zR
+DnqQxNNOp1D7tE5C5hPHaG+j1qyt9LfuHjtlp/LCb3Mz39q0sCDzlPYFjESRcBMM
+nSOcSGGIcgCWFKY7JRwclIS7+Gk9MSjVp0ztQafv2aAlhw94ZA3N3b6pTVUDXoxn
+1vIpEQQMaBM7iE4K5eSjdQb3D0OZ4uca2rsR+xhsdeKO6ev6rStOkS8qBkVb2Xsi
+auMILaa9R/J4epqYLZZWYkuffNiICKNlRqwyLstUkESH3gny/njDLBRvojzcZLeB
+O4zAcDYd2js3JAQxFCpjpXL6fdzwoMrvgPPTLQnHk1ce8YEG3T6DXjQtBrpWoKeh
+P3T3258fBuIDFbn3xtFqrh7l2yTdhHgRRqY6Zij6oNGoKRyD+Ldm3zDQKSIx/QuO
+SVJ/pZv1YBxSsnax36myBhuxNUxrJBBRZ4jXZtSRNvk46JtfbQVNmvfJ/22FT0Ae
+5nJFoz+VKfdcXFTmt47QIKihWugvEpo+8vJiIqJbAtoWCTdN0JKnIkUHuhp1BtYD
+3JDd8Q4Sbl0TOPA+d0CuE7H8kMCLcII7e5FfSr4vwjo7hFb71NcIvXbsjSIVAXrb
+ifs5jUApXrve68l2L7XY0LEqhiQJ4vM/z9MxYIE34Fow2HJa4T0=
+=lhh4
+-----END PGP SIGNATURE-----

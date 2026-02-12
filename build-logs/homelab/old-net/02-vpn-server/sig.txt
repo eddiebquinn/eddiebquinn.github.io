@@ -1,0 +1,29 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+I have wanted to set up a VPN server into my home network since before I fully understood what a VPN server could do. Back then I knew it could facilitate me being able to access my files in my home network while remote, however, if you were to ask that version of me how to set it up he would wind up embarrassing himself. The fact of the matter is I have two key choices to be able to do this
+
+1. Open up a series of ports on my router - As someone whose entire personality is baked into privacy and security this just is not an option
+2. Set up a secure tunnel to access my resources outside the house
+
+In an ideal world, I want to set up Wiregard on Open BSD. The reason behind this is because, in my opinion, and many others, OpenBSD is one of the most secure server operating systems in circulation today. The reason behind this is that they implement a secure by default design, facilitated by its minimal attack surface. This is especially important because this is going to be the only port that will be open on my network. If I am going to open a hole in my perimeter, which anyone can scan or enumerate at any point, then I want to trust the tech stack that is running on that hole - this is especially true for the operation. This is a similar reason why in this ideal configuration I will be running Wiregaurd - while it is the new kid on the block, it does many things a lot better than a lot of its competitors. The reason behind this is that the underlying protocol is very simple
+
+Notice however how I said ideal? Well, this is where we move into Agile territory, where that is the end goal but the MVP is going to be Wireguard running on Ubuntu. Now there is nothing wrong with this software combination; It works, and it is reasonably secure. I am choosing this to start with because there are many many tutorials, some from content creators that I trust, on setting up this sort of server (the one I will be following is [this one](https://www.youtube.com/watch?v=rtUl7BfCNMY) from wolfgangs channel). If it fails with wireguard however, I will settle for OpenVPN in the meantime while I learn more about WireGuards setup.
+
+Also worth mentioning here is my issue with BT. Now this is not a problem as long as I configure the VPN correctly, however, I do not want to be put in this position for much longer. Because my TP-Link router is not plugged into the demarcation port directly, all traffic still flows through the original ISP router, which is not in bridging mode. What this means is that my home network is essentially a private network, within a private network - which is cringe. This means if I want to port forward my VPN connection, I need to port forward it on the TP-Link router, with it pointing to the Raspberry Pi AND THEN port forward the BT Router to point to the TP-Link router. While this is not difficult to do, I do not like it, and because of that, I want to treat depreciating the BT router as a P2 in the medium term. I need to replace the BT Router with a modem, and from the research, I have done the `Huawei HG612` is the model that was typically used by BT back in the day, and can still be bought from eBay fairly cheaply (either that or I go ham and buy [this](https://www.amazon.co.uk/gp/product/B0B3Y52BQW/ref=ewc_pr_img_2?smid=A1T68U0AS07YKL&psc=1)). The only other issue is that one of our home lines runs into the BT Router - I think I can plug this directly into a phone itself, but I will need to look into this.
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVq1LMACgkQvUo0nUeo
+F5x/kg/8CbDamHrd0i4BZaxefs1K1ifhuNPzUsDwxmql3lwWBz175j+z5OmjUjNb
+hd7uIjjWd1s32Uyz+J6XT41TQ5xDsTYq/NpBhJXlIi8XN14tKlreOdreiU7L5cM1
+zKuOlgO8Njkja7u4t4aN0ri4swzWEXDg+etW1RzPZ6banKO8cy/wZcA9owRZjPYM
+N2fK6NoGVKhbnv2DZMcQTutwFaJ9ZxwClpSQPV+b95uVK1FV63jhknS7VuusMo1A
+FGNGH6KB3LqTlsqwjQX61Mjm6vm6oUfErUPGC5jbtdIDtSOGDw9cakOBqN2yWiUs
+u2yyJH1KVPsHU2d9bxQ4fLrPyJ+FGRJ+TUm3ttq5iNJIQvmRiBgtdeg7jNvDyjHr
+SaGOGGEwUT4B7q6mnkrzeNTDMTHNH79Gt+49/qidl68WG5QajcCa53Vj06b2H9SF
+CUNXNsUI4xlbss5cpV4G2U8hwbGzjUP+lok0rAoNw2z/ypPrynsqekDnDvUqhGdw
+eDy3mS2Vv1LPYFgDpnKsU6oNwohuweL3+6b3j4P1QXvqerQVCWnmqcrpgAJqUEuP
+DZktpAIxiDgzrkG/T9aIErtFI8C5v1eDBHsd/qlNoFGmIR/g5o4ssj3RY4M0Z6mI
+mSMXtzgvnrKCZz89umzIA4XMmAHxFJnojXEPmawcmeiqTNXvzpg=
+=B2U9
+-----END PGP SIGNATURE-----

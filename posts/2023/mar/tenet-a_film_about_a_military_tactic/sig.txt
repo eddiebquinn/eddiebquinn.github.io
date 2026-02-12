@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+When I originally wrote this article I was going to go on a massive schpeel about the question of "what is art?" The questions itself has very little to do with the subject matter of this post, which is why I cut it out. That being said I do not want to discount what I wrote, that being that art itself doesn't have rigid borders of what does and does not fall into the category. It instead holds characteristics, and these characteristics are loose enough that almost anything can be shoehorned into that definition. The main characteristic is that art invokes a response, and this response may be positive or negative. I will one day do a post where I discuss my brief stint working as a security guard in a modern art museum, but today I am going to discuss Tenet.
+
+Tenet is a sci-fi action-thriller film released in 2020, directed and written by Christopher Nolan. The plot revolves around a secret agent known as "The Protagonist" who is tasked with preventing World War III by using a new technology that allows people to reverse the flow of time. The film explores themes of time, causality, and the nature of reality, and features elaborate action sequences and visual effects.
+
+Tenet *should* be one of my favorite films given that it tickets all the boxes of something I would enjoy, but upon first viewing, my honest opinion was that it was a cash grab masquerading in the skin suit of intelligent cinema. It has remained to be this case after multiple viewings until I watched a view on youtube.
+
+[![If this doesn't load just look up "Tenet - A Misunderstood Masterpiece (Video Essay) "](https://www.youtube.com/watch?v=0OoLokmqo0A)]
+
+Tenet is not a film about "the protagonist" trying to prevent WWIII - Tenet is about a military tactic called "The temporal pincer movement". The video itself goes into detail about how tenet holds a big middle finger to the rules of traditional cinema, and the reasons why so I won't repeat it. This is something that it shares in common with "House of leaves" and "Girl with a Dragon Tattoo", two things that deserve their posts.
+
+## The temporal pincer movement
+What needs to be understood to understand the TPM, is the idea behind Tenet itself. You see there are two main types of time travel in fiction, instant and progressive. Instant time travel is similar to Dr. Who where the Tardis instantly can appear anytime, something which is scientifically impossible. Progressive time travel, on the other hand, is very possible you are doing it right now (or at least in a forward direction). Tenet posits that it's possible to reverse your relationship with time so that you are going backward rather than forwards. This concept of time travel was explored in the film Primer, a film that I have intended to watch for a very long time.
+
+Also related is the concept of a pincer movement - A pincer movement is a military tactic in which two forces simultaneously attack an enemy target from opposite directions. The forces move towards the target from the flanks in a converging motion, resembling a pincer or a pair of pliers closing in on an object.
+
+So what the f**k is a temporal pincer movement? Okay so suppose that you have two teams (red and blue) in a battle, both approaching a battle from separate points - this is functionally the same as a pincer movement. The difference is blue team is approaching it from the future into the past, while the red team is approaching it from the past into the future. What benefit does this bring? Well because the red team has already been through the battle, they can tell the blue team in the future what to expect so they can plan around it... but the blue team has also been through the battle so they can red team in the past what to expect. The mental gymnastics to understand this alone is pretty difficult, especially when you go down the rabbit hole on it. Questions about free will pop up, same with questions about if the TPM even actually helps.
+
+So what if the whole film is a TPM? At the end of the film, we see Neil walking away with a keychain hanging on his bag, and that keychain was the same one of an unnamed character who saved "The protagonist" in the opera scene at the start of the film. If you follow the mental gymnastics of the film you begin to understand there are coincidences in this film. Neil was sent back to save "The protagonist"  by "the protagonist" in the future, who himself was responsible for forming the Tenet organization.
+
+## So what's the point
+I can't give you an answer to this question. I think the TPM itself is a mind f\*\*k that deserves to be explored more and more, but god helps me I do not want this film to have a sequel. As a standalone piece of art, this film works, but as an extended series, I think it would fall apart under its weight.
+
+What's the point from a wider filmmaking perspective is an easier question to answer. Christopher Nolan is one of the better directors out there, and I think this film was a film trying something new. Given the amount of excrement pushed out of the film industry, I don't think I was wrong to think so little of this film at first, but I also regret doing so. I'm, sure there is a lesson here for me to give things a chance rather than jumping to opinions based on a first experience.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV+oACgkQvUo0nUeo
+F5yiKQ//cz89ykwm9iqs1NejvX0eRwd50SEaFjpG4+HaRrEtCtHP0tfNhaW1L2y8
+437ISHG3biDWgkBNOCdjPLPRsRhu5ETzsbkKfrmZtv/PSWz7WE2RU0v+tRJiwyqh
+LSJOamu5dCbpGZvqJ7EE4dBx2Hfb+bNUKhhVpivWYQlAnGf3mThs7jYO/o1RmAcj
+sXKgXJeqaT4SSzKWbtHGZ1a5dPEE5Y7VMsGV8v3iRe2Gxk+3ItgW0naCZm4hcTP0
+27m/Cd1gJbzSkhwpXtNgoajRe7DQQ98qZ49V0aqWE+JllAuuV4hvr5EaNXBwiIMt
+IJAyC7zr6CeDYTCsfml+JlqEQG/i/jgo0C1+X0qq7ppBNFYZsfOA9s8xbBeUdpeT
+iB1ziJpIY5F/ZmaRJLzCyq+Lb7Kq2//tjagG2fkoMbGVolXnacB7khVFHzBBbQfy
+ZdDE0anJeNAFIbM+7Dp9wlhNq5vgl7j1AioXrJXcChz80YO1ogXevaeILkW66Ujg
+q6Jf2gPPShqkIg9GrwNHx/M7kec71w3HXoJiiODsSFOSrImCScUhSzFXlYsPNxOA
+TEj1avuTWqfSD79gSwh+WUHRfD7TqdzSeZcYRDbbGDSA489BDKn+CLpMzDE3VN24
+p3amelrfZMQ+o1Pq6cDVGQHnv4ol/LfugNYsIrpqTuU+RFORjik=
+=V5Pk
+-----END PGP SIGNATURE-----

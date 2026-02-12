@@ -1,0 +1,49 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+When I was in secondary school at some point a realisation hit me, this realisation as time has gone on I have discovered is only a partial truth. Relying on this assumption on a general basis to make sense of human behavior is not an effective way to do it on general basis, but it can be an effective model to understand some of it. The assumption is as such:
+
+> "All people think the same ceteris paribus"
+
+What this in essence means, is that by holding all life events equal, all people think the same. In layman's terms, it is an out-and-out rejection of the nature aspect of nature vs. nurture. I also thought most people didn't realise this, and by me realising this it made me different. It was quite an example of doublethink
+
+> "I am no different from anybody else and in my understanding that I am no different that makes me different"
+
+It is fair for me to point out that at this point in my life, I was still in the "growing pains" phase of my autism. I think that before this I bought into the dogma that everyone is special in their way wholeheartedly, and I realised this was my understanding that most people you meet on the street are the same as the person behind them. The only real difference between Robert and Reily is subtle life experiences that forced them down slightly different paths. In reality, as time has gone on I have grown up a tad, and now I appreciate things are far more complex than this and nature *can* play an aspect in the nature vs. nurture debate.
+
+This assumption nonetheless still plays a part in my world philosophy and has become so cemented in it that in truth I almost entirely forgot it. It wasn't until I encountered [this video](https://www.youtube.com/watch?v=M1js7_gglOc&t=2s) about the Dunning-Kruger effect.
+
+## The Dunning Kruger effect and how it relates
+The Dunning-Kruger effect in general is a phenomenon that describes why stupid people often think they are smart, while smart people often think they are stupid. It essentially states that people with a below-average ability in a skill often overestimate their ability, while people who are above average skill underestimate. I had experience with this when I started to get into writing Python for the first time and thought I was amazing at it until I realised that I had barely scratched the surface. The fact is most subjects you can immerse yourselves in are an endless fractal of information that can be followed down infinitely low. To a newbie to a topic, a first glance at this fractal may make you think you understand it, but as you begin to look deeper you begin to understand you'll never be able to see the full picture.
+
+How does this relate? If I understand that the fact I feel stupid likely makes me intelligent in a topic, then perhaps I am intelligent. Or does that newfound perceived intelligence circle back to mean I am once again an idiot? Doublethink.
+
+I have always said that my greatest strength in life is my ability to understand that I am not the smartest person in the room. The fact is in any one room everyone has had different experiences and lives, and these people all have something to teach me. This relates to another quote I try to remember which is "I am the average of the 5 people I surround myself with". When you approach life like this you become a sponge, soaking up information which you can repeat back to different people sharing the wealth of information. In other words, an appreciation for your lack of intelligence opens you up for the chance to be (or at least be perceived to be) intelligent.
+
+## Am I intelligent?
+This is an interesting question and one which fundamentally I think is pointless to ask. Is a lobster intelligent? Many might argue no, but within the confounds of its biological limitations lobsters are quite amazing creatures. I could spout off a lot of information on how lobsters and humans are similar in many ways, but the fact is Jordon Peterson did this better in the book "12 Rules for Life".
+
+To answer the question of "Am I intelligent" you need to consider what it means to be intelligent. Anyone can repeat back the first three digits of pi, less can explain the significance of those three digits. Being able to repeat information is not a sign of intelligence, understanding that information could be. This is why I am not afraid of ChatGPT (at least as far as it going Skynet goes), while it may appear to be intelligent the fact is it is just repeating information back. It doesn't understand what it is outputting (at least not in a traditional sense). I think that the real metric of intelligence is a person's ability to link information.
+
+One thing that had a very provoking effect on me is a post after I left uni. It said, "everything you write should add to your discipline". It made to question what the hell I had spent the last 22 years of my life doing. It is a lot of the reason I have changed how I operate on this blog. The fact is before I was parroting information back on "how to set up an SSH server" "why ProtonMail is flawed" or things that have been covered by others. I wasn't creating new data, I was just aggregating it. What I am doing now I feel pulling my ideas and life experiences together into posts, and transforming them into new ideas.
+
+Am I intelligent? In some things, I have an above-average skill set, but I am in no way an expert. I know quite a lot about Python, but I have been humbled consistently whenever I go to a Hackathon. I know a fair bit about maths, but I am struggling to do the questions in the textbook I'm studying. I can play the part of an intelligent person, and a lot of people I know would say I am intelligent, but for me, I do not know.
+
+I have a lot of strands of information for a lot of different disciplines that I have picked up over the years, and I know what string I need to pull on to point me toward the information I need. Whether I am intelligent or not is relative, I am what I am - It is what I use my abilities for that matters more.
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZWCMACgkQvUo0nUeo
+F5xB9hAAi18W916gvupfbsiJ+BnZqEm9ove5xMAxclWNPc0vSHqfZOiHAOWzNIaB
+EpdqHyWwG6klUrDfyx4btSaSa0Iwg4QImwNZe1w1Of7bzEshA8K9D3BK1c3kx4Fe
+5lD2/UDy06FBUXF9LFqYx2cOWwAsNfs5nu0lt8TKjfIMb1ZF6kwckiQlZwmzOPp6
+txbza1B9CLuNc8AxPYdL9FVbWMlBCFowjcqehX9CcnIy1lp8EL9h5HEEBPivcySp
+HFSS8W8mVNyleK2LsdVDnnHj37olAdxpuFrpi6uJUDOslZwbGrTWWuENrxSvXhBS
+hqYmv5D1vAFyhAPJeA5qxDfmL2Wq3CLclXa0VOQoQ76oKyjzOltrC49i8KPk3Xff
+KEClly4oqCO9GlcbXJVE7/SYFckDLMT1zr0JU7R5LT2NInv//hYVlWqG8hK2JbB6
+VDADiCrlYe5xnqiVjJ38N7scF5D03VT7jpd22b1SiydRjV1UZIRjuTRZWc+gJgUk
+frnOrzEUo6+hf8cAqNEh91YsoOx4y8C3Ch931BIylwzAf0OoBUSxDlMGIyH81l/s
+HHLCD6P8R2xcXNaCdnRcWXKTtUgmr3wzYwE3CXZn7/8ZUyPQWRFOJaf5jtzo04/8
+2lt3ynA2Z914tzyxJyVbJ90Y5J16m+MIWVx67uqVaZHmt9/9hrc=
+=lhOK
+-----END PGP SIGNATURE-----
