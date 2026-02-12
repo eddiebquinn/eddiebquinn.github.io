@@ -1,35 +1,33 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
-# Eddie B-Quinn
-I am an analytical problem solver with a passion for privacy and security. I question established ways of doing things and have a strong preference for automation and optimization. I have interests in philosophy, technology, mathematics, and politics/economics.
+# Eddie B-Quinn // Ghostwire
+Infrastructure • Automation • Long-form thinking
 
-This blog predominately serves to be my means of posting thoughts and opinions online, as I do not have social media (outside of Linkedin). Please feel free to reach out if you have any questions.
+This is a personal technical blog where infrastructure experiments, operational workflows, and reflective essays live side by side.
 
-# Skills
-- - Python3, Javascript, NodeJS, Java, Rust
-- - Google Cloud Platform, Azure
+I write about reproducible systems, automation, and the thinking that informs how I approach technology and work. Some posts are deep dives into tooling and infrastructure. Others explore the systems — technical or cultural — that shape how we operate.
 
-# Highlited Projects
-- - **[Brainf-ck](https://github.com/eddiebquinn/Brainfuck) -** A simple brainf-ck interpreter written in Python
-- - **[Huffman encoder](https://github.com/eddiebquinn/huffman-code) -** A version of the Huffman compression algorithm written in JS
+## Focus
 
-# Other cool people
-- - **[Iron's Blog](https://blog.ironsm4sh.nl/) -** Hacker with a wide range of interests
-- - **[Mitchell's Site](https://garden.mitchellton.com/) -** Electronics engineering student & Developer
+- - Reproducible infrastructure & automation
+- - Declarative systems and build workflows
+- - Operational discipline and MTTR reduction
+- - Essays on technology and systems thinking
+
+## What to Expect
+
+Posts here are not tutorials or polished guides.  
+They are logs of implementation, reflection, and iteration — written in public.
+
+## People Worth Reading
+
+- - **Iron** — https://blog.ironsm4sh.nl/
+- - **Mitchell** — https://garden.mitchellton.com/
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVhOwIACgkQvUo0nUeo
-F5zF7w/+NLQE2tQ9jD8nDNlUAYEONYYikGi3eoa2m9s5/XXugfaCmyFVelgDqhE4
-cS8N5InFqRZkA2aL5F5P0/9FIJonsc1V0YYkeLIQElwRYZsoJagJahU1w7qbO0hi
-NTMQJHCNzLm9VS70cHdFLfWY3Jdyi0mjzwPoKbNj4/VsR9mj2Lb7mqYBfbiNaNwr
-e5Kz72IlqjHy5aYmFbEM1qpWVGGek2z2y9NkRTuIVdFtUoO5qIGGb1wboh6OAklY
-oHhj7u4xhOvPwo56V61u9Q+I8/QyTJ35gJHeIup0S3twsrhX/8ohKH6qjRSfxriz
-Pz6OHxA2n6+KTLhAp2kL8hxVO/c8DBg7AiLrPQLW3Vy8ZA2z+v2Ogpo/Oi2T0pTL
-VrOJJQ/yNUszr/ZTw2SycrjcH3olDTvviFzvWyHjb6gHwcZfw4gz0ma1C4G1cMwI
-323w8Z/fDe+foClqjaTRDKym40neDM5ciS1QfQgExAVuzdNOxFqRp+dbQ3MoKx35
-+xYCiYKVrELUAVe2jHxcW554dN0ID01xj78MB2J2yw6CmkdYWnT/R1pLK0R9QtGq
-nAnnwOZMkZJaGW96PzDlxwe2/RTaj/phmHKMA1ejTr2ccZuMZYT3dQx/QEqBFVj+
-hTxI/8/l9v8gr2Qk3mhP6UAVVoahfLMhQG21uKmgVp1dtL6pV3g=
-=+tMh
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY3ZkwAKCRBy4AiZROfD
+Z596AP93AVK2NPYIVmVgXhrD9d/UFQDBhf/eYZQgfKJmxl/hEgEAic1f0hH3ntmI
+4QhpnwVGW72dAgSgteVaW92AJpR2Uw4=
+=9tO9
 -----END PGP SIGNATURE-----
