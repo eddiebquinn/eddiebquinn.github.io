@@ -1,0 +1,63 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+The reason I am writing this note is that I am essentially declaring bankruptcy on my ability to prepare and pack for a trip with no external workflow. If you ever think you do not need this list Ed, I would like to remind you of the following events
+
+- - **Lake district trip -** Remember that time you forgot your braces and had to hold your trousers up for two weeks? I do
+- - **Amsterdam trip -** Remember how you have no good way to charge multiple devices at once? I do
+- - **HCCPP 2023 -** Remember how you messed this one up and forgot soap, charging facilities, a padlock, a sewing kit, etc.? I do
+
+Ed - this is for your good. This shouldn't be that hard, you love checklists?
+
+## Clothes
+The amount of clothes you bring deeply depends on the amount of time you are there and if there are washing facilities. Generally, I would suggest packing one for every day for essential things like underwear and socks, but this is very subjective and down to where you are going to, how long for, if they have wash facilities. This post was originally going to contain formulas for how much you should bring of each thing but I do not need to do that.
+
+- - **Underwear**
+- - **Socks**
+- - **Hoodie:** It is also worth bringing a coat as well as a hoodie if you are going somewhere cold
+- - **Shirts:** Mainly focus on bringing t-shirts, but also a vest top, and some polos for if you need to dress up smart
+- - **Jeans**
+- - **Shorts**
+- - **Jeans and shorts**
+- - **Shoes:** One pair of sliders, trainers, boots
+
+It's worth mentioning, that a lot of this can be worn during travel. I would generally recommend wearing jeans, a hoodie, and a coat while travelling (if it makes sense) as these are large heavy items
+
+## Gadgets and toys
+Some of these can be removed depending on the context of the trip. I.e. if you are travelling within the UK it might not be that important to bring a UK travel adapter (that being said, spontaneous trips abroad have happened before).
+
+**Gadgets**
+- - Laptop
+- - Phone
+- - Headphones
+- - Pentest gear (not as important if not going to a conference)
+
+**Chargers and power**
+- - International wall adapter
+- - Extension lead
+- - Power bank
+- - Power cables (laptop, phone, spares)
+
+**Security**
+- - Padlock (nothing fancy)
+- - Travel router
+
+**Health**
+- - First aid kit (I do not have a general list of what should go in here, but plasters, paracetamol, antiseptic cream)
+- - Medication
+- - Ear plugs/face mask
+
+**Misc**
+- - Passport (you will also want to have a copy of this and an idea where the nearest UK embassy is)
+- - Copies of the boarding pass
+- - Sowing kit + iron on denim patches
+- - Book / Rubicks cube
+- - Pack of cards
+- -  Spare phone with PAYG sim (in case you lose your actual phone and need to get back up and running)
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY3kDQAKCRBy4AiZROfD
+Z33WAQDROKsJnzJveycI9i8G6GgZLQjDiTWnMJKyo9YwHuCIpQEAqYzOv2v4XfJT
+P6yJiR+/KypgAoLOPTiB5nn83cpCvgQ=
+=uG87
+-----END PGP SIGNATURE-----
