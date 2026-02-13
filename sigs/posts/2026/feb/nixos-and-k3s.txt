@@ -1,56 +1,45 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
-Hey, been a while… as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.
-
-> ⚠️ **Warning:** This is not a tutorial or guide. Please run the commands in this post at your own risk.
-
-- ---
-
+Hey, been a while... as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.
+ 
+> Warning: This is not a tutorial or guide, please run the commands in this post at your own risk.
+ 
 ## I use Nix BTW
+I finally have moved from using Arch Linux as my OS of choice to running NixOS. It seemed like a natural next step in me becoming an insufferable no-lifer. I won't pit Kubernates and NixOS against each other for which one I have intended to switch for longer; Both have held court in the tattered throne-room that is my Prefrontal Cortex for so long they are better treated as jesters rather than legitimate guests. I moved over to NixOS around four months ago because my Arch install finally keeled over and died, and I could either prolong my pain using it or just install Nix like I had been saying I wanted to do for at least two years. I bit the bullet, creating an incredibly misguided abomination of a flake, things were good… then I proceeded to break the flake after three days, and then used a Nix build two generations old for a third of a year.
 
-I finally moved from using Arch Linux as my OS of choice to running NixOS. It seemed like a natural next step in me becoming an insufferable no-lifer. I won’t pit Kubernetes and NixOS against each other for which one I have intended to switch to for longer; both have held court in the tattered throne-room that is my prefrontal cortex for so long they are better treated as jesters rather than legitimate guests.
+Why I eventually fixed this I do not know. It may be as simple as one day at work a coworker was pissing me off and I decided to plan out a new Git Repo called Atlantis, and this threw fresh goals onto the smithery inside my brain. Atlantis was born, so named after the club frequented by solo’s in Night City in cyberpunk 2020. Atlantis was going to be different, elegant, stable... Atlantis sat for two weeks with no work beyond a basic skeleton. Then just as the coals were about to cough their last plume, the NixOS jester spilt his flagon atop them, and the ethanol lit a three day sprint of building, tweaking, commiting, and refactoring. I now have a functioning, git backed, fully declarative operating system at my finger tips. It is rare that I actually leave a project feeling fulfilled, but this was one of those times that I genuinely felt happy with what I have achieved.
 
-I moved over to NixOS around four months ago because my Arch install finally keeled over and died. I could either prolong my pain using it or just install Nix like I had been saying I wanted to do for at least two years. I bit the bullet, creating an incredibly misguided abomination of a flake. Things were good… then I proceeded to break the flake after three days and used a Nix build two generations old for a third of a year.
+I did many cool things in this setup, but I think the coolest thing I did in all of this was unifying my GPG and SSH setup. This is something I had wanted to do for an incredibly long time, the only issue was for me to do it would require me to expend an inordinate amount of effort learning and then tinkering on my fragile arch install. Then in six months when it inevitably broke again, I would yet again have to go through this learning and tinkering process. I came to the conclusion that if I was going to go down this road, I would end up spending more time fixing this on every reinstall than I would if I just made new ssh-keys each time. Then of course NixOS came along, and I realised that I only had to set this up once. 
 
-Why I eventually fixed this, I do not know. It may be as simple as one day at work a coworker was annoying me and I decided to plan out a new Git repo called **Atlantis**, which threw fresh goals onto the smithery inside my brain.
+And so I began laying the ground work to actually do this, and this began with retiring my previous keypair. Despite me cosplaying as a cyber security expert, I am very far from it - I just know enough long words to convince skids that I am better than them. When I initially set up my GPG keys I made a series of mistakes.
 
-Atlantis was born, so named after the club frequented by solos in *Night City* in *Cyberpunk 2020*. Atlantis was going to be different — elegant, stable. Atlantis sat for two weeks with no work beyond a basic skeleton. Then just as the coals were about to cough their last plume, the NixOS jester spilt his flagon atop them, and the ethanol lit a three‑day sprint of building, tweaking, committing, and refactoring.
+1) Uploading my root key to Keybase was one - You private key should never touch the internet, ever... and i knew this and decided to do it anyway
+2) Not using subkeys 
+3) Not uploading my key to a key server was ANOTHER - Keybase i thought was a viable alternative, it arguably is but… no
 
-I now have a functioning, Git-backed, fully declarative operating system at my fingertips. It is rare that I leave a project feeling fulfilled, but this was one of those times. I am genuinely happy with what I achieved.
+Over the course of a wet-febuary evening I installed TailsOS onto a USB stick, got my encrypted USB stick out, booted into trails, and generated the following
 
-- ---
-
-### GPG Unification
-
-The coolest thing I did in all of this was unify my GPG and SSH setup.
-
-This is something I had wanted to do for a long time, but doing it on Arch meant learning everything, implementing it, and then inevitably repeating the process after the next reinstall. With NixOS, I only had to set it up once.
-
-When I initially set up my GPG keys, I made mistakes:
-
-1. Uploading my root key to Keybase (your private key should never touch the internet — I knew this and did it anyway).
-2. Not using subkeys.
-3. Not uploading my key to a keyserver.
-
-Over the course of a wet February evening, I installed TailsOS onto a USB stick, booted into it, and generated the following:
-
-```text
+```
 pub   ed25519/0xB254FBF3F060B796 2026-02-05 [SC] [expires: 2031-02-04]
-uid   [ultimate] Eddie Brinton-Quinn <eddie@b-quinn.com>
-sub   ed25519/0x72E0089944E7C367 2026-02-05 [S]
-sub   cv25519/0x51FC7D57ABD18A33 2026-02-05 [E]
-sub   ed25519/0x4AAC046885DFBC2B 2026-02-05 [A]
-sub   ed25519/0xBFEEDA71CC19B0C6 2026-02-05 [A]
+      Key fingerprint = CA98 D594 6FA3 A374 BA7E  2D8F B254 FBF3 F060 B796
+uid                   [ultimate] Eddie Brinton-Quinn <eddie@b-quinn.com>
+sub   ed25519/0x72E0089944E7C367 2026-02-05 [S] [expires: 2027-02-05]
+      Key fingerprint = F63C A733 5EBE CBBD 1961  AF28 72E0 0899 44E7 C367
+sub   cv25519/0x51FC7D57ABD18A33 2026-02-05 [E] [expires: 2027-02-05]
+      Key fingerprint = E98F 1A2B 7172 F95D D2D6  553C 51FC 7D57 ABD1 8A33
+sub   ed25519/0x4AAC046885DFBC2B 2026-02-05 [A] [expires: 2027-02-05]
+      Key fingerprint = 7A24 5FCA 611D EB71 6537  D34C 4AAC 0468 85DF BC2B
+sub   ed25519/0xBFEEDA71CC19B0C6 2026-02-05 [A] [expires: 2027-02-05]
+      Key fingerprint = 3204 96A4 40EE 45CD 13DE  1DCD BFEE DA71 CC19 B0C6
 ```
 
-That is a primary key with four subkeys:
+That, my inner demons, is a root key with four sub keys - each serving a specific purpose
+- - One for signing
+- - One for encryption
+- - Two for authentication (one for each of my devices)
 
-* One for signing
-* One for encryption
-* Two for authentication (one per device)
-
-Six hours later, I had a `+85 -7` merge request. The file doing most of the work looked like this:
+- From here on began six hours that resulted in a +85 -7 line merge request. The file doing most of the work being this one
 
 ```nix
 { config, pkgs, lib, ... }:
@@ -88,32 +77,31 @@ Six hours later, I had a `+85 -7` merge request. The file doing most of the work
 }
 ```
 
-I am proud of this. Genuinely.
+I am proud of this... I am proud of this. I do still have some tidying up to do, all of my old posts are still signed with the old key and I need to fix that. I also want to get a NitroKey and use that as my main auth key rather than machine bound keys. The first I likely will not do until I actually get the CICD pipeline running in my blog, the latter requires money.. Soon though.
 
-- ---
+## I use K3S btw
+So now for the actual reason I started writing this. I am sure you are wondering why I would do this to myself, I recall my friend iron telling me a few years ago "just dont" when i said i want to do this.
 
-## I use K3S BTW
+In some regards the reason why was a real thirst for knowledge and wanting to push my knowledge of gitops, virtualisation, docker, and all these technologies i have grown to love to their limits. With that in mind K3S seemed like the next viable step, and I imagine several months from now I will want to deploy a K8S cluster. In a separate regard, since moving to this job I am surrounded by people who also have homelabs. I began using docker to deploy most of my stuff rather than the proxmox helper scripts, and they followed - I am nothing if not a petty and vindictive loser, and thus this internal rage festered within me until such a point where i forced myself to learn open-tofu, ansible, and kubernetes and got around to doing this. So yeah...
 
-The actual reason I started writing this: I deployed a K3S cluster.
+This was not my first attempt, many in the past have resulted in many a toxic crashout on discord. Most of my issues stemmed from my need to use LXC containers rather than just use VM's like a normal person (something i am no longer doing), the other issue came from a much deeper more philosophical issue i have. You may not realise this by looking at my sleep deprived morbidly obese and dishevelled frame, but I am an incredibly lazy person - shocker, I know.
 
-Why? Partly curiosity. Partly ego. Partly because I enjoy pushing my understanding of GitOps, virtualization, Docker, and infrastructure to uncomfortable places.
+It is a tad more complicated than that (this is not cope i promise), as an autistic person I just don't like doing pointless things. I will happily spend six hours configuring a nix backed GPG system, but twenty min's configuring seven VM's to run K3S i cannot fathom. This is because the first one I only have to do once, and the second one I will have to continue to do in perpetuity. I did not want to have to keep manually building up and tearing down these LXC/VM's every time I found something new that I had to fix... I needed an IAC solution, I needed terraform.
 
-I do not need a HA cluster. But I wanted one.
+## I use OpenTofu btw
 
-My main blocker historically wasn’t Kubernetes — it was repetition. I refuse to manually build and rebuild seven VMs every time I change something. That feels pointless.
+> "But ed, i though you said you used open tofu"
 
-So I needed Infrastructure as Code.
+That you are the right disembodied voice, that you are right... I won't get much into this as I am new to the space, but functionally OpenTofu and Terraform ostensibly do the same thing - they are both IAC tools that let you define and manage VM's / Networks / Cloud-Services. The only real difference between the two is governance and licencing.
 
-- ---
+- - Terraform moved to a BSL licence in 2023 from its MPL-2.0 licence. This restrictions certain commercial uses.
+- - OpenTofu is a fork of terraform managed by the community that uses the MPL-2.0 licence still
 
-## I use OpenTofu BTW
+Think of it like MySQL vs MariaDB (there probably are differences but I don't care enough to check, and most people will understand what I mean by that).
 
-OpenTofu and Terraform are both IaC tools. Terraform moved to the BSL license; OpenTofu forked under MPL-2.0.
+The issue is... I am lazy... This wasn't an existential laziness that I described a few paragraphs ago, this is "I can't be bothered to learn this tech knowledge" laziness. I cannot quite explain why I eventually decided to actually do this, I think it came off the coat tails of me doing the reinstall of NixOS and wanting to do another big project, but one night i decided to throw some more coal on the K3S furnace and warm myself next to the embers. With the aid and assistance for a few well placed LLM prompts, youtube, and a case of Hazy Jane I produced the following
 
-That’s the main difference.
-
-With some research, a few LLM prompts, YouTube, and a case of Hazy Jane, I ended up with the following Proxmox configuration:
-
+**provider.tf**
 ```tf
 resource "proxmox_vm_qemu" "k3s" {
   for_each = local.nodes
@@ -125,8 +113,9 @@ resource "proxmox_vm_qemu" "k3s" {
   full_clone  = true
   tags        = "k3s-cluster"
 
-  agent       = 1
-  skip_ipv6   = true
+  agent                  = 1
+  define_connection_info = false
+  skip_ipv6              = true
 
   cpu {
     cores = each.value.cpu
@@ -135,6 +124,24 @@ resource "proxmox_vm_qemu" "k3s" {
 
   memory  = each.value.mem
   os_type = "cloud-init"
+
+  disks {
+    scsi {
+      scsi0 {
+        disk {
+          storage = var.storage
+          size    = var.disk_size
+        }
+      }
+    }
+    ide {
+      ide2 {
+        cloudinit {
+          storage = var.storage
+        }
+      }
+    }
+  }
 
   network {
     id      = 0
@@ -149,64 +156,188 @@ resource "proxmox_vm_qemu" "k3s" {
 }
 ```
 
-Terraform builds the VMs. Ansible provisions them. k3sup bootstraps the cluster.
+**variables.tf**
+```tf
+variable "control_plane" {
+  description = "Control-plane node map (name => spec)"
+  type = map(object({
+    vmid    = number
+    cpu     = number
+    mem     = number
+    macaddr = string
+  }))
+  default = {
+    cp-1 = { vmid = 611, cpu = 2, mem = 2048, macaddr = "BC:24:11:9E:CB:35" }
+    cp-2 = { vmid = 612, cpu = 2, mem = 2048, macaddr = "BC:24:11:DD:46:8D" }
+    cp-3 = { vmid = 613, cpu = 2, mem = 2048, macaddr = "BC:24:11:30:89:D6" }
+  }
+}
 
-- ---
+variable "workers" {
+  description = "Worker node map (name => spec)"
+  type = map(object({
+    vmid    = number
+    cpu     = number
+    mem     = number
+    macaddr = string
+  }))
+  default = {
+    wk-1 = { vmid = 621, cpu = 2, mem = 4096, macaddr = "BC:24:11:F6:84:1A" }
+    wk-2 = { vmid = 622, cpu = 2, mem = 4096, macaddr = "BC:24:11:A1:09:03" }
+    wk-3 = { vmid = 623, cpu = 2, mem = 4096, macaddr = "BC:24:11:1B:7B:E7" }
+    wk-4 = { vmid = 624, cpu = 2, mem = 4096, macaddr = "BC:24:11:F6:74:82" }
+  }
+}
 
-## I use k3sup BTW
+# Defaults (kept variable-driven; override in tfvars if needed)
+variable "name_prefix" {
+  description = "Prefix for VM names (final name is <prefix>-<node_key>)"
+  type        = string
+  default     = "k3s"
+}
 
-k3sup installs and manages k3s over SSH.
+variable "target_node" {
+  description = "Proxmox node to place VMs on"
+  type        = string
+  default     = "arasaka-1"
+}
 
-Bootstrap command:
+variable "clone_template" {
+  description = "Name of the Proxmox VM template to clone"
+  type        = string
+  default     = "cloudinit-base"
+}
 
-```bash
+variable "storage" {
+  description = "Proxmox storage target for VM disks and cloud-init"
+  type        = string
+  default     = "datafortress-1"
+}
+
+variable "disk_size" {
+  description = "Root disk size (e.g. 32G)"
+  type        = string
+  default     = "32G"
+}
+
+variable "bridge" {
+  description = "Proxmox bridge"
+  type        = string
+  default     = "vmbr0"
+}
+
+variable "ci_user" {
+  description = "Cloud-init username"
+  type        = string
+  default     = "semaphore-agent"
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key injected via cloud-init"
+  type        = string
+  sensitive   = true
+}
+
+variable "ipconfig0" {
+  description = "Cloud-init network config for NIC0"
+  type        = string
+  default     = "ip=dhcp"
+}
+```
+
+There are other files, i have not included them - if you want to see the full repo ask. What this effectively does is create seven virtual machines, cloning from a premade template (i made this by hand, i don't see the point in implementing packer yet), applying a pre reserved mac address - I may be able to automate the MAC reservation process, but I haven't touched that yet. I then provision it further using an ansible playbook which I will not share, because it is long and I feel like you already would have stopped reading after the previous wall of code (if you want to see it ask). What I ended up with was seven vm's ready for the sauce.
+
+## I use k3sup btw
+K3sup is a lightweight cli tool that installs and manages k3s over ssh. It allows you to quickly bootstrap and manage Kubernetes control planes or worker joined nodes without manually handling installation scripts, tokens, kubeconfig files. The lethargy of this application sickens me, and yet I have grown to love it... in a "it can fix me" sort of way.
+
+The first command was fairly simple. It installs the first master control plane node on 10.0.6.11.
+
+```sh
 k3sup install \
-  --ip 10.0.6.11 \
-  --tls-san 10.0.6.10 \
-  --cluster \
-  --user k3s-agent \
-  --local-path ~/.kube/config \
-  --context k3s-ha \
-  --k3s-extra-args "disable servicelb --node-ip 10.0.6.11"
+	--ip 10.0.6.11 \
+	--tls-san 10.0.6.10 \
+	--cluster \
+	--user k3s-agent \
+	--local-path ~/.kube/config \
+	--context k3s-ha \
+	--k3s-extra-args "disable servicelb --node-ip 10.0.6.11"`
 ```
 
-kube-vip provides a virtual IP (10.0.6.10) for HA API access.
+This does a couple of interesting things, the main ones you should focus on are the following
+- - tls-san tells it to also generate a certificate for 10.0.6.10 (more on this later)
+- - cluster tells it to use an etcd database
 
-After joining the remaining nodes, I ended up with:
+Now that 10.0.6.10 ip is important. I was going for a HA cluster, meaning that I could not afford to have my kubectl bound to just one IP, and this is where kubevip comes in. Kubevip in this use case spins up a virtual IP that loadbalances requests across the three control plane nodes... I just had to set it up first
 
-```bash
-kubectl get nodes -o wide
+First i needed to install the rbac manifest
+
+```sh
+kubectl apply -f https://kube-vip.io/manifests/rbac.yaml\
 ```
 
-Seven nodes. Three control-plane. Four workers. HA etcd. Stable.
+Then i needed to ssh into the control node I just made, pull the latest version of kubevip, and set up an alias
 
-And now I have a cluster I need to actually use.
+```sh
+ctr image pull docker.io/plndr/kube-vip:latest
+alias kube-vip='ctr run -rm --net-host docker.io/plndr/kube-vip:latest vip /kube-vip
+```
 
-Next step: GitOps.
+THEN i needed to create the kubevip daemonset
 
-- ---
+```sh
+kube-vip manifest deamonset 
+- --arp 
+- -- interface eth0 
+- -- address 10.0.6.10
+- -- controlplane 
+- -- leaderElection 
+- -- taint 
+- -- inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+```
+
+and from here the 10.0.6.10 IP was live. From here I edited my local .kube/config to use 10.0.6.10 rather than 10.0.6.11 and set up the rest of the cluster using the following commands, swapping out IP's and removing the --server flag when doing worker nodes.
+
+```sh
+k3sup join 
+- -- ip 10.0.6.12 \
+- --user k3s-agent \
+- -- sudo \
+- -- k3s-channel stable \ 
+- -- server \
+- -- server-ip 10.0.6.10 \ 
+- -- server-user k3s-agent \ 
+- -- k3s-extra-args "disable servicelb --node-ip 10.0.6.12"
+```
+
+And this left me with the following
+
+```sh
+[eddie@blackhand]:~ $ kubectl get nodes -o wide
+NAME       STATUS   ROLES                AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+k3s-cp-1   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.11     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-cp-2   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.12     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-cp-3   Ready    control-plane,etcd   9h    v1.34.3+k3s1   10.0.6.13     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-1   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.21     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-2   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.22     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-3   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.23     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+k3s-wk-4   Ready    <none>               9h    v1.34.3+k3s1   10.0.6.24     <none>        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+```
+
+And now I have a K3S cluster which I need to actually utilise. My plan is to try and implement Gitops first, and from there slowly move over my homelab services.
 
 ## Aftercare
+Would I recommend this? Absolutely not.
+Jokes aside, you will fall into three camps after reading this
+ 
+“Wow ed thats awesome”: This group is already planning to do this
+“Should I do this?”: If this is you, then no you shouldn’t. I did this because I find it fun, I do not need a declarative OS or HA K3S cluster and the truth is, neither do you (probably). If you are not filled with excitement at the thought of this, maybe save your energy for something else.
+“This sounds pointless”: That's just like… your opinion man?
 
-Would I recommend this?
-
-Absolutely not.
-
-You will fall into one of three camps:
-
-* **“Wow, that’s awesome.”** You’re already planning to do this.
-* **“Should I do this?”** If this is you — probably not. You don’t need a declarative OS or HA cluster unless it excites you.
-* **“This sounds pointless.”** That’s fine too.
-
-If you are not filled with excitement at the thought of building this, save your energy for something that does.
-
-It works. I built it. Now I get to see what I can do with it.
-
-See you in nine months when I post again.
+Anyway… I'm signing off… See you in nine months when I post again.
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY24NQAKCRBy4AiZROfD
-Z1A6AP4/jXTVTxiCxHszAAn2vPSfzHjkLbMVDjtGwgxVB7RpHwEAkndoilsDpCjF
-SFU+Te387KGgveglN1Bbs78aynaoJw4=
-=sg1f
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY6gNgAKCRBy4AiZROfD
+Z0N2AP9ogWyAg/roN1tEwDF8P8WnCKy4JgmGOH0EbXwj4mD0rgD/YuMC9saXwfm0
+mYvcyZdcEFOc6RAZaNpXJ7hsNPr0PgI=
+=NAsI
 -----END PGP SIGNATURE-----

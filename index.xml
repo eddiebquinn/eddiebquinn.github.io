@@ -14,7 +14,7 @@
       <link>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</link>
       <pubDate>Mon, 09 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</guid>
-      <description>Hey, been a while… as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.&#xA;⚠️ Warning: This is not a tutorial or guide. Please run the commands in this post at your own risk.&#xA;I use Nix BTW I finally moved from using Arch Linux as my OS of choice to running NixOS.</description>
+      <description>Hey, been a while&amp;hellip; as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.&#xA;Warning: This is not a tutorial or guide, please run the commands in this post at your own risk.&#xA;I use Nix BTW I finally have moved from using Arch Linux as my OS of choice to running NixOS.</description>
     </item>
     <item>
       <title>1 -I Suprisingly Dont Hate CICD</title>
