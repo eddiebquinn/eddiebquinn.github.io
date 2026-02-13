@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I am reaching an odd point in life, one which I feel many people reach, where I have many many projects I want to work on and very little time to actually dedicate to them. This seems idiotic to actually write a post about, but when you come to accept that very few people actually read your blog, then it becomes more of a self-monologue than a communication to your peers. I am writing this for myself to organise my thoughts around this topic. I read an article earlier last year about the act of 'selfish writing', and how writing with the intent of entertaining others and writing with the intent of entertaining yourself do not always go hand in hand. I could write a post with the intent to inform or describe how to harden an SSH server, and I have in the past. However, thousands of others do the same. I do not personally want to write that, and the community does not need another tutorial.
 
@@ -21,17 +21,8 @@ Fundamentally I called this post 'Finite by design' because that is what time is
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVIMACgkQvUo0nUeo
-F5zHyxAAmB+H1i+GG2KVS7lR4YSJeA4qFDgWdakFyLtJumae+wq8TvpcW7J3+i1y
-hdMj+0WsbA6Uq12nGLHkLB3qfWuq9BnFeN87PU1jtGNYL6NA62d0k38ceS252NMk
-DnLdV8qvaBapGZMAzdzmWphOdPONBV2oZxhSVhYSWwHt/r2fdHCF1uBw6AuQM20e
-0gaqH6h/J8ePK/xqbsIbVtlKjEwmwd4JWwoOhcp1Sju8SVzVqcMhkK/aX2Xt6ZQo
-5/6aGs0feqnLJSWTkk8Y6ggBQL6PcqmCGkloELKsx423dICx7Xjoe8lYa1xnaT7o
-Va6tW5NgeNqyI+/I7P/bBcRO4A/sACsf4TRrfr37qXmFkw6pfLDUTX8vH3bp6/Pf
-h6cwM2rH2GY9G/R6GywuDNBUxYNyxjLdSgklgdGGjNvplQRSUGJyelUW00VI4Ki2
-e5IJYdrhbZDf6koyeNS8KohB3Ag2CLcPZ1l3YLLzTFrFZYu/RicDVMFYwguwCZJ1
-DIcuR/tMK6Jrky3iimJKpLIIuO36ko3RzZBWnItl4Gj9TZXTUKVmI6Gz4GZp53zY
-S0Ljeh0J3Vs5fBk8/95J2q/t5wdLzwZUllX3Sz9bhcq80ItL5K9q8U+K6/eS1wSI
-oa7qVL9T7294I2d0y6+T9URy8PWYcmaXf2FYIeY6OvKMaO1KCiE=
-=E3lp
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wwAKCRBy4AiZROfD
+Z1kaAQC+lOgTVNsd+yFJIjDt0+l7xTlYE/+e2K2m7deqVagIHgEAoBhcMGcwxWCS
+GdnKo//yLcSBtOCqmMVMIlvbB7JV6Ac=
+=lA+y
 -----END PGP SIGNATURE-----

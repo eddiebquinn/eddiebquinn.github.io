@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 It is a bit of a joke that I play on many people that when they say "How are you" I will respond with "I am not dead". Some laugh it off, some say it's a bit of a dismal thing to say, and some respond with "same". I have always found it very interesting to see how others respond to this. I often can tell how well I will get on with them based entirely on the response. In any case, given it has been more than a year since my last post I feel the need to say that I am not dead.
 
@@ -55,19 +55,11 @@ The main things I want to do in the next few months
 3. Get it so the site auto-builds whenever I push a new post to my blog posts repo - The more I can automate this, the less friction there is to my posting. The less friction, the more chaotic ramblings I can inflict on the world
 
 In any case, I hope all of you are happy and well - until the next post :)
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgLtrAACgkQvUo0nUeo
-F5z50xAAh0f8gbX45XHkvJ8P/YtIIE1VergYaPD5LaiJoWQOPasgAI+c/FEOWAh9
-wUw1HPjwSlt9MrIiFYPxitcqihPfKW8w0oU3A17JGSufhGzqsA0Pp/8fOQ1TTO2B
-8qZ0sNHraKVwMhXYpZEZjuP9AItmzzvr+6pa13CGABIR7tAoP5mFYbo1Bgpc2gis
-VCKF3Kk4IHuE50wCXh23362Q/7ZBenB70Ru7LEYwNO35mRoWz5tomu2yhPB5iCyi
-0Lp3ePSPZr7kPWhvCGImElAz+bUbGSTeCWOPFjGRn1BirAA0mxFAlvJeeiAXf9ea
-9KtocwMYdGD8ZiCMpFNUo923/E7Y6lVj58j3II0rzTBoYFMj/d7DZU3kWMg+2aTi
-qQ4zsEpXUvxkeH66PUSYJGoFG+b3gGNsXYfDW3y4434nhpVZv/TQIA+AMHt2hRaP
-ao4o58COu+EJLJCDyxhm+rZpEhEBSrrL3Ze8xNiCb87b0I/32E9ZtF8aSs2Y3Qr/
-+5ObTKF217Jtvvf7jaAGV3ZZxoxe+qeOfrNWUPQ3aCtKi+S0DYQAzMZYKE9QiHN6
-gakGAoEZihALnJPLLIn1+3A+HvWKmm/N+0/Eay8m9JxLOJZkXY/0j7FAQSQuGNEW
-EmZSSDxETXZi8irrHecS9upkyMSolH3fSnaij0OatYOypOSew7U=
-=xM2n
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76vwAKCRBy4AiZROfD
+ZxbcAP9oiaqdWl1Am6jfm+Kr9/sXnVwi0Ao37rS3bfwjgXCsWwEAptHGc2vrs0CB
+06UNjqvTSjf68Vez/3jc1j0gY7MP/Aw=
+=Szz6
 -----END PGP SIGNATURE-----

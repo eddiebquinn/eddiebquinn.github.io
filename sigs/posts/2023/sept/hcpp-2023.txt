@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I didn't quite anticipate writing about this particular post. It started as me wanting to write down a list of everything I should bring with me when I travel for future reference. I however have found myself in a spot where I am quite taken aback by an event, and feel for the sake of my future self I need to write down my current thoughts to reflect on at some point.
 
@@ -57,19 +57,11 @@ At one point in my life I thought when RMS was saying the "GNU + Linux" thing, i
 For all of his quirks and peculiarities, RMS is a highly *highly* intelligent man, and the work he has done should not be included as a footnote to Linux. I am however aware that as time goes on I am becoming more and more of a cliche within this community - I run Arch, I use a Thinkpad, I dislike systemD, and I try and use free software when I can. I mentioned in an earlier part of this post about how the persona can corrupt the important and this comes into play here - do I support these thought concepts because of my persona? Do I also not want to support all of these things because of my persona? Then of course this also plays into the Plastic Powers speech, where Cody Wilson says there is a certain type of historical retrospective where you catalogue and get so focused on the granularity of it that you lose track of what is important.
 
 I care about this community - I care about this technology. I want to see it succeed and do well, but I also want to maintain my individuality. In the absence of knowing what to do, do what is right. I *should* call it GNU-Linux so I am going to attempt to do so.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZWS0ACgkQvUo0nUeo
-F5yGmg//fd7/7hhVk6gLr7GhKfxkLfwC9ACDfidEaVhTbfhsncTmDR+Zh7B7f/e6
-YWSvo150qjYLU4NSSMsqelHE4hUMDQMROMAJAySiPEwlJNFpWVwA0dXX8StbrSMP
-wFApPAZMR8yMN/woBZ/04iZe8AEnwjTDHH/3X47xvALbDD07jheihTE78+d3edDX
-EAsypG7OwCUfkd+tfxPXVEU9W9XC1XwQxZFG9ZtRA99hSS58uwWyk+gH5XMqy+N5
-D2c2F+la16m0/CCIZ22FKOTdvoik0XgW/viN7XEF82HrgrO1wnjoibHEKLFYqR2o
-5V3o6E9qyWq+zO+tXVQbSUMYXmpAdTD6+FA1HdbHyPKjCcHjs/HPKlfCi+2LHvxe
-tTPN7uj48W1vb3Feq4nUuqbvEIn4+ty3y9bLAUVbv5k43JVXuXX7TzPQ2GGXEWyo
-PCinZtInTtzvduLeY/4SSKAvKxJ4SA6saqfu58Svw7qReC8Ko5gLTHRJUxoIELNm
-jio6+HtugP3ISzv2ZYEJuO/UH5zxiedINJoy8esPA0TxHMJIadrPl3Nq8UJAog/p
-QW9msMwWRxn2oIfvc+B+W2iE51fdDnlmCbcssKYlL9BZpEGlz0q1oYjBEA+NmA1A
-CoPBsEiJp/rfXDG7b3w+xk2zJoMszzYxY/8m1Dyj1wvttEBFxQ4=
-=9bb2
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xgAKCRBy4AiZROfD
+Z8VzAP9BPob9Qa+xlnzWh7+nm3c0+P1LXmQiGHN8BNYpo/fwIgD+KFvhGm96oJ9K
+BhjhCNeTJCYhI2LFM5Ypbi0fOdCuLAI=
+=Zfh9
 -----END PGP SIGNATURE-----

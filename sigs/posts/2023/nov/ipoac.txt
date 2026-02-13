@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I have been studying for my Network+ for the last few months. In doing so I have learnt to appreciate the inner workings of networking infrastructure, and how the modern-day internet functions and came to be. Truly, just for you to be reading this page is nothing short of a miracle - There is an incredibly noisy world just out of the scope of our senses that most people will never get a chance to learn about. 
 
@@ -62,7 +62,7 @@ PING 10.0.3.1 (10.0.3.1): 56 data bytes
 64 bytes from 10.0.3.1: icmp_seq=2 ttl=255 time=5124922.8 ms
 64 bytes from 10.0.3.1: icmp_seq=1 ttl=255 time=6388671.9 ms
 
-- --- 10.0.3.1 ping statistics ---
+- - --- 10.0.3.1 ping statistics ---
 9 packets transmitted, 4 packets received, 55% packet loss
 round-trip min/avg/max = 3211900.8/5222806.6/6388671.9 ms
 
@@ -77,19 +77,11 @@ I do want to say that despite my fondness for this joke, I do not take it seriou
 Also, and I am not quite sure if this is more or less nerdy than the last suggestion, this also works in Dungeons and Dragons. I play Dungeons and Dragons every week at my local pub, which is a shock to absolutely nobody that fat arch user plays DND. In our last session, we found ourselves in a position where we had acquired a tavern, by scaring the previous owner away and declaring it now belonged to us. We then had an issue, how can we run a bar while staying on our adventures? We theoretically have a semi-soviet workforce of bugbears extracting minerals from Wave Echo Cave, and if we managed to get a message to them Gunk the foreman could send a bugbear over to man the bar. Of course, then I realised, what if we set up an ad-hoc internet across our DND world using IPoAC. If we set up a pigeon-post in every town we visited the network would grow, and before we knew it we had a DNDesk ISP on our hands. I assure you, I was wetting myself with laughter at this thought.
 
 I suppose my overarching point in this post is this - Pigeons have an incredible knack for being funny when appropriately paired with networking technology.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVl4/YACgkQvUo0nUeo
-F5yrSRAAnyzqqvS16sBrTZlXeX9UBSnwLUYJV2DlYUGYRgkUfA7ecd4TdN6g9rH6
-JtjeAHMIE3wjXJzWEJSq78uapyk8VIHGMYDzdYSyk6nxj9aAWNZAuRmluBwlc5cI
-KvxkJNlFCIfRu7sQ1XF7plJL8VdKPvQ3Ye7UtVYo/Awe+QFR4wQdnPuCoDzuCOJo
-WBm71QtESbtPeFT8KPI6eA4tzXlJEH2qseP8g9+MlodPkqFloII+xIGhBLGbbOYt
-TCWjZ1q0JKVpRfApk+VwvLIJ1U9k4ABusOJr6hW9s1FmJCWgMP9nPhpJBa0K67FE
-cSKz2LmZRb92F7Ngmnz3MCf6eanHabdz/LdCQbKs1rPouQ0lI0aV/PrD1tWo1KgZ
-ayDqn2xW+X4Rsfw4/mj5mA1INJSsNHScAEfqXO/2utkKZi3BgUZXtMun42OoqTzb
-mcSQ3cCVB0oSs+1d0IUxhNfk+1Ki4A9c9tJnO3XCskYy+QRXSBJyZGs00WOII5ET
-gRxQRavmnChxBLHpwf0VVrvWvnoJk0p8Lq14w16uOlMuNLOfueIFAnKNPJ4INgpK
-SQzNaY7YsPkzv0FiJh8ZNSm2ou9ezlsBEc3Xncc0gAaeYbXGmvuxb0NLZKXf6f7n
-CLXNyW7k6EQpaxROBUrxr0FoRARtgPl+FTsu8NGAFugIFQXAv68=
-=JyMm
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xQAKCRBy4AiZROfD
+Zzv4AQCAWdwB/FMKqmPgnCzNMSvUxpovZPzyOfM/irDV4NNP9wD+Lv+Nu7rdhCUZ
+eUJTbLbJJtoIQi4Jtqom5Zsv7uGYIQo=
+=FqMZ
 -----END PGP SIGNATURE-----

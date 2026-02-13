@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 So I am a libertarian - I hold opinions that are controversial in a traditional sense, but when you boil them down to their core sentiments, most people share. An example of this, I feel that gun ownership should be liberalised. The typical first reaction to this is "Oh so you don't care at all about kids being murdered?", which can be translated to "I disagree with your statement". However, when I express my reasoning behind it, most people come to understand that the pro/anti-gun argument is a tad more complex than "gun kills person, and kil is bad". They may not agree with my point, but that isn't what is important. This is not the post for this argument, but my point is that most people's relationship with politics is not nearly as nuanced as they think.
 
@@ -47,24 +47,15 @@ If the rise of cryptocurrencies has taught us anything it is that there is a par
 
 The way I will sum up this post is by saying "Why do you pay your taxes?" For many of us, the answer to that question is "Because I have to". For the vast majority of us we don't pay tax because we want to, we pay tax because we know if we don't we will be harassed/arrested/killed. Whenever I pay tax I try and view it more akin to a protection racket. If the only reason why we pay out tax is just to avoid the government monopoly of violence, then where is our consent being derived from?
 
-- ---
+- - ---
 [1] - George Sabine (1937) A History of Political Theory, Holt, Rinehart and Winston
 [2] - https://dictionary.cambridge.org/dictionary/english/consent
 [3] -  Cassinelli, C. W. (1959). "The 'Consent' of the Governed". Political Research Quarterly. 12 (2): 391â409. doi:10.1177/106591295901200202. S2CID 154712817.
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZWNQACgkQvUo0nUeo
-F5xgcRAAouKW7wmjSfU9f9vCFhi6S+g72lgRNS9/sZ9GGwHrD6AJJMMfLdDdEGdc
-ZbMAQPQNlLxPmqbVqist3JTDGBcteWIcw42QRAve2r48nnp+gX02o0J04PYCL9Ni
-kO0EL6Y3DZKTjRCsyNtUdeBtn69JVJWwNYP0tNh2X87pPYDb+YSDfUBVv/MVlLly
-itPrnufeJCNLjRFaMscwCyG5lpQ2gnIMjZCzV49wN8BUPOqTYTRkXJlfbPVmZogi
-IzDofEZX4ShBZEie7n/e3z0ACAlFLS8ZUauNTmgvkk6G/ALpOVBnlgxB9p5/kijw
-8wAmxxKojPf7NLiHoAqTf1xq3CEaHVtARtxV6KVOeWh+bkuDAnyJaMME9MM02U7E
-QSaogEpMD0KBH+TtrqzGdNyngU+UKJ2yYF4PHWoGXZUNHgBve00gb8yhIZStpe01
-ev2Uvzqh7dy/uTuT4yiZ+7oFlbVIUPpfNze/aaTivCSfZghkOXdboghfbif1LV5k
-0zc3c1JS3rf4KDpk94vqk0hz8c+cFMQlffaSv1eKIYHtgkZMDvX5vq5mFaBxseN9
-Exoi7+C2Sd47k+FNghaCxNK+uF+LaxMvGbWaZvQwd+9GWIhyeL27Ldi7E144byUm
-n2I/Zh+Gcf8TqRQQ6XQJ6kuOh6oFvQIcH9WW3FLUWbY/ubPuHjI=
-=pWqg
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xQAKCRBy4AiZROfD
+Z0BHAP9UctOfH2JddSmmqqOACRNcHEhN451rzD+mYNYiQxn1HQEAmtxl2TmI93uB
+CQ/XfY79VWLOoGKVdeGBwLH/LVqXhQ8=
+=MIEx
 -----END PGP SIGNATURE-----

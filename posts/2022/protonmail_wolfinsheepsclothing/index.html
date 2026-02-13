@@ -63,11 +63,13 @@ Protonmail exclusively supports HTTPS and uses TLS with ephemeral key exchange t
 <p>If all of that went over your head it means that on paper, Protonmail is a safe and secure way to store and send an email.</p>
 <h2 id="the-problem">The problem</h2>
 <p>Now all of the claims made by Protonmail are quite bold, especially the ones about âend-to-end encryption and the âanonymous email serviceâ. In the past, there was a private email service called cock.li (yes this was a real thing), it was marketed as a private email client, but in their words, âwith cocksâ. If you signed up you would get an email with a cock themed email domain, for example:</p>
-<p>-cock.li
--420blaze.it
--waifu.club
--cocaine.ninja
--horsefucker.org</p>
+<ul>
+<li>-cock.li</li>
+<li>-420blaze.it</li>
+<li>-waifu.club</li>
+<li>-cocaine.ninja</li>
+<li>-horsefucker.org</li>
+</ul>
 <p>Now you may be questioning what this has to do with Protonmail, and I wouldnât blame you for that. Cock.li notoriously had a section at the bottom right of their site titled âhow can I trust youâ, to which they responded with âyou canâtâ. What they said was that they didnât parse your email to provide you with targeted ads, nor does it read your email unless court ordered. However, they were very open about the fact that it is 100% possible for them to read the user&rsquo;s email. The reason for this is that IMAP/SMTP does not provide user/client-side encryption. Any encryption implementation would also be useless because while email can be stored as encrypted, emails could easily be intercepted by sniffing</p>
 <p>the SMTP port whilst being sent/received
 the IMAP port whilst the client is reading them

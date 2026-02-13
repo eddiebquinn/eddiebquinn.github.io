@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 During the original lockdown, I had just gotten out of what was hopefully the worst relationship of my life. I won't explain why this relationship was so bad, those who know - she has caused enough damage and I do not plan to invite anymore. Post break up I had what I think alcoholics refer to as a moment of clarity when all of the comforts fall away and you find yourself at rock bottom. I would write an unpublished post a year after this called "the view from halfway down", describing how after a year of self-improvement my foundations cracked and all my progress fell apart. The view from halfway down was a good case study in the sentiment that the hind-site is 20 20. While I did lose weight, conquer many demons, and become a better person overall,  I only manifested these changes due to a melancholic fury at my ex-girlfriend. I am glad I failed because it means I have finally moved on... I am however still trying to get back to where I was.
 
@@ -21,17 +21,8 @@ The most important thing I need to do however is kind to myself - It is okay to 
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV7MACgkQvUo0nUeo
-F5yEPA/+M5X+53Jf6xyXWRG4tGLXVsWIsOHrlqDnki1n1iBg12xpT5JMhc37W+Pa
-zLtO+lmztWQBe4HNUkKFe2IRcbZSS7vLlCrNguyTUZyTJW7JHiVxF7ifIehxEfFN
-nXHmO+SxxNYXLytKvLa5jjxJdcco/XAB/32e6oGrvcuN1+qqY/P94wJnqH9g80NU
-r9WR13+6ooTFuSRZrfwb33peKMxHE1gGfk1AXddSUqIo+sIe+9ZYpKtm/SVacxhR
-Iic4qpSIfYfTrEGiFo6qDUyzG8pKMxXTN+Th129q2fhwpadaEA75LH0zkmV4CS1I
-p5B4JdE+hoyqK0Zezwl3ZvDIKibgw7rdOlMmcxZ1iOvLeOA/i/ozhPk38MdDF9ti
-tQIHKZARntk14lG848z/6Ho0pB7UGVGxVNzGkVERqi76PK17M2ucxJuvQuHxMEny
-YHV7ydITfvyU5DMLyGsFA4YIPM4nxNrY1GWpbUHYJueNj29vbywQe+CUmHLEDCpP
-Z59rG429h9v5Kcb1pcEOdyO3PKgZxxozz2YeneCGOGjARit8bneRNEGXz2HeAcmo
-TFUc5Dn2bAsg5y18t7zVX6BKiYAIuvpwGnMTX8T8+vO8mUeHvTtV99OgGwpOMkdo
-hV20n/eoXApdqMpIJ2CPW/IGg+PWnubq1+adB5ydbAvAKxi0Jx0=
-=RrVr
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76yQAKCRBy4AiZROfD
+ZxnTAQDqHKiukfEtH9wjIUsjyruIEOdi8oXNw9mkUYhnt4SytwD/b54xHYI5wW76
+R39lsOSrHAIQTXRnb9Nv+eW5trP80As=
+=SCNI
 -----END PGP SIGNATURE-----

@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 My friend has an API that if called will return a picture of an anime girl, and will return a new one every 24 hours (I think that's how it works, truthfully I've never curl'd it). Thinking about that combined with a rant Luke Smith once made about fixing pull requests on his GitHub, I wish there was an API I could call to give me a random picture of a Pink Wojack every 24 hours. It would help me get across my current... mood? Is mood the right word?
 
@@ -169,17 +169,8 @@ I think once that is done strictly speaking I'm at MVP - I would like it though 
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZTwwACgkQvUo0nUeo
-F5ztkQ//cjKiwZmGnCu41tcwnvx0BXmvzWFvbDsc7FBBsHnC8Lmji2IWOoKBZMBA
-auZtcp9vc2THkIzFeoWqfyt70iMTAPhA2A27Wk4vZh3binkWZknAOHFgTI48FtU3
-vwM/SSijT8p0697g/gmq6A6EUmjpzyINy9ty8Dd/c0SJCCwq9pkeaKeX4YebO02F
-Cjdzg1ZUmmjF8aCyf/QLAe8T0EXiL8PWrREBXf8BiKnB+Yw2T6par/4EpKJopFrF
-nvKBErhZs2iGKovpFJgxF51GsgRu7uDtlvmkTFTNJOTN7GdDbaq9IksiUwoXZL4N
-vVtr+5VHc6QPOF35JbE1Fm0KtWvC3I69jc+H8HubAMmGT53nrECa7RftE6cDB40d
-3Hfqasb9Yu+P1epuJNWVsd9i2BjZNgGrOzX+4LoSYddyISJ3xN0pwl84GfT71C4F
-GEwCBCHiTQa/e2YSqfkK6YU6DAp/CADxnQTh6su7cKOPtL11ELg1BPtkKHOxMYYY
-ooVRbYDCwWiajrnxExBnjuPcCVV4up57V/SzXATDm2BH12QToeWP+1A1Ux705R9J
-i84EgG3lHr8XJ5dR9p1PLJtbNpqbnslWTWp4V4HlAIniMcfZm75zPwv1CUonG7To
-BpXoJD/w+5mnpnKjseNm9Wg91NXs6Y6r36Lsu+ZBZXxj0TmxUf4=
-=nHcc
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77cAAKCRBy4AiZROfD
+Z83gAP9jD7WKFjc21Dj7eq/qDrLrfYePeeqGLGzkmPpKmO7DwwD9FAZEn0cBB1XN
+4vXFvr7SVqCrnm95SAdBq+UQifuaFQw=
+=cjCO
 -----END PGP SIGNATURE-----

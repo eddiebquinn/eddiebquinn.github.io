@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I do not have social media - If there was every a phrase which I say too much it is that. I have Linkedin, Github, and this blog. I am however not stranded away from newsfeeds, I just consume them in a different way. RSS has made a resurgance in recent years, with people like myself using it to aggregeate various sources into one unified newsfeed. It is a good solution to the key issue of leaving social media, that you now do not know how to keep in the loop. This is also the reason why I get boderline pissed-off when people say "RSS is a dying technology"; It is not, and when you say that it discourgaes sites to impliment it (this is a gripe for another day).
 
@@ -49,17 +49,8 @@ This boils down to a users experiance leaving a company he enjoyed working at. W
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVrOcAACgkQvUo0nUeo
-F5wd9A/9GMRqrac2dvAhvVUnywIr5QHwUvrjeUG5LZcMjsWKmpE2+i6kesnw3L52
-VTmNw2aZYhnrBGwLYM7M62dboHzllIEtMj5mtcU4kHYkHF1dVU3a3R34jRsfGzai
-dXsvAvkgfuruK2wd1Gq/7LK5rRMebM+NvJOcpC2hysmHwc9dNLvqlg68dQPupuSw
-d6+qaFJcSifNa98KfUxC2Q4LxH38DIPibb60y0J9d9wjhlU9ONaXhnai1uEJ9SmR
-otU/hGEwG+wKjP81ZHNnrIhqLTjBz/TbnfGavn/zdSacBFLlsgCN5m3rF3Wwo3js
-DQg2B2OyDZ0Supms/rbtubYdN9hKi+s9A9p1kuNR6x2Ue42dqQURjYbrb1UdyMET
-7JlICWt3j7z9/WUGLsF2RoN+X1tRhXfLsgvVtK8+3azPg0JI/WQxGFYKMQGKsPmY
-4ARM69rQl5nOivkjpyEwim7Rm98jAcwbYsK2FaxK25/bpG/nq/XDDOQF+LrjaGba
-oXBRB40vtw3ehATdecUsyywL/NPABlR0llZQqhzlDwB7KkvyLKF+wZx4U8mGrAzv
-mZJ8qX+XzeBkZr+SD7sKbwxrdh/W5Hgz80DXuRcMy14ElEiZ+caNVORuBTfyiie3
-/NAGJ8t1GFz1jAh8J3wasMFKaPqMdQttI0/89ZV+ievon8wq2M8=
-=Twid
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xwAKCRBy4AiZROfD
+Z9C6AQDzVXmMwRsNZV2v6sNpMuIqnERw8VTPX5j0TnbKZG0bbgD+IODeEo6HFzAO
+zpEAZfed7GGXfbNiQ9pX/8yE74HKaww=
+=QX6W
 -----END PGP SIGNATURE-----

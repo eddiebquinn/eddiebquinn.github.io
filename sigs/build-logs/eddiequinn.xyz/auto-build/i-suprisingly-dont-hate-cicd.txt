@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 Hey there, been a while? Did you miss me? It's cool, I wouldn't either.
 
@@ -58,19 +58,11 @@ This part probably deserves its blog post, but here’s a quick overview of my h
 Despite my sarcasm, I am somewhat okay with doing this, as there are some benefits - For one, it allows me to host custom Docker files in such a way that it still works within my network, which solves the problem I just outlined. For two, it will increase speed and availability as it's pulling from the local network, and I am not limited by my ISP's bandwidth. There are also added security benefits such as protection from supply chain attacks, vulnerability scanning and image signing, and offline availability. This is probably an overkill way to solve the problem I am having, but given my "in for a penny" attitude I seem to have adopted with this whole process, this seems to be the next logical step... Also, saying "I host a private Docker Registry" feels like a cool flex. I am looking at possibly using [Harbor](https://goharbor.io/) for this, but I'm still doing research.
 
 So this is where I am at. You will likely see some updates from me on this shortly - I need to look up some tutorials.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmge1FkACgkQvUo0nUeo
-F5wmjg//RQRBOefOKa60FdOg4e5t+DSo4bQ2sWzJv3l59c5941/cgFx8OMg7uKFJ
-BCR1o6Wq9cs/VS84NRRMsjrOQ8OJf0HfzYD9NYEqeKiaWk+uRrhe/Z8VkfpJt0K8
-vq1aBnV11vYdlN/iISfUc+2hHwCgVoloSRSfBLhRni8rrBFDkmc3HhvaII+kccGX
-b/3y0DR6gAENp78l0/JD5Am96FBTbZ7vNhgccPVOSh7OK2hzBeXtSqnK+ZwRYHEF
-L3V69r0BmLkg+Z5kYcUjNTpyhgngLTXIFHwmm+wRJD8l0f9x7VCI0/wQegx2HU65
-jeg5WlwKhfICbtgTPn5bvjCXPT+c7oXDDB6e8rR2LPR8VYXbf9ltHH7F9K3L3W4X
-GX++4eq/bIHVU8wU8yhlmyvqkXc5gZITAFlpfPVRpn1rQY9moKctP6FQESdxmM7s
-iYxxHyxwDomKtQ605T+1FiWqGnaYXIzQ1MDWqXWuzUTk4KWcO2KfWHBoAfxuxLBf
-mgNrWVqL98LYaMaOSxQAva7BWR1NLG07luScCIiNef0lhs6tnTlwjLTpTzOVaP0a
-ezLRd7lDIPTu2UqsLCqCDqOFKXpVXF+8z+YOrA11nJGsRJjZyb2SHYWmgMLFVter
-IScUy5sRhc3y/7m4Zb40lepV1R7g+U4jwok0XGTuZr3mPO1c4t4=
-=porM
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77cQAKCRBy4AiZROfD
+Z87TAPwJgaUaywIHBQ4W4H2A3S+A2XG/SurLW4LNhQQjp9FFDgD/SkpWpXzJfY8w
+4OIQp0TnUdGzRxLKSRSACaGMgc0odwM=
+=3P5/
 -----END PGP SIGNATURE-----

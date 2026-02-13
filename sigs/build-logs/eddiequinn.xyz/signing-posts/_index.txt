@@ -1,24 +1,16 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I've discussed this at length in the posts below, but the jist of it is I want everything on this website signed with my PGP key. The reason for this is predominately proof of authorship/ownership, however, it does go deeper than that. I am a strong believer in practising what I preach, and I firmly believe that mathematics is the only secure way to prove anything. I want this form of authentication to become the defacto in modern society, and the only way only philosophically coherent way I can take that position is by making sure my services offer this (including this site).
 
 There is an argument to be made that I sign my git commits and therefore it makes this redundant, however, I do not think so. A git commit is simply a record of writing data to a repo, it does not necessarily mean that the data itself was placed inside the commit by you. The action and the content of the action are philosophically different things.
 
 Regardless, please find the relevant posts on this specific project below.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZTDUACgkQvUo0nUeo
-F5wMiw/+LWedC36zd7KWeSoP3++aZ+eVaFSzEQpo/ivFn3USEpF+U4/GvBhFceM9
-wkTCyItNknmd5bkvWIcTErd6NQojTHM/9pn52YElf8RLFUwRtbeRQ0gAofTLqCAx
-49lPmx6ZfxIdaFWbw63QEWtQyj86tghfGHl9zvPi0MDgjWnxrD1Lw+4TFBs8Bwza
-OnImdZFWok+0CwpuTqnVxi11gig/iVPupeUrLV6skjPWOuCFJ6/mj0zyza2/6oMi
-R9AnOqnM1Uap/DXU9hQP3W3iBoJQc3NR6frTycA09padetwYUQoSw9S6m6u0Tiln
-TwG70jcyKjHJTwZa2QECbEcHy8fgSDuso0W/HTV9ck1Bhc6WYNTmKDwpPmje3857
-VT8GTs+gjBkovKZL6SQnMRA5K6h+dEfsip1TAHPNbMPhqyy9x1DqZ/G2qqZwV60H
-CcUazKcWWUBdXu1C+jiypQC51pG6ZK3Crf6eVZIkjnqpadcVD+IHU7b/kfo1C0C3
-WAt7UxEMNhxRXThCoZJFOlAxQYeGgqXW9S2Wbl7H+1vsf0Cxe3zhvyxpGYshG9vl
-hESzh/ZGSXRzn+074XpHrO+pxqkaUrS7+UHvWQx1nmJPPKQc9/bPb5a3gGGYWeE3
-LndBt5qVVWSV9R28yy2lJDykS5oJ6dLumOyN6ji4IReTtz+NdQA=
-=EvsJ
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77bwAKCRBy4AiZROfD
+Z3X3AP9xsuB6kunV1hH5cBufdMNiL5jZ8Y/gHtJvhC2dSyBlXgD7BVr+ZdQtuGUe
+0w4evdqQ5FiJG2390pplcconu3V9EwI=
+=Hrwr
 -----END PGP SIGNATURE-----

@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 Some of you may remember earlier on in the year I went through a phase of wanting to sign my posts with PGP. This plan fell to the wayside fairly quickly and got "placed on the backburner" i.e. I will fix this when I figure out how. Well, after finding myself away from work for a week I have taken the time to figure this out.
 
@@ -104,19 +104,11 @@ The part that is signed is the `.Content`. I would argue that this makes sense, 
 
 ## What next
 I'm going to go over my plans following this in the accompanying post I'll do in the build logs section, however in short this has somewhat negatively affected my workflow. I have plans to rectify this, mainly revolving around a few new scripts, and potentially cloning a repo and creating a "writing environment" where I can just write my posts. This has also messed with the formatting of some posts, but again, fairly easy to fix (I hope). Keep an eye out for that post!
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVhRCUACgkQvUo0nUeo
-F5zPFg//alp38v3QzU7nZj5jhNJoWHZ1Z8L8vTyNTMamp6TAprKS6+p3ikM5ldpW
-vBYOTksataRzqLQIpb6yigeYWYUyicLAyMKS5V04DmItKJMLpgzF5kUkjhDbGliS
-M6YmJlS2EABHJAFnxM/vpCyQAM56ruKbiAGUS27iDOCsEBZUfzGwBOp/fmpkYNSj
-ySAnc8vaVMk0mjvZ8wszVCKrXNRZqUS8YGLWmDFqK52JWBeeiOkQdC9F1iKEWoaV
-dVzKd50O5oEu4qeZ313kaHf3E2Q+uxkgWL1QpbN6DKkdZAJcw5Uu6DseeNhioSdH
-qS4KUskhijgvQ7ng3/0LEoS/UPetTcBJJ1UCDxu7GvF2eMY7SUxedppK+g8pxz1y
-vaWkN0mgcI1Z45EWDX5dZw9qoo/xDWHQqLVvaJsmtgBJKS6yQUC0P2RTYn/gMEUc
-DvdhUWIIjgDsWd97SPoVTKiLDiKIm/eRl12BNzVReo5fghn/bAFKC/WqIhPkY8FN
-aoEHYa+U96GYtcoTnJzrkBApzBVunaCObiTwSVo0fffXJpRJjgAbuBoYs/fUBPmB
-0gbxKLglw8qCQ5R4iLrbC2wef7tA3y4qikSkLGqTb1PetVhEtNmj5TTAPvCdt0CO
-lOkFmqbYqWs/cX6bb4pfalChPgnFAz1Uyz/xxECrI8+QzE5iAXo=
-=bTPb
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xQAKCRBy4AiZROfD
+Z7pLAPwIStatprBQvL7o5VjhlFcX6A31dx39jsUBu3Fi2VlvTgD/T4PVrMa5WX2b
+eUzM2uIjYxTsd1YIhaxFIlS+Kd0sSQ4=
+=nLOs
 -----END PGP SIGNATURE-----

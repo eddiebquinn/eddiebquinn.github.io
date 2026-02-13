@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 At the start of this year, I started it with a list of goals - At the start of the year, I did regular updates on these goals, and have tried to keep these as the year has gone. Given this year is coming to an end I would like to do a closing post on these goals and how they went, and posit some goals for 2024. I will say, that even though some of these goals were not achieved, having these at the back of my mind has been a good help in actually making sure I achieved something in 2023. I'm glad I did it, and I think this system was far more effective than my typical "I want to lose weight" New year's resolution before this.
  
@@ -31,19 +31,11 @@ My entire life has been somewhat jumping from sinking ship to sinking ship, bear
 * **I want to rest more -** One of my biggest problems is that I am always going - I am always studying, always thinking, always looking for the next project. I have been doing this for years in an attempt to run away from depressed thoughts. This does however mean I follow this ebbing and flowing path of hustle and burnout. I don't want to do it anymore, I want a stable pattern of productivity.
 
 I have learned from last year and left these all fairly open-ended - I have not added arbitrary objectives with metrics. I knew at the end of this year which goals I achieved and didn't without numbers or data, I doubt it will be different next year. 2024 is hopefully going to become the year I start to plan for my future, knowing everything will work out. I look forward to it, and the challenges it will bring.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVrOcAACgkQvUo0nUeo
-F5wd9A/9GMRqrac2dvAhvVUnywIr5QHwUvrjeUG5LZcMjsWKmpE2+i6kesnw3L52
-VTmNw2aZYhnrBGwLYM7M62dboHzllIEtMj5mtcU4kHYkHF1dVU3a3R34jRsfGzai
-dXsvAvkgfuruK2wd1Gq/7LK5rRMebM+NvJOcpC2hysmHwc9dNLvqlg68dQPupuSw
-d6+qaFJcSifNa98KfUxC2Q4LxH38DIPibb60y0J9d9wjhlU9ONaXhnai1uEJ9SmR
-otU/hGEwG+wKjP81ZHNnrIhqLTjBz/TbnfGavn/zdSacBFLlsgCN5m3rF3Wwo3js
-DQg2B2OyDZ0Supms/rbtubYdN9hKi+s9A9p1kuNR6x2Ue42dqQURjYbrb1UdyMET
-7JlICWt3j7z9/WUGLsF2RoN+X1tRhXfLsgvVtK8+3azPg0JI/WQxGFYKMQGKsPmY
-4ARM69rQl5nOivkjpyEwim7Rm98jAcwbYsK2FaxK25/bpG/nq/XDDOQF+LrjaGba
-oXBRB40vtw3ehATdecUsyywL/NPABlR0llZQqhzlDwB7KkvyLKF+wZx4U8mGrAzv
-mZJ8qX+XzeBkZr+SD7sKbwxrdh/W5Hgz80DXuRcMy14ElEiZ+caNVORuBTfyiie3
-/NAGJ8t1GFz1jAh8J3wasMFKaPqMdQttI0/89ZV+ievon8wq2M8=
-=Twid
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xwAKCRBy4AiZROfD
+Z8WWAQDQRWq/VLzC0T+Lusesrx+/mEAtDgvjPHihOEzU+fXT/gD8DnTo8DpNJ6Z9
+/kxrT4Q1GkznqQX06W+Hj8U1vBP6sgY=
+=Fuyk
 -----END PGP SIGNATURE-----

@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I tried to write a post yesterday about this topic, but it became a rambly mess about how I want to start a photography project. I have changed a lot since 2020, and at points, I am still trying to decide if it is for the better or the worse. In one way, I have become more self-reliant and grown up a lot. In another way, I have become more cynical and mistrusting of those around me. My therapist would say that when people get hurt they adopt defense mechanisms to prevent it from happening again. Post-breakup with a certain girl I became very determined not to ever be in the position I was in again. That was a lost and depressed skin suit of a boy who had just been emotionally abused for close to six months. I changed a lot because of that, for the first time in my life I began to take responsibility for my happiness. For the first time in my life, I told people no. For the first time in my life, I moved away from larping "I don't care what other people think of me" and lived it.
 
@@ -33,19 +33,11 @@ What does it all mean? I don't know, but this is akin to where I used to worry a
 I have never been an artistic person, at least not in the sense of drawing. I write poetry but that is mainly just a pressure valve to deal with stress. I have however wanted to experiment for a while with taking on an art project. I have been saying to a friend of mine for a while that I want to make music but the reality is I don't think I have the time or the "give a fuck"-ishness to learn how to do it using FOSS software. One thing I do have an affinity for however is Polaroid cameras. There is something oddly special about the fact you can go out with a pack of 20 shots, and capture 20 single moments in time in an inimitable and immutable frame. For all my love of the digital, it is the simplistic beauty of analogue that sets my poor little autistic heart a flutter. I am unsure what I want the project to be as of yet, I thought yesterday perhaps about buying a fancy camera that can do double exposure and take a picture of a cityscape with nature exposed over the top of it, this is theoretically possible but I need to look into it. In a way maybe it doesn't have to mean anything at all, it could just be some shots of things I find cool.
 
 I am going to the lake district next week, I'm sure that I will get some inspiration when I am there
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUqMACgkQvUo0nUeo
-F5yy8BAAor3XhSOsqhIcahluge+hC90WShkqJk2s6VhGVcFsQ1UItfgYQJR7ftP5
-nQ6vGC7A8zunHSXszn4glMr4B+0aydB+Hmt9GMl9U2Mh/QfxAiUDqClF9UcbmSuu
-GeaAdJ+YZJCc3+o1V6jWCjg+0cvb3mtGXBoH1MDDsGPuqvPBY1pUYaavUOeiBk7I
-2CMbhCDPMI5iY0ebPXQCjJ3L5dKPYW2GNeKkFFrWTEmK0TAPkZ3ZOs7vXZHfAQrh
-wdOietXVeRBH1RyCwLlbqFcG00ekoENjXK5pwhe9cMTTkFIV8EHLlCxy/leippxS
-ZXluqXlwiLEsOG9WsPKPteH+YiIIYxY0GV0yPzIZ255LJsk4RpCRb+ib5gTqYOqu
-8/7mkDlF7opq1DIkxFtEftisK2suTQT9vS/Lb1RaeN9U+6fdVXsEijYx6tMf8RSr
-N4JLm5l6Is6vFIKiicqtItoPFznMGOHlD4w8BLxyNiK/6ARyX1+VLPZfsvFddaUJ
-Iz1Y7IjZe8Exb6v2miNBN7VPUF1HVP+I0mbFTiAiE+RkTargRMuH2dpj2id22eTG
-uqClMPpgdM6Hi7OhqlPJgfqvgmlKKJ4JJQW2esTPWMf57sj0UkzbjCXh1bGNDhMm
-f9s2cHyikeGN4q8CZVtoRM4y3U+7BqxUoosGvas81aiZ9gXFE7Q=
-=N8U/
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xgAKCRBy4AiZROfD
+Z055AQCvwmWarmOReb4VmMolJbG8mds4SLaOgdPVzovzwNDGCAD/ceqbu9c/09Id
+O0YBw1bV0sk8KASWq2euk/BHJ6tomA8=
+=dDHe
 -----END PGP SIGNATURE-----

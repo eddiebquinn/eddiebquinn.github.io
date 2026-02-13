@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 Five days into the second month and I don't appear to have successfully sat down to write a blog post - I must be slacking. This post is more of a self-check-in, to make sure that I'm trying to stick to the goals that I set for myself in the new year. It probably is not going to be as thought-provoking as other posts given that context.
 
@@ -27,17 +27,8 @@ I am embarrassed to say that I have done nothing with this. I think the main pro
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUtwACgkQvUo0nUeo
-F5ybLg/9GUSl1QTI1+u2IYpeqzeuqNgz9jRn4DHpH3ekN8xvK23Omi0oU7PAPOai
-QxtguO3zLEEjyp0z9R0FfWJ4tjwLSlGfD4ztUyHWWdpOaMhHXYunG9Ca/f5wFUTs
-OHkYICVJ+u3XutT9MIZwQ0pIezBJrllMyrOX8BngLcvavFBIwSCfBsmO2U30zKT+
-3b/nvwR4PF5QTJGG2tjcvU1dzITdRHpIc/Z+VaHRYvuLLMpYLz4FsDwuco62NaiZ
-V6WNlUqk2z1hNIXBW2nUNyHf+2jI8yv38mRWatCK5wcMw4hiRh7jSOnhL3KyjMA+
-Q6CU2ZJE/R9PNF4x7o9nIDD4JYiBLNc11qi0AeTMxtdUw/9qVaBzwRmCILaX9KWd
-uYLC8fDgvS/uYL40Usel0Sa8WwtdAvomwlJXjNu4B32cLuNA9s1xtWJOxoX6wOIN
-2ruRlGUVlk5yPfSLnQBVd8uuitO3QLj/LeEiQTdRRDzC9efeXKUIRQqAiRGnDx9D
-4IF0Dxgay3H/PEFIwzaz6OmmEG+Mmv4TX7lD8dSQoCxnhPH0us15AeNBBV658Ps/
-pbl0g23j3vDpaAQ8zt2fUUjDyYXAz0ZuVpkLPS1duNnuuPDq57txjr6Ih3UhZbtR
-woKr+wu/spZgJExKidTSjfcht3avGWo0lFthSznwGpekr0xuoP0=
-=U289
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76yAAKCRBy4AiZROfD
+Z+AmAQCtR91Ti42Yiae3rC96lBS+ShL3EuqupW61vmpAEbkwJwD/VMNTSZS6uvjF
+1stLhwdzsfuzsqDLQIE99xRY6zI64wQ=
+=ROTD
 -----END PGP SIGNATURE-----

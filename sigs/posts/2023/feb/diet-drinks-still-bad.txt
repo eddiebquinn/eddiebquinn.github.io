@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 In a recent post, I mentioned that as part of my trying move towards achieving my 2023 goal of "be healthier" I was going to quit energy drinks. There are multiple reasons for this, many of which I am going into detail in this post. What I did not quite anticipate is the human mind's ability to move towards something just as bad when a crutch is taken away.
 
@@ -46,17 +46,8 @@ Side note: I am hyper-aware I am running about 5 posts behind what I wanted to d
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUxwACgkQvUo0nUeo
-F5zpXw//dXDwukdbYwhyLopD2Qwj0wnJTICn9X0VwnROC0MqnCFMBm7/Y+3z7HKV
-7dgcMS0w2EW1uwBwaewVA8neOvUVO79DGJVYCoutZlxxI0inGT1uApHu0OZ2yPtj
-xjo4RPvHdUzlvkxSOhkqgRhphCsZiw8HxT9Ntq4/O8DPHM/EWCG+xKP1a0WTEIa+
-2aBX6Ao0UBHiSXqqkPXNhGe1E4Pr+Z/kAuRIdFCI2Vo1uB3uFBgbH85ddxued78q
-yuJv40PVBVOsWvOZiHzqAPxmfkgnpl3Rjdkax0HSim0yQDQc1ToUsDoDsZ/yx7IO
-erMOpVCtkTn2gMdZSr7kH53k4XsO0JqRmXrju9Ov9BYcdu29dwbw93tkGFZ9/iKv
-Fs3oKJPnJs5pkGBVC2AGgyX4cGxpMp9ly5qxYk8aj+zqaZAP5wNE1ZxT+shRi70F
-ybTtXEG8rULS9OCPoQuPwfLh+AYcqAufOVOoxrbhMeMP5OfZiBu9+vZwEgNmC+zu
-KqptpGO71tom+szccSOTHOXPMvVLtf7eJ2k7AArdcQnGU5fko9tCswcbVnZ8GoRa
-DBarzExQBg2Bj9c7JGUgmm7nHHKNRc4jMUB4Q+U2cFt/RSj9ZEKFY8cp4r0+cxDc
-2XhnJ0UFy7zMnFUhQwOjeS/ZkxQc+4GOnG9G8KYnvFUocwUn58w=
-=NXPt
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76yQAKCRBy4AiZROfD
+Z0q6AQCSdc1y/ipkuvkPKEFLyqK8vWvgFYpTRYiPMnICycrOrQEA03Tk9pInGIte
+Gm78MW3P284triy6v+ESVX6BJyJSgQQ=
+=Fb0C
 -----END PGP SIGNATURE-----

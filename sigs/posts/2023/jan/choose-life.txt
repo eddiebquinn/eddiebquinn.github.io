@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I often find it hard to pick my favourite film or even my top ten favourite films. I have spent the past few years trying to expose myself to the best that the media industry has to offer. I will say that despite all of what I have watched no film has had such a large impact on me, and how I view the world, as Trainspotting. Ironically enough I have never read the original book, despite my long-term intentions to do so.
 
@@ -23,17 +23,8 @@ A younger version of me would say that I have sold out by taking this view. I wo
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVFYACgkQvUo0nUeo
-F5wqyw//SzSkf7bSsHCDqcJocFGdBeRlRkFJo68i31OjOt4Zg7nSczz+99nic82j
-ps1I4STIUz5dP3dO5FzydGJxlBWtH9qEteV+ne3qR7UJ0t9pGnirVRW5K/7F26Tc
-dUX/CuILg1jCUe1FcVD52k+wUcLnk4fWTEbb0YL/Jpfn8fTLzDIzftGzThu6iFks
-3yCb7rLWMGies98vGNEANRgquyxpgCQ2kwDkyBitSL/x3EeMwKVSKqLA+Z0xaKPX
-edRAA4UIZ9V2qIToI8AtTEVxysFiSnn8Z63WUbxf0L5IAh7omvr5zQVhKdvvcU1n
-3TpUdw5Hpdzj5KR0b4lRb5h+Do7NbLx2mkbFyNaE0z0Iitkk52WH76ab8TshX4rJ
-K1nNh1DwmWGLyM/bXtgA86uJm0khVlzL2FUb/uhhewdXxegy4z1ddMnzhJGkVqDR
-s7SHGGcTJWo7vFzgVMq7d96ytE7Gcn/nI4tZNecdMBm97fjWgEJyB9xhm+OWWu9o
-pfBPdj1sCANkcR1PBiLbhPPLBocLkkmyaew5p17tgNCHsbXPOvPGPiFT7LJlQugm
-zFr8HLt1L46kAWz85ovkxx6yMxxT5YbGyR7Z/AaQNNuWm0GLGxU/DdCq41DOejTb
-g9m4FsgPfLaFf4egicVeUrTOTLDDZ3s+pIl1f/0oInFrelNskuQ=
-=Bebh
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wwAKCRBy4AiZROfD
+Z+qhAP9nG2/t41HJ87sANUT5MbaHZ9QoGcH88VLsoHCLvnBzOgEAiXso0uUYDXxN
+GSdDfiWZMh5zPZRUJat2WrqP2v3BwQ8=
+=LtiP
 -----END PGP SIGNATURE-----

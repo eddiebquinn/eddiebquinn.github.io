@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 When I originally wrote this article I was going to go on a massive schpeel about the question of "what is art?" The questions itself has very little to do with the subject matter of this post, which is why I cut it out. That being said I do not want to discount what I wrote, that being that art itself doesn't have rigid borders of what does and does not fall into the category. It instead holds characteristics, and these characteristics are loose enough that almost anything can be shoehorned into that definition. The main characteristic is that art invokes a response, and this response may be positive or negative. I will one day do a post where I discuss my brief stint working as a security guard in a modern art museum, but today I am going to discuss Tenet.
 
@@ -27,17 +27,8 @@ What's the point from a wider filmmaking perspective is an easier question to an
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV+oACgkQvUo0nUeo
-F5yiKQ//cz89ykwm9iqs1NejvX0eRwd50SEaFjpG4+HaRrEtCtHP0tfNhaW1L2y8
-437ISHG3biDWgkBNOCdjPLPRsRhu5ETzsbkKfrmZtv/PSWz7WE2RU0v+tRJiwyqh
-LSJOamu5dCbpGZvqJ7EE4dBx2Hfb+bNUKhhVpivWYQlAnGf3mThs7jYO/o1RmAcj
-sXKgXJeqaT4SSzKWbtHGZ1a5dPEE5Y7VMsGV8v3iRe2Gxk+3ItgW0naCZm4hcTP0
-27m/Cd1gJbzSkhwpXtNgoajRe7DQQ98qZ49V0aqWE+JllAuuV4hvr5EaNXBwiIMt
-IJAyC7zr6CeDYTCsfml+JlqEQG/i/jgo0C1+X0qq7ppBNFYZsfOA9s8xbBeUdpeT
-iB1ziJpIY5F/ZmaRJLzCyq+Lb7Kq2//tjagG2fkoMbGVolXnacB7khVFHzBBbQfy
-ZdDE0anJeNAFIbM+7Dp9wlhNq5vgl7j1AioXrJXcChz80YO1ogXevaeILkW66Ujg
-q6Jf2gPPShqkIg9GrwNHx/M7kec71w3HXoJiiODsSFOSrImCScUhSzFXlYsPNxOA
-TEj1avuTWqfSD79gSwh+WUHRfD7TqdzSeZcYRDbbGDSA489BDKn+CLpMzDE3VN24
-p3amelrfZMQ+o1Pq6cDVGQHnv4ol/LfugNYsIrpqTuU+RFORjik=
-=V5Pk
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76ygAKCRBy4AiZROfD
+Z85jAP9E9JyQ30LCHsSz/JHVVK4VLxmnzJs9EqMPebLAyrHNdwEAp6zF7QhDWMcI
+Vdf2Az2zuhdWyum7A2h5TR0IXCsDtQg=
+=EBGV
 -----END PGP SIGNATURE-----

@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 In September 2022 Uber, the most popular ride-sharing service was hacked. An 18-year-old used a combination of social engineering, MFA fatigue, and directory pivoting to stumble into unfettered access to Uber's internal network. This is an allegory of oversight in the cybersecurity field. I am not going to spend ten minutes ranting about this hack, because it has had an overbearing amount of coverage over the past two weeks. I am however going to talk about one of the techniques the hacker used to gain access to the account, MFA fatigue
 
@@ -36,17 +36,8 @@ Regardless, this is where I need to close this blog off. Stay safe friends!
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUhcACgkQvUo0nUeo
-F5ydUQ/+PaKP/vNsXLxcl2R8NKAllDiw4flz7B0AFSypQTyuswii6swVr/wfMXZP
-WB1DvpnOJ12c6ayjTSvtsjKnD2Bl17EZikrUvosGPYhdOlRl/bNGvY9ksEX1hiRr
-WDreBuqMIWymaf+FESxDG/3Lvs8dNJjcGm6+IhNQ6NcM8E2hxT/i0hScdSyOVtjr
-d696m9Pq1yeaYpUEebdH7+NXRlggC91YKEUaXI4sUpt7u7Cj/Y6vQAVGril4bznn
-7Wcb5W3o74bCIdmw7XD34aPhxUtH8KBwFqM5BaoqY+Bzyomjpie8JRZbl8OFSmYH
-RySrAk9vCRgFBZkSG2cb166w6Oj0lN/tIdW5CJ4WwNyEdoWwX/1dXUljdC42DEt+
-17JM4z7iSqwXwsKpapvS5FMi8hMp3dJzpVrwH5e8JOXUhSZeSjDe+0o0vyoiM8eb
-BS5Fq4BE/x6eyyULDFBHlW65vdKHzjuT/nAGHIfCHrSczJzFYW3+JwgRCRtkhsoO
-nvOjs1mnCA54d773b/JRXW/i4BEoi3lkxnTA2yeYHgCmyBc6TKblSQ+x4A2oUcev
-RQix3Faeln4SgtkVb00S7fhOt6NJi6GwP88KurTl9M5wBr5kOsZRuKQ95TYud/tJ
-B6QEW93lloj5VHSJ7Qrix7C/PRQt6ouCxrutHWyBVnG8WXHZtN4=
-=UIrX
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wAAKCRBy4AiZROfD
+ZwozAPwIiG38wEMH64TKJuxaMaSvlecq9io5XkAo5Fv58t+J6wD+M2iMTynTASjG
+G1qnPWS03txbMyZwg904hYVQotABGA0=
+=syBd
 -----END PGP SIGNATURE-----

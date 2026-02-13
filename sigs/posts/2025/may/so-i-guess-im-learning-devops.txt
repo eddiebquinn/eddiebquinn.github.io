@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 As promised, another post (whoopie).
 
@@ -35,19 +35,11 @@ This did not need to be its own heading... I also want to eventually deploy my w
 In actuality it is the case that I believe that tools like TOR and I2P are very important for the modern day. I also believe that if you don't use something then you do not get to complain when you loose it. TOR alone is in danger of being corrupted almost constantly. I2P, while more secure, is frankly even more in danger simply because its limited userbase compared to its big brother. *Also selfishly, I think it would look really cool on a CV that I host my site on those networks aswell as the clear net*.
 
 I’ll write more once I’ve got Jenkins doing what I want—or once it breaks everything and I regret all my life choices.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmgaRvkACgkQvUo0nUeo
-F5xr5g/9EF87mwAaxrnwwqo+a5IA8RB5tutgVPG0rWANxMVcP4gHBZ+DgogJ8rPd
-rhiBtEJtvMf9+m+6LOSMvHVa2tkqGkmrY9EfjGcPp4uaAsp13JT5xICfe9hE2eSt
-SxnvOWWQFn5vMTxKCtunJaTp0BCIgKX+wahUGwf/TJULDcBSQ8N9njh2iozvVXZv
-sOf3481sKCQ5ArGjnoGt/M3SI0P1tS3Ae9WQbwxRgIfY4AKIf7P8Mc4frFhKoh0t
-nGcLviDIw+W7yFol5T12d7m4manGjKnz/Y7eoDIiDmUD3/delgkXO60jOwz4YYKv
-+HEpol4aSvntCe5DCEv+RMEEmJ1wbzm1gFgszhmhcjfQnzd5/GQPCDq1m/Rr7BaG
-OZw4OQ+/4NPo5oYGmzO0lMHJnzgLjx3nqhuef2fhc/hPKsX5z49qJmrlCWqh7ALN
-m0dWwZnDKUJlfeXQPS33F4+ZEMCuerXcqxiRXHH1lLzc9fZx+Sjk2itsTQoN2OcK
-gaWiDJXXp+AS/TY4JjsA6gtNLyESzbTAwGNuNA61dK/9Qmrxop1Lef4AVIJhYQHP
-xzzSa7XyXc/rQg4Hokihiu47AGx0BtfSYmr+i4JPhx9LhSQG3xc/Wtj6YriJThEi
-QLFLjBvX25BboTtUqhRVE+9dj6HP/x3A7JfIeHedPoAnd+41fl0=
-=50CN
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76vwAKCRBy4AiZROfD
+Z2KbAP4x8lUxhE4BHAFCdrz0EuBbP76dRrlxKHy9yD3W7wf5KgEAp3ll/UT4vLYB
+qG7+CPC1N9UhMOLwpt77Stoynct2RAQ=
+=TMWc
 -----END PGP SIGNATURE-----

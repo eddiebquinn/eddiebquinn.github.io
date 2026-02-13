@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 If you pay attention to this site some of you may have noticed the inclusion of a new section of the site called build-logs. It essentially covers progress notes on various projects I am working on. One major project I am working on regarding this site is setting up automated PGP signing of the posts on it. I gave a brief explanation of how PGP works in one of the posts in that section, and I feel it gives a good and clear explanation of the concept of public key cryptography to a layman. I have however, for the longest time, wanted to do an in-depth explanation of how PGP works - this is not only because there seem to be very few non-academic resources on the subject, but also to bolster my understanding of the subject. This post is just that.
 
@@ -84,17 +84,8 @@ PGP and asymmetric encryption are the cornerstones of secure communication, prov
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZWJMACgkQvUo0nUeo
-F5zR0Q/9Fe0Da6rjxhbuVcjJJsFEqBrXaJkCmgv07GFT0oGdXqjlIpwAUTMFMjlL
-tth8Fs6CNpmakKV42yYY64tgElwvtILpmlQGr9DZzS3vbSvMI8q5mcXqKLaPQLSK
-iMpkuC8PXVYiYoUPm7LMAjArQc9rISYUolc9mCbwckVCT+P1IMo0kAyl6iDp/H89
-KDb0R4gXQGa+D3pIEvysTPFzn5nb2HZTmqWcfdI1sVIWnLJiDlrFzgEC5ldfRnFG
-92btwIvJ/yYhjZ0GT+R1CEgNIklojKLAzpZcqos9I/m/sc1Oren8kE40B++8Qx3I
-OBYxBuTRpIO4cwQaRfG2rFsr6FsCBz5cp1wt9HAJEciN1vMlrpVVEDvEvt+IqC95
-yWOHh4ASHdLh8/QZDxYUe9YT0t5ruxgQ7iHXI4KIelJO4T9OwLpW+qIk2oWp2mFT
-XRmWqiEPBhCpf7F1g/A/AHR/LaEpVahTHYQO701XeJU+a75QAWitX7FDlp19wsVO
-I19HbNTkiTvRsNW+3ldL7yh6A94s4O+3DS6Cjg12moGv05ihEY8BMYjOKHFr2x4g
-4/6fkikj/Ip82/6LtcY4nhbgHG8IDI3pXZ63SXUsZNMlETLVQulSVui2vd6Qb7MU
-MPA0uNq/9LEdtWdXXB+RhlNCqEAeKyJpd72gXlLbRU+CMZEI5RY=
-=hJkL
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xQAKCRBy4AiZROfD
+Z3KkAP96wg0BJMb+al4fTikJ22XtACj30imBWdvnyfP/RTOJTAD/TB6PdOKvn5N4
+OcTGM4/8xIcuqxg49gAMsv2wmoS4/wU=
+=r0XN
 -----END PGP SIGNATURE-----

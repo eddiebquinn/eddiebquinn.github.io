@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I made a lot of promises to myself of things I was going to do in 2023 - I overall have followed an interesting path over the past 3 years, and I do consider myself now to be entirely different to the person I was in 2020. I have hinted on this blog prior that I went to university, but have never gone into quite so much detail on my experience there - this blog is not going to be that tell-all, but I will say that I learnt to allot from university (none of it was even remotely related to economics, however). There does remain the fact however that there are parts of who I am that I want to improve, and I want to dedicate 2023 to that purpose
 
@@ -30,19 +30,11 @@ I made major strides over the past two years to move towards financial stability
 I have set a goal that I want to read (not listen to) 20 books this year. I already have this well underway, I am currently reading the exam textbook for CompTIA A+ and a book called "how to take better notes"
 
 I have never been particularly good and ending these sorts of things, so I'm just going to sign off here
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZU+YACgkQvUo0nUeo
-F5wbug/9FuKWRBM2v+uZqke4xY+GFSvy6YcGwb59vfrkGEcGBbooW6TO3kFJPVgd
-sCd33SO1gIBikK0QmPxLpYGL35D2scctBBHNm2Cnxcp5/ihOcvkt3vJadV93wftD
-umg2r0ZZTkwEKWf89G7Od2+vxqAUlxlRfgJPEAvUxSPBShEpXh6MW2tBtP5orrUZ
-sutRcJTA6kDvSoWlqZS+5S19SjT4nOXEJvWbBxXRDTwWGJ/2/PwQpJfqQ9P5pS3n
-JNi5iVkQ/A3Rnyr42CrbtkEUISX/yAdMjmxMd8tqDzdE1cjpzyNNAZCVhoxzyPeg
-WfGRJH8INW0n6S4l0iIQwOBqbYSqpaylks6sUJ6nAfRkt6JIsH3+7wPJHBGqdBsM
-hJEps54uhfIQqQqXF+kJ+DqF8Ca+T0CfaMXHTWAp/12nhZ0OUK/zaT4rKV2Yk1C4
-M9p8sS/mcKtfS6Q/E8tS8G7HuKFzNegxCEkO/vGvOjiNhEIVUoT46KdBtmLrtEWU
-yBYZIH0hlvC1X1a2aAIuUvqXqJH1tTHZ9q4twcioxC9ZT0vbfi3GSONME4atMj+Z
-CU4NrVrjgiY6L34ntyFJUbiz6zCMSp366N5KEkDhYLHy4BbydcxFyripFUE+tngU
-B4T0IPtvcpIi4kdIHLAt58gLU3HoY+bpTlaYmWwBCDagLDw2MFI=
-=oGrh
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wgAKCRBy4AiZROfD
+Z6Q5AQDRlEpQR4Y617pmwkznN7LBMSKICkpq/RKfHieMUbIWCgEAlYwJ5vC5JHkZ
+/6VHgEKQ8Fbgyx2urYgKzpTnbmIvuAc=
+=QwbK
 -----END PGP SIGNATURE-----

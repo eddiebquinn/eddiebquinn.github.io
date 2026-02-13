@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 ```
 This was originally a blog post
@@ -58,19 +58,11 @@ So what needs to be done to get from point A to point b?
 2. A script needs to be generated that will sign all posts and place the signed posts into the relevant directories. This script will need to be item impotent, meaning it will not make any changes unless it has to. I will likely write this script in Python, but if I am feeling brave Rust is also an alternative (I'm learning Rust now).
 3. A git hook will be made to run said script before pushing to the repo
 4. I need to edit the layouts my site uses so it automatically links to the signed posts underneath the posts. This may be tricky to do, but I'm sure it's possible with enough research and tweaking.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZT1IACgkQvUo0nUeo
-F5yIZQ/9GUUtjGF3Woyk2OoSCpnFcK9NcURlkJoKGpJRm2txs1XQ1AIupO67u0PM
-sNI9946PJDwyFzGyXrpSq6b6vCYipOZVvU/INdI0ZvwqDVM2qkeQMFU/T8UEO0kE
-wUy8KXIYY95wrnjCI0MrCR5aQ+be+61MkVtFJ4ZyFlk3ky4DGsFJj1jjfxqq+Dvb
-Abvbx7yfKzSv3DabERmL1+UgMJZjkGg8qUD2HdSnzok3GJzOVXnTh0b8ZOzDmb2H
-566D2voh4mW6lruLhDhjgRkZlKty1rDGxGKzsp5S3e11IVfTyXQN9rBK4w9LaIVb
-Mg5jhAQdjGq+4Q0am4Ry+W6GEDFqSnXjb1fHbmM/i/FhU19krYKoRzeL/sG21lYe
-vFROfYQxSfn1VFmVK21P758/ypnRJ4L7DzxtA+8FL4PjDEDssOrv9b6ZvG38KZY6
-Tjs0v5U8yLYdvHzghnsCwRaDmhwe5o+BbBQFZ+eRI2eSZV8kgddOLE2dL9Q4TchY
-pJ2QrK3LZ4KEacCx+3/uNOJgvYb1N7mKJJtbwcdXvD8Sarts+q5mOg0gjdiPo8zK
-esSWnQOsaWtSaMD1IAI5uL6xttwHdyPJJAzFp+53Q3yyHmGOPAz/F8b/8YijfE+r
-vbwJtLxYQGw+UJiSOCc1qJYBaBtACSt+zQuppro9TU0q9Oicc1s=
-=xsTq
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77bwAKCRBy4AiZROfD
+Z4VfAP0SLlgAAr5lYEjbQMxijUKlbdHfFqggnRcUpX1EQqbF6AD+ILL33XSS73FZ
+LvH8QXqNt1NdUSKh3Q0yTutolYngXgs=
+=X9SK
 -----END PGP SIGNATURE-----

@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 When I was in sixth form one of the first things I was taught in economics is the law of diminishing marginal returns. LDMR states that as the quantity of a variable input used in production increases, while all other inputs are held constant, the marginal output of that input will eventually decrease. The common way to explain this is with the guns-and-butter framework, which refers to the trade-off between two competing priorities in an economy: military spending (represented by "guns") and consumer goods spending (represented by "butter").
 
@@ -36,17 +36,8 @@ This is an example of adapting the workflow to account for the limitations that 
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZU1YACgkQvUo0nUeo
-F5z3DxAAuHbS0x0otdubAtxaunjEtlIfMR8U4WMaOG/GGLkp/OwlphnMO8mtfVxk
-vBTB2Psqx59sOklw4wf5lGK2kUq7nsjQoAfJtvyUDQ1R7GYKY4WSH63ObImngRur
-JyQK8d/zyhg7SQvRYFXSotkvL8Gr8Awgm4L4VvlR9uZ/aJHOzmiFR717GzX+vTZm
-Dq4Z/ZhiQ4bTLRT7eM2s1Ypz/mJOwAq+yW+/9IIvbiyHDmKmw9sah39b7DYyVP8N
-crU9+/YLr8frBlYrZOPWOXJjjuARbnkObgCup4nHwimj1zFrmdojVrwWmw3CeN3U
-PbmujmpMYKKsL+FSiUstL4I0BtPRvwEzuV6prZo30e4nutkZHWqP7mM3X7DtCd43
-fzJohLhKeQfZ11PepWU3bRZue/dYx5zolPbY6HkqVayUGe/JW+Qzcnpl9QeGmCzA
-dhCKP5g4M5ewRV9uumqu6EuOI9P1+1mbV5XCp7PvKNPc9r3gIc67t2pISvdPQNat
-JjULYboI2i579AAV+UgffXagQVT5ePM+lucHA89qizWzzWdMg1PuGja9i1kZJEQ/
-FmpjjKbc4lBCEX2eLtzErc1t5kfYfhebf6oayLas44dPYzKUk5jwEyjaPuVb+/9I
-Cvre3/oTIJwJlNcNi9xIOySzCPm9dZXZ2xKR1Xz8OGCbYIdHgxM=
-=2X63
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76yAAKCRBy4AiZROfD
+Z+LgAP0cn0/ccbO+fUJy6aOQHJAoRGg2/BqfsQb9/ZgR9bCnIAD+Ofho5x1TgFlB
+TH0Ldd3c9rTEItuQBGhnGrUIfHz3OQw=
+=i9qK
 -----END PGP SIGNATURE-----

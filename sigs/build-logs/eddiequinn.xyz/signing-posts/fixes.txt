@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I cannot spend too much time on this post because I have other things to do today. I have found possible solutions to all of the problems I mentioned in [the previous post](/build-logs/eddiequinn.xyz/signing-posts/mvp/). As per usual I have made a dog's ear over a very simple problem. I was however along the right lines with my previous idea of having an auto-sign script
 
@@ -19,19 +19,11 @@ The auto-signing script is inherently going to be solved, evidenced by its meer 
 
 ## Why haven't I dont this yet
 I haven't done this yet because, despite my LARPing as a programmer, I am a glorified script kiddie. This is not to say I can't do it, because I can, after all, I wrote the last script. It is me saying that a script like this, which would take some of my friends half an hour, might take a few hours for me. I'll get around to it though.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVlvQUACgkQvUo0nUeo
-F5zo7A/9H5sqWkf6Iy1zYu1kWvN+nbSunEAxHVk/mj1lg84327KkwcUAWnTEYdjG
-+SIJURHB8gSGgs5GQk2zOHM57Ol2annbR/2ADmdoJuLsc53lZW7IWeeI7Rpn81tA
-IKKEvz61qVmg0bt1RfrV/28j6trFw9q4pgpdA4mElKyvya3beF++I83yC6n0iFW5
-iz3ORQSSs2skZ5FZChDuFT13DbrJoFFzNEzneqlDijs4NZJYDTAPb/jGybFtx6X7
-eN6120giL0f9Vb1OxTDvcZOVoGlk3nw1WslVVmsQpmEvnfd3jJn0O5Pri7zlPopc
-8nKE5My1R/u8lOc7eWYDoeTUcz+/dW0h2Gyn8zjpyBueRdmHdXQmuqKwLPcO6GK5
-RVpZRsL5LjO3fWgUY724rlgCntQnnqCtZp4Bsba7/hcQrCCbqMTZ7yqbi1/63zGe
-0rDGKsj6S1CMen/BMmopZxl2uMKcjkyr3N929r5nV//7y8JxTF4jgfQ8cQMi1CAu
-rRG6IPls6iq3wiVwvk0ZCKxQoZhHuKw6xuJuqo3m3cnKlBliO+QggS6EkFm/3mzr
-L3cpgQIWPP3FCAAeRfSiqnSBogkvBpBzCxu0li2/6/BqRXuhTvMzKfZtpIY5Ti32
-Tk+go+nRG+lDpl66LsM7i2VhthrRpsEVpe0kiDlYXq3ykTwpB6o=
-=GiCl
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77cAAKCRBy4AiZROfD
+Z6IQAQCYYnO+tW2HBPlh3DHXv2Dj1fvk5BwawqfLdKw9HuozQAD/Sx/QFfwzjyKm
+Wn8OFsi4Qud9afimuFOp115QyzLYuwc=
+=QEzz
 -----END PGP SIGNATURE-----

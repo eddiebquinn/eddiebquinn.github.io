@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I had heard about [Pi-Hole](https://pi-hole.net/) years ago on a Linus Tech Tips video about it ([click here](https://www.youtube.com/watch?v=KBXTnrD_Zs4)). Since that point I have wanted to implement it, however, my first attempt miserably failed.
 
@@ -23,19 +23,11 @@ For now, the system works but there are a couple of things I want to note down f
 - - It is quite annoying that I have to type in `pihole.box/admin` to access the console, rather than just `pihole.box` - I'm pretty sure this will be an easy fix, but I'll do it another day
 - - When I eventually segment my network to create a guest subnet, I'll have to think about what to do regarding DNS requests then. Do I still want to sinkhole them mainly?
 - - In future, especially once I get a K3S cluster going, there is a way to make a high-availability PiHole instance. Something to bear in mind if the time ever comes
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZULQACgkQvUo0nUeo
-F5wQ2g//X4bEkok3RgJd8ZUJJvdJUIfbtUeWRmGeROYfyRcsy5Zf4t/qb38ppTVO
-PNJ61Ob24wQ9wcZByoO+2r7KULbGJPJcXebdW49o+2N3Bb+lomay9kUhbrgyMYVx
-iZBWiK6MwKVGx0UMwgwv9B5s5GoTVb6AUBr8ImJ3YykZjz5tfl8NeMx+Dw9OQ7v3
-C88hralSiKyX48CNoej35IDMefyVPVChIj+fLymN5FwMdYAr1Mx5Vd58OFaOXviX
-ohjwwwNwofSh/hlkb2SdAQ1xbgqFU3Y7NWA4LH8rAv8T69ZrOcO9fnL1V1PE3mb/
-U3Ub1gLgmUCB5h906rM9BHrZpT+6x2yGZHrJFCcqOB2No6kcPkcB/VVG19YZlzDL
-ZfK9W9hLHX/RkdLhgv12SD6nFK3l5HxQHR6U++6amJ1EmWEDOMD2j23/JsztnTG8
-2n+2i1mDAppv98tNEDCTv8snHjMqkv1XMJQy6t5pTkS6WUS3ICU8BO00PMAYEhZl
-KounVjJzOakSjj+/S1Zuerz3ujYG9dJpoIV/E+HHD1iLmQTzHOooO8ef/+nldTBk
-42ihxLefvpfyimPkPN4be5p2xK7KcRw099QBfIMLSZV+fozHpsAtpo9RVAcgEzAO
-q++0MI/t+RBHmg4XugwqEZ/s+muoDBwvD4Ls5OCWwssew2NNppc=
-=Eryy
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77cwAKCRBy4AiZROfD
+Z1DxAP9dkAi34L/LaEWLsa451Ak+UGPBT/Ri39SoO5+o9F3KHwD+Nffg82XOSdos
+nIWImDXapVSqa/0OPaPawo9GpDdsUwY=
+=o1cu
 -----END PGP SIGNATURE-----

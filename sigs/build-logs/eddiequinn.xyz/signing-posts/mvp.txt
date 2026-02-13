@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 So I've got to a point where I can call this MVP - It doesn't mean this is finished, however. This change while for the greater good has negatively affected my workflow, and one of the major goals of this project was to avoid just that. For that reason, I cannot consider this "finished". Below is the list of things I still need to bring in.
 
@@ -44,17 +44,8 @@ I imagine all these new `sig.txt` fileis are appearing in the RSS feed. In an id
 
 -----BEGIN PGP SIGNATURE-----
 
-wsFcBAEBCAAQBQJlWkh5CRC9SjSdR6gXnAAACVAQAE3V3Lndv318arDbAGVIDtD9
-PQ5RBCy1goC3wYbx3w3rmDk60d0Pmtshd2JohPSKbL7Y7n6HJ4ZIvPqYzZ1nG7iC
-WyyyFsd121en3S4kisuOQ/PRpNClwxgx6vZx4S7siKJcSX1UGVUJzc7pwFldbZxO
-a9xVQAGK6E6r2U4S93j3uJ+/TCol2Jt3NuBs1Fa/0aOHNhMgu6wm4mTTRyBhSXWv
-259tw3GatjDWSdd42qApkzcSNSgZJ+8qwhPs2pHwkHdWSYpSIqBXjHaa9J4UeIUj
-TuvMIzXXb7iwsswlI4zEVNTuG2OHPnIYCYTaCHslB1NdTXBeFCV5e1RxIfZ553Ht
-3YYFdNzzEtBFyWA6uaa1LtJSi8oDkXVhzXL3tQ7QR7DP7r44/YApFUl7rYTMqWvI
-Us4KlT+neMqKqxzk8ZKlOd/HQR3LDhhxuMjSqUdP1fOvld98IRVIQPKNNfa3TW8J
-EDG6TRbfJcSL+OVY6JnQ29trCcqdVDV9sy9QhDxfzugP1gAApVYOEjdv4ep9+9io
-+jrDal2YnH2Z2ydcZIwr8YOFlfMxRmZKG6vqKYQEqdLnCAgXTrcdnY7obAtJfWMH
-uM5qVEvEadU8XzFJN28A5gsTNqT6vRoGeetqDYX5t9TkSHV3PArcLmzutrWIznhd
-h+lOCGZEHkamDwW5QUzs
-=F9Fb
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77cAAKCRBy4AiZROfD
+Z3/8AP4q06AajaVS02ET16ej+ejQR8u4sRsCeI+Ic5dVGrWGjwEA6QPWpXJiDYKP
+B/ys0+J0D6AdF5Hx2B60o2U3bdFxiw8=
+=QYwM
 -----END PGP SIGNATURE-----

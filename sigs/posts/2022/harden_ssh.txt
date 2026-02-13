@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 This post (unlike my other two) is not going to be a ranty post about something that annoys me. This in truth is more of a reference guide on how to harden OpenSSH. I'm not going to do a massive paragraph on what is ssh, if you reading this you likely already know - however for background, ssh stands for secure shell, and is one of the most popular ways to administer Linux (and sometimes windows) servers. Because it is so popular, it is often the first point of call when a hacker is looking for an attack vector.
 
@@ -80,19 +80,11 @@ sudo ufw enable
 ```
 
 Now before you log out, just try and log in from another terminal to make sure the firewall hasn't kicked you out - if it lets you in then you're set
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUeoACgkQvUo0nUeo
-F5wpiRAAkUf4DON06YnpaUJfl1wEfIlCDbDETDWKn4H+XVlhZqGT8gdmUdFVaH48
-5zsgxg7+MWVhhyk6/zN2ZmKvNHjwB8uo9vaw2EUXmzbU0qa1g29iX9Dfh0gWDRzh
-6MgK7mkEclaRtnyhZUZkapI921sXqDMV+f+56sOfrlts9aeaNUiAMhQfwuexZVNL
-z4UyJm3jxIgg3jlxovt+mwGs5tI/U7kWuJiuXxBM/QmAhGlP0Pu12Kl/kwTc2fqS
-UjHiX/smhp6s28BfgbOqymCk8TdhrYgyT1eUi2/zI3AURlvrK4Vtu+wHzB6l6xDB
-b3MR4d4M7ADN3wqtPZdxChg4CuGCwp7OXJy1VimWbS7ikQ/S0XURe0jnAFjLMIVm
-Yyo+//Fou5tLPUEp+4T0Bc3wW7uhG0N87PfJfUooWV3sA0y4d/+JQZYPknKgLrnF
-fVnacVAsWXBkob2Re06tdlMJ/FYxsmo8FegF0rbpesMXveKUcUfkfCpf/STGGsaS
-fLxx1LUe5ToEF3o+R6hplOkPWuBs+GyYEU8e3sbbj/RlAgkqSP83pZsUqRbO6XkS
-vJa2pi+egbpA8ekFnal5J1cWEpu9u4RJYJtNkDQUiFxvWoNz9hD6Qv8ln37rawyz
-xTzyGU/bnR2iZ0en8CvwTu3Ta4snEEcJzc58e/NbR6JXFDkahQ8=
-=CXsF
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wAAKCRBy4AiZROfD
+Z1SrAP9b1By+C+1jDlcxfEuhVNn6mxrgRbvBtFo0wFLqFjYcOgD+Pg5Jh2Na8NEa
+11Q+FYmk7Y6X6HEjeurDeoeFY9nk4A8=
+=fiiD
 -----END PGP SIGNATURE-----

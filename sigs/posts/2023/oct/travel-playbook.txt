@@ -54,10 +54,11 @@ Some of these can be removed depending on the context of the trip. I.e. if you a
 - - Book / Rubicks cube
 - - Pack of cards
 - -  Spare phone with PAYG sim (in case you lose your actual phone and need to get back up and running)
+
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY3kDQAKCRBy4AiZROfD
-Z33WAQDROKsJnzJveycI9i8G6GgZLQjDiTWnMJKyo9YwHuCIpQEAqYzOv2v4XfJT
-P6yJiR+/KypgAoLOPTiB5nn83cpCvgQ=
-=uG87
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xAAKCRBy4AiZROfD
+Z2+lAQDBKtaCbfdLkjyc314bAufDUK+b1ScKouAbEVjqnyRkFQEAtljvU2IrHdzt
+tVIn0NpSevbZ6cv6dWSJkcBfLvum1Qc=
+=lVmf
 -----END PGP SIGNATURE-----

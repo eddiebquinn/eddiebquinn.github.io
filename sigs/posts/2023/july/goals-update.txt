@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I won't make excuses on where I have been, it is a running joke on this blog that no one reads this (other one of my friends with a rodent agacent moniker) so who am I really apologising too? I set myself a series of goals at the start of the year. I am halfway through the year and I wanted to touch base with how these goals are going.
 
@@ -40,19 +40,11 @@ Based on this, this goal is on track to be achieved.
 
 ## I want to read more
 This is DOA at this point. I read a while back something saying "if you don't enjoy something, don't force yourself to do it becasue youll grow to hate it more". I just dont have the energy to read at this point in my life. One day this will be a goal but at the moment it just isnt something I want to focus on
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVk4ACgkQvUo0nUeo
-F5ykng//TlSkPnN08rbpE0rsNdP7u/C8f43aIfUQhukWKRa7EDeaZO8McfCLUSbC
-a44t8/7Z5q2YmPqnVrfe1+lo1seESblecOiutnpzY4TXipXbBrwtkGsYpzR7AZde
-FyBgt0T/3QBmuwrn+8eQvWjyLd1hnse/PKihZekBVTqeGOFCAw0g2Tcvs05UfU5a
-DPWSbShKOHE29R9QFSWBVXZQWJ9lAAd9q0pgzxnIEYj0oEqSx8jHVV8y8VxA39Op
-76tScHz4hpUYiG6n1MMSS6o1mPag4Vjha/OSf/Ms/6I9OFqHcPCjQatFX2Bcro4j
-IedAFGFDh6m3ngE+pTXnUXpJLkUs+MzJ67IhwTC82cSWqqC0o25Vy0xuqIai00BD
-KD+/yYG5PGcrjRoiO95ViVO7Nhoy8QgduM2ajlkSkft2v/pGR2i69giXaTtDZoUm
-uxlRUpaWakAmVM4F+DcXLckXvfQcqzbsyFHh47oPcVHa+vRjTcoDnt+x1py6kMmo
-pttIh296ipaXAmSztl4yD83SyhydWzmujMWi/Xi+K5jRn2SFR1rUe/1GYYtw+feq
-VZm9QT5UyS2TuMiaby8xojlYZb8b84SJrJCwkQtTGgLP/uqieUYq+ASjPRDZp6oH
-p2DU55sfy34dPD6iY3qLNnJNsQjeZYT3dDM2yrBJZ71TKhwXtdA=
-=sBjN
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76yAAKCRBy4AiZROfD
+Z85XAQCqBoxyQxcaSUkEPAZ8McynfNVQq9JiEpUQLJi28N2ljAEAnfEwwrwh2lRA
+GafwZr9CIEj5+UE4jopsPs7GyZMVtQg=
+=B6rx
 -----END PGP SIGNATURE-----

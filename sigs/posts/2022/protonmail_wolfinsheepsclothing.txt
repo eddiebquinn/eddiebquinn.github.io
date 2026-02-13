@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 This article is going to discuss the controversial issue of why does Protonmail not actually measure up to what it claims to be. This article is going to annoy a lot of people inside the alt-tech domain, and Iâm okay with this. This blog was never meant to be a place where I state popular opinions on things, it was always going to be a verbose and unapologetic collection of articles on subjects I find interesting. I am a customer of Protonmail and have been for many years, and I am likely to remain so for many years to come, but this does not mean that Protonmail does not deserve to be critiqued.
 
@@ -20,11 +20,11 @@ If all of that went over your head it means that on paper, Protonmail is a safe 
 
 Now all of the claims made by Protonmail are quite bold, especially the ones about âend-to-end encryption and the âanonymous email serviceâ. In the past, there was a private email service called cock.li (yes this was a real thing), it was marketed as a private email client, but in their words, âwith cocksâ. If you signed up you would get an email with a cock themed email domain, for example:
 
-- -cock.li
-- -420blaze.it
-- -waifu.club
-- -cocaine.ninja
-- -horsefucker.org
+- - -cock.li
+- - -420blaze.it
+- - -waifu.club
+- - -cocaine.ninja
+- - -horsefucker.org
 
 Now you may be questioning what this has to do with Protonmail, and I wouldnât blame you for that. Cock.li notoriously had a section at the bottom right of their site titled âhow can I trust youâ, to which they responded with âyou canâtâ. What they said was that they didnât parse your email to provide you with targeted ads, nor does it read your email unless court ordered. However, they were very open about the fact that it is 100% possible for them to read the user's email. The reason for this is that IMAP/SMTP does not provide user/client-side encryption. Any encryption implementation would also be useless because while email can be stored as encrypted, emails could easily be intercepted by sniffing
 
@@ -60,17 +60,8 @@ Email is the legacy system that cannot be replaced, and the moral of the story h
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZUmMACgkQvUo0nUeo
-F5zAnw/+Jq3/5fyskOyEs3goRT20EGR0e++2PHJurcqHyD8DhanYAHNj+OvN4QGB
-1x7yYxjs5vnSSp2Jz1KDvG3a2pBn0u3q5S6vP/YFlbvxpqH7QH5dEPSktR+AubXI
-RNzxmSffQi6jgGGxHXmZ9+hVS+bGdT6Yk7/hxZ21CL6BLBAZB2xwoZFpAaOyRzwj
-1pKNlB6xLw2PcHoKHBzGajYyWKAzvvrccCZDpwZfL6dWSHUawa0xjl2vcDGLWdPI
-tW+vdqsEBwJI3IWmv8NMmK09VPV7S0c9PpXsEKZRD4C/ayoY4151sPR9tXiTVMc8
-OZPsitjYpcT+RlP/eXZ5mGjNofqmfDv1j4vBbmDWU8BTcwWx0ds3WzSWf1zLuuTI
-VfH084TSiN9zG4TTLjMZHPBWLf69EaA59OiPLFSSgGuDpkjuUFGeixYhXVUP1EW1
-ACG+zbm83B23Iqis5nsBKewPYx1ZbHMvMmmuiLzPuefBcZ8TvWlxFereJbU/py+n
-ZIpyF9omOVvq85AU1B/vy+Dlel0NJPAHz3J0bh2QwiCpialTDHe3Dwil1Ox0UveZ
-t5fGVhfw0u5aei6QZjKxb6EsZZh3+WFV+pSWGTntuo3QXF1CTTgL4YbOnmiGEsqu
-MPpMkG+SDYeATLL45ia5jkqg2zJQJ+bb5mtA6Y8pRyQfPCYFiN0=
-=LpyA
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wAAKCRBy4AiZROfD
+Z6esAP4/zr7/JhgN0DwWbmXt95z0Bin0weGSp6WJPdje66oi9gD/WPqDhq7nJX+j
+YcAum/WUt6XXLkt7wKXSMh97B+PCIQI=
+=7REx
 -----END PGP SIGNATURE-----

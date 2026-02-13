@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 The other day I was going through my RSS feeds and I encountered this article
 
@@ -43,19 +43,11 @@ Outside? I have recently left Discord, and I didn't quite explain to my friends 
 Discord is a lot like Reddit in many ways. It is a place where nerds culminate, and some would argue it is currently in its heyday. Discord communities do get banned, but the fact of the matter is it is a somewhat rare occurrence. Possibly Discord doesn't care, but I refuse to accept they do not *know* these communities exist. I told people I left because I had been on there for close to five years, and as time has gone on I had dealt with a toxic community that I felt did not deserve my time. This reason is not false, and I do in no way intend to give the impression I'm walking it back. The community I was part of is cancerous, and I refuse to enable it further. The reason I left however is because Discord has this funny knack of exposing you to extremist ideology, and if you spend enough time around these extremist servers you slowly find yourself being groomed into sharing the same opinion. Towards the end of my stint on Discord, I decided I no longer wanted to follow politics, and this was not respected by my friends at all. They in no way ridiculed me for this, but it was apparent they did not understand, and one of them tried multiple times to get me to weigh in on topics after I asked them not to.
 
 What does this have to do with Reddit's rotting corpse? Well in two words, I would say "touch grass". The internet is amazing, but it is not meant to be our be-all-end-all. The people that care about Discord and Reddit to such a degree that it makes them miserable (myself included) need to appreciate that if staying on these platforms is bad for them, then it is okay to just leave. The real world holds wonders that many will never experience, and that is the true tragedy. Not discord extremist server problem or Reddit's hypocritical stance on free speech. If the people you call friends on the platforms are true friends they will make themselves available to keep in touch, and if they don't then the friendship was weak to begin with.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVsIACgkQvUo0nUeo
-F5w4uhAAvQWIf/NneKzEJeUCr+UkMQOwgh0CQz03sHY9DcoN61XBNxl04pasMnv4
-IB5A5U38xQy4G0DNaNVde9AKR2typJoneFefjg/0o4rTKYLGEh362zjxUwwhZ+x5
-/vHbpTvMhsll8f2lA0UybN4OfNw6Xwcie7x4Hf2/Gj0f/D6MfJxnAkmD34LXRE7r
-0x3BKJpcz2SmLk21g1JQL2UITBpkcx42LUhTHMJWdngPV0MXaeHd52TX6OG8TIBr
-V/eK9H8lB7jot7Y1gpfq7lV9ikxDI+Yn8vZL0Zu29/Fi/UE91Tn9BIN6bFgYBziy
-IAEgYimrm0YT/1gHDib2IGysKxc4VmlpoVCUUI1IMSN6fdXnknHUzfc/5XhV1gXR
-5wO+FO3moy8Iwv17dfOOlcEwPVJVQlS3ubn+soRGhbOzEgD1eMjFrOYgNkTYhQot
-68rg6Rl1wVUViZSLJUgQk7FXZJASNwVntRXO7BtdozIpDe84HeuhHw+WSfjZs0Hs
-6BJjfg11yXQcYtUTNc1e2n4idUbaWqL3WWH2U9h1HYk5hkPzup88iK48D86qVvRC
-BpUrTV4ceXiqRQ1M/SX4LQSQcfZC0lruehKIXgihGChwWByK66glLNiN9aLBpiIO
-9xLvBX9zsmv7rmtsGDDx07wSnmd3DnuiFTjxsmsQETlN3e/8dac=
-=/TPX
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wQAKCRBy4AiZROfD
+Z6aIAP0QSKYZS45didC+g/rFPaBMa9GuI+uBXQUOPkycn8v5RAD+OkmwANyrpRSm
+MBEnOPyklRJG5G6MaaXEMPyj57KwBAQ=
+=2mfO
 -----END PGP SIGNATURE-----

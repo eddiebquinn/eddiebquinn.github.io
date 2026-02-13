@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 ```
 This was originally a blog post
@@ -29,11 +29,11 @@ I want to make it so that every file on the site links to a raw file, that shows
 For example, if the post only said "This is a post signed by me - eddiequinn" then the raw file would say
 
 ```
-- -----BEGIN PGP SIGNED MESSAGE-----
+- - -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
 this is a message signed by me - eddiequinn
-- -----BEGIN PGP SIGNATURE-----
+- - -----BEGIN PGP SIGNATURE-----
 
 iQIzBAEBCAAdFiEEWQTd1MwJCH3DFDZ0DiAAR72//sIFAmRXvT4ACgkQDiAAR72/
 /sJ+Ow/9F9Uf8kYyROgDgG1pMVTcMNrCUmqozuzJNPObMeMPe0Xr8TEMnaahlLES
@@ -48,7 +48,7 @@ do4l7xtfu0vBWTH3JRxQ9VddzXybidKj21DHJmZd0yktRzwZ2OtNt9noaiqZKzTF
 qC2nWHRDqvSVsRDXj/SM92cNYhc9DeFLzN0HHvxXEf8GnHb/EVfubjLQbQMm5hIz
 hEt4IPg/VXQ4eihib0DrZqG18c8DU4DzNwgmQF3T/vTcvK0MwR0=
 =hJ13
-- -----END PGP SIGNATURE-----
+- - -----END PGP SIGNATURE-----
 ```
 
 I think automation may once again be the answer. I have stored my website across multiple reports for a while
@@ -73,17 +73,8 @@ I won't be signing my posts for the time being, however, when I get around to br
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZTOIACgkQvUo0nUeo
-F5x7bBAArn/6aZFcmNycDJH7TSio1NGFQ0Kn5gCAyDLAe3dD60x6ySVFJ1hyR4bk
-XZMZdN5XcmLIEymsEq7u/9ODd4PfljUA0VwDWaKoHxPy7w35iuajKnFdOiD/TPCb
-2bFf46/jHeSKlLJaBhwenpYF070X27fYKODfWp3lVYq1b9wGkFJVSD0Z06/B55mS
-YG1S5WJxTf83Y9P8bS0njidj8xZDzQRaeesjAAqOdRtkswtV02sVOCZFB9fIU/Fq
-VyNZkqZVD7+ucbp6JCOjR8S/YfeB4aPn5q7oxPumuLCq5wmK7uSUuFKAJ/+OJVYO
-VPpcCA9Z6vDsL73U0pXiG2puvkC+Ef18cq1qBhc0T/PcKA6my0is2O7QRhjR1Oi0
-tBtqjfS2dYVBo+yPDfBldjaEVUyUB7Fuuo4nXOyVgklqn+Hmdlx98bPhjyWKMXSo
-peb0x80jm3dUamrKmkd8n8919EG+YQh3i3Fyz5FVMm3/DzLlniuKl6vf0+FopnOl
-Grz1K0GABx14qCAOMuxFNWuiCNWhgmcrJdYLJR5i/25Oee0hEo8+iD8h0opl2FO2
-jdYN7tvtjL/4RO8PgoZfFnvuSxr3BupwHueve7vd+/YfLLLyfe1+6wDNMiJm21Ta
-jb0fkhmhTA75PGkePdOaoFoTwEYQpzekXw9Z7SuqAry5yj9tIas=
-=6//X
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77cQAKCRBy4AiZROfD
+Z70JAQD28Xko83jTjME2wKxv+x/qfuLhz3kYHfW5x6qCGUB1OAD/bXinEV4WORCx
+1frZF6keB+DPD8yFmmn93Rga9/0T2gI=
+=ns5z
 -----END PGP SIGNATURE-----

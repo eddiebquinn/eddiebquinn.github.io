@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I am quite a cynical person in general. I don't think it is an unfair statement for me to say that I look at most things in life with an air of caution. This is not out of some unfounded paranoia of the world around me, conspiracy theories are fun but most are just fun and games. The thing is though when you look slightly below the surface level on most things you will understand the world is a very ugly place. Despite my love of technology, I have always approached the concept of artificial intelligence with an atmosphere of discontent. Perhaps it is due to thought experiments like Rokos Basilisk or the disturbing imagery of "I have no mouth but I must scream". I am reluctant to say AI is the biggest threat to humanity in our current epoch, but I am also unwilling to write off that statement as total fiction.
 
@@ -30,17 +30,8 @@ In a way, this is reminiscent of one of my favourite quotes from one of my favou
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZVZsACgkQvUo0nUeo
-F5zRLg//SMGN0huCwACNYi83ySqrJnFE2gT+9i6vpmZlnI7FTp5BS/HCz/Xbi0wv
-U9W7pHGn6yhO9jT6xfaUK9weBsvk7FMEpi2J7tximt3yOrUvyv+0t36OwvexKWgs
-5s2Kt2ffPvmdDaCo4zIUGcQ1mkSCATUiseg8oPh1UmMxlUJvNcdOqDlNLWV1mBG3
-sWc6dAAiPpHPbOIhl6Ez3EGKmaXhBkVorBZz43g6MTQ73Oah4LqG0i8Gwi64vDAC
-tU9ypouJVMO0thwETZ28tMqucXVWNFWLLfSmhdX9jqfysjkySlwvA+zFkInskpbs
-8k51mYj/OQh4KFRC4TLGJW5jL1UGhM40+itAXLL+CYGGGU06PrcaXe4CTP7EhII6
-xwfTbclMgbI+dyFDUZ5SdHoqAdPxj7+DrFTip7ctT/JX2dKTj/XkznxzPS0yap7R
-cTUM8JVmfKLJ5+nU3OcNfg04ffvSKSz78oY51W1tztKDr2RFd8soCYi5Rw8KYyPi
-uZoZ7xeDb4rFaZ+qb7NKLBNnpfHUp9keawEvvmzTRxMgc8u2auf1MhFeIYFfh6ra
-/KQ2kTiwTR557beQIhX6uVRe5723QP3A8Nkz039Skz5dWfkk4f1r21yw2WvbdbkR
-m3h+yEpzq9bPC4V4Yh2QkZ9Iwm5xF4BnSf5gPKx0UgL6/y+5o4A=
-=/OO5
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76xAAKCRBy4AiZROfD
+Z5vWAQCNAFqH3G+xS9qZhYGYzswzGgl8Y7rJUvfH6sok9Dh+WgD+MGV3lqgDF7ji
+aGJupK/vAfCPfB6mW6vwne38kjRFTwo=
+=1jEr
 -----END PGP SIGNATURE-----

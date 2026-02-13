@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I go through phases where I become obsessed with things for a couple of weeks, burn out, and then move on to something else. This cycle continues until a point where I wind up back to being in a fleeting-obsessive state about. The theory behind it, or at least the one that I have always subscribed to is that autistic people become obsessed with this in an attempt to understand it better, and in effect understand the world better. Regardless of the reasons behind, it this is part of who I am.
 
@@ -29,19 +29,11 @@ Despite my love of the Scandinavian defense and the Vienna game openings, my cur
 I think for white the one I wasn't to explore is the Italian game, mainly because it lends itself to the fried liver attack. I have wanted to do an FL attack since I originally found out about it from Gotham Chess, but playing a Vienna game as my default white start meant I couldn't. If I attempt to build out my white game to encompass the Italian game but default, then I can transition into using an FL attack as I get better with it (in the time since I originally wrote this, this is what I have done)
 
 Black is where things get complicated - One of the main people I play chess against uses a Queens Pawn opening, something my current opening repertoire is woefully ill-prepared to handle. If it wasn't for that I would opt to try out the Caro-Kann as my next black opening, but I think for the sake of versatility I will learn the Dutch defense.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV38ACgkQvUo0nUeo
-F5zNdRAAhK2zgLpHxiH4ypwvhED1bs8hWg7+Q2AP3qbTH5UvQPy2L+bwNHn770PV
-4NDfIECVu//HbBPG2GVRxpx1DE2E8blm0C6Dik3ckIoBn8O5hdEguKc5PNJKOL0b
-m3H++HABsDYY5Yr0l2yvWpWCm+Y66W8nsHGCdLyIiU8hFst437s+PwsZ2gaByvGf
-FkgQHa0d7OnTPjbjnbblQ0huqIW7REiYdBMDPQ19gTarbTgoWYDH8rc+Tiohf3/P
-kAK6///Ufb9VsKmQ7L1d3whIz1fG9nARlYu8gxddX3a7uGUXLY5lXMl2kQzf3A6i
-KNsU6owZYaDRl/sckOMpgG/ym/65P/WwkWpmT0QSTFh32taqHZ10rarhNTvOIXVz
-DvKc264cQ92qhn/If0j98zZ3SRB6ZLSyg3tj35uupUbAk9At7cCdrP+Fxi9eZ7FE
-1zELs5YOPIibZSb6kWppYbhe44BSfn64LA3co6G7FDZOb6UXtW1W8mBWnYso9gh3
-Qg9Tyo6Yl1sZ1fAYUfvddqO9aoh8EGN3qNwZuuSEfNhgqszBcY4tKoHXpZa/Q5wo
-GOLSa9wqNmeoPdpz2cg9FaFi/4BFC90yrtZy9a1H8jocpDH0dJ9V/65SQ0k+VcwV
-xJjs5PZV0ux3mnnLXbloq2/bgNMeV3gH5ZCGOPpqyy65NtPjND4=
-=XPLr
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76yQAKCRBy4AiZROfD
+Z0RBAP0Rd5G70j3zPNduDI5ouwCcEaqAROXyOr21lezyqIs5RwD+ItXQFPmcZgYy
+/ZUyTPXGElhQkNjcBuxWc5v4LQTYBwU=
+=F809
 -----END PGP SIGNATURE-----

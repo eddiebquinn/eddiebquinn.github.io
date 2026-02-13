@@ -39,7 +39,7 @@ That, my inner demons, is a root key with four sub keys - each serving a specifi
 - - One for encryption
 - - Two for authentication (one for each of my devices)
 
-- From here on began six hours that resulted in a +85 -7 line merge request. The file doing most of the work being this one
+- - From here on began six hours that resulted in a +85 -7 line merge request. The file doing most of the work being this one
 
 ```nix
 { config, pkgs, lib, ... }:
@@ -286,27 +286,27 @@ THEN i needed to create the kubevip daemonset
 
 ```sh
 kube-vip manifest deamonset 
-- --arp 
-- -- interface eth0 
-- -- address 10.0.6.10
-- -- controlplane 
-- -- leaderElection 
-- -- taint 
-- -- inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+- - --arp 
+- - -- interface eth0 
+- - -- address 10.0.6.10
+- - -- controlplane 
+- - -- leaderElection 
+- - -- taint 
+- - -- inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
 ```
 
 and from here the 10.0.6.10 IP was live. From here I edited my local .kube/config to use 10.0.6.10 rather than 10.0.6.11 and set up the rest of the cluster using the following commands, swapping out IP's and removing the --server flag when doing worker nodes.
 
 ```sh
 k3sup join 
-- -- ip 10.0.6.12 \
-- --user k3s-agent \
-- -- sudo \
-- -- k3s-channel stable \ 
-- -- server \
-- -- server-ip 10.0.6.10 \ 
-- -- server-user k3s-agent \ 
-- -- k3s-extra-args "disable servicelb --node-ip 10.0.6.12"
+- - -- ip 10.0.6.12 \
+- - --user k3s-agent \
+- - -- sudo \
+- - -- k3s-channel stable \ 
+- - -- server \
+- - -- server-ip 10.0.6.10 \ 
+- - -- server-user k3s-agent \ 
+- - -- k3s-extra-args "disable servicelb --node-ip 10.0.6.12"
 ```
 
 And this left me with the following
@@ -334,10 +334,11 @@ Jokes aside, you will fall into three camps after reading this
 “This sounds pointless”: That's just like… your opinion man?
 
 Anyway… I'm signing off… See you in nine months when I post again.
+
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY6gNgAKCRBy4AiZROfD
-Z0N2AP9ogWyAg/roN1tEwDF8P8WnCKy4JgmGOH0EbXwj4mD0rgD/YuMC9saXwfm0
-mYvcyZdcEFOc6RAZaNpXJ7hsNPr0PgI=
-=NAsI
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76wQAKCRBy4AiZROfD
+ZxBPAP0YaQHAspsKaPM3KyDe8rlKNvxIILugAfXL4SVw71iH7wEAjgcYwKnZdTG6
+hbmVRBN58tiB0S871GKZiOXQy2+nUQ4=
+=NMlc
 -----END PGP SIGNATURE-----

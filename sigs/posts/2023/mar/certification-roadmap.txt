@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 I have mentioned my job on this blog a couple of times. I don't want to get into that much detail about it - This has very little to do with any rules and regulations on my job itself, it is more related to I have found it to be best practice not to discuss these things online. That being said my continuous professional development and my job itself exist in different domains.
 
@@ -49,19 +49,11 @@ I chose this order based on various factors. The A+ and AZ-900 I am prioritising
 Of course, this is not as simple as just getting certifications - If I eventually want to move into red teaming I need to get experience with hacking. The best way for me to do this is CTFs. I have started making headway on this already, having started using TryHackMe again and working my way across their beginner courses. I eventually plan to move into Hack The Box when I get more comfortable with the basics and get a few CTFs under my belt (unassisted).
 
 The other key thing I want to do is pick up another programming language. I am fairly adept at Python at this point and can write a basic JavaScript program. These two languages can achieve almost anything, but I also want to try and round out my GitHub with some other languages. I attempted to learn Java a few months ago but ended up not having enough time to dedicate to it. The current plan is to do a Java course, and then move on to PHP. I am learning Java predominately because it will force me to improve in OOP. The reason why I want to learn PHP is that it is a popular backend language, and knowing the basics of it will help me with CTFs - It also has the added benefit of I already have a project lined up for it (an API for an addiction stream database I manage), and I get to annoy a friend who hates it.
+
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZV0wACgkQvUo0nUeo
-F5ydpA//Yk4EUnPojDHWuljwj4Ey84ABmkAI0yOzOv/+BXDDY49gITtMT3c6NkrH
-S0YGLZmHJN3ylle2OxL4j100fvoUMqMJBVe3ZjRiMTcFkRZ8ltPTCXcX9vHH6vQv
-/6ihLaXSlqaIattff4q+vcvGXHe/ZfUZw7vMi6Kyoyu9rutndq8Scp+M6vS8DyYa
-E0RLoR2g5MDPkj2Qu+tLkaVAay9WdHrg0/9rW+B/DsXsivIj29ij+9P3koaB3Zin
-nY1xRReVUoHxb3IWkhpYT4MwIGUSCacSk5r/j3gB6fHDFE+u0oQl3moOMdrcpp0j
-6hb7ZhmTlN3SkvegXYuBdp7X/5/aHA03GXswnZzh2RI5cAQJHuJ6b3p7jJCpGMsY
-BvZphKIzhkOCQlY+zWsgHGlyCtbjRvsxY7Q3Nb3+qTOI1UMKwi7zaUfy0mnS+3sX
-OAwbLN+0mHjmzuh9icOebRwHymP/0QMdmGUwPPiNS3gg1pqMfJMyuMrtbtiJ9pi6
-IngOpZQ+zobNXAo69BNPPwxuz0VJ44oeWD/buPmL2uPizbdiHRtCvPscRfIuVN1U
-5r98udStKYxENAgFbE+H1YKsDvjrVgyUxXrceqI2OWPl6adjWZ61+Xz5WVyLIIFm
-FIoXVqOuzqEJUNptiRwMP46lThxp1LVHwHvMg8zpVbWh4EnmktY=
-=8iuq
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY76ygAKCRBy4AiZROfD
+Z/hAAP9+NY711LJFtRPDqEs/r74uey1xRrPC/0YzeoVpqySLyAEAvJJ+iQYbFfsE
+3b2aSmSsxB2kx6EpQuhVUFo5FVCmuwU=
+=hLV8
 -----END PGP SIGNATURE-----

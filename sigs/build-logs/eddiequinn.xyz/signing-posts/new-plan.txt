@@ -1,5 +1,5 @@
 -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Hash: SHA512
 
 So after writing he previous post on this matter I came to two conclsions
 1) **This website, and this induvidual project, requires its own build log -** This was changed. The commit hashes are listed below
@@ -44,19 +44,19 @@ To do this i basically need to edit my `hugo.toml` file with the `[outputFormats
 To take advantage of these two outputs I will need to call to these in the post-front matter. An example of this is shown below
 
 ```md
-- ---
+- - ---
 title: 'test-page'
 date: 2023-11-11T12:09:10Z
 draft: false
 outputs:
     - standard-format
     - sig-format
-- ---
-- -----BEGIN PGP SIGNED MESSAGE-----
+- - ---
+- - -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
 this is a message signed by me - eddiequinn
-- -----BEGIN PGP SIGNATURE-----
+- - -----BEGIN PGP SIGNATURE-----
 
 iQIzBAEBCAAdFiEEWQTd1MwJCH3DFDZ0DiAAR72//sIFAmRXvT4ACgkQDiAAR72/
 /sJ+Ow/9F9Uf8kYyROgDgG1pMVTcMNrCUmqozuzJNPObMeMPe0Xr8TEMnaahlLES
@@ -71,7 +71,7 @@ do4l7xtfu0vBWTH3JRxQ9VddzXybidKj21DHJmZd0yktRzwZ2OtNt9noaiqZKzTF
 qC2nWHRDqvSVsRDXj/SM92cNYhc9DeFLzN0HHvxXEf8GnHb/EVfubjLQbQMm5hIz
 hEt4IPg/VXQ4eihib0DrZqG18c8DU4DzNwgmQF3T/vTcvK0MwR0=
 =hJ13
-- -----END PGP SIGNATURE-----
+- - -----END PGP SIGNATURE-----
 ```
 
 What this will do, assuming a post called "test-page", will generate two pages, where the first one comes out regular and the second comes out plain text - links shown below:
@@ -128,17 +128,8 @@ I will have to debug the things ive discovered and coded today, and im definatle
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEVR2DXk8VSeBYxT6vvUo0nUeoF5wFAmVZTnYACgkQvUo0nUeo
-F5zB0w/8CYYMsQ/sLN07Own/mV34/i/CDmS7MrBHKtQ7S2R+Ulv0r9i0Rf25scnk
-3osVQUSuZMTSCcpdebNYbJTyrN5qmJTsPGF4YHyldLuqKWQ7hhgqqUz9Vsqc+LhT
-lg1FzeKgYGsOznzuDX4grUnT3g12STGTxVCjUBWT3zQMspnsWfV52xgwaWzbE438
-S/Duht6tDO2DKzhRedTZD8BonlaK5CmGaXLLA7NXIqVlWkFV7ViSA21pErjQZrrN
-8y6/6KpArvFInK93DeIEYlM/StLUKaFIFkli0W8I/B6L81reC89BIkUl+bNuPATw
-1QRpjCiP2v7rU5NgKZylXlBSRDqucD7kmwRwyr2z/53X/4CGSPEejZlMGgHN9N9X
-dUM8NGQQa2GjFPWz8NRHKX883mKM7aUnvdtiVU9y9r/KRdD6nQZzftBa+XqLVgyI
-0knNZnsiec/SFIqzjG8QWzjaA2PUGJPaO2LllkFTHKeWUtqdHaJGSI7PQQWM1sA5
-2SFCAP6pYd991Z6ErRj38Km6hxMdOg7IXw2MWGvXyQMuF70mgTYChnASNSszncUv
-aG43j5d3iQMtcnGkLEznhQCKHZO9FdRddBYmaun0zPo2m2Cag2xH5DIy10xfVL8M
-1EiHtx1LuyLHCAw9arGX2aN1IVC4ujqV/uaBAsErtI/AWl+eThY=
-=lbHj
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaY77bwAKCRBy4AiZROfD
+ZwiAAQDUxNppLR41vhxU0eTLVSj2kOGXvvBMZXb5d74TZ854pgEApR7tvq0z19Um
+gzOofbLJ6IVOW2p5BjDPxWH9r+HPTgM=
+=9FXd
 -----END PGP SIGNATURE-----
