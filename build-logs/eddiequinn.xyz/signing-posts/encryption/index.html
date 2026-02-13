@@ -75,6 +75,14 @@ The public key encrypts, and the private key decrypts. Typically you share your 
 <p>I wrote on the bottom of my laptop at some point &ldquo;Encrypt like everyone is watching&rdquo; and it&rsquo;s time for me to start taking my advice.</p>
 <pre tabindex="0"><code>note: Due to logistical issues with the way this blog is made, currently not this post not signed. There is a project to ensure this happens in the future
 </code></pre>
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/encryption.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

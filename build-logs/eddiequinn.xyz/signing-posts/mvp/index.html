@@ -80,6 +80,14 @@
 <h2 id="potentially-fixing-issues-with-rss-feed">Potentially fixing issues with RSS feed</h2>
 <p>I imagine all these new <code>sig.txt</code> fileis are appearing in the RSS feed. In an ideal world that wouldn&rsquo;t happen, so I will have to fix that. I haven&rsquo;t confirmed if this is happening as of yet though.</p>
 
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/mvp.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

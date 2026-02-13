@@ -126,6 +126,14 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">## Strip out signature at the end</span>
 </span></span><span style="display:flex;"><span>        sig_start_index <span style="color:#f92672">=</span> content<span style="color:#f92672">.</span>rfind(<span style="color:#e6db74">&#34;</span>
 </span></span></code></pre></div>
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/progress.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

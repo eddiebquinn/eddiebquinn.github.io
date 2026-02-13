@@ -60,6 +60,14 @@
 <li><strong>Security.txt -</strong> I might have one of these already, I doubt it though. One possible resource to do this in the future is <a href="https://github.com/davidsneighbour/hugo-modules/tree/main/modules/security">here</a>.</li>
 </ul>
 
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/to-do.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

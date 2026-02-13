@@ -85,6 +85,14 @@ fatal: Could not read from remote repository.
 <p>Despite my sarcasm, I am somewhat okay with doing this, as there are some benefits - For one, it allows me to host custom Docker files in such a way that it still works within my network, which solves the problem I just outlined. For two, it will increase speed and availability as it&rsquo;s pulling from the local network, and I am not limited by my ISP&rsquo;s bandwidth. There are also added security benefits such as protection from supply chain attacks, vulnerability scanning and image signing, and offline availability. This is probably an overkill way to solve the problem I am having, but given my &ldquo;in for a penny&rdquo; attitude I seem to have adopted with this whole process, this seems to be the next logical step&hellip; Also, saying &ldquo;I host a private Docker Registry&rdquo; feels like a cool flex. I am looking at possibly using <a href="https://goharbor.io/">Harbor</a> for this, but I&rsquo;m still doing research.</p>
 <p>So this is where I am at. You will likely see some updates from me on this shortly - I need to look up some tutorials.</p>
 
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

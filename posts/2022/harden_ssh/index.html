@@ -105,6 +105,14 @@
 <pre tabindex="0"><code>sudo ufw enable
 </code></pre><p>Now before you log out, just try and log in from another terminal to make sure the firewall hasn&rsquo;t kicked you out - if it lets you in then you&rsquo;re set</p>
 
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/2022/harden_ssh.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

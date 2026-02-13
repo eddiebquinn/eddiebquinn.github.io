@@ -100,6 +100,14 @@ It may read differently from other build logs for that reason
 <li>I need to edit the layouts my site uses so it automatically links to the signed posts underneath the posts. This may be tricky to do, but I&rsquo;m sure it&rsquo;s possible with enough research and tweaking.</li>
 </ol>
 
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/revisiting-my-encryption-problem.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

@@ -104,6 +104,14 @@ sigs commit: 507310741ac6370d93f8b2e72f343456c81f7de1
 </span></span><span style="display:flex;"><span>this is a message signed by me - eddiequinn
 </span></span><span style="display:flex;"><span>-
 </span></span></code></pre></div>
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/new-plan.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 

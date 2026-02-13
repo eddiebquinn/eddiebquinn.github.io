@@ -117,6 +117,14 @@ This is a very command certificate format. All X.509 certificates comply with th
 <h2 id="closing-thoughts">Closing thoughts</h2>
 <p>PGP and asymmetric encryption are the cornerstones of secure communication, providing robust methods for encrypting and decrypting data, and ensuring confidentiality, integrity, and authenticity in digital exchanges. I feel I have made my best effort to explain the three underlying cornerstones of the ecosystem it has built. This is not to say this post is the be-all end of all of this subject - The if GPG, trust models, and the issue of how quantum computing will affect this.</p>
 
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/2023/nov/pgp-in-depth.txt' | gpg --verify</code></pre>
+
     </div>
     <footer class="content__footer"></footer>
 
