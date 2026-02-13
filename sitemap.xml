@@ -2,10 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</loc>
-    <lastmod>2026-02-09T00:00:00+00:00</lastmod>
+    <loc>https://eddiequinn.xyz/posts/2026/feb/devops-and-fractal-competence/</loc>
+    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/posts/</loc>
+    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://eddiequinn.xyz/posts/2026/feb/nixos-and-k3s/</loc>
     <lastmod>2026-02-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://eddiequinn.xyz/build-logs/eddiequinn.xyz/auto-build/i-suprisingly-dont-hate-cicd/</loc>

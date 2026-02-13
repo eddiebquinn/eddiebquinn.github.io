@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>Devops and Fractal Competence &ndash; eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Devops and Fractal Competence</h1>
+    </header>
+    <div class="content__body">
+        <p>I can probably count on both hands how many times in my life I have stayed in a hotel; I can count on a single hand how many times I have stayed in one alone. It just wasn&rsquo;t something that my family did growing up, we certainly went on holiday but just not in hotels. So as I checked out of the Holiday Inn Express my work was booked for me at 3am, I was hit by the comment &ldquo;do you ever sleep&rdquo; by the night manager. I have been working unsociable hours since I joined the work force, and prior to that I won&rsquo;t pretend that the time of day had much of an impact on my sleep habits whatsoever. With friends, I say &ldquo;time is aetherial&rdquo; when prompted about this - with this receptionist I just chuckled. I dread to think the havoc working nights has done to my immune system, but it&rsquo;s the hand I am forced to play at this time.</p>
+<p>I am sure you are thinking &ldquo;Ed what does this have to do with devops&rdquo;, to which i will affirm yes this seems like an unrelated topic. What you need to understand however is that hotel rooms are incredibly boring, and there is only so much Ready or Not I can play on my SteamDeck before I need some form of mental stimulation. Yesterday, this mental stimulation took the form of me finally fixing the CICD pipeline that builds this blog.</p>
+<p>I imagine some of you will be familiar with the previous post I made on this subject in May, entitled &ldquo;So&hellip; I Guess I&rsquo;m Learning DevOps?&rdquo;. Some of you may have even followed the resulting build logs around the topic of me trying to get the CICD pipeline running. If you did read those, I can only apologise - sometimes it takes stepping back for eight months to understand the methods you were employing to fix a particular problem were ill conceived at best, and idiotic at worst.</p>
+<h2 id="the-context">The context</h2>
+<p>First, some context - I barely dipped my toe into devops prior to this point.I had it first mentioned to me by a friend called Squirrel in 2020, where he said &ldquo;you would probably love this&rdquo;. I next paid attention a few years later when doing some things with my github profile readme, with a runner which automatically updated it to show my recent blog posts. This led to my first attempt to write a CICD pipeline to build my Hugo blog and push to the gitlab pages submodule when I committed a new post to the blog-posts submodule. This did not work - this was mainly due to me being incredibly novice to even some of the basic fundamentals at this point.</p>
+<p>I then at some point moved out of my parents house and got my first server, and the second attempt was spawned. I was going to try and do it using Jenkins. I actually got the first version of the pipeline written. It didn&rsquo;t work, because the jenkins container i had running did not have Python and Hugo installed. At this point my docker knowledge was still at that point in the dunning kruger curve where you think &ldquo;I understand this&rdquo;, before you fall into a pit of imposter syndrome. For reasons I cannot fathom right now, I did not want to use a dockerfile to fix this issue, i instead wanted to host my own local docker registry and do it that way (it was lost on me that Gitea had its own docker registry at this point also). Looking back, this reasoning was not totally unfounded - You see I was using portainer to manage my docker deployments at the time, and the Community Edition of portainer did not play nicely with dockerfiles (or it did and i was just too much of a noob to figure it out). This excuse doesn&rsquo;t totally vindicate me, I was definitely overcomplicating it. In any case, this the project went on the back burner.</p>
+<p>Fast forward eight months, and I have matured slightly with my homelab. Portainer became Komodo, Gitea and Jenkins became Gitlab, and I slowly became competent enough in docker to no longer have to ask ChatGPT every time I needed something fixed - I just did it. I also decided by this point that I wanted to move towards a GitOps deployment model, living by the ethos &ldquo;if it is not version controlled, then it is not important&rdquo;. I began to respect git as a platform with reverence, and deployed tools like mend renovate to tighten my control over what versions are deployed, infisical to handle secrets, and traefik to handle automated Layer 6 routing based on docker labels. Git became to me what the machine spirit is the Adeptus Mechanicus, a source of truth - hidden in the background powering the tech I depend on everyday.</p>
+<p>Of course, there were problems. Two problems specifically.</p>
+<ul>
+<li>I could not deploy gitlab from within itself, and thus the deployment was effectively decoupled from the repo</li>
+<li>I could not use Komodo to deploy Komodo, causing a similar situation of state drift</li>
+</ul>
+<p>I have not figured out a solution to the first one, but the second one I know will involve a CICD pipeline to amend. Thus for the fourth time in my life, I brushed the spellbook to this arcane knowledge and vowed I would fix my blogs pipeline as a means to learn it.</p>
+<h2 id="the-pipeline">The Pipeline</h2>
+<p>In many ways, building my blog is one of the simplest things in the world. If I was to do it by hand i would have to do the following</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd hugo-site
+</span></span><span style="display:flex;"><span>./build-site.sh
+</span></span><span style="display:flex;"><span>cd public
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;feat: publishing x post&#34;</span>
+</span></span><span style="display:flex;"><span>git push
+</span></span></code></pre></div><p>Much of this simplicity comes from the fact that at one point I decided that every post needed to gpg signed. That shell script contains five lines.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>set -eu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python3 scripts/generate_from_source.py --clean
+</span></span><span style="display:flex;"><span>hugo -t risotto
+</span></span></code></pre></div><p>The last two being the most pertinent.</p>
+<p>Running <code>python3 scripts/generate_from_source.py --clean</code> will regenerate my Hugo content + detached “signature view” files from sources/sigs, which is the path of my blog-posts submodule. The <code>--clean</code> flag ensures it deletes the old generated content top level directories and static/sigs/ first to avoid stale output. My ego is telling me to post this script, but I am opting not to this time for the simple fact that it is 300 lines long, and I do not want to attack you with a wall of python.</p>
+<p>Running <code>hugo -t risotto</code> will take the files generated by the previous command, and generate the actual files used to run <a href="https://eddiequinn.xyz">eddiequinn.xyz</a>.</p>
+<p>Looking at this one would assume that generating a CICD pipeline would be simple, no? Well&hellip; Not entirely. There are some caveats that make it a tad complicated to a novice.</p>
+<ol>
+<li>I have a strange instance of only using SSH with git, and only using HTTPS if I absolutely have to. This mean using deploy keys</li>
+<li>I wanted it to be the case that when I push code to a submodule, it causes the root repo to rebuild the site.</li>
+<li>The site is currently being hosted on github pages, so that meant two different sites that had to have credentials factored in.</li>
+</ol>
+<p>What I ended up with was two <code>.gitlab-ci.yml</code> files. I will show you the one in the blog post repo first as that is the smaller of the two.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">stages</span>: [<span style="color:#ae81ff">trigger]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">trigger_site_build</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">trigger</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">if</span>: <span style="color:#e6db74">&#39;$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">trigger</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">project</span>: <span style="color:#ae81ff">my-blog/hugo-site</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branch</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">depend</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">SIGS_REF</span>: <span style="color:#e6db74">&#34;$CI_COMMIT_SHA&#34;</span>
+</span></span></code></pre></div><p>This runner performs a single job, if a commit is pushed to the master branch.  Its sole purpose is to trigger a pipeline in the root repo on the master branch. It passes the current commit’s SHA as a variable (<code>SIGS_REF</code>) so the downstream project can build against the exact version that changed, and because it uses <code>strategy: depend</code>, it waits for that downstream pipeline to finish and mirrors its success or failure. In short, it acts as a controlled, branch-gated trigger that rebuilds your Hugo site whenever the source repo updates on main, while preserving reproducibility and proper failure propagation.</p>
+<p>Now for the big boy</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">stages</span>: [<span style="color:#ae81ff">build]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">GIT_SUBMODULE_STRATEGY</span>: <span style="color:#ae81ff">none</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">build_and_publish</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.20</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">if</span>: <span style="color:#e6db74">&#39;$CI_COMMIT_BRANCH == &#34;master&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">if</span>: <span style="color:#e6db74">&#39;$CI_PIPELINE_SOURCE == &#34;pipeline&#34;&#39;</span>   <span style="color:#75715e"># allows downstream trigger from sigs</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">before_script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">apk add --no-cache git hugo python3 py3-yaml openssh-client ca-certificates</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">mkdir -p ~/.ssh</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 700 ~/.ssh</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ssh-keyscan -p 2424 gitlab-ssh.eddiequinn.casa &gt;&gt; ~/.ssh/known_hosts</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 644 ~/.ssh/known_hosts</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">echo &#34;$GITLAB_SSH_KEY&#34; &gt; ~/.ssh/id_ed25519_gitlab</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">echo &#34;$GITHUB_SSH_KEY&#34; &gt; ~/.ssh/id_ed25519_github</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 600 ~/.ssh/id_ed25519_gitlab ~/.ssh/id_ed25519_github</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      cat &gt; ~/.ssh/config &lt;&lt;&#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      Host gitlab-ssh.eddiequinn.casa
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        HostName gitlab-ssh.eddiequinn.casa
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Port 2424
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        User git
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        IdentityFile ~/.ssh/id_ed25519_gitlab
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        IdentitiesOnly yes
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      Host github.com
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        HostName github.com
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        User git
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        IdentityFile ~/.ssh/id_ed25519_github
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        IdentitiesOnly yes
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      EOF</span>      
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 600 ~/.ssh/config</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">git config --global user.name &#34;${GITHUB_USER}&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">git config --global user.email &#34;${GITHUB_EMAIL}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">git submodule sync --recursive</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">git submodule update --init --recursive</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      if [ -n &#34;${SIGS_REF}&#34; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;Using sigs commit ${SIGS_REF}&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        git -C sources/sigs fetch --all
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        git -C sources/sigs checkout &#34;${SIGS_REF}&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      fi</span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update public/ first (before generating files into it)</span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      cd public
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git fetch origin master
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git checkout -B master origin/master
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git reset --hard origin/master
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git clean -fdx
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      cd ..</span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Build writes into ./public</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">sh build-site.sh</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Commit + push the new build</span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      cd public
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      if [ -z &#34;$(git status --porcelain)&#34; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;No changes to publish.&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        exit 0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      fi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git add -A
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git commit -m &#34;ci: autobuild site&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git push origin HEAD:master</span>      
+</span></span></code></pre></div><p>This pipeline defines a build stage that runs in either of the following scenarios:
+You push to the master branch directly
+It’s triggered by another pipeline, for example the one from the previous runner.</p>
+<p>The line <code>GIT_SUBMODULE_STRATEGY: none</code> disables GitLab’s automatic submodule handling because I am managing submodules manually inside the job, this is mainly due to the SSH repo constraints I mentioned earlier.</p>
+<p>The job runs inside an <code>alpine:3.20 container</code> and installs everything it needs on the fly: git; hugo; python3; py3-yaml; SSH tooling. This fixes the issue I was having with jenkins before. The <code>before_script</code> is entirely about secure Git access. It sets up SSH keys for both your self-hosted GitLab and GitHub, populates <code>known_hosts</code>, configures per-host identities, and sets Git author info from CI variables. In other words, the runner prepares itself to pull submodules from private repos and push the built site somewhere securely.</p>
+<p>In the main script section, it first syncs and initializes submodules manually. Then, if the pipeline was triggered downstream and passed a <code>SIGS_REF</code>, it force-checks out that exact commit inside <code>sources/sigs</code>. This ensures the Hugo build uses the precise commit that triggered the upstream pipeline, rather than whatever happens to be current. This ensures a more predictable build process, and predictability is king with automation.</p>
+<p>Before building, it resets the <code>public/</code> directory to exactly match origin/master, wiping any local drift. This is the submodule linked to the github pages repo. Then <code>build-site.sh</code> runs the python script and the hugo build command mentioned earlier. Following this, it checks whether anything actually changed; if not, it exits cleanly. If there are changes, it commits them with <code>ci: autobuild site</code> and pushes to master.</p>
+<p>It is clean, it is predictable, and it does the job I need it to do without scruple of diffidence. I can assure you, that the elation that swept over my body when I saw it run for the first time was paramount to the kind of dopamine big pharma wished they could synthesise.</p>
+<p>There are improvements I wish to make. Recently I set my PGP key, and with that the majority of the signed posts are now signed by a defunct key. I want to fix this, and want to edit the ci runner in the blog posts repo to check that all the posts have a valid signature before triggering the build process in the root repo. I have a plan to do this soonish, but I am going to wait until I am back home to kick that off - Working from this laptop is beginning to annoy me - I miss my main PC.</p>
+<h2 id="technical-and-mental-maturity">Technical and Mental Maturity</h2>
+<p>I don&rsquo;t know if you can tell, but this post is not about docker, my homelab, devops or even my blog. It is about growing into technical competence, and understanding that not knowing things at the point you are at is neither a good thing or a bad thing - it just is.</p>
+<p>The Mandelbrot set that is &ldquo;technology&rdquo; is just that, a fractal. You cannot know everything two weeks, two years, or two decades into your journey. You will make and break things countless times, and that again is not good or bad - it just is. When I got my first tech job, I wanted to learn every programming language and get every certification. Now at the age of 28 as I sit in this hotel sipping possibly the worst coffee I have ever had, I know that chasing these tendrils is a farce. Do what you find interesting, and learn what makes sense there and then. If an idea was meant to break through the barrier from aetherial to tangible, then it will.</p>
+<p>With moronic laws like &ldquo;chat control&rdquo; and the &ldquo;online safety act&rdquo; looming their ugly heads, the ability to take control of your own infrastructure is the difference between walking the road to serfdom and being in control of data you produce. I think I wanted to do a post on these acts when they were happening, but chose not to - I instead chose to act by severing my relationship with platforms that were bending the knee. My friends moved from Discord to The Matrix within 48 hours. If there comes a point where this Britcard Spyware App is put onto my phone, I will make the move to GrapheneOS as I have been meaning to for several years. If the UK government follows through on this unfounded threat to Ban commercial VPN usage, I will host my own VPN server. All of these serve to illustrate the point that projects and their reason for being spin up and spin down based on your environment and needs. You don&rsquo;t need to implement an idea as soon as you are free to do it, you can shelf it for a better time.</p>
+<p>I am under no illusion that at the age of 28 my understanding of the world is likely still laughably narrow. I will not pretend that I am sitting here discussing maturity as if I am an authority figure on it, whilst peppering in references to the mystic and nerdy does not feel like a form of comedy. Ten years from now I may say that my outlook in this post is immature, just as I have been critical of decisions I made in the past in this post. People change with their experiences, and their outlooks change with it: this is not a good thing or a bad thing, it just is.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2026-02-13
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
