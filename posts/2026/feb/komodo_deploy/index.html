@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>komodo_deploy.yml &ndash; eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>komodo_deploy.yml</h1>
+    </header>
+    <div class="content__body">
+        <p>Posting three times in a month is rare for me, though lightning does tend to favour certain ground. I began writing a post the other day about being perpetually burned out, and how I sit between a proverbial rock and a hard place - flitting between taking on polylithic tasks with competence and falling asleep at my desk. Self-regulating was never my strong suit, and thus I have found myself living and thriving in this peripatetic aether, much to the dismay of my neurotypical colleagues. This post currently sits firmly in drafts, because I began to chronicle my mispent youth. To be perfectly honest, recounting being choked out by an angry Turkish shopkeeper in a park over a stolen bottle of Mountain Dew was not a memory I look on fondly. The post was supposed to be about how autistic burnout is different to regular burnout, how I have learnt to cope with my mental health (albeit poorly at times), and perhaps offer advice to a younger version of myself. I will get to it eventually, but for now, I will describe another facet of autism - hyperfixation.</p>
+<p>To some who do not partake in the diagnosis once mislabeled “childhood schizophrenia”, that being autism, you may not know what hyperfixation is. It is a phenomenon that rests somewhere between hobby and obsession, in a not-quite-safe but not-quite-dangerous category. I spent years of my life in the mid 2000’s delving deep into conspiracy theories, compiling folders upon folders of documents on Area  51, and I would not shut up about it. All of my pocket money for months went on buying staples, printer ink, and plastic sleeves to store my research. My parents would look on in horror as I explained to people at family gatherings the Roswell incident, and would promptly be scolded on the drive home. At that age, I did not understand this, but that is an example of hyperfixation - and it is not a hindrance, it is a superpower when used correctly.</p>
+<p>In my last post, I described how Git had become my doctrine. My homelab had become a downstream result of runtime environments pulling from a GitLab repository, with two key outliers:</p>
+<ul>
+<li>Gitlab</li>
+<li>Komodo</li>
+</ul>
+<p>That post chronicled me creating a CI runner that will rebuild my Hugo site whenever I commit a new post. I said in the post that I did this because in order to solve my Komodo problem, I would need to impliment CICD and creating a blog post runner was a good place to learn it. I intended that once I had completed that project, I would let my newfound love for CICD sit for a while, but hyperfixation took over, and over the course of 48 hours, I have made my Komodo self-deploying.</p>
+<h2 id="learning-subject-the-hard-way">Learning {subject} the hard way</h2>
+<p>I am not good at sitting down and watching tutorials and reading books. In spite of the towers of books I had sat around me, most of which I have not read cover to cover. I might one day write a post on why I own so many books despite not actually reading more than 50% of most of them, but for now, I will attempt to remain on the subject at hand. Because of my struggles to learn from tutorials, courses, and the traditional means of propagating knowledge, I sometimes find myself in a quagmire in projects, being forced to learn things the hard way.</p>
+<p>This often follows a very specific pattern, where I will find out about a subject which excited me. Following a months-long battle with analysis paralysis, I will do a project involving said subject. This project will often attempt to follow best practises, but often trip over itself trying to do this. It will work, but it won&rsquo;t be pretty. I will then usually get burnt out on that hyperfixation and move on to the next one. Over the course of several months, every now and then, I will find more about this subject and duct tape more functionality onto an already struggling codebase. Eventually, however, it will break or fall short in some way, and usually at this point hyperfixation will take over, and I will learn the best practises while fixing it.</p>
+<p>If I were to formalise it into a playbook, it would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">learningCycle</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">obsession</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">prototype</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">duct_tape</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">burnout</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">refactor</span>
+</span></span></code></pre></div><p>I have always said the Ender 3 is a great 3D printer for your first one, and that is because it is shit - there is a cottage industry of YouTube content around modding the Ender 3 to make it not shit. The Ender 3 being shit is not a fault; however, it is a feature. You actually begin to understand the need for a second Z-axis lead screw, linear rails, and a BL touch. This is not to say “don&rsquo;t buy a Bambu as your first 3d printer”, if that&rsquo;s what you want to do, then do it; however, if you really want to understand and appreciate the inner workings of your I3 printer, buy an Ender 3. This applies the same to me, making barely functional prototypes, having a crappy code base makes you appreciate best practises more.</p>
+<p>This pattern and the hyperfixation that goes along with it led to Atlantis, the CI runner to autobuild this blog, and now the CI runner, which deploys Komodo automatically when it receives a new commit to master. However, despite this project mainly being a CI runner, it is in fact a combination of CICD and Ansible.</p>
+<h2 id="deploying-komodo">Deploying Komodo</h2>
+<p>For those of you who don’t know what Komodo is, it is my self-hosted deployment system. It is a lightweight Git-Driven way to deploy and update Docker-based services across multiple machines. Instead of logging into servers and manually running docker compose up -d, I push my changes to a git repo, and Komodo ensures those changes are automatically pulled and applied to the correct machines. Architecturally, it is quite interesting in that Komodo is split into two layers, the control plane and the data plane.</p>
+<p><strong>Core</strong>
+Core is the control plane; it typically lives on a central host (in my case, infstack-1). It is responsible for</p>
+<ul>
+<li>Holding the cannonical compose definitions</li>
+<li>Receiving CI triggers</li>
+<li>Coordinating deployments</li>
+<li>Acting as the orchestrator</li>
+<li>Being the single source of deployment logic
+Core does not scale horizontally; it is the brain. If Core goes down, the existing containers will still run, but no new deployments will happen.</li>
+</ul>
+<p><strong>Periphery</strong>
+This is the data plane, and it lives on all the servers you wish to orchestrate. Periphery nodes are:</p>
+<ul>
+<li>Stateless in logic</li>
+<li>Stateful in runtime</li>
+<li>Replaceable</li>
+<li>Expandable</li>
+</ul>
+<p>They do not decide anything; they simply execute</p>
+<p>Due to this architecture, deploying it automatically was not as simple as “log onto this server and deploy this container”; it is “deploy this on this one server, and deploy this one on all of these others”. Not much of a jump at a high level, but very, very messy if you want to do it from a purley CICD perspective. That is forgetting about state drift, dependencies, and countless other things that could go wrong with just running boilerplate commands. I needed a tool that would let me run commands on an arbitrary list of servers in an idempotent manner. What I needed was a tool that I already used to provision my servers, but for some reason did not make the connection between using it for just provisioning and this - I am, of course, talking about Ansible.</p>
+<h3 id="meet-bleeckerhttpsgithubcomeddiebquinnbleecker">Meet <a href="https://github.com/eddiebquinn/Bleecker">Bleecker</a></h3>
+<p>When I first began wiring Komodo into an auto-deploy workflow, my Ansible repo was technically functional - but structurally naïve. It worked, but it wasn’t designed - there is a difference. So when I made the connection that deploying Komodo via Ansible was the best tool for this purpose, I knew I would need to either duct tape that functionality on or actually refactor the repo. Running on the coattails of my CICD hypfixation of my blog-post project i skipped two steps in the learningCycle playbook, and headed straight for Refactor. The main goal was not to add features but remove ambiguity.</p>
+<p>What it led to was this.</p>
+<pre tabindex="0"><code>.
+├── ansible.cfg
+├── inventory
+│   ├── group_vars
+│   │   ├── all.yml
+│   │   ├── docker_hosts.yml
+│   │   └── k3s_hosts.yml
+│   └── hosts.yml
+├── playbooks
+│   ├── deploy
+│   └── lifecycle
+│       ├── 00-detect.yml
+│       ├── 10-provision.yml
+│       ├── 20-baseline.yml
+├── roles
+│   ├── apt_timers
+│   ├── docker_prep
+│   ├── k3s_agent_user
+│   ├── motd_dynamic
+│   ├── ssh_hardening
+│   └── users
+└── site.yml
+</code></pre><p>Meet Bleecker - It is a layered, intent-driven Ansible architecture built around classification rather than conditionals. Instead of one monolithic playbook (what I started with), it uses a central site.yml to orchestrate  clearly separated phases:</p>
+<ul>
+<li>dynamic provisioning detection</li>
+<li>first-boot bootstrap</li>
+<li>Ongoing baseline enforcement</li>
+</ul>
+<p>This behaviour is enforced via groups like managed, docker_hosts, and k3s_hosts. Each host is treated according to what it is, not where it appears in a long task list.</p>
+<h3 id="gig-extend-bleecker">Gig: Extend Bleecker</h3>
+<p>Bleeker being changed into this new format meant that if I wanted to add the functionality to install Komodo, all I had to do was create a playbook in deploy and create the relevant role in roles. It needed to do the following.</p>
+<ol>
+<li>Clone the repo onto all the servers.</li>
+<li>Deploy Core on infstack-1</li>
+<li>Deploy Perophery across the docker_hosts group.</li>
+</ol>
+<p>This spawned the creation or editing of the following files.</p>
+<pre tabindex="0"><code>.
+├── inventory
+│   ├── group_vars
+│   │   ├── docker_hosts.ym
+│   └── hosts.yml
+├── playbooks
+│   └── deploy
+│       └── komodo.yml
+├── roles
+│   ├── komodo_deploy
+│   │   ├── defaults
+│   │   │   └── main.yml
+│   │   └── tasks
+│   │       ├── assert.yml
+│   │       ├── core.yml
+│   │       ├── main.yml
+│   │       ├── periphery.yml
+│   │       └── sync.yml
+└── site.yml
+</code></pre><p>The majority of the change files set variables and chain together the roles, allowing the playbook to run seamlessly. The files in this category that are effectivley adminstrative paperwork are:</p>
+<ul>
+<li>inventory/hosts.yml: This was edited to include komodo_core: true under infstack-1. I mainly did this because I did not want to hardcode into the playbooks what got deployed where. I wanted it to be based on attributes instead.</li>
+<li>inventory/group_vars/docker_hosts.yml: This was edited to include some komodo specific variables. It is possible these could have been put into their own file, given that Komodo was to be deployed onto all items in docker_hosts, it made sense to do it this way.</li>
+<li>playbooks/deploy/komodo.yml: This is the file which is called via CLI, and declares what roles are run based on what tag is given.</li>
+<li>roles/komodo_deploy/defaults/main.yml: This file sets some baseline variables required in order to do the deployment, for example, the URL of the Komodo repo and where it is cloned to on the servers. This is checked using roles/komodo_deploy/tasks/assert.yml to make sure that certain mandatory variables are set.</li>
+<li>roles/komodo_deploy/tasks/main.yml: This just controls what roles are run based on what tags are passed to the playbook.</li>
+</ul>
+<p>Now, for the files that actually do the work.</p>
+<h4 id="syncyml"><code>sync.yml</code></h4>
+<p>This is probably the most important file, as this is what pulls down the Komodo repo in /etc/komodo/repos/komodo on all of the hosts. It installs git, makes sure the destination file is actually there, does some ssh config to use the deploy key, and clones the repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Include Komodo assertions</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.include_tasks</span>: <span style="color:#ae81ff">assert.yml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install git (Debian)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.apt</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">git</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">update_cache</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">ansible_facts.os_family == &#34;Debian&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Ensure Komodo repo base directory exists</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.file</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest | dirname }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">directory</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0755&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Ensure Komodo SSH directory exists</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.file</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_ssh_dir }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">directory</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0700&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Write Komodo repo deploy key (from CI)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.copy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_ssh_key_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">content</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_deploy_key_private }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0600&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">no_log</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Write pinned known_hosts for Komodo git server</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.copy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_known_hosts_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">content</span>: <span style="color:#e6db74">&#34;{{ komodo_git_known_hosts }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">owner</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0644&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Clone/update Komodo repo (using pinned host key + deploy key)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.git</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">repo</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_url }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_branch }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">update</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">force</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">key_file</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_ssh_key_path }}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">accept_hostkey</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">GIT_SSH_COMMAND</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      ssh
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      -o UserKnownHostsFile={{ komodo_repo_known_hosts_path }}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      -o StrictHostKeyChecking=yes</span>      
+</span></span></code></pre></div><p>I think this is likely one of the biggest learning curves I have had to deal with when it comes to CICD and Ansible. SSH is just not very fun to deal with in these environments and requires a lot of legwork to get working. I understand fully why most people choose to do it via HTTP rather than ssh, as that would have cut this playbook in half.</p>
+<h4 id="coreyml-and-peripheryyml"><code>core.yml</code> and <code>periphery.yml</code></h4>
+<p>These are actually incredibly simple.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Run Komodo core deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">argv</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">sh</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;{{ komodo_deploy_script }}&#34;</span>
+</span></span><span style="display:flex;"><span>      --<span style="color:#ae81ff">core</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">chdir</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest }}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">(komodo_core | default(false)) | bool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Run Komodo periphery deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.command</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">argv</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">sh</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;{{ komodo_deploy_script }}&#34;</span>
+</span></span><span style="display:flex;"><span>      --<span style="color:#ae81ff">periphery</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">chdir</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest }}&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>these in essence, cd into /etc/komodo/repos/komdo and run sh ./deploy.sh &ndash;core or sh ./deploy.sh &ndash;periphery respectfully. They are referencing this script.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>set -e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ensure the deployment flag is provided</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;Error: Please specify &#39;--core&#39; or &#39;--periphery&#39; as an argument.&#34;</span>
+</span></span><span style="display:flex;"><span>  exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Choose the deployment directory based on the flag</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;--core&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>  DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./core&#34;</span>
+</span></span><span style="display:flex;"><span>  PROJECT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;core&#34;</span>
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;Deploying Komodo Core...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;--periphery&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>  DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;./periphery&#34;</span>
+</span></span><span style="display:flex;"><span>  PROJECT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;periphery&#34;</span>
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;Deploying Komodo Periphery...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;Error: Invalid argument. Please specify &#39;core&#39; or &#39;periphery&#39;.&#34;</span>
+</span></span><span style="display:flex;"><span>  exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run the docker-compose up command in the selected directory</span>
+</span></span><span style="display:flex;"><span>cd $DIR
+</span></span><span style="display:flex;"><span>docker compose -p <span style="color:#e6db74">&#34;</span>$PROJECT<span style="color:#e6db74">&#34;</span> up -d --force-recreate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Deployment completed.&#34;</span>
+</span></span></code></pre></div><p>The reason it is done this way is that the repo is laid out like this.</p>
+<pre tabindex="0"><code>.
+├── core
+│   └── docker-compose.yml
+├── periphery
+│   ├── docker-compose.yml
+│   └── dockerfile
+└── deploy.sh
+</code></pre><p>This is becasue komod depends on the periphery version and the core version being the same. Keeping them all in the same repo reduces the chance of state drift. I fully intend to implement a CI test to ensure this is the case before anything can enter master.</p>
+<h3 id="gig-automate-bleecker">Gig: Automate Bleecker</h3>
+<p>It took me almost a day to finish setting up Bleecker, and naievely i thought I could jump straight into setting up the Komodo CICD runner. This was a mistake, and luckily I have the self-awareness to understand “I am tired of coding and want to go to sleep” doesnt meant “I should push through this”, instead it means “I need to sleep”. I left the first 24 hours with a provably working Ansible playbook that could deploy Komodo, so the next day I could embark on the relatively easy task of activating this Ansible playbook through a CI/CD pipeline (sarcasm).</p>
+<p>The thing is, I do not mind the challenges that come with working with CICD - The SSH mishaps are a welcome frustration as opposed to a hindrance, because they force me to learn more about this technology I rely on and use every single day. My frustration is born out of the need for me to currently commit and pray every time I need to test if my code worked, and wait five minutes for the runner to even reach the point in the code I&rsquo;m testing. This leads to wasted time and a messy git log akin to this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>commit d2530a653564a6508fa3ac962f68f27604a2bfb8 <span style="color:#f92672">(</span>origin/ci/deploy-komodo<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Author: ghostwire &lt;eddie@b-quinn.com&gt;
+</span></span><span style="display:flex;"><span>Date:   Wed Feb <span style="color:#ae81ff">18</span> 10:08:02 <span style="color:#ae81ff">2026</span> +0000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ci: Removed some of the testing feedback lines to cut back on runner noise
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit 5e097df76db71879fe8a6c4f7ab04b0ee12d00a0
+</span></span><span style="display:flex;"><span>Author: ghostwire &lt;eddie@b-quinn.com&gt;
+</span></span><span style="display:flex;"><span>Date:   Wed Feb <span style="color:#ae81ff">18</span> 09:59:23 <span style="color:#ae81ff">2026</span> +0000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ci: Made it so sempahore key is b64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit 34f80f2208b229379d530269fbdec88b49cd733e
+</span></span><span style="display:flex;"><span>Author: ghostwire &lt;eddie@b-quinn.com&gt;
+</span></span><span style="display:flex;"><span>Date:   Wed Feb <span style="color:#ae81ff">18</span> 09:45:38 <span style="color:#ae81ff">2026</span> +0000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ci<span style="color:#f92672">(</span>Added additional tests to make sure priv key is being passed<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit 6caded3948bbbcde1be157bf09bf8db6792b3e4b
+</span></span><span style="display:flex;"><span>Author: ghostwire &lt;eddie@b-quinn.com&gt;
+</span></span><span style="display:flex;"><span>Date:   Wed Feb <span style="color:#ae81ff">18</span> 09:26:52 <span style="color:#ae81ff">2026</span> +0000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ci: Moving keyfile into a file that is installed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>commit 130b13409d75094996fccab7bb2bfe22ab6bb6cf
+</span></span><span style="display:flex;"><span>Author: ghostwire &lt;eddie@b-quinn.com&gt;
+</span></span><span style="display:flex;"><span>Date:   Wed Feb <span style="color:#ae81ff">18</span> 09:15:41 <span style="color:#ae81ff">2026</span> +0000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fix: Copying ssh known-hosts into .ansible
+</span></span></code></pre></div><p>My usual workflow is test code locally, and do <code>git commit --amend --no-edit</code> as I iterate, and <code>git push</code> when I have working code (or when I leave my station). Having 17 broken commits in an hour feels messy and unnecessary - I imagine there is a better way, and I imagine as I delve deeper into CICD, this will become apparent, but right now, this is my major pain point for me.</p>
+<p>ANYWAY</p>
+<p>The end result was a <code>.gitlab-ci.yml</code> that looks like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">stages</span>: [<span style="color:#ae81ff">deploy]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.deploy_komodo_template</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:3.12-slim</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">GIT_STRATEGY</span>: <span style="color:#ae81ff">none</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">PIP_DISABLE_PIP_VERSION_CHECK</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">PIP_NO_PYTHON_VERSION_WARNING</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">before_script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">apt-get -qq update</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">apt-get -qq install -y --no-install-recommends git openssh-client ca-certificates</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">python -m pip -q install --no-cache-dir ansible</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">install -d -m 700 ~/.ssh</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- Clone ansible-playbooks ---</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">echo &#34;$ANSIBLE_PLAYBOOKS_DEPLOY_KEY&#34; | tr -d &#39;\r&#39; &gt; ~/.ssh/git_clone_key</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 600 ~/.ssh/git_clone_key</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">printf &#34;%s\n&#34; &#34;$ANSIBLE_PLAYBOOKS_KNOWN_HOSTS&#34; &gt; ~/.ssh/known_hosts</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 644 ~/.ssh/known_hosts</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      export GIT_SSH_COMMAND=&#39;ssh -i ~/.ssh/git_clone_key -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      git clone &#34;ssh://git@gitlab-ssh.eddiequinn.casa:2424/machines/ansible-playbooks.git&#34; ansible-playbooks</span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">cd ansible-playbooks</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- Key for connecting to managed hosts ---</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">echo &#34;$SEMAPHORE_PRIV_KEY_B64&#34; | base64 -d &gt; ~/.ssh/ansible_id_rsa</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">chmod 600 ~/.ssh/ansible_id_rsa</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ssh-keygen -y -f ~/.ssh/ansible_id_rsa &gt;/dev/null</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- Render extra-vars file ---</span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;komodo_repo_deploy_key_private: |&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        printf &#34;%s\n&#34; &#34;$ANSIBLE_PLAYBOOKS_DEPLOY_KEY&#34; | sed &#39;s/^/  /&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;komodo_git_known_hosts: |&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        printf &#34;%s\n&#34; &#34;$KOMODO_GIT_KNOWN_HOSTS&#34; | sed &#39;s/^/  /&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      } &gt; komodo-extra.yml</span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- Build known_hosts entries for managed hosts ---</span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      set -euo pipefail
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      inv=&#34;inventory/hosts.yml&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      : &gt; ~/.ssh/known_hosts.managed
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      mapfile -t HOSTS &lt; &lt;(ansible -i &#34;$inv&#34; managed --list-hosts | tail -n +2 | awk &#39;{print $1}&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      for h in &#34;${HOSTS[@]}&#34;; do
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ip=&#34;$(ansible-inventory -i &#34;$inv&#34; --host &#34;$h&#34; | python -c &#39;import json,sys; d=json.load(sys.stdin); print(d.get(&#34;ansible_host&#34;,&#34;&#34;))&#39; || true)&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [ -z &#34;$ip&#34; ] &amp;&amp; ip=&#34;$h&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ssh-keyscan -T 5 -p 22 -t ed25519,rsa &#34;$ip&#34; &#34;[${ip}]:22&#34; &gt;&gt; ~/.ssh/known_hosts.managed 2&gt;/dev/null
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      done
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      cat ~/.ssh/known_hosts.managed &gt;&gt; ~/.ssh/known_hosts
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      chmod 644 ~/.ssh/known_hosts
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      mkdir -p .ansible
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      cp -f ~/.ssh/known_hosts .ansible/known_hosts
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      chmod 644 .ansible/known_hosts</span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># --- Run playbook (less verbose) ---</span>
+</span></span><span style="display:flex;"><span>    - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      ansible-playbook -v \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        -i inventory/hosts.yml playbooks/deploy/komodo.yml \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        --private-key ~/.ssh/ansible_id_rsa \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        --ssh-common-args &#34;-o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        --extra-vars @komodo-extra.yml</span>      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">after_script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">shred -u ~/.ssh/git_clone_key || true</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">shred -u ~/.ssh/ansible_id_rsa || true</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">rm -f ~/.ssh/known_hosts ~/.ssh/known_hosts.managed || true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">deploy_komodo_master</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">extends</span>: <span style="color:#ae81ff">.deploy_komodo_template</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">if</span>: <span style="color:#e6db74">&#39;$CI_PIPELINE_SOURCE == &#34;push&#34; &amp;&amp; $CI_COMMIT_BRANCH == &#34;master&#34;&#39;</span>
+</span></span></code></pre></div><p>This defines a job template called .deploy_komodo_template, which is activated whenever a commit is made to master. The reason it is a template is that while testing it, I had a manual trigger at the bottom, and it was tidier to have two triggers link to one template, rather than two jobs.</p>
+<p>Effectivley this does the following:</p>
+<h4 id="bootstrap-the-container">Bootstrap the container</h4>
+<p>The before script section updates apt, installs the software required and creates a secure .ssh directory.</p>
+<h4 id="clones-ansible-playbooks">Clones ansible-playbooks</h4>
+<p>Bleecker is not called Bleecker on my private GitLab; it is called Ansible playbooks. I will fix this eventually, but right now it&rsquo;s not urgent. This part was not simple because it involved SSH; it needed to take the private key (ANSIBLE_PLAYBOOKS_DEPLOY_KEY) and write it to a file, and lock the permissions so SSH would accept it. It then seeds known_hosts with a known-good set of host keys for my GitLab SSH endpoint. Then it clones the repo and cd’s into it. Believe it or not, this was the easy part…</p>
+<h4 id="further-setup">Further setup</h4>
+<p>It decodes the SEMAPHORE_PRIV_KEY_B64 variable, again locking it down and validating it. Finially it created the komodo-extra.yml, which contains some sensitive info I could not commit to the repo. Believe it or not, this was the easy part.</p>
+<h4 id="known-hosts-again">Known hosts again</h4>
+<p>Because theoretically speaking i could add/remove items from docker_hosts at any point, I did not want to manage a variable for all of these hosts every time I did this. I have a single source of truth for this already, and it is in Bleecker as inventory/hosts.yml. Thus was born the main pain point I had when making this. This will go over how it does this, and please bear in mind this is as much for me to refer back to in the future as it is for you to laugh at my anguish.</p>
+<p>This takes data inside inventory/hosts.yml and truncates/creates known_hosts.managed</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set -euo pipefail
+</span></span><span style="display:flex;"><span>inv<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;inventory/hosts.yml&#34;</span>
+</span></span><span style="display:flex;"><span>: &gt; ~/.ssh/known_hosts.managed
+</span></span></code></pre></div><p>This uses Ansible itself to list hosts in the managed group, strips the header line (tail -n +2) and pulls the hostname column into a bash array HOSTS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mapfile -t HOSTS &lt; &lt;<span style="color:#f92672">(</span>ansible -i <span style="color:#e6db74">&#34;</span>$inv<span style="color:#e6db74">&#34;</span> managed --list-hosts | tail -n +2 | awk <span style="color:#e6db74">&#39;{print $1}&#39;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>For each item in HOSTS, read its resolved ansible_host value from inventory (JSON) via ansible-inventory and run ssh-keyscan to collect host-keys for:</p>
+<ul>
+<li>ed25519 and rsa</li>
+<li>port 22</li>
+<li>both ip and [ip]:22 formats (so it matches how SSH records keys)
+Then append these results to known_hosts.managed</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> h in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>HOSTS[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>ip<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ansible-inventory -i <span style="color:#e6db74">&#34;</span>$inv<span style="color:#e6db74">&#34;</span> --host <span style="color:#e6db74">&#34;</span>$h<span style="color:#e6db74">&#34;</span> | python -c <span style="color:#e6db74">&#39;import json,sys; d=json.load(sys.stdin); print(d.get(&#34;ansible_host&#34;,&#34;&#34;))&#39;</span> <span style="color:#f92672">||</span> true<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$ip<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> ip<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$h<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>ssh-keyscan -T <span style="color:#ae81ff">5</span> -p <span style="color:#ae81ff">22</span> -t ed25519,rsa <span style="color:#e6db74">&#34;</span>$ip<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">${</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">]:22&#34;</span> &gt;&gt; ~/.ssh/known_hosts.managed 2&gt;/dev/null
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><h4 id="run-the-playbook">Run the playbook</h4>
+<p>This section executes my deployment playbook using the inventory file, using the decoded private key to ssh into the hosts, and injects the extra-vars file generated earlier.</p>
+<h4 id="tidy-up">Tidy Up</h4>
+<p>Finially it shreds all private keys and the known host file.</p>
+<h3 id="aftercare">Aftercare</h3>
+<p>I have gone into a lot of technical depth here about something that, to be brutally honest, has not much to do with the underlying message of this post. I don&rsquo;t want you to interpret that last sentence as an apology, because it isn&rsquo;t - the depth, while mind-boggling, is the point. While the CI pipeline used to deploy my Komodo stack is interesting, it serves to prove an overarching point.</p>
+<p>When I was younger and gathering all that information on Area51, that was hyperfixation, me spending 48 hours refactoring an entire codebase as a side project, so that the main project slots in neatly is also hyperfixation. Hyperfixation is an engine; it is neither good nor bad - it simply amplifies whatever direction it is pointed at. My rattling on about aliens to my aunts and cousins at christmas causing social firction was spawned from the same mechanism that caused me to build this self-healing infrastructure. As I grow up and continue to walk this line between apathetic decay and stressful bliss, I am recognising something else - burnout is a signal. I used to read tarot cards, and the most misunderstood one by far was Death - It does not mean the end, it simply means the end of a cycle. Just as people consistently misread that card to mean the end, I have always misread burnout to signal the end, whereas now I am coming to understand it as the need for a refactor in my life. I suppose the next step is for me to stop waiting for the tower card to be pulled and refactor while things are calm.</p>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/2026/feb/komodo_deploy.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2026-02-18
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

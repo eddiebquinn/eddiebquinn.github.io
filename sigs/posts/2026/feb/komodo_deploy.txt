@@ -1,0 +1,468 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Posting three times in a month is rare for me, though lightning does tend to favour certain ground. I began writing a post the other day about being perpetually burned out, and how I sit between a proverbial rock and a hard place - flitting between taking on polylithic tasks with competence and falling asleep at my desk. Self-regulating was never my strong suit, and thus I have found myself living and thriving in this peripatetic aether, much to the dismay of my neurotypical colleagues. This post currently sits firmly in drafts, because I began to chronicle my mispent youth. To be perfectly honest, recounting being choked out by an angry Turkish shopkeeper in a park over a stolen bottle of Mountain Dew was not a memory I look on fondly. The post was supposed to be about how autistic burnout is different to regular burnout, how I have learnt to cope with my mental health (albeit poorly at times), and perhaps offer advice to a younger version of myself. I will get to it eventually, but for now, I will describe another facet of autism - hyperfixation.
+
+To some who do not partake in the diagnosis once mislabeled “childhood schizophrenia”, that being autism, you may not know what hyperfixation is. It is a phenomenon that rests somewhere between hobby and obsession, in a not-quite-safe but not-quite-dangerous category. I spent years of my life in the mid 2000’s delving deep into conspiracy theories, compiling folders upon folders of documents on Area  51, and I would not shut up about it. All of my pocket money for months went on buying staples, printer ink, and plastic sleeves to store my research. My parents would look on in horror as I explained to people at family gatherings the Roswell incident, and would promptly be scolded on the drive home. At that age, I did not understand this, but that is an example of hyperfixation - and it is not a hindrance, it is a superpower when used correctly.
+
+In my last post, I described how Git had become my doctrine. My homelab had become a downstream result of runtime environments pulling from a GitLab repository, with two key outliers:
+
+* Gitlab
+* Komodo
+
+That post chronicled me creating a CI runner that will rebuild my Hugo site whenever I commit a new post. I said in the post that I did this because in order to solve my Komodo problem, I would need to impliment CICD and creating a blog post runner was a good place to learn it. I intended that once I had completed that project, I would let my newfound love for CICD sit for a while, but hyperfixation took over, and over the course of 48 hours, I have made my Komodo self-deploying.
+
+## Learning {subject} the hard way
+
+I am not good at sitting down and watching tutorials and reading books. In spite of the towers of books I had sat around me, most of which I have not read cover to cover. I might one day write a post on why I own so many books despite not actually reading more than 50% of most of them, but for now, I will attempt to remain on the subject at hand. Because of my struggles to learn from tutorials, courses, and the traditional means of propagating knowledge, I sometimes find myself in a quagmire in projects, being forced to learn things the hard way.
+
+This often follows a very specific pattern, where I will find out about a subject which excited me. Following a months-long battle with analysis paralysis, I will do a project involving said subject. This project will often attempt to follow best practises, but often trip over itself trying to do this. It will work, but it won't be pretty. I will then usually get burnt out on that hyperfixation and move on to the next one. Over the course of several months, every now and then, I will find more about this subject and duct tape more functionality onto an already struggling codebase. Eventually, however, it will break or fall short in some way, and usually at this point hyperfixation will take over, and I will learn the best practises while fixing it.
+
+If I were to formalise it into a playbook, it would look like this:
+
+```yaml
+learningCycle:
+  - obsession
+  - prototype
+  - duct_tape
+  - burnout
+  - refactor
+```
+
+I have always said the Ender 3 is a great 3D printer for your first one, and that is because it is shit - there is a cottage industry of YouTube content around modding the Ender 3 to make it not shit. The Ender 3 being shit is not a fault; however, it is a feature. You actually begin to understand the need for a second Z-axis lead screw, linear rails, and a BL touch. This is not to say “don't buy a Bambu as your first 3d printer”, if that's what you want to do, then do it; however, if you really want to understand and appreciate the inner workings of your I3 printer, buy an Ender 3. This applies the same to me, making barely functional prototypes, having a crappy code base makes you appreciate best practises more.
+
+This pattern and the hyperfixation that goes along with it led to Atlantis, the CI runner to autobuild this blog, and now the CI runner, which deploys Komodo automatically when it receives a new commit to master. However, despite this project mainly being a CI runner, it is in fact a combination of CICD and Ansible.
+
+## Deploying Komodo
+For those of you who don’t know what Komodo is, it is my self-hosted deployment system. It is a lightweight Git-Driven way to deploy and update Docker-based services across multiple machines. Instead of logging into servers and manually running docker compose up -d, I push my changes to a git repo, and Komodo ensures those changes are automatically pulled and applied to the correct machines. Architecturally, it is quite interesting in that Komodo is split into two layers, the control plane and the data plane.
+
+**Core**
+Core is the control plane; it typically lives on a central host (in my case, infstack-1). It is responsible for
+
+* Holding the cannonical compose definitions
+* Receiving CI triggers
+* Coordinating deployments
+* Acting as the orchestrator
+* Being the single source of deployment logic
+Core does not scale horizontally; it is the brain. If Core goes down, the existing containers will still run, but no new deployments will happen.
+
+**Periphery**
+This is the data plane, and it lives on all the servers you wish to orchestrate. Periphery nodes are:
+
+* Stateless in logic
+* Stateful in runtime
+* Replaceable
+* Expandable
+
+They do not decide anything; they simply execute
+
+Due to this architecture, deploying it automatically was not as simple as “log onto this server and deploy this container”; it is “deploy this on this one server, and deploy this one on all of these others”. Not much of a jump at a high level, but very, very messy if you want to do it from a purley CICD perspective. That is forgetting about state drift, dependencies, and countless other things that could go wrong with just running boilerplate commands. I needed a tool that would let me run commands on an arbitrary list of servers in an idempotent manner. What I needed was a tool that I already used to provision my servers, but for some reason did not make the connection between using it for just provisioning and this - I am, of course, talking about Ansible.
+
+### Meet [Bleecker](https://github.com/eddiebquinn/Bleecker)
+When I first began wiring Komodo into an auto-deploy workflow, my Ansible repo was technically functional - but structurally naïve. It worked, but it wasn’t designed - there is a difference. So when I made the connection that deploying Komodo via Ansible was the best tool for this purpose, I knew I would need to either duct tape that functionality on or actually refactor the repo. Running on the coattails of my CICD hypfixation of my blog-post project i skipped two steps in the learningCycle playbook, and headed straight for Refactor. The main goal was not to add features but remove ambiguity.
+
+What it led to was this.
+
+```
+.
+├── ansible.cfg
+├── inventory
+│   ├── group_vars
+│   │   ├── all.yml
+│   │   ├── docker_hosts.yml
+│   │   └── k3s_hosts.yml
+│   └── hosts.yml
+├── playbooks
+│   ├── deploy
+│   └── lifecycle
+│       ├── 00-detect.yml
+│       ├── 10-provision.yml
+│       ├── 20-baseline.yml
+├── roles
+│   ├── apt_timers
+│   ├── docker_prep
+│   ├── k3s_agent_user
+│   ├── motd_dynamic
+│   ├── ssh_hardening
+│   └── users
+└── site.yml
+```
+
+Meet Bleecker - It is a layered, intent-driven Ansible architecture built around classification rather than conditionals. Instead of one monolithic playbook (what I started with), it uses a central site.yml to orchestrate  clearly separated phases:
+
+* dynamic provisioning detection
+* first-boot bootstrap
+* Ongoing baseline enforcement
+
+This behaviour is enforced via groups like managed, docker_hosts, and k3s_hosts. Each host is treated according to what it is, not where it appears in a long task list.
+
+### Gig: Extend Bleecker
+Bleeker being changed into this new format meant that if I wanted to add the functionality to install Komodo, all I had to do was create a playbook in deploy and create the relevant role in roles. It needed to do the following.
+
+1. Clone the repo onto all the servers.
+2. Deploy Core on infstack-1
+3. Deploy Perophery across the docker_hosts group.
+
+This spawned the creation or editing of the following files.
+
+```
+.
+├── inventory
+│   ├── group_vars
+│   │   ├── docker_hosts.ym
+│   └── hosts.yml
+├── playbooks
+│   └── deploy
+│       └── komodo.yml
+├── roles
+│   ├── komodo_deploy
+│   │   ├── defaults
+│   │   │   └── main.yml
+│   │   └── tasks
+│   │       ├── assert.yml
+│   │       ├── core.yml
+│   │       ├── main.yml
+│   │       ├── periphery.yml
+│   │       └── sync.yml
+└── site.yml
+```
+
+The majority of the change files set variables and chain together the roles, allowing the playbook to run seamlessly. The files in this category that are effectivley adminstrative paperwork are:
+
+* inventory/hosts.yml: This was edited to include komodo_core: true under infstack-1. I mainly did this because I did not want to hardcode into the playbooks what got deployed where. I wanted it to be based on attributes instead.
+* inventory/group_vars/docker_hosts.yml: This was edited to include some komodo specific variables. It is possible these could have been put into their own file, given that Komodo was to be deployed onto all items in docker_hosts, it made sense to do it this way.
+* playbooks/deploy/komodo.yml: This is the file which is called via CLI, and declares what roles are run based on what tag is given.
+* roles/komodo_deploy/defaults/main.yml: This file sets some baseline variables required in order to do the deployment, for example, the URL of the Komodo repo and where it is cloned to on the servers. This is checked using roles/komodo_deploy/tasks/assert.yml to make sure that certain mandatory variables are set.
+* roles/komodo_deploy/tasks/main.yml: This just controls what roles are run based on what tags are passed to the playbook.
+
+Now, for the files that actually do the work.
+
+#### `sync.yml`
+This is probably the most important file, as this is what pulls down the Komodo repo in /etc/komodo/repos/komodo on all of the hosts. It installs git, makes sure the destination file is actually there, does some ssh config to use the deploy key, and clones the repo.
+
+```yaml
+- ---
+- - name: Include Komodo assertions
+  ansible.builtin.include_tasks: assert.yml
+
+- - name: Install git (Debian)
+  ansible.builtin.apt:
+    name: git
+    state: present
+    update_cache: true
+  when: ansible_facts.os_family == "Debian"
+
+- - name: Ensure Komodo repo base directory exists
+  ansible.builtin.file:
+    path: "{{ komodo_repo_dest | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- - name: Ensure Komodo SSH directory exists
+  ansible.builtin.file:
+    path: "{{ komodo_repo_ssh_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+
+- - name: Write Komodo repo deploy key (from CI)
+  ansible.builtin.copy:
+    dest: "{{ komodo_repo_ssh_key_path }}"
+    content: "{{ komodo_repo_deploy_key_private }}"
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+
+- - name: Write pinned known_hosts for Komodo git server
+  ansible.builtin.copy:
+    dest: "{{ komodo_repo_known_hosts_path }}"
+    content: "{{ komodo_git_known_hosts }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- - name: Clone/update Komodo repo (using pinned host key + deploy key)
+  ansible.builtin.git:
+    repo: "{{ komodo_repo_url }}"
+    dest: "{{ komodo_repo_dest }}"
+    version: "{{ komodo_repo_branch }}"
+    update: true
+    force: true
+    key_file: "{{ komodo_repo_ssh_key_path }}"
+    accept_hostkey: false
+  environment:
+    GIT_SSH_COMMAND: >-
+      ssh
+      -o UserKnownHostsFile={{ komodo_repo_known_hosts_path }}
+      -o StrictHostKeyChecking=yes
+```
+
+I think this is likely one of the biggest learning curves I have had to deal with when it comes to CICD and Ansible. SSH is just not very fun to deal with in these environments and requires a lot of legwork to get working. I understand fully why most people choose to do it via HTTP rather than ssh, as that would have cut this playbook in half.
+
+#### `core.yml` and `periphery.yml`
+These are actually incredibly simple.
+
+```yaml
+- ---
+- - name: Run Komodo core deploy
+  ansible.builtin.command:
+    argv:
+      - sh
+      - "{{ komodo_deploy_script }}"
+      - --core
+  args:
+    chdir: "{{ komodo_repo_dest }}"
+  when: (komodo_core | default(false)) | bool
+  changed_when: true
+```
+```yaml
+- ---
+- - name: Run Komodo periphery deploy
+  ansible.builtin.command:
+    argv:
+      - sh
+      - "{{ komodo_deploy_script }}"
+      - --periphery
+  args:
+    chdir: "{{ komodo_repo_dest }}"
+  changed_when: true
+```
+
+these in essence, cd into /etc/komodo/repos/komdo and run sh ./deploy.sh --core or sh ./deploy.sh --periphery respectfully. They are referencing this script.
+
+```bash
+#!/bin/sh
+
+set -e
+
+# Ensure the deployment flag is provided
+if [ -z "$1" ]; then
+  echo "Error: Please specify '--core' or '--periphery' as an argument."
+  exit 1
+fi
+
+# Choose the deployment directory based on the flag
+if [ "$1" = "--core" ]; then
+  DIR="./core"
+  PROJECT="core"
+  echo "Deploying Komodo Core..."
+elif [ "$1" = "--periphery" ]; then
+  DIR="./periphery"
+  PROJECT="periphery"
+  echo "Deploying Komodo Periphery..."
+else
+  echo "Error: Invalid argument. Please specify 'core' or 'periphery'."
+  exit 1
+fi
+
+# Run the docker-compose up command in the selected directory
+cd $DIR
+docker compose -p "$PROJECT" up -d --force-recreate
+
+echo "Deployment completed."
+```
+
+The reason it is done this way is that the repo is laid out like this.
+
+```
+.
+├── core
+│   └── docker-compose.yml
+├── periphery
+│   ├── docker-compose.yml
+│   └── dockerfile
+└── deploy.sh
+```
+
+This is becasue komod depends on the periphery version and the core version being the same. Keeping them all in the same repo reduces the chance of state drift. I fully intend to implement a CI test to ensure this is the case before anything can enter master.
+
+### Gig: Automate Bleecker
+It took me almost a day to finish setting up Bleecker, and naievely i thought I could jump straight into setting up the Komodo CICD runner. This was a mistake, and luckily I have the self-awareness to understand “I am tired of coding and want to go to sleep” doesnt meant “I should push through this”, instead it means “I need to sleep”. I left the first 24 hours with a provably working Ansible playbook that could deploy Komodo, so the next day I could embark on the relatively easy task of activating this Ansible playbook through a CI/CD pipeline (sarcasm).
+
+The thing is, I do not mind the challenges that come with working with CICD - The SSH mishaps are a welcome frustration as opposed to a hindrance, because they force me to learn more about this technology I rely on and use every single day. My frustration is born out of the need for me to currently commit and pray every time I need to test if my code worked, and wait five minutes for the runner to even reach the point in the code I'm testing. This leads to wasted time and a messy git log akin to this.
+
+```sh
+commit d2530a653564a6508fa3ac962f68f27604a2bfb8 (origin/ci/deploy-komodo)
+Author: ghostwire <eddie@b-quinn.com>
+Date:   Wed Feb 18 10:08:02 2026 +0000
+
+    ci: Removed some of the testing feedback lines to cut back on runner noise
+
+commit 5e097df76db71879fe8a6c4f7ab04b0ee12d00a0
+Author: ghostwire <eddie@b-quinn.com>
+Date:   Wed Feb 18 09:59:23 2026 +0000
+
+    ci: Made it so sempahore key is b64
+
+commit 34f80f2208b229379d530269fbdec88b49cd733e
+Author: ghostwire <eddie@b-quinn.com>
+Date:   Wed Feb 18 09:45:38 2026 +0000
+
+    ci(Added additional tests to make sure priv key is being passed):
+
+commit 6caded3948bbbcde1be157bf09bf8db6792b3e4b
+Author: ghostwire <eddie@b-quinn.com>
+Date:   Wed Feb 18 09:26:52 2026 +0000
+
+    ci: Moving keyfile into a file that is installed
+
+commit 130b13409d75094996fccab7bb2bfe22ab6bb6cf
+Author: ghostwire <eddie@b-quinn.com>
+Date:   Wed Feb 18 09:15:41 2026 +0000
+
+    fix: Copying ssh known-hosts into .ansible
+```
+
+My usual workflow is test code locally, and do `git commit --amend --no-edit` as I iterate, and `git push` when I have working code (or when I leave my station). Having 17 broken commits in an hour feels messy and unnecessary - I imagine there is a better way, and I imagine as I delve deeper into CICD, this will become apparent, but right now, this is my major pain point for me.
+
+ANYWAY
+
+The end result was a `.gitlab-ci.yml` that looks like this.
+
+```yaml
+stages: [deploy]
+
+.deploy_komodo_template:
+  stage: deploy
+  image: python:3.12-slim
+  variables:
+    GIT_STRATEGY: none
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+    PIP_NO_PYTHON_VERSION_WARNING: "1"
+  before_script:
+    - apt-get -qq update
+    - apt-get -qq install -y --no-install-recommends git openssh-client ca-certificates
+    - python -m pip -q install --no-cache-dir ansible
+    - install -d -m 700 ~/.ssh
+
+  script:
+    # --- Clone ansible-playbooks ---
+    - echo "$ANSIBLE_PLAYBOOKS_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/git_clone_key
+    - chmod 600 ~/.ssh/git_clone_key
+
+    - printf "%s\n" "$ANSIBLE_PLAYBOOKS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+    - |
+      export GIT_SSH_COMMAND='ssh -i ~/.ssh/git_clone_key -o StrictHostKeyChecking=yes -o UserKnownHostsFile=~/.ssh/known_hosts'
+      git clone "ssh://git@gitlab-ssh.eddiequinn.casa:2424/machines/ansible-playbooks.git" ansible-playbooks
+
+    - cd ansible-playbooks
+
+    # --- Key for connecting to managed hosts ---
+    - echo "$SEMAPHORE_PRIV_KEY_B64" | base64 -d > ~/.ssh/ansible_id_rsa
+    - chmod 600 ~/.ssh/ansible_id_rsa
+    - ssh-keygen -y -f ~/.ssh/ansible_id_rsa >/dev/null
+
+    # --- Render extra-vars file ---
+    - |
+      {
+        echo "komodo_repo_deploy_key_private: |"
+        printf "%s\n" "$ANSIBLE_PLAYBOOKS_DEPLOY_KEY" | sed 's/^/  /'
+        echo
+        echo "komodo_git_known_hosts: |"
+        printf "%s\n" "$KOMODO_GIT_KNOWN_HOSTS" | sed 's/^/  /'
+      } > komodo-extra.yml
+
+    # --- Build known_hosts entries for managed hosts ---
+    - |
+      set -euo pipefail
+      inv="inventory/hosts.yml"
+      : > ~/.ssh/known_hosts.managed
+
+      mapfile -t HOSTS < <(ansible -i "$inv" managed --list-hosts | tail -n +2 | awk '{print $1}')
+
+      for h in "${HOSTS[@]}"; do
+        ip="$(ansible-inventory -i "$inv" --host "$h" | python -c 'import json,sys; d=json.load(sys.stdin); print(d.get("ansible_host",""))' || true)"
+        [ -z "$ip" ] && ip="$h"
+        ssh-keyscan -T 5 -p 22 -t ed25519,rsa "$ip" "[${ip}]:22" >> ~/.ssh/known_hosts.managed 2>/dev/null
+      done
+
+      cat ~/.ssh/known_hosts.managed >> ~/.ssh/known_hosts
+      chmod 644 ~/.ssh/known_hosts
+
+      mkdir -p .ansible
+      cp -f ~/.ssh/known_hosts .ansible/known_hosts
+      chmod 644 .ansible/known_hosts
+
+    # --- Run playbook (less verbose) ---
+    - |
+      ansible-playbook -v \
+        -i inventory/hosts.yml playbooks/deploy/komodo.yml \
+        --private-key ~/.ssh/ansible_id_rsa \
+        --ssh-common-args "-o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts" \
+        --extra-vars @komodo-extra.yml
+
+  after_script:
+    - shred -u ~/.ssh/git_clone_key || true
+    - shred -u ~/.ssh/ansible_id_rsa || true
+    - rm -f ~/.ssh/known_hosts ~/.ssh/known_hosts.managed || true
+
+deploy_komodo_master:
+  extends: .deploy_komodo_template
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "master"'
+```
+
+This defines a job template called .deploy_komodo_template, which is activated whenever a commit is made to master. The reason it is a template is that while testing it, I had a manual trigger at the bottom, and it was tidier to have two triggers link to one template, rather than two jobs.
+
+Effectivley this does the following:
+
+#### Bootstrap the container
+The before script section updates apt, installs the software required and creates a secure .ssh directory.
+
+#### Clones ansible-playbooks
+Bleecker is not called Bleecker on my private GitLab; it is called Ansible playbooks. I will fix this eventually, but right now it's not urgent. This part was not simple because it involved SSH; it needed to take the private key (ANSIBLE_PLAYBOOKS_DEPLOY_KEY) and write it to a file, and lock the permissions so SSH would accept it. It then seeds known_hosts with a known-good set of host keys for my GitLab SSH endpoint. Then it clones the repo and cd’s into it. Believe it or not, this was the easy part…
+
+#### Further setup
+It decodes the SEMAPHORE_PRIV_KEY_B64 variable, again locking it down and validating it. Finially it created the komodo-extra.yml, which contains some sensitive info I could not commit to the repo. Believe it or not, this was the easy part.
+
+#### Known hosts again
+Because theoretically speaking i could add/remove items from docker_hosts at any point, I did not want to manage a variable for all of these hosts every time I did this. I have a single source of truth for this already, and it is in Bleecker as inventory/hosts.yml. Thus was born the main pain point I had when making this. This will go over how it does this, and please bear in mind this is as much for me to refer back to in the future as it is for you to laugh at my anguish.
+
+This takes data inside inventory/hosts.yml and truncates/creates known_hosts.managed
+```bash
+set -euo pipefail
+inv="inventory/hosts.yml"
+: > ~/.ssh/known_hosts.managed
+```
+
+This uses Ansible itself to list hosts in the managed group, strips the header line (tail -n +2) and pulls the hostname column into a bash array HOSTS.
+```bash
+mapfile -t HOSTS < <(ansible -i "$inv" managed --list-hosts | tail -n +2 | awk '{print $1}')
+```
+
+For each item in HOSTS, read its resolved ansible_host value from inventory (JSON) via ansible-inventory and run ssh-keyscan to collect host-keys for:
+* ed25519 and rsa
+* port 22
+* both ip and [ip]:22 formats (so it matches how SSH records keys)
+Then append these results to known_hosts.managed
+```bash
+for h in "${HOSTS[@]}"; do
+ip="$(ansible-inventory -i "$inv" --host "$h" | python -c 'import json,sys; d=json.load(sys.stdin); print(d.get("ansible_host",""))' || true)"
+[ -z "$ip" ] && ip="$h"
+ssh-keyscan -T 5 -p 22 -t ed25519,rsa "$ip" "[${ip}]:22" >> ~/.ssh/known_hosts.managed 2>/dev/null
+done
+```
+
+#### Run the playbook
+This section executes my deployment playbook using the inventory file, using the decoded private key to ssh into the hosts, and injects the extra-vars file generated earlier.
+
+#### Tidy Up
+Finially it shreds all private keys and the known host file.
+
+### Aftercare
+I have gone into a lot of technical depth here about something that, to be brutally honest, has not much to do with the underlying message of this post. I don't want you to interpret that last sentence as an apology, because it isn't - the depth, while mind-boggling, is the point. While the CI pipeline used to deploy my Komodo stack is interesting, it serves to prove an overarching point.
+
+When I was younger and gathering all that information on Area51, that was hyperfixation, me spending 48 hours refactoring an entire codebase as a side project, so that the main project slots in neatly is also hyperfixation. Hyperfixation is an engine; it is neither good nor bad - it simply amplifies whatever direction it is pointed at. My rattling on about aliens to my aunts and cousins at christmas causing social firction was spawned from the same mechanism that caused me to build this self-healing infrastructure. As I grow up and continue to walk this line between apathetic decay and stressful bliss, I am recognising something else - burnout is a signal. I used to read tarot cards, and the most misunderstood one by far was Death - It does not mean the end, it simply means the end of a cycle. Just as people consistently misread that card to mean the end, I have always misread burnout to signal the end, whereas now I am coming to understand it as the need for a refactor in my life. I suppose the next step is for me to stop waiting for the tower card to be pulled and refactor while things are calm.
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaZYEMwAKCRBy4AiZROfD
+Z4MoAP4vYcdpck/XckGeWRYndObmsKulL8TJ4fg9QNYL4X0gKwD+PU0f0b7yySWb
+XeIT2V3KY6Oy6AVzTY+ChVAG3zW2OQ0=
+=0m3V
+-----END PGP SIGNATURE-----
