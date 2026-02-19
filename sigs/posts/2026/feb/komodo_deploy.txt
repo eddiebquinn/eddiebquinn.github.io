@@ -34,16 +34,17 @@ I have always said the Ender 3 is a great 3D printer for your first one, and tha
 This pattern and the hyperfixation that goes along with it led to Atlantis, the CI runner to autobuild this blog, and now the CI runner, which deploys Komodo automatically when it receives a new commit to master. However, despite this project mainly being a CI runner, it is in fact a combination of CICD and Ansible.
 
 ## Deploying Komodo
-For those of you who don’t know what Komodo is, it is my self-hosted deployment system. It is a lightweight Git-Driven way to deploy and update Docker-based services across multiple machines. Instead of logging into servers and manually running docker compose up -d, I push my changes to a git repo, and Komodo ensures those changes are automatically pulled and applied to the correct machines. Architecturally, it is quite interesting in that Komodo is split into two layers, the control plane and the data plane.
+For those of you who don’t know what Komodo is, it is my self-hosted deployment system. It is a lightweight Git-Driven way to deploy and update Docker-based services across multiple machines. Instead of logging into servers and manually running `docker compose up -d`, I push my changes to a git repo, and Komodo ensures those changes are automatically pulled and applied to the correct machines. Architecturally, it is quite interesting in that Komodo is split into two layers, the control plane and the data plane.
 
 **Core**
-Core is the control plane; it typically lives on a central host (in my case, infstack-1). It is responsible for
+Core is the control plane; it typically lives on a central host (in my case, `infstack-1`). It is responsible for
 
 * Holding the cannonical compose definitions
 * Receiving CI triggers
 * Coordinating deployments
 * Acting as the orchestrator
 * Being the single source of deployment logic
+
 Core does not scale horizontally; it is the brain. If Core goes down, the existing containers will still run, but no new deployments will happen.
 
 **Periphery**
@@ -88,13 +89,13 @@ What it led to was this.
 └── site.yml
 ```
 
-Meet Bleecker - It is a layered, intent-driven Ansible architecture built around classification rather than conditionals. Instead of one monolithic playbook (what I started with), it uses a central site.yml to orchestrate  clearly separated phases:
+Meet Bleecker, so named after Wade Bleecker (Mr.Hands) in the Cyberpunk Universe - It is a layered, intent-driven Ansible architecture built around classification rather than conditionals. Instead of one monolithic playbook (what I started with), it uses a central `site.yml` to orchestrate clearly separated phases:
 
 * dynamic provisioning detection
 * first-boot bootstrap
 * Ongoing baseline enforcement
 
-This behaviour is enforced via groups like managed, docker_hosts, and k3s_hosts. Each host is treated according to what it is, not where it appears in a long task list.
+This behaviour is enforced via groups like `managed`/`unmanaged`, `docker_hosts`, and `k3s_hosts`. Each host is treated according to what it is, not where it appears in a long task list.
 
 ### Gig: Extend Bleecker
 Bleeker being changed into this new format meant that if I wanted to add the functionality to install Komodo, all I had to do was create a playbook in deploy and create the relevant role in roles. It needed to do the following.
@@ -129,11 +130,11 @@ This spawned the creation or editing of the following files.
 
 The majority of the change files set variables and chain together the roles, allowing the playbook to run seamlessly. The files in this category that are effectivley adminstrative paperwork are:
 
-* inventory/hosts.yml: This was edited to include komodo_core: true under infstack-1. I mainly did this because I did not want to hardcode into the playbooks what got deployed where. I wanted it to be based on attributes instead.
-* inventory/group_vars/docker_hosts.yml: This was edited to include some komodo specific variables. It is possible these could have been put into their own file, given that Komodo was to be deployed onto all items in docker_hosts, it made sense to do it this way.
-* playbooks/deploy/komodo.yml: This is the file which is called via CLI, and declares what roles are run based on what tag is given.
-* roles/komodo_deploy/defaults/main.yml: This file sets some baseline variables required in order to do the deployment, for example, the URL of the Komodo repo and where it is cloned to on the servers. This is checked using roles/komodo_deploy/tasks/assert.yml to make sure that certain mandatory variables are set.
-* roles/komodo_deploy/tasks/main.yml: This just controls what roles are run based on what tags are passed to the playbook.
+* **`inventory/hosts.yml`**: This was edited to include komodo_core: true under infstack-1. I mainly did this because I did not want to hardcode into the playbooks what got deployed where. I wanted it to be based on attributes instead.
+* **`inventory/group_vars/docker_hosts.yml`**: This was edited to include some komodo specific variables. It is possible these could have been put into their own file, given that Komodo was to be deployed onto all items in docker_hosts, it made sense to do it this way.
+* **`playbooks/deploy/komodo.yml`**: This is the file which is called via CLI, and declares what roles are run based on what tag is given.
+* **`roles/komodo_deploy/defaults/main.yml`**: This file sets some baseline variables required in order to do the deployment, for example, the URL of the Komodo repo and where it is cloned to on the servers. This is checked using roles/komodo_deploy/tasks/assert.yml to make sure that certain mandatory variables are set.
+* **`roles/komodo_deploy/tasks/main.yml`**: This just controls what roles are run based on what tags are passed to the playbook.
 
 Now, for the files that actually do the work.
 
@@ -141,18 +142,18 @@ Now, for the files that actually do the work.
 This is probably the most important file, as this is what pulls down the Komodo repo in /etc/komodo/repos/komodo on all of the hosts. It installs git, makes sure the destination file is actually there, does some ssh config to use the deploy key, and clones the repo.
 
 ```yaml
-- ---
-- - name: Include Komodo assertions
+- - ---
+- - - name: Include Komodo assertions
   ansible.builtin.include_tasks: assert.yml
 
-- - name: Install git (Debian)
+- - - name: Install git (Debian)
   ansible.builtin.apt:
     name: git
     state: present
     update_cache: true
   when: ansible_facts.os_family == "Debian"
 
-- - name: Ensure Komodo repo base directory exists
+- - - name: Ensure Komodo repo base directory exists
   ansible.builtin.file:
     path: "{{ komodo_repo_dest | dirname }}"
     state: directory
@@ -160,7 +161,7 @@ This is probably the most important file, as this is what pulls down the Komodo 
     group: root
     mode: "0755"
 
-- - name: Ensure Komodo SSH directory exists
+- - - name: Ensure Komodo SSH directory exists
   ansible.builtin.file:
     path: "{{ komodo_repo_ssh_dir }}"
     state: directory
@@ -168,7 +169,7 @@ This is probably the most important file, as this is what pulls down the Komodo 
     group: root
     mode: "0700"
 
-- - name: Write Komodo repo deploy key (from CI)
+- - - name: Write Komodo repo deploy key (from CI)
   ansible.builtin.copy:
     dest: "{{ komodo_repo_ssh_key_path }}"
     content: "{{ komodo_repo_deploy_key_private }}"
@@ -177,7 +178,7 @@ This is probably the most important file, as this is what pulls down the Komodo 
     mode: "0600"
   no_log: true
 
-- - name: Write pinned known_hosts for Komodo git server
+- - - name: Write pinned known_hosts for Komodo git server
   ansible.builtin.copy:
     dest: "{{ komodo_repo_known_hosts_path }}"
     content: "{{ komodo_git_known_hosts }}"
@@ -185,7 +186,7 @@ This is probably the most important file, as this is what pulls down the Komodo 
     group: root
     mode: "0644"
 
-- - name: Clone/update Komodo repo (using pinned host key + deploy key)
+- - - name: Clone/update Komodo repo (using pinned host key + deploy key)
   ansible.builtin.git:
     repo: "{{ komodo_repo_url }}"
     dest: "{{ komodo_repo_dest }}"
@@ -207,8 +208,8 @@ I think this is likely one of the biggest learning curves I have had to deal wit
 These are actually incredibly simple.
 
 ```yaml
-- ---
-- - name: Run Komodo core deploy
+- - ---
+- - - name: Run Komodo core deploy
   ansible.builtin.command:
     argv:
       - sh
@@ -220,8 +221,8 @@ These are actually incredibly simple.
   changed_when: true
 ```
 ```yaml
-- ---
-- - name: Run Komodo periphery deploy
+- - ---
+- - - name: Run Komodo periphery deploy
   ansible.builtin.command:
     argv:
       - sh
@@ -232,7 +233,7 @@ These are actually incredibly simple.
   changed_when: true
 ```
 
-these in essence, cd into /etc/komodo/repos/komdo and run sh ./deploy.sh --core or sh ./deploy.sh --periphery respectfully. They are referencing this script.
+these in essence, `cd`'s into `/etc/komodo/repos/komdo` and runs `sh ./deploy.sh --core` or `sh ./deploy.sh --periphery` respectfully. They are referencing this script.
 
 ```bash
 #!/bin/sh
@@ -459,10 +460,11 @@ Finially it shreds all private keys and the known host file.
 I have gone into a lot of technical depth here about something that, to be brutally honest, has not much to do with the underlying message of this post. I don't want you to interpret that last sentence as an apology, because it isn't - the depth, while mind-boggling, is the point. While the CI pipeline used to deploy my Komodo stack is interesting, it serves to prove an overarching point.
 
 When I was younger and gathering all that information on Area51, that was hyperfixation, me spending 48 hours refactoring an entire codebase as a side project, so that the main project slots in neatly is also hyperfixation. Hyperfixation is an engine; it is neither good nor bad - it simply amplifies whatever direction it is pointed at. My rattling on about aliens to my aunts and cousins at christmas causing social firction was spawned from the same mechanism that caused me to build this self-healing infrastructure. As I grow up and continue to walk this line between apathetic decay and stressful bliss, I am recognising something else - burnout is a signal. I used to read tarot cards, and the most misunderstood one by far was Death - It does not mean the end, it simply means the end of a cycle. Just as people consistently misread that card to mean the end, I have always misread burnout to signal the end, whereas now I am coming to understand it as the need for a refactor in my life. I suppose the next step is for me to stop waiting for the tower card to be pulled and refactor while things are calm.
+
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaZYEMwAKCRBy4AiZROfD
-Z4MoAP4vYcdpck/XckGeWRYndObmsKulL8TJ4fg9QNYL4X0gKwD+PU0f0b7yySWb
-XeIT2V3KY6Oy6AVzTY+ChVAG3zW2OQ0=
-=0m3V
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaZbJGQAKCRBy4AiZROfD
+ZzUaAP99cRZxdv6FwZAcgxQuOaWk12FzUjISO5xecmfSxfh5nwD/S7mOku+DspBL
+4yOkzzMfEEFvggtUSJkqRqXghly1GQ8=
+=LRXX
 -----END PGP SIGNATURE-----

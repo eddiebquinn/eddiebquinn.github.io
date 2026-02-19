@@ -73,17 +73,17 @@
 </span></span></code></pre></div><p>I have always said the Ender 3 is a great 3D printer for your first one, and that is because it is shit - there is a cottage industry of YouTube content around modding the Ender 3 to make it not shit. The Ender 3 being shit is not a fault; however, it is a feature. You actually begin to understand the need for a second Z-axis lead screw, linear rails, and a BL touch. This is not to say “don&rsquo;t buy a Bambu as your first 3d printer”, if that&rsquo;s what you want to do, then do it; however, if you really want to understand and appreciate the inner workings of your I3 printer, buy an Ender 3. This applies the same to me, making barely functional prototypes, having a crappy code base makes you appreciate best practises more.</p>
 <p>This pattern and the hyperfixation that goes along with it led to Atlantis, the CI runner to autobuild this blog, and now the CI runner, which deploys Komodo automatically when it receives a new commit to master. However, despite this project mainly being a CI runner, it is in fact a combination of CICD and Ansible.</p>
 <h2 id="deploying-komodo">Deploying Komodo</h2>
-<p>For those of you who don’t know what Komodo is, it is my self-hosted deployment system. It is a lightweight Git-Driven way to deploy and update Docker-based services across multiple machines. Instead of logging into servers and manually running docker compose up -d, I push my changes to a git repo, and Komodo ensures those changes are automatically pulled and applied to the correct machines. Architecturally, it is quite interesting in that Komodo is split into two layers, the control plane and the data plane.</p>
+<p>For those of you who don’t know what Komodo is, it is my self-hosted deployment system. It is a lightweight Git-Driven way to deploy and update Docker-based services across multiple machines. Instead of logging into servers and manually running <code>docker compose up -d</code>, I push my changes to a git repo, and Komodo ensures those changes are automatically pulled and applied to the correct machines. Architecturally, it is quite interesting in that Komodo is split into two layers, the control plane and the data plane.</p>
 <p><strong>Core</strong>
-Core is the control plane; it typically lives on a central host (in my case, infstack-1). It is responsible for</p>
+Core is the control plane; it typically lives on a central host (in my case, <code>infstack-1</code>). It is responsible for</p>
 <ul>
 <li>Holding the cannonical compose definitions</li>
 <li>Receiving CI triggers</li>
 <li>Coordinating deployments</li>
 <li>Acting as the orchestrator</li>
-<li>Being the single source of deployment logic
-Core does not scale horizontally; it is the brain. If Core goes down, the existing containers will still run, but no new deployments will happen.</li>
+<li>Being the single source of deployment logic</li>
 </ul>
+<p>Core does not scale horizontally; it is the brain. If Core goes down, the existing containers will still run, but no new deployments will happen.</p>
 <p><strong>Periphery</strong>
 This is the data plane, and it lives on all the servers you wish to orchestrate. Periphery nodes are:</p>
 <ul>
@@ -119,13 +119,13 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 │   ├── ssh_hardening
 │   └── users
 └── site.yml
-</code></pre><p>Meet Bleecker - It is a layered, intent-driven Ansible architecture built around classification rather than conditionals. Instead of one monolithic playbook (what I started with), it uses a central site.yml to orchestrate  clearly separated phases:</p>
+</code></pre><p>Meet Bleecker, so named after Wade Bleecker (Mr.Hands) in the Cyberpunk Universe - It is a layered, intent-driven Ansible architecture built around classification rather than conditionals. Instead of one monolithic playbook (what I started with), it uses a central <code>site.yml</code> to orchestrate clearly separated phases:</p>
 <ul>
 <li>dynamic provisioning detection</li>
 <li>first-boot bootstrap</li>
 <li>Ongoing baseline enforcement</li>
 </ul>
-<p>This behaviour is enforced via groups like managed, docker_hosts, and k3s_hosts. Each host is treated according to what it is, not where it appears in a long task list.</p>
+<p>This behaviour is enforced via groups like <code>managed</code>/<code>unmanaged</code>, <code>docker_hosts</code>, and <code>k3s_hosts</code>. Each host is treated according to what it is, not where it appears in a long task list.</p>
 <h3 id="gig-extend-bleecker">Gig: Extend Bleecker</h3>
 <p>Bleeker being changed into this new format meant that if I wanted to add the functionality to install Komodo, all I had to do was create a playbook in deploy and create the relevant role in roles. It needed to do the following.</p>
 <ol>
@@ -155,27 +155,27 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 └── site.yml
 </code></pre><p>The majority of the change files set variables and chain together the roles, allowing the playbook to run seamlessly. The files in this category that are effectivley adminstrative paperwork are:</p>
 <ul>
-<li>inventory/hosts.yml: This was edited to include komodo_core: true under infstack-1. I mainly did this because I did not want to hardcode into the playbooks what got deployed where. I wanted it to be based on attributes instead.</li>
-<li>inventory/group_vars/docker_hosts.yml: This was edited to include some komodo specific variables. It is possible these could have been put into their own file, given that Komodo was to be deployed onto all items in docker_hosts, it made sense to do it this way.</li>
-<li>playbooks/deploy/komodo.yml: This is the file which is called via CLI, and declares what roles are run based on what tag is given.</li>
-<li>roles/komodo_deploy/defaults/main.yml: This file sets some baseline variables required in order to do the deployment, for example, the URL of the Komodo repo and where it is cloned to on the servers. This is checked using roles/komodo_deploy/tasks/assert.yml to make sure that certain mandatory variables are set.</li>
-<li>roles/komodo_deploy/tasks/main.yml: This just controls what roles are run based on what tags are passed to the playbook.</li>
+<li><strong><code>inventory/hosts.yml</code></strong>: This was edited to include komodo_core: true under infstack-1. I mainly did this because I did not want to hardcode into the playbooks what got deployed where. I wanted it to be based on attributes instead.</li>
+<li><strong><code>inventory/group_vars/docker_hosts.yml</code></strong>: This was edited to include some komodo specific variables. It is possible these could have been put into their own file, given that Komodo was to be deployed onto all items in docker_hosts, it made sense to do it this way.</li>
+<li><strong><code>playbooks/deploy/komodo.yml</code></strong>: This is the file which is called via CLI, and declares what roles are run based on what tag is given.</li>
+<li><strong><code>roles/komodo_deploy/defaults/main.yml</code></strong>: This file sets some baseline variables required in order to do the deployment, for example, the URL of the Komodo repo and where it is cloned to on the servers. This is checked using roles/komodo_deploy/tasks/assert.yml to make sure that certain mandatory variables are set.</li>
+<li><strong><code>roles/komodo_deploy/tasks/main.yml</code></strong>: This just controls what roles are run based on what tags are passed to the playbook.</li>
 </ul>
 <p>Now, for the files that actually do the work.</p>
 <h4 id="syncyml"><code>sync.yml</code></h4>
 <p>This is probably the most important file, as this is what pulls down the Komodo repo in /etc/komodo/repos/komodo on all of the hosts. It installs git, makes sure the destination file is actually there, does some ssh config to use the deploy key, and clones the repo.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Include Komodo assertions</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- ---
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Include Komodo assertions</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.include_tasks</span>: <span style="color:#ae81ff">assert.yml</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install git (Debian)</span>
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install git (Debian)</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.apt</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">git</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">present</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">update_cache</span>: <span style="color:#66d9ef">true</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">ansible_facts.os_family == &#34;Debian&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Ensure Komodo repo base directory exists</span>
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Ensure Komodo repo base directory exists</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.file</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest | dirname }}&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">directory</span>
@@ -183,7 +183,7 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0755&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Ensure Komodo SSH directory exists</span>
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Ensure Komodo SSH directory exists</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.file</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_ssh_dir }}&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">state</span>: <span style="color:#ae81ff">directory</span>
@@ -191,7 +191,7 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0700&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Write Komodo repo deploy key (from CI)</span>
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Write Komodo repo deploy key (from CI)</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.copy</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_ssh_key_path }}&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">content</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_deploy_key_private }}&#34;</span>
@@ -200,7 +200,7 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0600&#34;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">no_log</span>: <span style="color:#66d9ef">true</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Write pinned known_hosts for Komodo git server</span>
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Write pinned known_hosts for Komodo git server</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.copy</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_known_hosts_path }}&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">content</span>: <span style="color:#e6db74">&#34;{{ komodo_git_known_hosts }}&#34;</span>
@@ -208,7 +208,7 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">group</span>: <span style="color:#ae81ff">root</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">mode</span>: <span style="color:#e6db74">&#34;0644&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Clone/update Komodo repo (using pinned host key + deploy key)</span>
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Clone/update Komodo repo (using pinned host key + deploy key)</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.git</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">repo</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_url }}&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">dest</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest }}&#34;</span>
@@ -225,8 +225,8 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span></code></pre></div><p>I think this is likely one of the biggest learning curves I have had to deal with when it comes to CICD and Ansible. SSH is just not very fun to deal with in these environments and requires a lot of legwork to get working. I understand fully why most people choose to do it via HTTP rather than ssh, as that would have cut this playbook in half.</p>
 <h4 id="coreyml-and-peripheryyml"><code>core.yml</code> and <code>periphery.yml</code></h4>
 <p>These are actually incredibly simple.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Run Komodo core deploy</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- ---
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Run Komodo core deploy</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.command</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">argv</span>:
 </span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">sh</span>
@@ -236,8 +236,8 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">chdir</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest }}&#34;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">(komodo_core | default(false)) | bool</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">true</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Run Komodo periphery deploy</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- ---
+</span></span><span style="display:flex;"><span>- - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Run Komodo periphery deploy</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.command</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">argv</span>:
 </span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">sh</span>
@@ -246,7 +246,7 @@ This is the data plane, and it lives on all the servers you wish to orchestrate.
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">args</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">chdir</span>: <span style="color:#e6db74">&#34;{{ komodo_repo_dest }}&#34;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">true</span>
-</span></span></code></pre></div><p>these in essence, cd into /etc/komodo/repos/komdo and run sh ./deploy.sh &ndash;core or sh ./deploy.sh &ndash;periphery respectfully. They are referencing this script.</p>
+</span></span></code></pre></div><p>these in essence, <code>cd</code>&rsquo;s into <code>/etc/komodo/repos/komdo</code> and runs <code>sh ./deploy.sh --core</code> or <code>sh ./deploy.sh --periphery</code> respectfully. They are referencing this script.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>set -e
