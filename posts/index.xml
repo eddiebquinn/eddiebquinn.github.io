@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</copyright>
-    <lastBuildDate>Wed, 18 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://eddiequinn.xyz/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ownership Is a Firmware Problem</title>
+      <link>https://eddiequinn.xyz/posts/2026/feb/ownership-is-a-firmware-problem/</link>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/2026/feb/ownership-is-a-firmware-problem/</guid>
+      <description>I am not a car guy - I know a little bit about cars, and have a limited understanding of what people are doing when they install mods to their cars, but I have never delved into this arcane trade myself. I would like to one day. I saw an interesting video a couple of months ago where someone applied the Unix philosophy, that code should do one job and do it well, to his personal life.</description>
+    </item>
     <item>
       <title>komodo_deploy.yml</title>
       <link>https://eddiequinn.xyz/posts/2026/feb/komodo_deploy/</link>
