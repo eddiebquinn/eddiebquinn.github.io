@@ -1,0 +1,196 @@
+MTGOX is a core memory for many people inside the crypto space. Before the phrase “crypto exchange” was even coined, there was Mt. Gox — originally built to trade Magic: The Gathering cards.
+
+We take for granted the overlay infrastructure that now surrounds crypto. Today, if you want to buy Bitcoin, there are polished apps, custodial services, liquidity providers, compliance departments. But in the beginning, if you wanted BTC, you were wiring money to a stranger on the internet and hoping they honoured the trade. Mt. Gox changed that. It filled the void. In doing so, it accidentally became the backbone of the Bitcoin economy.
+
+Then it collapsed.
+
+At the time, it felt existential. Bitcoin was still in its infancy — if it was going to die, this was the moment. The exchange’s owner pointed at the protocol - a flaw in Bitcoin itself.
+
+The truth was far less dramatic.
+
+It wasn’t the protocol.
+It was incompetence.
+
+By early 2014, Mt. Gox had quietly lost control of its own reserves. For years, Bitcoin had been siphoned out of its hot wallets — likely through a combination of theft, poor key management, and catastrophic internal accounting practices. The exchange did not even appear to realise the scale of the losses as they were happening. When withdrawals began failing, management blamed “transaction malleability,” a known quirk in Bitcoin’s early design that could alter a transaction ID without changing its contents. But investigations later showed this was not the root cause of the collapse. Approximately 850,000 BTC were missing. The exchange had been insolvent for a long time. What failed was not Bitcoin’s consensus mechanism, but Mt. Gox’s operational security and governance.
+
+This post is not about Mt. Gox, but it is about the biggest cybersecurity flaw facing the space today - The person using the computer.
+
+## TOR: The Ideal
+What has been the boogeyman for all forms of authority for the longest time, TOR is a TCP/IP overlay network which facilitates everything from private communication to intricate drug markets. What is lost on many people new to this space is that TOR itself was born out of a US Naval Research Laboratory project and later formalised into The Tor Project. It was designed to allow anonymous communication online, and is — somewhat ironically — still funded in part by the same state-level actors many of its users believe they are hiding from.
+
+TOR is not magic. It is layered routing with carefully constrained trust. When you open the TOR Browser, your client builds a circuit through three relays:
+
+* **Entry Guard** – This is the first hop. Your ISP can see that you are connecting to a TOR node, but it cannot see your final destination. Guards are long-lived on purpose. By sticking to a small set of trusted entry nodes over time, Tor reduces the risk of eventually selecting a malicious first hop.
+* **Middle Relay** – This node simply passes encrypted traffic along. It knows only the previous hop and the next hop — never both ends of the communication. Its role is separation. It prevents the entry guard and the exit node from being directly linked.
+* **Exit Node** – This is where traffic leaves the TOR network and enters the public internet. The destination website sees the exit node’s IP address, not yours. However, the exit node can see unencrypted traffic. This is why HTTPS still matters on TOR.
+
+The routing itself, while providing obfuscation of destination and source IP addresses also also implements layered encryption and ephemeral key exchange, providing properties similar to Perfect Forward Secrecy (a feature in encryption protocols that ensures session keys are not compromised even if a servers long-term private key is stolen). This is implimented in tor by traffic being wrapped in three distinct layers before it leaves your machine
+
+* The outer layer can only be decrypted by the entry guard  
+* The next layer can only be decrypted by the middle relay  
+* The final layer can only be decrypted by the exit node  
+
+Each node peels off exactly one layer and learns only where to send the packet next. No single relay knows both who you are and where you are going.
+
+> "A decentralised swarm of independent nodes all passing data between each other? Wow, that sounds a lot like a BitTorrent swarm."
+
+You wouldn’t be entirely wrong. BitTorrent swarms work by breaking a file into many small pieces and distributing those pieces across multiple peers. Each participant downloads and uploads chunks simultaneously, creating a decentralised distribution network. Coordination happens through BitTorrent trackers (or Distributed Hash Tables), which allow peers to discover each other and join the swarm.
+
+TOR has something similar in the form of Directory Authorities. A small, hardcoded set of these authorities maintain a signed consensus document listing active relays. When your TOR client builds a circuit, it downloads this consensus to determine which relays are currently available.
+
+This is one of the more controversial aspects of TOR. It introduces a small degree of centralisation in an otherwise decentralised system. That said, Directory Authorities do not see user traffic. They coordinate the network map — they do not observe the packets flowing through it.
+
+> "But what about the Silk Road?"
+
+That is the other half of TOR’s design.
+
+TOR does not just anonymise the client. It can anonymise the server as well.
+
+This is achieved through what are known as Onion Services (formerly “Hidden Services”). With these services, traffic never touches the clearnet. Instead, both client and server connect to introduction points within the TOR network. A rendezvous point is established, and communication happens entirely inside TOR.
+
+In this model:
+
+* The client does not know the server’s IP address  
+* The server does not know the client’s IP address  
+* There is no traditional exit node involved  
+
+All of this is a long-winded way of saying that TOR works because no single component has full knowledge of a connection. It distributes trust across multiple independent relays and relies on layered encryption to prevent correlation.
+
+It is not invisibility.
+
+It is compartmentalisation.
+
+### Dont meet your heros
+The mythology of TOR is that it is unbreakable. The reality is that it extremely good at what is was designed to do, and completely useless at protecting you from yourself. Most high-profile TOR arrests were not the result of the network being cryptographically broken. They were the result of operational security failures.
+
+* Ross Ulbricht did not get caught because TOR failed. He was caught because of early forum posts under his real identity, reused email addresses, and small human mistakes that linked personas together.
+* AlphaBay’s administrator did not get deanonymised through onion routing being cracked. He logged into an administrative interface from a non-TOR IP address.
+* Even outside of criminal cases, researchers have demonstrated that writing style analysis, timing correlation, browser fingerprinting, and behavioural patterns can dramatically reduce anonymity sets.
+
+TOR hides your IP address. It does not hide:
+* Your writing style  
+* Your sleep schedule  
+* Your political opinions  
+* Your typing cadence  
+* Your reused usernames  
+* Your cryptocurrency reuse patterns  
+
+The network compartmentalises data. Humans recombine it.
+
+This is not to say that the TOR architecture does not have vulnerabilities. TOR relays are operated by volunteers, with roughly 7,000–10,000 nodes active at any given time. Based on the decentralised nature, you may think that this type of network is suspetable to a "51% attack" like bitcoin, however this is not the case. They are however susceptible to what are known as Sybil attacks and traffic correlation attacks. If a single entity were able to operate a large enough portion of the network’s relays, the probability increases that a user’s entry and exit nodes could both be controlled by that entity. In that scenario, statistical traffic analysis becomes possible — correlating timing and volume to deanonymise users. TOR mitigates this through guard node design, relay diversity, and circuit construction rules — but it is not immune in theory. Again, the network raises the cost of surveillance. It does not eliminate it.
+
+## I2P: The Parallel Internet
+If TOR is an anonymity layer bolted onto the existing internet, I2P is an attempt to build a different one entirely. I2P, or the Invisible Internet Project, was designed not primarily as a way to anonymously browse the clearnet, but as a self-contained, encrypted network. They key difference is that while TOR allows communication with the clearnet via exit nodes, I2P was built to keep all (if not most) communication internal.
+
+Instead of onion routing, I2P uses what is known as garlic routing - This difference is not a quirky refrence to TOR, it refers to the architecture. In TOR a single request is wrapped in multiple encryption layers and sent through a three hop circuit. In I2P, multiple messages can be bundled together into a single encrypted "garlic clove". This makes traffic analysis more difficult because observers cannot easily distinguish which encrypted payload corresponds to which logical message.It also differs in how tunnels are constructed - rather than building a single bidirectional circuit like TOR, I2P uses distinct inbound and outbound tunnels. When your communicate with a service in I2P:
+
+* Your outbound traffic travels through of relays your selected
+* your service's reply travels back though a completely seperate inbound tunnel.
+
+This asymetry increases the resistance to certain correlation attacks. Additionally, every I2P user participates in routing traffic. Unlike TOR’s volunteer relay model, I2P grows more directly with its user base — each participant contributes to the network’s capacity.
+
+At first glance, this sounds even stronger than TOR
+* no exits
+* internal-only services
+* garlic routing
+* decentralised tunnel building
+
+A darker web, but cleaner - A more pure implimentation of anonymity... And this is where the illusion deepens.
+
+### Same Human problem
+I2P does not fail becaus its routing it week - It fails for the same reason everything else fails.
+
+* **Anonymity sets matter -** I2P's user base is significantly smaller than TOR's. Fewer participants means less statistical cover, the crowd you hide inside is thinner.
+* **Misconfiguration matters -** Running services that leak indentifying metadata defeats the purpose of garlic routing entirley
+* **Operational security still matters -** Logging into a clearnet account with the same username you use in I2P is not something cryptography can fix
+* **Timing correlation still matters**
+* **Behavioural fingerprinting still matters**
+* **Writing style still matters**
+
+I2P reduced the attack surface, it does not strip out human nature. It can only obscure packets, not personality.
+
+## The Illusion of Privacy
+This is the uncomfortable truth: Most of the time, the protocol is not what fails, we are
+
+### Illusion 1: "If i use TOR, I am anonymus"
+Tools like TOR and I2P obfuscate your traffick but does not hide you identity. This leaks through:
+
+* Writing style
+* Time-of-day activity patterns
+* Language quirks
+* Reused usernames
+* Cryptocurrency reuse
+* Social graph analysis
+* Human Habit
+
+You can your your packets through three continents, all with idenepent privacy laws, making sure none even scrap the borders of the 5 eyes alliance... but oyu cannot orute through personality through the same system. Anonymity is not just network location, it is behavioural consistenty and humans are remarkably consistent.
+
+### Illusion 2: "Decentralised means private"
+Decentralisaation describes architecture, priavcy describes behavour.
+
+You can:
+* Self host everything
+* Run your own matrix server
+* Run services over TOR
+* Use I2P exclusively
+
+and still:
+* Reuse the same email address
+* Log into real-world accounts
+* Post indentifiable information publically
+* Link your identities through convienance
+
+Infrastrcture does not override habbit - Your pipeline may be water tight, but you can still leak through it.
+
+
+### Illusion 3: “My threat model demands this.”
+For some people, yes, it GENUINELY does
+
+If you are:
+* A journalist in an authoritarian state
+* A whiteblower expoding corruption
+* A political dissident
+* A vulnerable minority under active surveilance
+
+TOR is not an aesthetic quirk - It is survival technique.
+
+Most people reading this blog however are not in that position. We are technologists, hobbyists, privacy enthusiasts, and ideologically aligned with sovereignty. There is nothing wrong with that, but we need to be honest about it. Running TOR because you value exit options is different from running TOR becasue you are Edward Snowden. One is principle and the other is neccecity - conflating the two is idiolgically dishonest.
+
+### Illusion 4: “PGP gives me privacy”
+PGP does not grant you anonymity, is grants you psduonimity - they are very different things. It is not a cloak, it is a flag. It is a mathematically pure way of saying "this identity is consistently me", and that is incredibly powerful... but it is not invisibility.
+
+Cryptography protects content
+* It does not erase metadata
+* It does not erase pattern
+* It does not erase behaviour
+
+You can sign and encrypt every bit of data you produce, but you are creating more correlation by doing this, not less.
+
+## Afercare
+I have gone by many handles online
+
+* Spud
+* Alice McTavish
+* Genesis Affair
+* Hell Hound
+* Night Marcher
+* Gringo
+
+The handles I use most now are `eddiequinn` and `ghostwire`. Ghostwire started when I moved out of my parents house two years ago, bought my first server abd got into torrenting and private trackers again. I made ghostwire with the intention to pay attention to OpSec, this is my piracy identity and it should not cross over into my personal life - I now have it pasted onto my github, blog, gitlab, matrix server, etc.
+
+Priacy is not a browser, protocol, operating system, or convienient checklist you can tick off one by one. These help but they are not what matters - Privacy is disapline:
+
+It requires:
+* Compartmentalisation across devices
+* Disinct identities with no crossover
+* Strict operational boundaries
+* Refusal of convienance
+* Continous vigilance
+
+Even with all of this iti is still just a numbers game.
+
+TOR raises the cost of surveillance.
+I2P raises the cost of surveillance.
+They do not reduce it to zero.
+
+The illusion is not that these tools fail. The illusion is that using them is enough.
