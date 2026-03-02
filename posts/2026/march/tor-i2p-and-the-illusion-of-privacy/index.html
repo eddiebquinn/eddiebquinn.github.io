@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>Tor, I2P and the Illusion of Privacy &ndash; eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/build-logs/" title="">build-logs</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Tor, I2P and the Illusion of Privacy</h1>
+    </header>
+    <div class="content__body">
+        <p>Mt. Gox is a core memory for many people inside the crypto space. Before the phrase “crypto exchange” was even coined, there was Mt. Gox, originally built to trade Magic: The Gathering cards.</p>
+<p>We often take for granted the underlying infrastructure that now surrounds cryptocurrency. Today, if you want to buy Bitcoin, there are polished apps, custodial services, liquidity providers, and compliance departments. But in the beginning, if you wanted BTC, you were wiring money to a stranger on the internet and hoping they honoured the trade. Mt. Gox changed that. It filled the void. In doing so, it accidentally became the backbone of the Bitcoin economy.</p>
+<p>Then it collapsed.</p>
+<p>At the time, it felt existential. Bitcoin was still in its infancy - if it was going to die, this was the moment. The exchange’s owner pointed at the protocol, a flaw in Bitcoin itself.</p>
+<p>The truth was far less dramatic.</p>
+<p>It wasn’t the protocol.
+It was incompetence.</p>
+<p>By early 2014, Mt. Gox had quietly lost control of its own reserves. For years, Bitcoin had been siphoned out of its hot wallets - likely through a combination of theft, poor key management, and catastrophic internal accounting practices. The exchange did not even appear to realise the scale of the losses as they were happening. When withdrawals began failing, management blamed “transaction malleability,” a known quirk in Bitcoin’s early design that could alter a transaction ID without changing its contents. However, investigations later revealed that this was not the root cause of the collapse. Approximately 850,000 BTC were missing. The exchange had been insolvent for a long time. What failed was not Bitcoin’s consensus mechanism, but Mt. Gox’s operational security and governance.</p>
+<p>This post is not about Mt. Gox, but it is about the biggest cybersecurity flaw facing the space today - The person using the computer.</p>
+<h2 id="tor-the-ideal">Tor: The Ideal</h2>
+<p>What has been the boogeyman for all forms of authority for the longest time, Tor is a TCP/IP overlay network which facilitates everything from private communication to intricate drug markets. What is lost on many people new to this space is that Tor itself was born out of a US Naval Research Laboratory project and later formalised into The Tor Project. It was designed to allow anonymous communication online, and is still funded in part by the same state-level actors many of its users believe they are hiding from.</p>
+<p>Tor is not magic. It is layered routing with carefully constrained trust. When you open the Tor Browser, your client builds a circuit through three relays:</p>
+<ul>
+<li><strong>Entry Guard</strong> – This is the first hop. Your ISP can see that you are connecting to a Tor node, but it cannot see your final destination. Guards are long-lived on purpose. By sticking to a small set of trusted entry nodes over time, Tor reduces the risk of eventually selecting a malicious first hop.</li>
+<li><strong>Middle Relay</strong> – This node simply passes encrypted traffic along. It knows only the previous hop and the next hop, never both ends of the communication. Its role is separation. It prevents the entry guard and the exit node from being directly linked.</li>
+<li><strong>Exit Node</strong> – This is where traffic leaves the Tor network and enters the public internet. The destination website sees the exit node’s IP address, not yours. However, the exit node can see unencrypted traffic. This is why HTTPS still matters on Tor.</li>
+</ul>
+<p>The routing itself, while providing obfuscation of destination and source IP addresses, also implements layered encryption and ephemeral key exchange, providing properties <em>similar</em> to Perfect Forward Secrecy (a feature in encryption protocols that ensures session keys are not compromised even if a server&rsquo;s long-term private key is stolen). This is implemented in Tor by traffic being wrapped in three distinct layers before it leaves your machine.</p>
+<ul>
+<li>The outer layer can only be decrypted by the entry guard</li>
+<li>The next layer can only be decrypted by the middle relay</li>
+<li>The final layer can only be decrypted by the exit node</li>
+</ul>
+<p>Each node peels off exactly one layer and learns only where to send the packet next. No single relay knows both who you are and where you are going.</p>
+<blockquote>
+<p>&ldquo;A decentralised swarm of independent nodes all passing data between each other? Wow, that sounds a lot like a BitTorrent swarm.&rdquo;</p>
+</blockquote>
+<p>You wouldn’t be entirely wrong. BitTorrent swarms work by breaking a file into many small pieces and distributing those pieces across multiple peers. Each participant downloads and uploads chunks simultaneously, creating a decentralised distribution network. Coordination happens through BitTorrent trackers (or Distributed Hash Tables), which allow peers to discover each other and join the swarm.</p>
+<p>Tor has something similar in the form of Directory Authorities. A small, hardcoded set of these authorities maintains a signed consensus document listing active relays. When your Tor client builds a circuit, it downloads this consensus to determine which relays are currently available.</p>
+<p>This is one of the more controversial aspects of Tor. It introduces a small degree of centralisation in an otherwise decentralised system. That said, Directory Authorities do not see user traffic. They coordinate the network map - they do not observe the packets flowing through it.</p>
+<blockquote>
+<p>&ldquo;But what about the Silk Road?&rdquo;</p>
+</blockquote>
+<p>That is the other half of Tor’s design.</p>
+<p>Tor does not just anonymise the client. It can anonymise the server as well.</p>
+<p>This is achieved through what are known as Onion Services (formerly “Hidden Services”). With these services, traffic never touches the clearnet. Instead, both client and server connect to introduction points within the Tor network. A rendezvous point is established, and communication happens entirely inside Tor.</p>
+<p>In this model:</p>
+<ul>
+<li>The client does not know the server’s IP address</li>
+<li>The server does not know the client’s IP address</li>
+<li>There is no traditional exit node involved</li>
+</ul>
+<p>All of this is a long-winded way of saying that Tor works because no single component has full knowledge of a connection. It distributes trust across multiple independent relays and relies on layered encryption to prevent correlation.</p>
+<p>It is not invisibility.</p>
+<p>It is compartmentalisation.</p>
+<h3 id="dont-meet-your-heroes">Don&rsquo;t meet your heroes</h3>
+<p>The mythology of Tor is that it is unbreakable. The reality is that it is extremely good at what it was designed to do, and completely useless at protecting you from yourself. Most high-profile Tor arrests were not the result of the network being cryptographically broken. They were the result of operational security failures.</p>
+<ul>
+<li>Ross Ulbricht did not get caught because Tor failed. He was caught because of early forum posts under his real identity, reused email addresses, and small human mistakes that linked personas together.</li>
+<li>AlphaBay’s administrator did not get deanonymised through onion routing being cracked. He logged into an administrative interface from a non-Tor IP address.</li>
+<li>Even outside of criminal cases, researchers have demonstrated that writing style analysis, timing correlation, browser fingerprinting, and behavioural patterns can dramatically reduce anonymity sets.</li>
+</ul>
+<p>Tor hides your IP address. It does not hide:</p>
+<ul>
+<li>Your writing style</li>
+<li>Your sleep schedule</li>
+<li>Your political opinions</li>
+<li>Your typing cadence</li>
+<li>Your reused usernames</li>
+<li>Your cryptocurrency reuse patterns</li>
+</ul>
+<p>The network compartmentalises data. Humans recombine it.</p>
+<p>This is not to say that the Tor architecture does not have vulnerabilities. Tor relays are operated by volunteers, with roughly 7,000–10,000 nodes active at any given time. Based on the decentralised nature, you may think that this type of network is susceptible to a &ldquo;51% attack&rdquo; like Bitcoin; this is not the case. They are, however, susceptible to what are known as Sybil attacks and traffic correlation attacks. If a single entity were able to operate a large enough portion of the network’s relays, the probability increases that a user’s entry and exit nodes could both be controlled by that entity. In that scenario, statistical traffic analysis becomes possible; correlating timing and volume to deanonymise users. Tor mitigates this through guard node design, relay diversity, and circuit construction rules, but it is not immune in theory. Again, the network raises the cost of surveillance. It does not eliminate it.</p>
+<h2 id="i2p-the-parallel-internet">I2P: The Parallel Internet</h2>
+<p>If Tor is an anonymity layer bolted onto the existing internet, I2P is an attempt to build a different one entirely. I2P, or the Invisible Internet Project, was designed not primarily as a way to anonymously browse the clearnet, but as a self-contained, encrypted network. The key difference is that while Tor allows communication with the clearnet via exit nodes, I2P was built to keep all (if not most) communication internal.</p>
+<p>Instead of onion routing, I2P uses what is known as garlic routing. This difference is not a quirky reference to Tor; it refers to the architecture. In Tor, a single request is wrapped in multiple encryption layers and sent through a three-hop circuit. In I2P, multiple messages can be bundled together into a single encrypted &ldquo;garlic clove&rdquo;. This makes traffic analysis more difficult because observers cannot easily distinguish which encrypted payload corresponds to which logical message. It also differs in how tunnels are constructed, rather than building a single bidirectional circuit like Tor, I2P uses distinct inbound and outbound tunnels. When you communicate with a service in I2P:</p>
+<ul>
+<li>Your outbound traffic travels through relays you selected</li>
+<li>your service&rsquo;s reply travels back through a completely separate inbound tunnel.</li>
+</ul>
+<p>This asymmetry increases the resistance to certain correlation attacks. Additionally, every I2P user participates in routing traffic. Unlike Tor&rsquo;s volunteer relay model, I2P grows more directly with its user base - each participant contributes to the network’s capacity.</p>
+<p>At first glance, this sounds even stronger than Tor.</p>
+<ul>
+<li>no exits</li>
+<li>internal-only services</li>
+<li>garlic routing</li>
+<li>decentralised tunnel building</li>
+</ul>
+<p>A darker web, but cleaner; a purer implementation of anonymity&hellip; And this is where the illusion deepens.</p>
+<h3 id="same-human-problem">Same human problem</h3>
+<p>I2P does not fail because its routing is weak - It fails for the same reason everything else fails.</p>
+<ul>
+<li><strong>Anonymity sets matter -</strong> I2P&rsquo;s user base is significantly smaller than Tor&rsquo;s. Fewer participants means less statistical cover; the crowd you hide inside is thinner.</li>
+<li><strong>Misconfiguration matters -</strong> Running services that leak identifying metadata defeats the purpose of garlic routing entirely</li>
+<li><strong>Operational security still matters -</strong> Logging into a clearnet account with the same username you use in I2P is not something cryptography can fix</li>
+<li><strong>Timing correlation still matters</strong></li>
+<li><strong>Behavioural fingerprinting still matters</strong></li>
+<li><strong>Writing style still matters</strong></li>
+</ul>
+<p>I2P reduced the attack surface; it does not strip out human nature. It can only obscure packets, not personality.</p>
+<h2 id="the-illusion-of-privacy">The Illusion of Privacy</h2>
+<p>This is the uncomfortable truth: Most of the time, the protocol is not what fails; we are.</p>
+<h3 id="illusion-1-if-i-use-tor-i-am-anonymous">Illusion 1: &ldquo;If I use Tor, I am anonymous&rdquo;</h3>
+<p>Tools like Tor and I2P obfuscate your traffic but do not hide your identity. This leaks through:</p>
+<ul>
+<li>Writing style</li>
+<li>Time-of-day activity patterns</li>
+<li>Language quirks</li>
+<li>Reused usernames</li>
+<li>Cryptocurrency reuse</li>
+<li>Social graph analysis</li>
+<li>Human Habit</li>
+</ul>
+<p>You can route your packets through three continents, all with independent privacy laws, making sure none even scrape the borders of the Five Eyes, but you cannot route personality through the same system. Anonymity is not just network location, it is behaving consistently and humans are remarkably consistent.</p>
+<h3 id="illusion-2-decentralised-means-private">Illusion 2: &ldquo;Decentralised means private&rdquo;</h3>
+<p>Decentralisation describes architecture, privacy describes behaviour.</p>
+<p>You can:</p>
+<ul>
+<li>Self-host everything</li>
+<li>Run your own Matrix server</li>
+<li>Run services over Tor</li>
+<li>Use I2P exclusively</li>
+</ul>
+<p>and still:</p>
+<ul>
+<li>Reuse the same email address</li>
+<li>Log into real-world accounts</li>
+<li>Post identifiable information publicly</li>
+<li>Link your identities through convenience</li>
+</ul>
+<p>Infrastructure does not override habit; your pipeline may be water-tight, but you can still leak through it.</p>
+<h3 id="illusion-3-my-threat-model-demands-this">Illusion 3: “My threat model demands this.”</h3>
+<p>For some people, yes, it GENUINELY does</p>
+<p>If you are:</p>
+<ul>
+<li>A journalist in an authoritarian state</li>
+<li>A whistleblower exposing corruption</li>
+<li>A political dissident</li>
+<li>A vulnerable minority under active surveillance</li>
+</ul>
+<p>Tor is not an aesthetic quirk; it is a survival technique.</p>
+<p>Most people reading this blog, however, are not in that position. We are technologists, hobbyists, privacy enthusiasts, and ideologically aligned with sovereignty. There is nothing wrong with that, but we need to be honest about it. Running Tor because you value exit options is different from running Tor because you are Edward Snowden. One is principle, and the other is necessity - conflating the two is ideologically dishonest.</p>
+<h3 id="illusion-4-pgp-gives-me-privacy">Illusion 4: “PGP gives me privacy”</h3>
+<p>PGP does not grant you anonymity; it grants you pseudonymity, they are very different things. It is not a cloak, it is a flag. It is a mathematically pure way of saying &ldquo;this identity is consistently me&rdquo;, and that is incredibly powerful&hellip; but it is not invisibility.</p>
+<p>Cryptography protects content</p>
+<ul>
+<li>It does not erase metadata</li>
+<li>It does not erase pattern</li>
+<li>It does not erase behaviour</li>
+</ul>
+<p>You can sign and encrypt every bit of data you produce, but you are creating more correlation by doing this, not less.</p>
+<h2 id="realism">Realism</h2>
+<p>I have gone by many handles online.</p>
+<ul>
+<li>Spud</li>
+<li>Alice McTavish</li>
+<li>Genesis Affair</li>
+<li>Hell Hound</li>
+<li>Night Marcher</li>
+<li>Gringo</li>
+<li>JBS</li>
+</ul>
+<p>The handles I use most now are <code>eddiequinn</code> and <code>ghostwire</code>. Ghostwire started when I moved out of my parents&rsquo; house two years ago, bought my first server and got into torrenting and private trackers again. I made ghostwire with the intention of paying attention to OpSec. This is my piracy identity, and it should not cross over into my personal life - I now have it pasted onto my GitHub, blog, GitLab, Matrix server, etc.</p>
+<p>Privacy is not a browser, protocol, operating system, or convenient checklist you can tick off one by one. These help, but they are not what matters. Privacy is discipline.</p>
+<p>It requires:</p>
+<ul>
+<li>Compartmentalisation across devices</li>
+<li>Distinct identities with no crossover</li>
+<li>Strict operational boundaries</li>
+<li>Refusal of convenience</li>
+<li>Continuous vigilance</li>
+</ul>
+<p>Even with all of this it is still just a numbers game.</p>
+<p>Tor raises the cost of surveillance.
+I2P raises the cost of surveillance.
+They do not reduce it to zero.</p>
+<p>The illusion is not that these tools fail; the illusion is that using them is enough.</p>
+<p>In 2023, I went to HCPP in Prague. It was the first time my experience with fellow hackers ventured away from cyberspace and into meatspace, and whilst there, I was thrown headfirst into the crypto-maximalist anarchist subculture. I won&rsquo;t get into this to such a degree as I already have a post about this on this blog, but one talk I went to still resonates with me: <a href="https://www.youtube.com/watch?v=SX4xldspRHA">The Plastic Powder by Cody Wilson</a>. For those of you who do not know who Cody Wilson is, he is the godfather of 3D printed guns. Due to what Cody did, his life was effectively ruined, and thus, in his view, sometimes &ldquo;any port in a storm&rdquo; is the correct way to go about it. I <code>git commit -m &quot;blind commit&quot; &amp;&amp; git push</code> sometimes, because I need to leave my desk now, and that is my port in that storm. He also says something akin to &ldquo;we cannot win, we keep playing regardless&rdquo;.</p>
+<p>I will not make some grandiose statement here of &lsquo;it is our moral duty to protect our privacy&rsquo; and &lsquo;if we try hard enough we will be victorious&rsquo;. We are up against something far more powerful and unyielding than nation-state actors, we are fighting profit incentive. You are less valuable than the data you produce, and every single tool we employ to obfuscate and poison the money spigot that is our digital lives, the more those tools will be fought against by actors whose entire existence depends on that well now running dry. We cannot win, and yet we keep playing regardless. As tech enthusiasts we all know that privacy is a farce, and yet some of us do it anyway, much to the ridicule and torment that comes with it. Some of us do it for fun, others as our own form of quiet rebellion, and some of us are just tumbling down the rabbit hole and have too much inertia to actually stop. Despite the points I have made in this post, I do run Tor nodes, I will eventually mirror this site onto both I2P and Tor, and I will fight my personal battle to dam up my personal data reservoir - I cannot win, but I keep playing anyway.</p>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/2026/march/tor-i2p-and-the-illusion-of-privacy.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2026-03-02
+        </p>
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
