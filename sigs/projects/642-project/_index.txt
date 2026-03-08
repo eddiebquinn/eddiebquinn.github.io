@@ -1,0 +1,46 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+A few years ago someone bought me a book called *642 Things to Write About*. It is exactly what it sounds like: a collection of writing prompts designed to spark ideas when writers get stuck. You can buy it for yourself [here](https://www.amazon.com/Things-Write-Francisco-Writers-Grotto/dp/1452105448).
+
+Most people probably flip through it occasionally and answer a prompt or two.
+
+I decided to do something slightly more unreasonable.
+
+The goal of this project is to write **at least 1000 words for every prompt in the book**. If completed, this project will produce **642 essays totaling at least 642,000 words**.
+
+## Progress
+
+```
+Prompts completed: 0 / 642
+Words written: 0 / 642,000
+```
+
+## The Rules
+
+The rules are intentionally simple:
+
+* Every prompt becomes a post on this blog
+* Each post must be at least 1000 words
+* Prompts can be interpreted however I want
+* Posts will be published as they are written
+* No skipping prompts
+
+The prompt itself is only a starting point. The writing might end up personal, technical, philosophical, or something else entirely depending on where the idea leads.
+
+## Why Do This?
+
+In many ways I would like to think I am a creative person. While I enjoy writing about technology and my experiences with it, I often find it difficult to do this in a creative way. Much of my writing ends up being project write-ups, integrating my personal philosophy and past experiences.
+
+This project gives me an opportunity to **create rather than recount**.
+
+I also believe this will help me become a better writer overall, and encourage me to write simply for the sake of writing. Many of the posts will not have a reason for existing beyond *"I wanted to get the prompt out of the way."* I think that is a good thing.
+
+Writing like this encourages a more free-form approach to blogging — writing about things when I want to write about them, rather than waiting until I have all the pieces together to build a perfectly structured narrative.
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaa3PMwAKCRBy4AiZROfD
+Z5TiAQCEjTzU24Z6bm4p2FnQTEFlmPFw73zIhyzs2NLFEwtDxAEAuFK1unFFSHbO
+HzepniBu8M4+HobTE5E70159V1A13go=
+=u0UU
+-----END PGP SIGNATURE-----
