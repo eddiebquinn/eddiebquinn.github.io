@@ -38,8 +38,8 @@ The main point of contention comes from the LHP framing of "self-deification", w
 
 My relationship with both is this - I fundamentally use Christianity as a framework to be a good person, believing there are consequences to my actions, and when I die, I will need to answer for myself. I use LHP as a framework to understand that being able to answer myself and being able to answer God are essentially one and the same thing. The Church plays little role in my relationship with God, just as the state plays little part in my relationship with myself. This assertion can and will be met with disdain and disgust from both sides of the spiritual camp, and to both I say this:
 
-- - **To Christians:** You are taught not to worship objects, the Church as an institution becomes that object. I encourage you to question your own beliefs and whether it is something you have adopted because it came from them or if it aligns with your own Christian values.
-- - **To LHP Practitioners:** Merging LHP and Philosophy angers you because it is Christianity, and in many cases you adopted this philosophy to rebel against it. In doing so, you created a dogmatic ethos you all submit to, from which there is no escape, causing the transgressive to become the non-infringed. Combining the two is the most transgressive thing you can do.
+* **To Christians:** You are taught not to worship objects, the Church as an institution becomes that object. I encourage you to question your own beliefs and whether it is something you have adopted because it came from them or if it aligns with your own Christian values.
+* **To LHP Practitioners:** Merging LHP and Philosophy angers you because it is Christianity, and in many cases you adopted this philosophy to rebel against it. In doing so, you created a dogmatic ethos you all submit to, from which there is no escape, causing the transgressive to become the non-infringed. Combining the two is the most transgressive thing you can do.
 
 Now... despite that mini essay on my personal relationship with occultism and Christianity, this post was never supposed to be about that, and I move on to the crux of the post.
 
@@ -59,14 +59,13 @@ This quietly gives the practitioner power over the entire environment. When infr
 ## Walk the path
 This brings me back to the line from Silicon Valley that inspired the title of this post. Whenever one of my friends crosses that conceptual threshold and starts experimenting with declarative infrastructure for the first time, I usually respond with the same phrase Guilfoyle used in the show: “Welcome to the Left Hand Path, brother.” It started as a throwaway joke I have with myself, but it stuck around because it perfectly captures that moment where someone stops interacting with systems manually and starts manipulating the rules that define them.
 
-![Example](lhp-welcome.png)
+![Example](/lhp-welcome.png)
 
 The Left Hand Path was never really about rebellion. It was about understanding the system well enough that you no longer needed to follow it blindly. Once you understand the system, you realise you were never breaking the rules — you were just learning how to write them.
-
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaazbpAAKCRBy4AiZROfD
-Z0AvAP98hvkFZ9QzN2pwMpO4HcoRoNQOTTBQEiOmRz6/5FFb1QD/UXNJ+qyr9Ud4
-FYNAM6C9ELnRmPTilxT+8fs+GIhvDgo=
-=C1Be
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaazeVwAKCRBy4AiZROfD
+Z5RCAP9x33q0MDzOPDBNWzdRansFfnsjuV1m7+KbY7PKofxwvAEAzpDItCJJSPOj
+/1N4ELOL79MIlYy1Om7JX8ouiL2cjgE=
+=AujJ
 -----END PGP SIGNATURE-----
