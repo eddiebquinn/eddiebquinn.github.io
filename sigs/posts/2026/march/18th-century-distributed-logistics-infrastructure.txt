@@ -44,22 +44,22 @@ Understanding all of this makes travelling on a canal feel slightly surreal. Wha
 
 With that history in mind, this is the section of the canal we would be travelling. I made this map myself; it's quite cool.
 
-![The Llangollen Canal](canal-boat/llangollen-canal.png)
+![The Llangollen Canal](/canal-boat/llangollen-canal.png)
 
 
 We arrived at the boatyard, signed the paperwork, loaded our stuff onto the boat, had a short 20-minute induction... and that was it. We were effectively handed a boat and a windlass and told, “Don’t sink it”. We set off from Trevor heading for Ellesmere. Just outside of Trevor is the Pontcysyllte Aqueduct. It is 12 feet wide and is the longest aqueduct in Great Britain as well as the highest canal aqueduct in the world. It looks like this:
 
-![Pontcysyllte Aqueduct](canal-boat/pontcysyllte-aqueduct.png)
+![Pontcysyllte Aqueduct](/canal-boat/pontcysyllte-aqueduct.png)
 
 Yeah, that's right - on one side of this glorified bathtub is not much more than a 39-metre drop into the Dee Valley. You, as a complete beginner, can take a boat within thirty minutes of signing the right paperwork. I, again, find this incredibly hilarious. In most areas of modern life, you need a risk assessment to boil a kettle. Here we were handed a 40-foot boat and pointed towards the highest canal aqueduct in the world.
 
 One thing I have not mentioned yet is the tunnels. The canals were built to move freight across terrain that did not particularly care about canal engineering, which meant that occasionally the canal simply had to go straight through a hill.
 
-![Tunnel](canal-boat/tunnel.png)
+![Tunnel](/canal-boat/tunnel.png)
 
 Today, you can just steer the boat through and let the engine do the work, but when horses were used, this was not an option. The solution was something wonderfully stupid and brilliant at the same time. The boatmen would lie on their backs on top of the boat and push against the tunnel walls with their feet, slowly 'walking' the boat through the darkness. This technique was called legging. Imagine spending your days hauling coal through a pitch-black humid tunnel, all by repeatedly pushing a thirty-tonne boat forward with your legs. Industrial logistics was not glamorous at all.
 
-![leggers](canal-boat/leggers.png)
+![leggers](/canal-boat/leggers.png)
 
 ```
 Me and the boys risking life and limb to bring coal to London, circa 1894
@@ -69,13 +69,13 @@ Now I was going to do this in a travel log originally, but that isn't very inter
 
 This is a lift bridge:
 
-![Lift Bridge](canal-boat/lift-bridge.png)
+![Lift Bridge](/canal-boat/lift-bridge.png)
 
 It is one of the many bits of canal-based infrastructure you need to interact with. It has no instructions, just a protruding square that your windlass fits over; you turn to raise it up or put it down. That is it. No rules on when it can be raised and lowered, no electrics, no licence required to do it. You jump off, raise it, your boat goes through, you lower it, and you get back on the boat. There is something special about that, though I can't really explain it.
 
 The same can be said for locks. We dealt with two locks on the canal between Chirk and Ellesmere, the Marston Upper and the Marston Lower. This is what it looks like inside a lock when it's filling.
 
-![filling lock](canal-boat/filling-lock.png)
+![filling lock](/canal-boat/filling-lock.png)
 
 It's a scary, tiring, smelly experience... but you also feel like you achieved something after doing your first lock.
 
@@ -87,10 +87,11 @@ I jumped off the boat and shouted for my dad to come to the front and throw me t
 
 ## Aftercare
 The canals were built to move freight across Britain’s industrial heartland. Two centuries later, they still offer something surprisingly rare: a place where you are trusted to deal with your own problems. You get stuck, you push. Something breaks, you fix it. And when you finally tie the boat back up at the end of the trip, you realise something strange - the responsibility was the relaxing part.
+
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCabRjBwAKCRBy4AiZROfD
-Z5ZuAP9C/Qi+nndQNCycKQZYZk9EFy0EYotmB2DTQyVM6WcMuQD+OnMMOJktEwz0
-VnCtXAeQsJIHSl6p4PLqM2lNnZKUFQ0=
-=gj9y
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCabRk2gAKCRBy4AiZROfD
+Z/9RAQC2bwbkdnvrqJlGY9EjQ/8BhBTITfgk/OvLc9SbFQ3RzwEAw3FBF5J0DkpL
+3CG3SCWZXwo1kX6i38YHW2oYk6qACAM=
+=jQ3f
 -----END PGP SIGNATURE-----
