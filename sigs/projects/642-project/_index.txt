@@ -12,8 +12,8 @@ The goal of this project is to write **at least 1000 words for every prompt in t
 ## Progress
 
 ```
-Prompts completed: 1 / 642
-Words written: 1,006 / 642,000
+Prompts completed: 2 / 642
+Words written: 2,907 / 642,000
 ```
 
 ## The Rules
@@ -39,8 +39,8 @@ I also believe this will help me become a better writer overall, and encourage m
 Writing like this encourages a more free-form approach to blogging — writing about things when I want to write about them, rather than waiting until I have all the pieces together to build a perfectly structured narrative.
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaa3iDQAKCRBy4AiZROfD
-ZyjzAQDhk5FDuoClTM2qC9DJv3ldHwrft6n03R+HeF4dsMI1jAEAqKIi0+6Bi9Ar
-qI0sz85t8HxA7aJUz4kHrhEMq4CcKgc=
-=2RS3
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCabWWlAAKCRBy4AiZROfD
+ZwFdAQDCbzj0WdYTuuXr4cPbo2EI201mDtUmtHkgtNK97AxhAwEAuesvrKwtFmWg
+TWCQendhyUitn+iGX/xtACZlxsujQAw=
+=y6jP
 -----END PGP SIGNATURE-----
