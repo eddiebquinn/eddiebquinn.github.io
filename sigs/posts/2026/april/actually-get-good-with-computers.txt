@@ -1,0 +1,217 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Have you ever played Far Cry 3? The Far Cry series was one of my favourite gaming series growing up. My first real experience of this game was on a family holiday, loading a demo disc I nicked from a Sainsbury’s magazine into my PS3.  The demo felt raw, interesting, new... The story was such a fork in the road from the FPS's i was used to at that age. My parents were not impressed with me showing my younger brother a video of slaves being point-blank executed by Vaas's troops, but this did not deter my captivation.
+
+I have since become incredibly jaded with the newer entries of Far Cry, and really, even the AAA gaming industry as a whole. Most Activision games are just copies of copies of reskins of copies, not really pushing the mark of what these games are capable of. Activision just pushes out the same FPS slop year on year, and when they do have something genuinely new and different, they just as quickly remove its soul (looking at Call of Duty Zombies). Don't even get me started on EA. There are some games I still enjoy - Some of the funnest moments I have had in recent times have been playing GTFO, Ready or Not, and Civ with various friends. This does not change the general bad taste I have in my mouth around this topic, however.
+
+I have used this gaming tangent as an excuse to talk about skill trees. As it currently stands, that is the sentence I am going to use to transition to this topic - If I think of something better, I'll change it. I have joked for a while that there is such a thing as an Autistic Skill tree, that when you have autism, you can go down a few distinct paths - trains, politics, computers. It was only after a conversation with a mate who is at the start of his tech journey that the computer's path is a massive infinite skill tree in itself.
+
+> "Ed... What the fuck are you even trying to say here?"
+
+Yeah… fair.
+
+I’ve kind of lost the thread a bit. This is what happens when I try to write something off the cuff with about six different ideas fighting for attention. So let me reset.
+
+This entire post came from a conversation with my mate Pat. He said he wants to actually get good with computers, rather than just the BAU shite we deal with day to day at work. This stuck with me because I think most people in IT never actually do that. We get comfortable, we learn just enough to function. We solve the same problems over and over again and call it experience.
+
+But they never build foundations.
+
+This post is about that.
+
+Not specialising. Not becoming “the networking guy” or “the security guy”. This is about building out the roots of your skill tree, so when you eventually do decide to grow the trunk, it doesn’t collapse under its own weight.
+
+## Start with Linux
+
+> "START WITH LINUX!? ARE YOU SERIOUS!"
+
+Yes. I am.
+
+I should not have to justify this assertion; Linux is no longer the sleeping giant that everyone knew would wake up and take the IT industry by storm. That Giant is awake and is slowly taking more and more space. Even Microsoft — the company that built its empire on Windows — now makes most of its money from cloud infrastructure, much of which runs on Linux.
+
+Here is something I want to get across to you
+
+* **Linux is not hard, it is unfamiliar -** You do not realise this, but whenever I hear someone say "linux is difficult" it gives off the same vibe as a boomer going "oh i don't understand technology". Linux is not an arcane knowledge; it is an operating system that 9/10 comes loaded with a desktop, apps, a web browser, a networking stack, etc.
+* **Linux is a lot easier than windows -** Once you get over the initial hurdle of getting used to the linix way of doing things, you will very quickly realise that as an operating system it is far easier than windows. Try installing Firefox on Linux vs Windows
+    * Windows requires opening a browser, fighting off ads, being told "are you sure you want to do this because edge really isnt that bad", hoping you didnt download a virus, running it, and setting it as your default browser
+    * On linux you open terminal and type `sudo apt install firefox -y`
+
+There is a joke that flows around called the Linux Pipeline, and that is below.
+
+![The Linux Pipeline](https://i.redd.it/o4d8q7lzm3f71.jpg)
+
+I have used this image for a while to explain to people the path you are probably going to take with Linux. With each of these steps, you will find fewer and fewer people adopting it, especially once you pass arch. I explain the Linux journey with four separate stages.
+
+1) **The Darkness:** You start with window - Windows is effectivley the intelectual equivilent of a softplay area when it comes to computing. It is good for day-to-day tasks, but functionally... what you get is what you get, any real customisations and changes you want to bring in are going to require layering solutions on top of the operating system itself rather than swapping components out. This is to protect the user from themselves; it is also the reason why most techies move on from this OS. This category is not specific to Windows; despite being Unix-based, I also lump Mac and ChromeOS in with this category.
+2) **The Mouth of the Cave:** For me this includes Linux Mint, Ubuntu, and even Manjaro to a degree. Mint specifically looks and behaves very similarly to Windows; the main difference you are going to find is how software is installed. Due to how software is managed on mobile phones, the idea of a package manager isn't that alien as it would have been once upon a time, but using it in your actual OS for a Windows User can be a bit of a shock. In many of the distros in the category, the terminal is more or less optional for day-to-day use, and much of the core functionality will be abstracted using GUIs. You will naturally, as time goes on, learn the terminal, but unlike some of the more advanced distros, this eases you into it rather than going full steam straight away. Ubuntu and Mounharo are very similar in this regard, save for the fact that they ship with different desktop environments than Mint. The key difference here that most will not notice, however, is that in stepping towards the mouth of the cave, you already are in control - for better or worse, this is your system now, and you can do with it as you please, including breaking it. The downside is that if you break it, you are on your own, and you need to fix it.
+3) **The cave entrance:** This is Arch Linux. This is where the operating system stops holding your hand and gives you nothing but a terminal. This is where you start to understand what an operating system even is. While in the mouth of the cave, you could control everything if you wanted to, but this pushes the envelope even further - It asks you directly what partition table you are going to use? What display manager are you going to use? Are you going to use a desktop environment or a window manager? This is the point where you no longer just get handed a premade system and apply your config; this is where you get given a blank slate and decide what goes on it.
+4) **Agartha:** Arch is not the be all end all of linux, despite what some might say. The image I showed before shows how you can go from arch to artix to gentoo to LFS, but the reality is it is far wider than that. As you learn more and more about your arch system, you will learn about the different building blocks of an operating system - often the baked-in nature of arch's init system is what causes people to switch to Artix. It is possible that you will want to create an immutable operating system designed from a coherent series of config files, which is why people switch to Nix. Arch is the point where you start to understand what a computer really is, but that is just the stump of that skill tree.
+
+The thing that you will realise, too, is that once you understand Linux, you will categorically be better at understanding Windows. Operating systems themselves are all very similar and come from the same design patterns, and Linux broadens your context of what these pieces even are and what they do. You stop thinking about solving problems as "doing x will solve y", you become capable of thinking about OS's from first principles and understand how to craft fixes yourselves and even improve other ones.
+
+## Create a Homelab
+Even if you ignore the obvious quality-of-life benefits, a homelab is one of the fastest ways to actually get good at computers. Unlike work, where everything is already built for you, a homelab starts as nothing.
+
+* No domain.
+* No network.
+* No services.
+
+If you want something to exist, you have to build it. In doing that, you don’t just touch different areas of tech — you get dragged through them whether you like it or not. Pick almost any domain in tech, and a homelab will force you to learn it.
+
+**Networking**
+
+You don’t get to avoid networking. The moment you spin something up, you need to access it.
+
+* Now you’re dealing with:
+* IPs and ports
+* DNS
+* DHCP
+* firewalls
+* subnets and VLANs
+* remote access, VPNs, ZTNA
+
+At first, it’s just “why can’t I reach this thing?” and before you know it, you’re tracing packets across your own network trying to figure out what you’ve broken.
+
+**Virtualisation**
+
+Unless you want one service per device, you’re going to virtualise.
+
+So now you’re learning:
+
+* hypervisors
+* resource allocation
+* virtual networking
+* snapshots and recovery
+
+You install something like Proxmox, and suddenly you’re not just running a machine — you’re managing many.
+
+**Containerisation**
+
+Then you realise spinning up full VMs for everything is overkill. Enter Docker.
+
+Now you’re learning:
+
+* containers vs VMs
+* images
+* volumes
+* networking (again, but differently)
+
+And very quickly, your entire setup starts revolving around containers, whether you planned it or not.
+
+And it keeps going, you won’t stop there because once you have a system, you start wanting to improve it.
+
+So naturally you drift into:
+* reverse proxies and load balancing
+* monitoring and logging
+* automation and scripting
+* backups and disaster recovery
+* identity and access control
+
+Not because someone told you to learn them — but because your system demands it. I’ve gone into a lot more detail in other posts about IaC and self-hosting, but all of that started from having a server in my flat that I could break.
+
+> "But Ed, that costs money"
+
+Does it? My first homelab was a shitty Acer laptop I pulled out of my old church’s bin. You don’t need a PowerEdge server; you just need something that turns on and can connect to a network.
+
+At work, you’re careful.
+At home, you’re reckless.
+
+You break things.
+You fix them.
+You understand them.
+
+And that’s where the learning actually happens.
+
+## Learn to fucking code
+
+> "Ed, I want to become a network engineer... why would I need to code?"
+
+Knowing PowerShell is the difference between wasting hours every shift doing the same thing over and over again and running a script you wrote once so you can focus on actual problems.
+
+My first job in IT was helpdesk — like most people.
+
+A typical day looks something like this:
+
+```
+> Spend 10m doing a password reset ticket
+> Spend 10m doing a password reset ticket
+> Spend 5m doing an MFA reset ticket
+> Spend 5m resetting a Citrix session
+> "Have you tried turning it off and on again?"
+> Spend 30m looking at an actual issue with some teeth, but passing it up to the second line because another password reset has come through
+> Spend 5m doing a password reset ticket
+> Explain to someone that the reason their laptop isn't working is that they dropped it into the bath
+> Spend 10m doing a password reset ticket
+```
+
+With a simple script, that 10-minute password reset becomes a 30-second job. For maybe 30 minutes of effort writing that script once, you’ve bought yourself hours back every week. This is the time you can spend actually learning; this is the time you can spend fixing real problems.
+
+And at some point, you realise something:
+
+Your most valuable resource isn’t money.
+It isn’t status.
+
+It’s time.
+
+> "What language, though? There are so many? Should I learn C++?"
+
+If you want to learn C++ as your first language, go ahead — but I’d recommend finding a good mental health hotline first. Realistically, there are only three languages you actually need to get started:
+
+* Bash
+* PowerShell
+* Python
+
+That’s it. 99% of the problems you’ll run into can be solved with those. I’m sure someone from the Church of Rust/JavaScript/C is going to disagree with me here. That’s fine. The point isn’t that these are the only good languages — it’s that telling a beginner “just pick one” isn’t helpful. Learn these three. Trust the process.
+
+Now, the reasons I suggested these three in particular are these:
+
+* Bash and PowerShell come built into their respective operating systems, so you’ll end up using them whether you like it or not. They’re not always pretty, but they get the job done.
+* Python is the real workhorse. It’s simple, flexible, and there’s a library for basically everything. If something can be automated, Python can probably do it.
+
+If you get deeper into programming and want to pick up other languages — Rust, C++, whatever — great.
+
+But for building a solid foundation?
+You don’t need them.
+
+Oh, and one more thing:
+
+You never really *learn* a language.
+
+You just get good enough with basics that learning more advanced tasks takes hours instead of weeks.
+
+## Technical Curiosity and Ego Death
+There are two things you need to accept if you are actually going to get better at this.
+
+
+### 1) You are signing up to be a student for life
+If you want a job where you can study for a few years, get qualified, and coast on that knowledge for the rest of your career, IT is not for you.
+
+This industry does not sit still.
+
+Everything changes:
+
+* tools
+* platforms
+* best practices
+* entire paradigms
+
+What was “correct” five years ago is often irrelevant today.
+
+You don’t finish learning. You just get better at learning.
+
+### 2) Kill your ego
+You cannot be the smartest person in the room, and if you are, you’re in the wrong room. The fastest way to stagnate in IT is to pretend you understand things that you don’t. This field rewards honesty far more than it rewards confidence.
+
+You need to be comfortable saying “I don’t know how this works… but I’m going to find out.”
+
+Because that’s where the growth is - Not in showing off what you already know,
+but in exposing what you don’t.
+
+Every system you touch will eventually humble you, and every assumption you make will eventually be wrong. This is a good thing.
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCadhCiQAKCRBy4AiZROfD
+Z1GtAP4igrz5Sw4YP0rw5pn90wgL+oW8ezCraJSDhufz4I/NhAEAzpqWGEgNVnPK
+laJEnpDeKZRJOKE6NQQ+mENjEyPEKwo=
+=hm3v
+-----END PGP SIGNATURE-----
