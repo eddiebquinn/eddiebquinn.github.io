@@ -1,0 +1,93 @@
+I have always been into technology, I recall one of my first rigs was a Windows 2000 POS my dad picked up for £100 which i used to play Sim City 2000 on. To launch the game you had to exit out of the Desktop Environment into the shell, and type in a command to launch the game from the floppy disk. Much of my childhood was spent on the cusp of going from being into technology to actually being good with technology, much because of the warnings of my parents that "there is no money in it". Despite their efforts to focus my attention elsewhere, such as mathematics history and economics, i still picked up a lot of IT knowledge due to natural understanding of these systems. I found myself swanning through subjects i found easy but not interesting, and eventually found myself in 2020 in the last year of my Economics Degree. 
+
+I hate the education system - I have made peace with many of my libertarian gripes with government lead infrastructure, but my disgust with the education system is not a dead horse I aa ready to stop beating yet. I learnt a vast amount from my time university and I assure you not an ounce of it was economics, and by my third year I was disenchanted and fed up with what I now called "the educational industrial complex", I just wanted out. I also however was not an idiot, and I understood abandoning the road more traveled by without a plan was tantamount to career suicide. So when the entire world began shutting its doors due to a nasty virus originating from china my natural reaction was "excellent, I have two weeks to figure out what the fuck to do with my life". It was not two weeks - I actually cannot quite pinpoint lowdown really ended, I just know at some point everyone in the UK just stopped caring and went about their day. I do know that about a week in I found this video (after all there is only so much Civ V you can play before you need something else to distract yourself with):
+
+![BLOCK EVERYTHING w/ PiHole on Docker, OpenDNS and IFTTT](https://www.youtube.com/watch?v=dH3DdLy574M)
+
+Tie that in with a discord server I was in needing someone to code a new bot, and suddenly every warning my parents ever fed me regarding the lack of a future I would have if i pursued tech as a career was deemed null and void. I went deep very quickly - programming, selfhosting, linux became all i did and wanted to do for all hours of the day. It was the only thing that actually excited me in years, and i happily fucked off my not so exciting career in economics in favour of a tech based career. 
+
+I often get people criticize my homelab for being overcomplicated and pointes, and yes I do agree with out - It probably doesn't benefit me too much running my own instance of gitlab, it probably is incredibly overkill to run everything via a GitOps workflow, i definitely do not need grafana to monitor a few VMs... I have a college I work with who is this type of person, and i remember once mentioning I have always wanted to watercool a PlayStation2. Hes reaction was to tell me it is pointless because emulation has come far enough i could have a better experience just running the PS2 games on my phone - some people will never understand that the point of watercooling a Playstation2 justifies itself, and the same can be said in my homelab. I run enterprise hardware and patterns because I want to deal with enterprise problems and learn why enterprise solutions exists. There is a breed of helpdesk workers coming in who I called cloud-born, and i do this because they don't know On-Prem AD, SCCM, or PXE - azure has replaced these. Meanwhile when azure breaks its my group who understands the fundamentals from working with these techs such that we can just fix the issue, regardless of UI or Syntax.
+
+I say all of this, but I do have a massive blindspot in my homelab and knowledge and that is networking... And thus was born Project Blackwall.
+
+## The Plan
+This is not a new idea for the record - For as long as I have wanted servers I have wanted a network that matches it's technical depth... My attitude has however changed as time has gone on.
+
+![I fucking hate Ubiquiti](image.png)
+
+When i originally had plans for my dream homelab I just wasn't that much into networking. My idea of a "cool home network" came from Linus Tech Tips and Network Chuck, and in almost every one of these cases they seemed to lean heavily on Ubiquiti equipment. I understand this though, Ubiquiti is the "apple" of prosumer networking equipment - Its sleek, works great, and is expensive enough you think you are buying that real gourmet shit. So when I see YouTubers I look up too, and all my friends who are already into homelabbing all running dream machines and UniFi switches, it is not that hard to imagine my original plan was to do the same. I then saw a TikTok from a network engineer called [Lexi Cooper](https://www.linkedin.com/in/lexiecooper/) basically poking fun at guys who run Ubiquiti homelabs... Now I am not saying I changed my entire plan because a pretty girl on the internet challenged my masculinity, but it played a part.... 
+
+The choice was always between running MikroTik and OPNsense OR UniFi. The long term plan for my homelab for a physical perspective is redundancy, which long term for me (as far as networking goes) meant
+
+* Two WAN connections
+* Two Routers
+* Two Core switches
+
+Ubiquiti being ubiquiti can handle all this easily - They have switches that can work together as a pair, the dream machine do shadow mode so if one fails you won't loose connection, they provide a tool to get a 4G connection into your routers, you can jack directly into the routers without a modem... It just works. OpenTik (yes im mixing OPNsense and MikroTik together for the rest of the post, it is easier and idc) on the other hand will allow this but I will need to handle it all myself. That means learning protocols like CARP for HA router failover, wrestling with MLAG and STP so my dual core switches don't accidentally create a broadcast storm which takes everything down, and manually writing the policy-based routing for my multi-WAN failover instead of just buying a plug-and-play LTE dongle. It means that when a piece of hardware dies or a fiber line gets cut, the failover isn't handled by a proprietary magic box - it is handled by rule i wrote, tested, and will inevitably have to troubleshoot at 2AM butt naked with a shift that starts in five hours. There is no UniFi dashboard to hold my hand, no one-click shadow mode to save me, and no one to blame but myself when my internet drops.
+
+So when i saw this video from the pretty girl on the internet, despite the seed it planted, i still intended to go UniFi with the excuse of "I don't want to be a network engineer in my own home". This logic actually stuck around until the exact moment I had to choose between Peace or Pain, and I chose pain. I had £750 saved, and with that I bought the following:
+
+* A MikroTik CRS328-24P-4S+RM switch for £200 (yes, i somehow found one for that cheap)
+* A PowerEdge R330 for £250 
+* A DrayTek Vigor 166 for £125
+* A TP-Link WiFi7 AP for £90
+
+Some of these items were far more expensive than I would have liked, and some were far cheaper than I would have liked - for better or worse however, I have them... And so begins my march into the maw of TCP desolation.
+
+In the Cyberpunk universe, the Blackwall is a highly advanced, global ICE (Intrusion Countermeasures Electronics) barrier built by Netwatch to isolate the corrupted, rogue-AI-infested remnants of the Old Net from the modern, usable networks. It serves as a literal digital wall to prevent these malevolent programs from breaching and destroying human infrastructure. It is the mother of all firewalls, and represents not only a barrier but a total overhaul of networking in that universe. My project is called Project Blackwall because I installed a router; I executed a complete, ground-up overhaul of my home infrastructure to kill the trusting "Old Net" of my flat 10.0.0.0/16 network (lets ignore that OldNet is the name of my previous two pi4 homelab I had at my parents house). This project encompasses
+
+* A bare metal OPNsense server acting as the outer ICE.
+* The deployment of Bind9 to enforce absolute split-horizon DNS routing with plaintext files that work well with IAC.
+* The segmentation of my network into strict isolated VLANS.
+* The deployment of an identity provider into a dedicated infrastructure tear to act as the ultimate-zero trust identity gatekeeper
+
+It is the transition of network that assumed everything is safe, to a network that matches the paranoid schizophrenic ramblings of someone who has seen the other side of the blackwall and knows the dangers it holds back.
+
+### The VLANS
+
+At its core, this is my VLAN plan
+
+| VLAN | Name | Subnet | Group | Purpose | Allowed Connections | Rate Limit |
+|------|------|--------|-------|---------|---------------------|------------|
+| 10 | Servers | 10.67.10.0/24 | Core Services | Any connection containing a service | Storage, DMZ | Unlimited |
+| 20 | Storage | 10.67.20.0/24 | Core Services | Any connection containing storage | Servers, Endpoint Devices | Unlimited |
+| 30 | DMZ | 10.67.30.0/24 | Perimeter Security | WAN outbound-only connections | WAN only | Unlimited |
+| 40 | Infrastructure | 10.67.40.0/24 | Core Services | IT infrastructure & admin/management services | Servers, Storage, DMZ | Unlimited |
+| 45 | Management | 10.67.45.0/24 | Network Admin | Network admin (switches, routers, APs, firewalls) | No direct access to other VLANs | Unlimited |
+| 50 | Guest | 10.67.50.0/24 | User Devices | Untrusted endpoint devices | Internet only | 15 Mb/s Down / 1 Mb/s Up |
+| 60 | Endpoint Devices | 10.67.60.0/24 | User Devices | Trusted user devices | Servers, Storage, DMZ, Management | Unlimited |
+| 70 | IoT | 10.67.70.0/24 | IoT | IoT devices (isolated from each other) | Internet only | 15 Mb/s Down / 1 Mb/s Up |
+
+If you are looking at this and saying "Eddie, you live alone... why the hell do you need eight distinct network enclaves?" - Congratulations, you are the exact target audience for this post. This is micro-segmentation, a standard enterprise pattern designed to enforce and Zero-Trust posture. In the "old net", if a single device was compromised, the entire network was compromised. Under Project Blackwall, if a zone gets breaches, the firewall clamps down, the threat is quarantined, and the rest of the infrastructure keeps humping along.
+
+Here is a breakdown of why these zones exist and how they are structurally policed:
+
+* **The Core Services (`VLAN 10` & `VLAN 20`) -** Separating Servers from storage is rule number one in enterprise architecture. My TrueNAS stack lives on VLAN 20, and the hypervisors running the actual applications live on VLAN 10. By drawing a line between these two, I can optimize the MikroTik switch for high-throughput, unthrottled local traffic between the data and the compute, while ensuring a compromised web app in VLAN 10 cannot maliciously scrub my underlying data arrays.
+* **The Sandbox (`VLAN 30`) -** The DMZ (Demilitarized Zone) is the firing line. Anything that faces the public internet via the Traefik reverse proxy sits here. It is strictly configured for WAN outbound-only connections. If a vulnerability in one of my public-facing services gets exploited by some script-kiddie on the internet, they drop into a completely isolated sandbox. They can't ping my desktop, they can't see my storage, and they can't touch my management interfaces. They are trapped at the perimeter.
+* **The Central Command (`VLAN 40` & `VLAN 45`) -** This is where the OpenTik stack really flexes:
+    * VLAN 40 (Infrastructure) holds the actual brains of the operation e.g. the Bind9 split-horizon DNS servers and the Authentik identity provider. It acts as the gateway to the rest of the network; applications in VLAN 10 must authenticate against VLAN 40 before a user is granted access.
+    * VLAN 45 (Management) is completely locked down. It holds the web GUIs and SSH ports for my switches, routers, APs, and hypervisors. Notice the allowed connections: No direct access to other VLANs. You cannot route into Management from the outside, from the guest network, or even from the server network. To access it, I have to explicitly place my endpoint device into this zone, preventing lateral movement if any other subnet compromises a device.
+* **Human & Trash Subnets (`VLAN 50`, `VLAN 60`, `VLAN 70`)**
+    * VLAN 60 (Endpoints) is for my trusted devices e.g. my phone, laptop, and pc. It has permission to talk to the servers and storage because I actually need to get work done.
+    * VLAN 50 (Guest) is for anyone visiting. They get a straight shot to the WAN interface for internet access, a strict 15 Mb/s Down / 1 Mb/s Up rate limit so they don't chew through my bandwidth, and absolutely zero visibility into the rest of my net.
+    * VLAN 70 (IoT) is the quarantine zone for the "smart" trash. Cheap lightbulbs, smart plugs, and appliances are notoriously insecure, rarely updated, and constantly phoning home to random servers. Not only is this zone restricted entirely to the internet with the same strict bandwidth cap, but I am implementing client isolation at the switch layer. Even if two smart plugs live on the same subnet, they cannot talk to each other. If a rogue firmware update turns a smart bulb into a botnet node, it cannot scan or infect the smart TV sitting right next to it.
+
+I have a phrase I like to remind people of whenever possible - On a long enough timeline all systems can and will be hacked. Too many people are so focused on builting a perimeter, that they neglect the fact that once rats are then you are fucked.
+
+### The Rack
+
+{Discuss the rack plan, including long term planning for future hardware}
+
+### The steps
+To pull this off, timing was important - this is not the sort of thing I can do in a weekend, it involved a lot of moving parts and swapping of infrastructure.
+
+1) **Swap out my Switch -** When I first moved into my flat i was given a small 8 port NetGear switch by a college. You ever seen that scene in Green Mile where John says "I'm tired boss", well that is the life of this switch. When i got my TrueNAS server, over the course of 48 hours i made this poor bastard move over 12Tb of data. It was never designed to be the load bearing network junction I have used it as, and frankly i am amazed it held up as well as it did. Step 1 was always going to be to swap this out.
+2) **Install OPNsense -** Step 2 was going to be racking the new server and getting OPNsense on it, and configuring it to a point where i could swap my WAN connection when the time was ready
+3) **Set up Modem and AP -** Most ISP routers are not routers at all, they are effectively and entire networking cabinet crammed into a small form factor consumer friendly box. The reality of getting rid of yours is not just buying a new router, it is buying all of the individual items it replaces
+4) **Swap out ISP Router -** This in many ways should be as simple as moving a cable from one port to another... lol. I will also need to place the ISP router on a isolated VLAN on the new network so it continues to receive updates, the reason for this is because in most cases when you experience network issues the first thing your ISP will say is "can you please check if it still happens with our router". The only issue is, if their router has sat in a box in a cupboard for nine months it will likely be so out of date their network wont even let it connect. At this point I will still be using a flat `10.0.0.0/16` network.
+
+At this point I would of officially moved over to an OpenTik networking stack, and if i wasn't insane I would stop here
+
+5) **Bind9 Split Horizon DNS -** For the longest time I have used `*.local.eddiequinn.casa` as the domains for local services and this model has worked. Split-horizon DNS would intercept local requests for my global domain and route them directly to my internal reverse proxy, eliminating the inefficient need to bounce traffic out to the public internet and back. This by itself is reason enough, but it also will play an important part in deploying my IDP. During this process I am likely to also depreciate adguard, I will need to see how hard it is to natively implement adblock into Bind9.
+6)  **Create `10.67.45.0/24` and `10.67.40.0`-** As seen in a previous section, these VLANs will be Management VLANs, serving the purpose of Network administration (switches, routers, APs, firewalls) and IT infrastructure & admin/management services. Long term they will have limited direct access to other VLANS. In the short the I will need to create a temporary cross-VLAN firewall rule in OPNsense, allowing bidirectional traffic between them and `10.0.0.16`. The goal of this is to ensure that legacy applications in the flat network can seamlessly communicate with the infrastructure services soon to be deployed in VLAN 40 and 45.
+7) **Deploy IDP to VLAN40 -** Ill need to write and apply the deployment manifests for the dedicated Authentik VM, ensure the VM's virtual network interface in Proxmox is correctly attached to the VLAN 40 bridge, and deploy the manifests. Once this is done it is just a matter of moving everything over to using Authentik which i imagine will funky nor fresh.
