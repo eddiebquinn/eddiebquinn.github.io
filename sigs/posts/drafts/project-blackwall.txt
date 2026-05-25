@@ -70,13 +70,41 @@ Here is a breakdown of why these zones exist and how they are structurally polic
 * **Human & Trash Subnets (`VLAN 50`, `VLAN 60`, `VLAN 70`)**
     * VLAN 60 (Endpoints) is for my trusted devices e.g. my phone, laptop, and pc. It has permission to talk to the servers and storage because I actually need to get work done.
     * VLAN 50 (Guest) is for anyone visiting. They get a straight shot to the WAN interface for internet access, a strict 15 Mb/s Down / 1 Mb/s Up rate limit so they don't chew through my bandwidth, and absolutely zero visibility into the rest of my net.
-    * VLAN 70 (IoT) is the quarantine zone for the "smart" trash. Cheap lightbulbs, smart plugs, and appliances are notoriously insecure, rarely updated, and constantly phoning home to random servers. Not only is this zone restricted entirely to the internet with the same strict bandwidth cap, but I am implementing client isolation at the switch layer. Even if two smart plugs live on the same subnet, they cannot talk to each other. If a rogue firmware update turns a smart bulb into a botnet node, it cannot scan or infect the smart TV sitting right next to it.
+    * VLAN 70 (IoT) is the quarantine zone for the "smart" trash. Cheap light bulbs, smart plugs, and appliances are notoriously insecure, rarely updated, and constantly phoning home to random servers. Not only is this zone restricted entirely to the internet with the same strict bandwidth cap, but I am implementing client isolation at the switch layer. Even if two smart plugs live on the same subnet, they cannot talk to each other. If a rogue firmware update turns a smart bulb into a botnet node, it cannot scan or infect the smart TV sitting right next to it.
 
-I have a phrase I like to remind people of whenever possible - On a long enough timeline all systems can and will be hacked. Too many people are so focused on builting a perimeter, that they neglect the fact that once rats are then you are fucked.
+I have a phrase I like to remind people of whenever possible - On a long enough timeline all systems can and will be hacked. Too many people are so focused on building a perimeter, that they neglect the fact that once rats are then you are fucked.
 
 ### The Rack
+Before I kick this section off I just want to clarify something - servers, especially servers with hard drives in them, are heavy. There is a reason why patchbox sells the [setup.exe](https://patchbox.com/setup-exe-installation-tool/). Anybody who has ever tried to balance a 2U storage server on their knees while blind-threading a cage nut into a rack rail knows this pain intimately. If you have a server rack, you understand the importance of long term planning, not just for space but reducing asset movement. Whenever I need to do anything to my rack I ask myself three questions:
 
-{Discuss the rack plan, including long term planning for future hardware}
+1) Where am I now?
+2) What do I need to do?
+3) How do I do this in a way that limits the amount things I am going to have to rerack in the long term?
+
+So I am going to answer these three questions with the following diagram (make with [Rackula](https://github.com/RackulaLives/Rackula))
+![rack-planning](image-1.png)
+
+**Where am I now?**
+If you look at the `Old-Net` configuration, it’s the classic layout of someone who bought a server and forgot about networking. I have my PowerEdge R730xd anchored at the bottom (mainly because it was difficult enough just to get it there), a compute node in the middle, and a Raritan PDU at the very top rear. U20 is empty, because my core switching wasn't even worth putting on the diagram because it was that tired, 8-port unmanaged Netgear desktop switch dangling by a thread and a prayer behind the server chassis.
+
+**What do i need to do?**
+This is the immediate phase shift. To deploy Project Blackwall without ripping the entire rack apart in six months, I had to be incredibly calculated about where the the switch and the server went:
+
+* **U20 (Front):** The new MikroTik CRS328-24P-4S+RM takes its rightful place at the absolute top of the rack. 
+* **U15 (Front & Rear):** The new Dell PowerEdge R330 is slotted in right above the main R730 compute node. It acts as the physical, bare-metal outer ICE running OPNsense. 
+
+Now in initial designs I was actually going to put my Router at the top of the rack and switch underneath, i then started studying Network+ and found out about "Top of Rack Switches". I anticipate at some point in my adult life I may get a second rack, and have planned accordingly. By putting the R330 into U15, I preserve a clean, logical flow of cables from the top-of-rack switch down through the brush panel, while keeping the heavy lift of the existing R730 and R730xd completely undisturbed. I didn't have to re-rack a single piece of my old legacy kit to make this phase happen.
+
+**Designing for the Endgame (The Long Term Plan)**
+This is where the paranoid, data center-grade design reveals itself. If you look at the Long Term Plan column, you can see exactly why the current Project Blackwall layout looks a bit fragmented with those empty gaps. 
+
+I am completely anticipating success... and hardware failure:
+
+* **The Switching Fabric Cluster:** U19 is left entirely empty right now so that its eventual twin—a second MikroTik CRS328—can slide right in underneath the primary switch for a high-availability MLAG deployment.
+* **The Firewall Cluster:** The R330 in U15 is positioned so that a secondary, high-availability OPNsense node can slide directly into U16. If one node drops a power supply or panics during a kernel update at 2 AM, CARP will silently hand over the WAN to its identical twin right next to it.
+* **The Compute Engine:** The middle layers will eventually be completely backfilled by a dense stack of four PowerEdge R630 nodes to handle proper high-availability virtualization clustering, pushing the old R730 down into a dedicated legacy/utility tier.
+
+By sacrificing a few units of empty space today, I have completely modularized the rack. When payday rolls around for the secondary hardware phases, the backup tin will slide straight into its designated slot without a single active cable or server needing to move a single millimeter. God help my electricity bill... and the environment too I guess.
 
 ### The steps
 To pull this off, timing was important - this is not the sort of thing I can do in a weekend, it involved a lot of moving parts and swapping of infrastructure.
@@ -91,3 +119,24 @@ At this point I would of officially moved over to an OpenTik networking stack, a
 5) **Bind9 Split Horizon DNS -** For the longest time I have used `*.local.eddiequinn.casa` as the domains for local services and this model has worked. Split-horizon DNS would intercept local requests for my global domain and route them directly to my internal reverse proxy, eliminating the inefficient need to bounce traffic out to the public internet and back. This by itself is reason enough, but it also will play an important part in deploying my IDP. During this process I am likely to also depreciate adguard, I will need to see how hard it is to natively implement adblock into Bind9.
 6)  **Create `10.67.45.0/24` and `10.67.40.0`-** As seen in a previous section, these VLANs will be Management VLANs, serving the purpose of Network administration (switches, routers, APs, firewalls) and IT infrastructure & admin/management services. Long term they will have limited direct access to other VLANS. In the short the I will need to create a temporary cross-VLAN firewall rule in OPNsense, allowing bidirectional traffic between them and `10.0.0.16`. The goal of this is to ensure that legacy applications in the flat network can seamlessly communicate with the infrastructure services soon to be deployed in VLAN 40 and 45.
 7) **Deploy IDP to VLAN40 -** Ill need to write and apply the deployment manifests for the dedicated Authentik VM, ensure the VM's virtual network interface in Proxmox is correctly attached to the VLAN 40 bridge, and deploy the manifests. Once this is done it is just a matter of moving everything over to using Authentik which i imagine will funky nor fresh.
+
+## The Execution - A tale of Shielded Twisted Pairs and Moscow Mules 
+
+All of this happened over the course of late May and Early June - I do not wish to ruin the magic of this blog, but if you are under the impression I sat down and wrote all this up after the fact you are dearly mistaken. As I write this exact sentence I can only fully account for the MikroTik being installed. My point I am trying to make here is that this was messy, ongoing, and stressful... and i loved every second of it.
+
+### Step 1: The Green Mile Switch Retirement
+
+eBay is fucking great, am I right? Only on eBay could I somehow nab an enterprise-grade switch for half the cost I was expecting, only for the shipping logistics to immediately descend into absolute anarchy.  The seller had it delivered to "Post Office - Christie." That was it. No street name, no shop name, and no further indication of its actual location. My small town has two Post Offices, so I ended up having to visit both of them, clinging to the blind hope that my new prized possession was sitting in a back room. I spent an hour watching the postal clerks wrestle with a system that apparently becomes a complete pain in the ass if you weren't provided real tracking details, eventually leaving with a battered box with "Fragile" taped all over it. 
+
+The real comedy started when I finally got it home, plugged a console cable into it, and connected. Not only was this network switch completely unwiped by the seller... I realized I had accidentally inherited the entire infrastructure of a specific restaurant in London. I was sitting in my flat looking at their VLAN tags, their internal IP schemes, their firewall exceptions, and probably the network route that sent ticket orders to the kitchen printer for their starters. By some weird twist of fate, I had even been to this exact restaurant with some work friends a year prior. I did message them to let them know I ended up with this—I hope they have taken that on board and improved their IT asset disposal since.
+
+I am truly thankful for the fact that these switches have a reset button on them - I am also amazed at this, because I really did not expect an enterprise switch to have a reset button on it. So I reset it, set an admin password, got the WAN port configured, got my PC configured, updated it.... and locked myself out. So two funny things about me locking myself out
+
+1) OpenClaw told me to take a backup and choose not to listen because "how much damage could an update possibly do" was a prevailing thought in my head
+2) The reason i locked myself out was because the native OS couldn't cope with a password with special symbols in it - fun.
+
+Remember kids, always put `,`'s into your passwords, so you'll mangle the CSV file that gets leaked when the company inevitably gets hacked.
+
+So I reset it, set a simpler admin password, get the WAN port configured, got my PC configured, and I was up and running. I will freely admit I did not even bother to try and configure it using the GUI, commands are just easier to use. I slowly began removing ethernet cables from my poor-old-switch one by one and configuring them on the net MikroTik, and now John Coffey the Netgear switch has finally been decommissioned... at least until i need to put it through hell again for some other insane project in the future - all tech i own is condemned to a sick of indentured servitude where i will run it till it dies, and then strip it for parts to use in other projects. 
+
+At the end of this step I have a managed switch, but it is still configured for the flat `10.0.0.0/16` subnet - We are now waiting for the OPNsense router.
