@@ -82,6 +82,7 @@ Before I kick this section off I just want to clarify something - servers, espec
 3) How do I do this in a way that limits the amount things I am going to have to rerack in the long term?
 
 So I am going to answer these three questions with the following diagram (make with [Rackula](https://github.com/RackulaLives/Rackula))
+
 ![rack-planning](image-1.png)
 
 **Where am I now?**
@@ -105,6 +106,19 @@ I am completely anticipating success... and hardware failure:
 * **The Compute Engine:** The middle layers will eventually be completely backfilled by a dense stack of four PowerEdge R630 nodes to handle proper high-availability virtualization clustering, pushing the old R730 down into a dedicated legacy/utility tier.
 
 By sacrificing a few units of empty space today, I have completely modularized the rack. When payday rolls around for the secondary hardware phases, the backup tin will slide straight into its designated slot without a single active cable or server needing to move a single millimeter. God help my electricity bill... and the environment too I guess.
+
+All this aside there is another fact which it is easier to show rather then tell
+
+![my rack is a mess](image-2.png)
+
+My rack is a bit of a mess of cables and is in a bit of an inconvienient spot. That image was captured at the start of the project, as you can see by the fact I have the mikrotik mounted at the top. Homelabs do not become C13 and STP hyras overight, there is just the inalienable fact that "there is nothing more permenant than a tempoary solution" that you need to deal with. Every tempoary cable, rushed fix, and workable error "ill fix later" compounds. Slowly the corner of your flat stops looking like a homelab and begins to look like a timeline of bad decisions. How did I get here?When I first moved into my flat I was given freedoms I never had when I lived with my parents, and I capitalised on this by buying a server and a rack. The natural place to put this was close to the ISP Demarc port in my flat, which was in the corner by the window. As the rack has grown with the homelab it has gradually got messier and messier, and tidying it is something I am going to have to do during Project Blackwall or never. So the following decisions were made
+
+1) I will replace the PDU i hung off the side with an actual rackmount PDU on the back, which is downstream of my main Raritan PX3.
+2) I will move the rack into the other corner of the flat, running an RJ11 wire from the demarcation port to it - this freees up the corner by the window for a booshelf and comfy chair for me to read.
+3) I am going to place a but of wood ontop of the rack, giving me a surface to put things ontop of.
+4) I am going to *try* and cut down the cable monster I have created using cable ties and finding a home for uneeded ones.
+
+I am fully aware the laws of entropy are not on my side, and realistically no a soul is going to care my rack is a mess... but I have to look at it, and I want to be proud of the thing that has consumed the majority of my time since its inception.
 
 ### The steps
 To pull this off, timing was important - this is not the sort of thing I can do in a weekend, it involved a lot of moving parts and swapping of infrastructure.
