@@ -1,0 +1,30 @@
+> "An economic bubble (also called a speculative bubble or a financial bubble) is a period when current asset prices greatly exceed their intrinsic valuation, being the valuation that the underlying long-term fundamentals justify" ~ Wikipedia
+
+I heard a joke a few years ago that tech hobbyists have all the latest gadets and constantly keep up to date with the latest software and hardware, tech enthusists on the other hand still use the same dumb radio from pre 2000's and have a shotgun pointed at it ready for if it starts making unexpected noises. I have a healthy skeptisism towards most tech - I will try the tech, and if it makes sense for my workflow I will impliment it; I will not change my entire workflow to shoehorn something in. If this sounds like a common sense approach, you clearly have never worked in a enterprise enviroment before.
+
+AI is a very big component in the current tech zeitgeist which I have an intense level of skeptisism for. I am not a "made by human" purist, if you read this blog you will notice I over run my posts through an LLM prior to publishing to work out any kinks and spelling errors. Much aside from coding and grammar I do not use it for much else, and have not ventured far from OpenAI's models since this ai-boom began. As someone with an economics degree it is not hard to see the entire industry exsists in a massive bubble, and I am genuinley concerned what the outcome will be once said bubble bursts. This is not an assertion without evidence for the record, i strongly recomend you to look into any one of the fullowing and you will likley come round to my way of thinking:
+
+* **Valuations vs Revenue Reality:** Many AI startups are valued in the billions with minimal and unclear revenue, within even the largest players spending obcene amounts to maintain capability. This happened before during the dot-com bubble with "eyeballs over revenue". It's a sign they are priositising attention over solvency, and clicks alone do not keep the lights on.
+* **Burn Rates:** Training and running frontier models is brutally expensive, running the models is also expensive at scale. The uncomfortable question is are these products even profitable without constant investor backing?
+* **AI NOW!!!!:** AI is the new gold rush, and every single outdated managing director with an internet subscription is trying to capitilise on it. This follows the same patterns as "blockchain everything" or "metaverse everthing" during the crypto boom. When a label becomes more valuable that the function this is an early warning sign.
+
+This list can go on and on and on.
+
+Taking the clear economic instability of the space, I am also not a massive fan on the behaviour within in. None of the large companies perticularly live up to what i deem as "trustworthy", but this especially that of Anthropic who convienently have just announced their "too dangerous to release" model mythos. Massive claims about damage with not allot of transparency is always a fun mix, because often or not when someone says they are packing a 12" cock realistically they probably are batting below average. Take into account their public dispute with their US govermentr, public fueds with OpenAI, and the whole "we decide what is safe you for" concern and they remind me more of that one coworker who has been there 10 years longer than you that just needs to realise he is in the same entry level IT job as everyone else. This is not me saying any of these companies are uniquely evil, because they aren't - even if they were can i really justify boycotting them when I still use Amazon, Google, and all these other mature companies that are old enough to know better? It is a complicated line to walk, but i think it comes down to informed concent and knowing who you are giving your data and money too.
+
+So given all this pretext about how much I simply do not want to dive head first into plunge pool that is AI, you may be shocked to find out that I am now trialing OpenClaw in my workflow, and you may be even further shocked to find out that I do not entirely hate it. I want to talk about it, this is that post
+
+## God I hate tokens
+This is the second time I have attempted to trial openclaw, the first time was going well until I suddenly ran out of tokens and considered "if being able to pay rent more important than playing with my new toy". Saner heads prevailed and this projects was closed, until I saw a youtube video informing me I can use my flate rate openai subscription to power it. 
+
+![The mood meter](https://i0.wp.com/hey.georgie.nu/img/--2024/weeknotes040/mood.jpg?resize=735%2C761&ssl=1)
+
+This caused a slight shifts from "It is what it is" to "We are so fucking back"
+
+We then go through the proces of seting up my new AI best friend called Cortex (or Tex for short). Things were going great, I gave him access to my gitlab, he was reviewing issues, updating readme's, helping me devlop N8N workflows, and then
+
+> "⚠️ You have hit your ChatGPT usage limit (plus plan). Try again in ~122 min."
+
+Suddenly we went from "We are so fucking back" to "It's so over". This was somewhat expected, I was pushing it quite hard to see what it was capable of, my contention came from me hitting the upperlimit based on my subscription rather than legitmate tool limts, I could pay more but fuck that. We went at it again the next day, and the same thing happened, and the cycle continues, slowly drifting from "it's so over" to "mom would be sad.
+
+Luckily I have a friend called Joe who has gone down this rabbithole significantly moreso than me, and he has employed Obsidian to act as a backend knowledge base for hes claw instance. This added a glimmer of hope to the situation and I do have somewhat of an action plan to try and cutdown my token useage
