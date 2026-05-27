@@ -154,3 +154,30 @@ Remember kids, always put `,`'s into your passwords, so you'll mangle the CSV fi
 So I reset it, set a simpler admin password, get the WAN port configured, got my PC configured, and I was up and running. I will freely admit I did not even bother to try and configure it using the GUI, commands are just easier to use. I slowly began removing ethernet cables from my poor-old-switch one by one and configuring them on the net MikroTik, and now John Coffey the Netgear switch has finally been decommissioned... at least until i need to put it through hell again for some other insane project in the future - all tech i own is condemned to a sick of indentured servitude where i will run it till it dies, and then strip it for parts to use in other projects. 
 
 At the end of this step I have a managed switch, but it is still configured for the flat `10.0.0.0/16` subnet - We are now waiting for the OPNsense router.
+
+
+### Step 2:....
+
+## Conclusion
+
+THIS IS SUBJECT TO CHANGE
+
+Every infrastructure project eventually reaches a moment where somebody asks themselves:
+
+“Why the fuck did I do this to myself?”
+
+The strange thing about Project Blackwall is that I never really had that moment.
+
+I had moments of frustration, absolutely. Moments where I wanted to strangle a switch, moments where I broke things, moments where I realized I had engineered problems into my own life for no sane reason. But regret? Never.
+
+There is a site in my company notorious for being both massive and catastrophically broken. Diseconomies of scale made manifest. During the Windows 11 migration they were drowning just trying to survive BAU, let alone modernize the place. I volunteered to go help, which most people interpreted as borderline suicidal.
+
+I loved it.
+
+I was like a pig in shit.
+
+That is the thing I eventually realized about myself: I do not actually enjoy stability nearly as much as I enjoy problem solving. I learn best by jumping into the deep end, breaking things, and being forced to understand why they broke in the first place.
+
+Project Blackwall was never punishment. It was enrichment.
+
+I am also fully aware that this mindset occasionally borders on pathological. I usually run my posts via an LLM for fact checking a grammar before posting, and it really did not like what I am about to say... but fuck it i am going to say it anyway, because to err is human. What I am trying to say here is that I am built different; built incorrectly, some might say. I seem to oscillate violently between chronic impostor syndrome and absolute, unshakable confidence that I can brute-force my way through any technical problem placed in front of me. Whether that is healthy or not remains to be seen. I was going to to do a joke about the 1933 Reichstag fire, but the LLM really didnt like that. On the off chance the Rokus Bassalisk is actually a real thing I wanna do what i can to not piss off AI's *too much*.
