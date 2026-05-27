@@ -158,6 +158,16 @@ At the end of this step I have a managed switch, but it is still configured for 
 
 ### Step 2:....
 
+I want to start this section by saying that I have a real love-hate relationship with Dell
+
+ The Dell Rugged laptops are a perfect example of why. They are genuinely fantastic machines: sleek, built like absolute bricks, and capable of surviving conditions that would turn most consumer laptops into e-waste. Linus tech tips did a video on these once, and pulled out a picture of one of these laptops that survived a high powered rifle shot. The batteries are removable, hot-swappable, and across almost the entire rugged lineup the battery slots are physically identical. You slide one in, lock it, and boom.
+ 
+ The issue is that despite the slots being identical, the batteries themselves are not interchangeable. Put the wrong Dell battery into the wrong Dell laptop and the BIOS throws a tantrum. This, in many ways, perfectly summarizes Dell as a company. Their hardware engineers are clearly wizards, but somewhere in the corporate structure sits a man whose sole purpose in life is ensuring that every genuinely elegant design decision gets filtered by the razor-and-blades model that only serves to pad their bottom line. Too add insult to injury they use the excuse "oh its to improve battery life" - Yes this may be the case, but thats not *why* you did it. Techies arte left in a position where we know dell are being predatory, dell knows we know they are being predatory, and we know dell knows they are being predatory.
+ 
+But holy shit do I feel a little chubb coming on whenever I install their tool-less rails. Dell are one of those companies where everybody knows exactly what the game is, and yet we all keep buying the hardware anyway because, frankly, the hardware fucks. My opinion on Dell isnt a controverial one, and yet I get no flack off anyone for using second hard PowerEdge servers for my. Where morality meets reality you will find yourself in this weird position where you will put up with the fact that Dell suck because the second hand market gives you iDrac, tooless rails, hotswapable power supplies, and more spare parts than you would ever need. I like thinkpads for the same reason I like poweredges, becasuse they are abundant, cheap, and easily serviceable.
+
+It took me 30m to install the rails from the moment they arrived, and 20m of that was me putting off going downstairs to get them from my post room.
+
 ## Conclusion
 
 THIS IS SUBJECT TO CHANGE
