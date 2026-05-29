@@ -1,0 +1,20 @@
+## The Plan
+- SIEM (Wazuh)
+- IDS/IPS (Suricata plugin)
+- Honeypots on isolated VLAN's
+- Vulnerability scanning
+- Incident response runbooks
+- PKI and cert management
+- Tighten DevSecOps pipelines
+- Active Deception & Tarpits (Endlessh to trap automated scanners)
+- DNS Sinkhole Shaming (Redirecting banned traffic to a local "VLAN Violation" landing page)
+- Digital Landmines (Deploying Canarytokens in sensitive directories and repos)
+- Physical Alert Escalation (Home Assistant webhooks for high-severity event tracking)
+- "Quis Custodiet" Guard (Dead Man's Switch monitoring via external heartbeat)
+- Log Apocalypse Mitigation (Logrotate and retention policy execution)
+- Thermal Panic Automation (IPMI-driven graceful VM shutdowns during ambient heat spikes)
+
+- Endpoint Detection & Response (Leveraging Wazuh agents for HIDS and Active Response)
+- Deep Kernel Telemetry (Sysmon for Windows / Auditd for Linux integrated into SIEM)
+- Open-Source Antivirus Engine (ClamAV integrated with Wazuh FIM for real-time malware scanning)
+- Live Digital Forensics & Incident Response (Velociraptor for active threat hunting)
