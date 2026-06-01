@@ -137,7 +137,7 @@ To pull this off, timing was important - this is not the sort of thing I can do 
 3) **Set up Modem and AP -** Most ISP routers are not routers at all, they are effectively and entire networking cabinet crammed into a small form factor consumer friendly box. The reality of getting rid of yours is not just buying a new router, it is buying all of the individual items it replaces
 4) **Swap out ISP Router -** This in many ways should be as simple as moving a cable from one port to another... lol. I will also need to place the ISP router on a isolated VLAN on the new network so it continues to receive updates, the reason for this is because in most cases when you experience network issues the first thing your ISP will say is "can you please check if it still happens with our router". The only issue is, if their router has sat in a box in a cupboard for nine months it will likely be so out of date their network wont even let it connect. At this point I will still be using a flat `10.0.0.0/16` network.
 
-At this point I would of officially moved over to an OpenTik networking stack, and if i wasn't insane I would stop here
+At this point I would have officially moved over to an OpenTik networking stack, and if i wasn't insane I would stop here
 
 5) **Bind9 Split Horizon DNS -** For the longest time I have used `*.local.eddiequinn.casa` as the domains for local services and this model has worked. Split-horizon DNS would intercept local requests for my global domain and route them directly to my internal reverse proxy, eliminating the inefficient need to bounce traffic out to the public internet and back. This by itself is reason enough, but it also will play an important part in deploying my IDP. During this process I am likely to also depreciate adguard, I will need to see how hard it is to natively implement adblock into Bind9.
 6)  **Create `10.67.45.0/24` and `10.67.40.0`-** As seen in a previous section, these VLANs will be Management VLANs, serving the purpose of Network administration (switches, routers, APs, firewalls) and IT infrastructure & admin/management services. Long term they will have limited direct access to other VLANS. In the short the I will need to create a temporary cross-VLAN firewall rule in OPNsense, allowing bidirectional traffic between them and `10.0.0.16`. The goal of this is to ensure that legacy applications in the flat network can seamlessly communicate with the infrastructure services soon to be deployed in VLAN 40 and 45.
@@ -218,20 +218,79 @@ Because I knew time would be a bit of a crunch here, i prepared a [Ventoy](https
 
 I thought the hard part was over at this point and it would be smooth sailing, this pipedream was quickly shutdown by RAID. After having a short argument with hermes-agent (I had switched from OpenClaw earlier on in the day) about using ZFS vs UFS, I landing on ZFS. I discovered that the disks were currently in hardware raid. I didn't want to deal with software raid layered atop hardware raid, so I decided to change the drives to HBA mode.
 
-I have not dealt with hardware raid on PowerEdges before - I haven't had a real need for it. What followed was a nearly hour long process of "change this setting", reboot, "change this setting", reboot, "change this setting, "reboot". In total it took seven reboots before I actually managed to figure it out. Every time I thought I had found the setting, I was met with yet another abstraction layer - Change the raid controller to HBA; remove the physical disks from the pool; change the disks so they are non raid; delve into yet another menu that seems to do EXACTLY the same thing as one I have already dealt with but is subtlely different. In the process I learn allot about iDrac job ques and Hardware Raid. I fucking hate it 🙂 but in a "this was fucking frustrating but i think its cool" way, not how i hate UniFi which is morally and theologically justified. I installed it, got the web ui up, did some minor changes to the config so I could expose it, exposed it behind SSO and was in bed by 21:05, not too shabby.
+I have not dealt with hardware raid on PowerEdges before - I haven't had a real need for it. What followed was a nearly hour long process of "change this setting", reboot, "change this setting", reboot, "change this setting, "reboot". In total it took seven reboots before I actually managed to figure it out. Every time I thought I had found the setting, I was met with yet another abstraction layer - Change the raid controller to HBA; remove the physical disks from the pool; change the disks so they are non raid; delve into yet another menu that seems to do EXACTLY the same thing as one I have already dealt with but is subtlety different. In the process I learn allot about iDrac job ques and Hardware Raid. I fucking hate it 🙂 but in a "this was fucking frustrating but i think its cool" way, not how i hate UniFi which is morally and theologically justified. I installed it, got the web ui up, did some minor changes to the config so I could expose it, exposed it behind SSO and was in bed by 21:05, not too shabby.
 
 I of course then laid awake until 4am anyway unable to sleep due to the combination of heat and excitement, but at the very least I know that my god complex is not a narcissistic delusion and I truly am just built different.
 
-### Step 3 - Listening Posts and Stolen Credentials
-- describe deploying omada as a docker container
-- describe getting the ap and enrolling it
-- describe packet capturing the option 61 credentials for the next step
+### Step 3 - Rebel Radios and Modest Modems
+Compared to the previous section, the act of installing the AP and modem were actually quite tame.
+
+I spent an afternoon a few days prior to the R330 arriving spinning up an [omada controller docker container](https://github.com/mbentley/docker-omada-controller), and when the AP arrived setting it up was almost painless. It helped that I knew my way around Omada from deploying it in my parents house when they wanted their wifi upgraded. The most interesting part about this really is that my ISP router now doesn't broadcast AP traffic at all.
+
+The modem is a more interesting story - I went with a DrayTek Vigor 166, it was the most up to date modem that was compatible with my ISP's ancient DSL connection, and they even provided a guide for exactly what i was doing
+
+[Sky Fibre Broadband & Now TV Setup Guide](https://www.draytek.co.uk/support/guides/sky-fibre-setup-guide)
+
+Effectively, *according to their documentation* when a sky router connect to sky WAN and requests and IP, it sends DHCP option 61 along with a request to authenticate its access to Sky Fiber Broadband. You likely do not understand what I just said, and thats fine - I had no idea what DHCP option 61 was a week ago, and was happier for it. In essence it is a secret handshake. When your router connects to Sky's network it doesn't just ask for an IP address, it introduces itself. DHCP option 61 is the client identifier — a string that Sky's network uses to decide whether to let you in or not. The format looks something like this:
+
+`MACaddress@skydsl|password`
+
+The fun part is that Sky, at some point, apparently stopped caring very much about whether this string is real or not. Several people online report that a completely fabricated string — `aabbcc123456@skydsl|abcd1234` — works fine. The format matters more than the actual values. However I am me, and I was at least going to try and sniff or capture the credentials my ISP router was using.
+
+The plan originally was to extract the real Option 61 string my Sky router was using rather than just making one up. The obvious approach would be Wireshark — except the DHCP handshake I needed to capture doesn't happen on the LAN ports at all. It happens on the WAN side, between the Sky router and Sky's network, traveling out the RJ11 port and down the DSL line. A laptop on the LAN port would capture the Sky router talking to my devices, not the Sky router authenticating with its ISP. I have a [Plunderbug](https://shop.hak5.org/products/plunder-bug) sitting on my desk which would have made ethernet capture trivially easy — unfortunately the Plunderbug does not speak RJ11.
+
+So the plan became try the fabricated string first, and if Sky's network laughs at me, figure it out from there. There is apparently a tool that can extract the credentials directly from certain Sky router admin interfaces, and failing that the Sky router's admin page at `192.168.0.1` sometimes exposes WAN connection details if you know where to look. Unfortunately none of this could practically be done until I was ready to cutover from the ISP router to the OPNsense router, so these were just plans for the time being.
+
 
 ### Step 4 - Men Will Literally Write Bash Scripts Instead of Unplugging a Cable
-- Turn this into the start of the section
+There is a phrase passed around gender politics, coined by Camille Paglia - It goes "There is no female Mozart because there is not female Jack the Ripper". This effectively boils down to the idea that male biology has baked in a disproportionate drive for both extreme creation and destruction. It echo's the same verdict of "Men will literally deploy a kubernetes cluster than go to therapy". 
+
+Following the saga that was actually installing OPNsense I showed up to work the next morning on a solitary hour of sleep, ready to mold this OS that I had midwife'd into existence the night before. I sat down at my desk and logged into my work laptop, checked my emails and confirmed the warehouse was in fact not on fire. After checking some tickets and accepted that at that exact moment in time everything was quiet enough for me to do some work on Project Blackwall. To a non IT worker, I want to pull back the curtain on the culture of IT offices here - When you walk in and it looks like we are just chatting shit and watching youtube, we are. IT is one of those jobs where if we are doing our job right it looks like were doing fuck all. I just wanted to clear this up in case someone is questioning why I was working on my home network in the office.
+
+I logged onto OPNsense and decided to follow the wizard. It guided me through setting up a hostname, configuring my WAN interface, and configuring my LAN interface. I submitted the changes, and suddenly I was locked out.
+
+For those of you that don't know, the way pangolin (my remote access gateway) works is very similar to cloudflare tunnels. You basically place a VPN entrypoint in your network, and the pangolin server uses that to forward and server your internal services externally. In the old-net setup, my pangolin connection in my network was on `10.0.1.37/16`, and I had just changed the IP of OPNsense to `10.67.40.1/24` - totally different subnets, and worlds apart as far as communication goes. I quietly accepted I was going to have to solve this when I was home, and so spent the rest of the day doing my actual job.
+
+I arrived home at 19:30 - to reiterate, i was on a single hours sleep at this point. I pulled out my laptop, a shitty 3rd hand corebooted chromebook running NixOS, and a apple branded USB-A to ethernet adapter I had "borrowed" from the office. I configured the NIC I had just plugged in by running `sudo ip addr add 10.67.40.2/24 dev enp0s20u3`, opened librewolf, typed in `https://10.67.40.1`, Et voilà i was in... for about 45 seconds, and suddenly I couldn't even ping it anymore.
+
+Now I am assuming this was the ethernet adapter, but frankly the entire laptop adapter duo was cursed and something like this was bound to happen. Luckily it was easily fixed by unplugging and replugging the ethernet cable, however this would only fix it for an additional 45 seconds. "Men will literally deploy a kubernetes cluster than go to therapy" and apparently I will literally write an entire bash script to bounce a NIC on my laptop every 30 seconds, rather than unplugging/replugging in a cable in the same time frame. I don't have the exact code I wrote in my sleep deprived state, but claude said this would work, and it looks awful similar to what i wrote so fuck it
+
+```bash
+#!/usr/bin/env bash
+while true; do
+    ip link set enp0s20u3 down
+    sleep 1
+    ip link set enp0s20u3 up
+    sleep 30
+done
 ```
-I need to start writing up the step for when I actually tries to configure OPNsense and locked myself out... And then had to use a dodgy apple USB A ethernet adapter, with my core booted Chromebook running nix... Having to write a script to turn on and off the the adapter every thirty seconds because the signal kept dropping and I couldn't be assed to unplug it and replug it but somehow was willing to write a script to do it for me... All in an effort to add a virtual IP in the flat 10.0.0.0/16 subnet, so I could still access the web UI after setting the IP to 10.67.40.1/24
+
+This fix, while frustrating, did allow me to get into the web ui and add a virtual IP for the LAN interface in the flat `10.0.0.0/16` subnet. I then plugged back in the actual ethernet cable, confirmed the IP was working, updated the pangolin route, and then i woke up three hours later not quite knowing what point i got into bed. I was now ready to go back into work the next day and continue to do personal projects on the company dime, blogging about it in explicit detail, acutely aware the very words I write could lead to a dismissal.
+
+I arrived to work the next day, bright eyed and bushy tailed, somehow still sleep deprived because I woke up at 02:00 in the morning and couldn't get back to sleep. From the documentation I got *directly from draytek themselves* (there is a reason this is in italics, and my rage will be understood in a few paragraphs) I knew I had to set two things
+
+* VLAN 101 
+* DHCP Option 61
+
+A new VLAN interface `vlan101` was created, parented to `bge1` (the WAN physical port) with tag 101, and described as WAN-Sky. The WAN interface assignment was updated to use `vlan101` rather than raw `bge1`. A DHCP Option 61 string was added to the WAN advanced configuration in the Send Options field — `dhcp-client-identifier "aabbcc123456@skydsl|abcd1234"`. Realistically this was all I could really do while at work, so I once again spent the rest of the day doing my actual job, because it was sunday and things were quiet for once this mainly consisted of watching Jellyfin, playing ReadyOrNot, and helping my mate with his own projects
+
+That evening, arriving home, the Vigor 166 was connected to the RJ11 on the wall, and the RJ45 P1 port was connected to OPNsense's WAN port. The sky router was powered off. OPNsense picked up no WAN IP, once again confirming that theory that "anything that can go wrong will go wrong". The vigors interface was reached by connecting a machine to its second ethernet port and setting a static IP in `192.168.2.0/24` to reach the admin page of `192.168.2.1`. The page confirmed the modem was in Modem/Bridge mode by default, with VLAN 101 Service Tag already enabled and set to 101. In other words the modem was doing its job correctly, so i could rule that out as the cause. This did however mean that `vlan101` never had to be set on the OPNsense WAN port, so it was assigned back to `bge1`. removing the `vlan101` assignment entirely. It also turned out that Skys authentication is sufficiently relaxed at this point that no credential strings are required at all.
+
+This was confirmed with a manual `dhclient bge1` from the OPNsense shell
+
+```sh
+DHCPDISCOVER on bge1 to 255.255.255.255 port 67 interval 8
+DHCPOFFER from REDACTED
+DHCPREQUEST on bge1 to 255.255.255.255 port 67
+DHCPACK from REDACTED
+bound to REDACTED -- renewal in 1800 seconds.
 ```
+
+In essence, most of the modem rhetoric that I established in step 3 was in fact false, and i have once again been scorned by the plight that is erroneous and deceitful documentation. 
+
+After a full reboot, OPNsense picked up the WAN IP automatically, and the virtual IP was changed from `10.0.0.200` to `10.0.0.1` so that devices on the Old-Net could use it as a gateway without any config changes. Now if i was smart, I would have got all of the port forwarding information from my previous router - you would think with how much I planned all this shit out I would have done that, but nae... the best-laid schemes o' mice an' men gang aft agley. Matrix federation port forwards were added  `443` and `8448` to `10.0.4.2` — and confirmed working externally via mobile data. A NAT hairpinning limitation was noted for internal access, but to be honest matrix should never have been exposed as a port forward to begin with, and will be transferred over to pangolin during the VLAN changeover (as gitlabs forwarded 2424 was in this process). I also had to lock down the OPNsense WebUI to LAN only after briefly being accessible from WAN interface following the port forward config.
+
+I slept a full eight hours following this, and the following morning got to work and sipped my monster knowing that the physical work was over and pondering if the digital battlefield would be more forgiving than that of chassis and ports. To come was a split horizon DNS setup, a full VLAN landscape to summon into existence, and an IDP to manifest, each arguably large enough to be a project onto themselves. I remember the plight of my shitty little netgear shift, tired and fatigued praying just to be unplugged - I then of course remember every aspect of this was self inflicted and I in fact could stop whenever I want. Just like the ancient warriors who came before me I finished my monster and voided my bladder into the work toilet, knowing that sitting at my desk in an air conditioned office was totally equal in suffering to that felt at Alesia or Agincourt.
 
 ### Step 5 - 
 
