@@ -341,11 +341,146 @@ Following this crisis and deescalation, the next step was to configure DHCP via 
 **Proxmox Config**
 On my proxmox host `arasaka-1` a new VLAN aware linux bridge `vmbr1` was created on `eno3`, which is currently an unused physical NIC. The decision to use a single VLAN-aware bridge rather than eight separate bridges keeps things clean: VLAN tags are assigned at the VM NIC level rather than requiring a dedicated bridge per network. Critically, this was placed on `eno3` rather than the existing eno2 interface to avoid disrupting any currently running VMs during the migration.
 
+**The MikroTik Trunk Configuration**
+The next step was configuring the actual switch and this was the thing I could not do at work. I knew if i fucked it up I would be locked out, so I would need to do where I could jack into the switch directly as a break glass access method. I had two methods I could use:
+
+* Use a console cable directly connected to the switch (the sane method)
+* Place a device on the `10.67.40.0/24` VLAN so I can still access the switch interface
+
+In fairness, the second one was theoretically possible but in many ways I was playing with fire is I chose this method to begin with. If I did not configure the device connection properly I would be locked out, and at that point my network would be unusable without a console cable. I would also realistically need to use the NixOS chromebook abomination that caused issues in previous steps, which added further potential issues to this equation. So why did I even consider this option? I had stupidly given away my only console cable to my friend who was just starting hes homelab a couple of weeks prior, completely oblivious that maybe I shouldn't of done the before a massive networking project. I ordered a new one and was due to arrive the next day.
+
+I was at this point stuck between a rock and a hard place, unsure weather to do something that realistically would be fine but could fully lock me out or play it safe and wait for a cable to arrive. My exact view on this  at the time was "In the worst case here, i have more chaos to talk about in the blog post". I tested a alternative ethernet adapter at work and it didn't shit itself within 45 seconds. When I got home I was going to connect my laptop to a port, ping `1.1.1.1`, go for a piss, and if there was no issues with the pings by the time I got back then I am taking that as an all clear - This test passed. We were going in.
+
+The first step was to take a full config backup prior
+
+```sh
+/export file=backup-before-vlans
+```
+
+After this was mapping the physical port layout - running a combination of `/ip neighbor print` and `/interface bridge host print where !local` confirmed the following:
+
+| interface | device |
+|-----------|--------|
+| ether1  | spider (laptop) |
+| ether4  | blackwall-1 (OPNsense) |
+| ether5  | petrochem-pdu-1 (PDU) |
+| ether7  | bartmos-ap-1 (AP) |
+| ether10 | arasaka-1 (Proxmox) + all VMs via eno2 |
+| ether11 | datafortress-1 (TrueNAS) |
+| ether15 | proxmox-bkup (Proxmox Backup Server) |
+| ether17 | blackhand (desktop) |
+
+A cable was run from proxmox's `eno3` into `ether13`, confirmed with a running link flag. This would become the VLAN trunk for the new VLAN-aware bridge `vmbr1`.
+
+Eight VLAN entries were added to the MikroTik bridge - all of these were additive only, and would not have a meaningful effect until VLAN filtering is enabled:
+
+``` sh
+/interface bridge vlan add bridge=bridge tagged=ether4,ether13 vlan-ids=10
+/interface bridge vlan add bridge=bridge tagged=ether4,ether13 vlan-ids=20
+/interface bridge vlan add bridge=bridge tagged=ether4,ether13 vlan-ids=30
+/interface bridge vlan add bridge=bridge tagged=ether4,ether13 vlan-ids=40
+/interface bridge vlan add bridge=bridge tagged=ether4,ether13 vlan-ids=45
+/interface bridge vlan add bridge=bridge tagged=ether4,ether7,ether13 vlan-ids=50
+/interface bridge vlan add bridge=bridge tagged=ether4,ether7,ether13 vlan-ids=60
+/interface bridge vlan add bridge=bridge tagged=ether4,ether7,ether13 vlan-ids=70
+```
+
+The bridge itself was then added as a tagged member of VLAN 45 - The management lifeline that ensure the MikroTik  retains its own management access after filtering is enabled:
+
+``` sh
+/interface bridge vlan set [find vlan-ids=45] tagged=ether4,ether13,bridge
+```
+
+A VLAN interface and management IP were created on the MikroTik:
+
+``` sh
+/interface vlan add interface=bridge name=vlan45-mgmt vlan-id=45
+/ip address add address=10.67.45.2/24 interface=vlan45-mgmt
+```
+
+The laptop's port (ether1) was configured as an untagged VLAN 45 access port — the fallback management path if everything went wrong:
+
+``` sh 
+/interface bridge port set [find interface=ether1] pvid=45
+/interface bridge vlan set [find vlan-ids=45] untagged=ether1
+```
+
+And finally on the laptop I ran the following to give it a `10.67.42.0/24` address
+
+``` sh
+sudo ip addr flush dev enp0s20u3
+sudo ip addr add 10.67.45.10/24 dev enp0s20u3
+sudo ip route add default via 10.67.45.1
+```
+
+At this point I was officially at the point of no return - it was also at this point that anthropic was dealing with a major incident, and now was not the time to test my networking troubleshooting without the assistance of an LLM. Given this I went to sleep. In my usual fashion I then woke up a few hours later a 02:00 and couldn't get back to sleep, and so I decided now was the time to turn on VLAN filtering
+
+``` sh
+/interface bridge set bridge vlan-filtering=yes
+```
+
+The desktop stayed online. All VLAN gateways responded. Internet confirmed. The Blackwall was live.
+
+``` sh
+ping 10.0.0.1     — OPNsense LAN ✓
+ping 10.67.10.1   — Services ✓
+ping 10.67.40.1   — Infrastructure ✓
+ping 10.67.45.1   — Management ✓
+ping 8.8.8.8      — Internet ✓
+```
+
+** Validating the full stack
+A test Ubuntu VM (`opentik-test-1`, VMID 201) was spun up on Proxmox attached to `vmbr1` with VLAN tag 40. It did not initially get a DHCP lease. Troubleshooting shed light on three distinct issues
+
+First, `ether13` had not been added to the bridge as a port member - the VLAN entries exsisted but the port wasn't carrying any traffic. This was fixed with `/interface bridge port add bridge=bridge interface=ether13`.
+
+Second, Hea DHCPv4 was failing to start because `dnsmasq` was already bound to port67 across all interfaces, blocking Kea from binding. Dnsmasq was disabled entirley - Adguard handled DNS currently, and Bind9 would take over in future; Kea was handling DHCP - dnsmasq was serving neither purpose in the plan. 
+
+Third, with dnsmasq cleared, Kea started successfully but the VM still couldn't be reached because OPNsense blocks all traffic on new interfaces by default. A temporary allow-all rule was added to the Infrastructure interface (`OPT4`), the ping responded, and the rule was deleted.
+
+Final confirmation: the VM received `10.67.40.24` from Kea, the gateway `10.67.40.1` responded to pings, and the full path from VM → Proxmox → ether13 → MikroTik → ether4 → OPNsense → VLAN 40 was confirmed end to end. The walls are built.
+
+***A midnight networking education**
+It was at this point, sitting at my desk at 2am with a test VM finally talking to OPNsense, that I realised that I had largely let Hermes-Agent take take the wheel on the MikroTik config without fully understanding what I had just done. I sat there and pondered, realising that all i really had done was deploy a ubiquiti network with extra steps, and I needed to understand what I had just done for any of this to be worth it. What followed was probably the only useful networking conversation I have ever had.
+
+The mental model that finally made everything click was thinking about my network as a medieval city. Each VLAN is a district, and the MikroTik is the road network connecting them.
+
+* **Tagged Ports** are motorway on/off ramps - It connect multiple districts similtaniously, and every every hauling cart (frame) traveling on it carries a label (the VLAN tag) saying which district it came from and where it is going. OPNsense and Proxmox are on tagged ports because they need to send and receive traffic for every district at once.
+* **Untagged ports** are domestic street inside a single district. Your laptop doesn't know or care about other VLAN's, it just lives in VLAN 45 and sends normal untagged frames. The switch handles the labelling invisibly, tagging frames on the way in and stripping tags on the way out.
+* **The VLAN table** is the map of all roads and which district they connect too
+* **VLAN filtering** is the moment road blocks go up -  frames without valid labels get turned back at the junction.
+* The **OPNsense firewall** is the customs official at the border crossing between districts. Every lorry crossing from one district to another passes through OPNsense, which checks the manifest and decides whether it's allowed through. Lorries travelling within a district never see customs at all.
+
+The important realization however is this - The switch manages the walls, the firewall manages the gates in those walls. This challenged assumptions which I had about network security prior to this point. I had assumed very much that switches had all of this config dictated to them entirely by the firewall, when in actuality they both work together. This also did something else important.
+
+When I first started in helpdesk I got my CompTIA A+ very quickly, and following that decided to work on getting my Network+. The thing about me is I do not learn by being dictated information, I learn by doing. I passed my A+ quickly because I already knew most of the information already, I was struggling with Network+ because to someone who has only ever dealt with unmanaged switches VLAN's, SDN's and firewalls mean nothing to me. I had no idea what purpose they served contextually, and more importantly I had no idea what problem they were trying to solve. Now I have built a highly segmented network I understand why enterprise networks are built the way the are and what problems an SDN is trying to solve.
+
+I had configured a single switch - now what do I do when I need to add my second core switch? How do i port my config from one to another? There are three main answers
+
+* **Do it by hand again -** This is going to be error prone, slow, and lends itself to long term state drift between the two switches
+* **Utalise tools like OPNsense and Terraform to do it -** Ansible and Terraform are automation tools that manage a decentralised group of devices. They basically automate the previous method, just at scale - You cut out the error prone nature and speed issues, however you are still dealing with potential state drift due to the control plane of these devices still being decentralised.
+* **Software Defined Networking (SDN)** - This is a fundamentally different architecture, where the switches become dumb forwarding devices with no independent intelligence. A centralised controller holds all the network logic and tells each switch what to do in real time. Drift becomes impossible because there is no local config to drift from. The downside is the controller becomes a critical dependency that has to be engineered for high availability.
+
+The practical upshot for Blackwall long term is: Ansible for network IaC now, NetBox as a network source of truth during the Argus phase, and OpenDaylight as a potential SDN controller sometime after that. Whether the last one ever actually happens remains to be seen — but then again, nothing about this project has ever been justified by the size of my network.
+
+It was 2am. The walls were built, and now I need to move everything into them.
+
 ### Step 6 - 
 
 *incredibly rough draft*
 I did not want to use adguard as an upstream when i did bind 9, my idea scenario was traffic would flow from bind into unbound. I was going to use RPZ's to achieve this
 "adguard is the ubiquiti of selfhosted dns"
+
+### Step 8 -
+Remove the 10.0.0.1 virtual IP from OPNsense LAN once everything is on VLANs
+Strip the IP off bge0 and move WebUI to VLAN 45 only
+Remove the temporary Matrix port forwards once Pangolin tunnels are confirmed
+Configure proper inter-VLAN firewall rules replacing any temporary allow-all rules
+Move ISP router to an isolated VLAN
+Configure access ports on MikroTik for each physical device (desktop to VLAN 60, iDRAC ports to VLAN 45, etc)
+Point AdGuard at Bind9 once Bind9 is deployed, then deprecate AdGuard eventually
+Move Pangolin connector VM to VLAN 30 (DMZ)
+Cable management pass
 
 ## Conclusion
 
