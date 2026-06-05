@@ -222,7 +222,7 @@ I have not dealt with hardware raid on PowerEdges before - I haven't had a real 
 
 I of course then laid awake until 4am anyway unable to sleep due to the combination of heat and excitement, but at the very least I know that my god complex is not a narcissistic delusion and I truly am just built different.
 
-### Step 3 - Rebel Radios and Modest Modems
+### Step 3 - The Secret Handshake That Wasn't
 Compared to the previous section, the act of installing the AP and modem were actually quite tame.
 
 I spent an afternoon a few days prior to the R330 arriving spinning up an [omada controller docker container](https://github.com/mbentley/docker-omada-controller), and when the AP arrived setting it up was almost painless. It helped that I knew my way around Omada from deploying it in my parents house when they wanted their wifi upgraded. The most interesting part about this really is that my ISP router now doesn't broadcast AP traffic at all.
@@ -293,6 +293,10 @@ After a full reboot, OPNsense picked up the WAN IP automatically, and the virtua
 I slept a full eight hours following this, and the following morning got to work and sipped my monster knowing that the physical work was over and pondering if the digital battlefield would be more forgiving than that of chassis and ports. To come was a split horizon DNS setup, a full VLAN landscape to summon into existence, and an IDP to manifest, each arguably large enough to be a project onto themselves. I remember the plight of my shitty little netgear shift, tired and fatigued praying just to be unplugged - I then of course remember every aspect of this was self inflicted and I in fact could stop whenever I want. Just like the ancient warriors who came before me I finished my monster and voided my bladder into the work toilet, knowing that sitting at my desk in an air conditioned office was totally equal in suffering to that felt at Alesia or Agincourt.
 
 ### Step 5 - Caesar Also Had to Build His Walls Before He Could Man Them
+Before we begin, a small warning. Up until this point Project Blackwall has largely been a story about heatwaves, sleep deprivation, poor life choices, and the consequences of allowing a man with a god complex to purchase enterprise networking equipment. This section is different.
+
+Step 5 is where the project stops being primarily a chaos log and starts becoming a networking project. As a result, this chapter goes into considerably more technical depth than the rest of the post. This is partly because VLANs, trunks, and DHCP servers are difficult topics to explain without getting a little bit into the weeds, and partly because, for reasons that will soon become apparent, many of the opportunities for my usual brand of self-inflicted chaos were temporarily curtailed. That said, this section contains some of the most important lessons I learnt during the entire project. If you genuinely do not care about the technical implementation details, feel free to skip ahead to **"A Midnight Networking Education"**, where I finally stop blindly following instructions and begin understanding what I have actually built.
+
 Initially the plan was for set up Bind9 first and then do the VLAN's, i am totally unsure what the rationale was behind that. I think in my head I thought "i will set everything up on the flat `10.0.0.0/16` and then move everything over to VLAN's. In actuality just from brief run in's with VLAN's in the prior step it became immediately obvious it would be easier and make more strategic sense to do the VLAN's first. Why did i not edit the plan to cover up this mistake I made?
 
 > "Locations change, the rationale, the objective. Yesterday's enemies are today's recruits. Train them to fight alongside you, and pray they don't eventually decide to hate you for it, too. " - General Shepard, MW2
@@ -464,6 +468,74 @@ I had configured a single switch - now what do I do when I need to add my second
 The practical upshot for Blackwall long term is: Ansible for network IaC now, NetBox as a network source of truth during the Argus phase, and OpenDaylight as a potential SDN controller sometime after that. Whether the last one ever actually happens remains to be seen — but then again, nothing about this project has ever been justified by the size of my network.
 
 It was 2am. The walls were built, and now I need to move everything into them.
+
+**The Prawns Must Move**
+The VLAN skeleton had been built. OPNsense knew about all eight networks, the MikroTik was filtering tagged traffic, and Proxmox had a VLAN-aware bridge ready. What remained was channeling my innter District9 chracter and serving these eviction notices. What followed was me discovering, one service at a time, exactly how out of my depth I actually am with anything beyond basic network troubleshooting.
+
+The approach was methodical:
+* LXCs first since they have just generally been easier to deal with than VM's.
+* Infrastructure before services
+* Pangolin-dependent things before anything that would lose remote access.
+
+infstack-1 went first - my pangolin connector lives there, and losing remote access mid-migration would have been catastrophic. A second NIC was added in Proxmox on `vmbr1` with VLAN tag 40, a `dhclient eth1` later it had `10.67.40.25`, and Pangolin kept working throughout on the old `eth0`. adguard-1 followed onto VLAN 40 at `10.67.40.26`. The services VLANs filled up quickly - devstack-1, appstack-1, arrstack-1, mediastack-1 all onto VLAN 10 with the same pattern:
+
+1) add NIC
+2) get lease
+3) make reservation
+4) update Traefik branch
+
+matrix-1 went to VLAN 30, my DMZ, after a brief detour attempting to get it behind Pangolin. Due to some issues with double TLS termination between Pangolin and Caddy, this was deferred for another day, and the port forwards remained temporarily. Still dealing with the hairpinning issue, but this should be addressed when Bind9 is brought in.
+
+The full VMs were not neccecarily more work, just different. The netplan config on Ubuntu cloud-init VMs bound network interfaces by name rather than MAC, and the second NIC came up as `ens19` rather than `eth1`. Once that was understood, monitoring-1, nextcloud-1, and openclaw-1 all followed the same fix:
+
+1) add the following to `/etc/netplan/50-cloud-init.yaml`
+
+```yaml
+ens19:
+  dhcp4: true
+```
+
+2) run netplan apply
+3) make reservation
+4) update Traefik branch
+
+The k3s cluster was decommissioned entirely - nothing was running on it, the IaC files are preserved, and it will be rebuilt properly at a later date.
+
+With the VMs handled, the MikroTik access ports needed configuring for physical devices. The pattern was the same for each:
+
+1) set the port's PVID to the target VLAN.
+2) add the port to the VLAN table as an untagged member.
+
+
+iDRAC ports were the first lesson in port mapping - the assumption that `ether11` was the datafortress-1 iDRAC was wrong. The bridge host table revealed `18:FB:7B:A6:38:3D` was actually on `ether12`. Both iDRAC ports ended up on VLAN 45. Unfortunatley I am unable to put the opnesense iDrac onto a VLAN until I get a dedicated port for it, which is on order. In the meantime, the iDRAC shares the LAN port and remains accessible on the old network until the hardware arrives.My desktop blackhand went to VLAN 60 - this presented its own problems with DNS I will get into in a moment. The PDU went to VLAN 45 without a hitch. The AP was straightforward as `ether7` was already carrying tagged VLANs 50, 60, and 70 from the trunk configuration. Three SSIDs were created in Omada corresponding to VLAN 60 for trusted devices, VLAN 50 with rate limiting, VLAN 70 with client isolation enabled via the Guest Network setting. My Phone connected to the VLAN 60 SSID and pulled 10.67.60.25, this meant the WLAN segmentation was working - I am not a massive fan of having three SSID's and plan to move to MPSK in the future, but for now it works.
+
+For Proxmox, the plan was to put in a new ethernet cable into `eno4` and set up a managment interface on there, and decomission `eno2`. This worked until `eno4` turned out to be dead with no link on any MikroTik port. Rather than leaving Proxmox management on the old flat network, a VLAN interface was created on top of eno3 (the existing VLAN trunk):
+
+```sh
+ip link add link eno3 name eno3.45 type vlan id 45
+ip link set eno3.45 up
+dhclient eno3.45
+```
+
+This gave Proxmox a management IP at `10.67.45.27` on VLAN 45 without requiring a dedicated physical port. The interface was made persistent in `/etc/network/interfaces`. `vmbr0` was then decommissioned, once confirmed that no VMs or LXCs were still using it.
+
+The only real specific issue I had in this entire phase, asides from the ones I will metion that were more systemic rather than an actual annoyance - When I tried to adopt my AP I forogt to the set the VLAN tag before configuring the switch port, which in essence meant the AP was unreachable. Through a series of misguided decisions this ended up with me being locked out of both the switch and the AP, anbd having to purcahse a PoE converter and a USB to Serial adapter to recover. This was chopped down to poor planning, but still annoying. This was eventually done done however.
+
+The old 10.0.0.0/16 network now exists purely as a virtual IP on OPNsense's LAN interface — scaffolding keeping the remaining unmigrated services reachable while the cleanup continues. When the last old-network dependency is gone, that virtual IP comes off and the Blackwall is complete.
+
+So... Why did this humble me so much. Three things broke repeatedly in ways that will never be forgotten:
+
+The first was bind addresses. When I initally moved my PC over the first thing I notices was silence, when I should of been listening to Brutalismus 3000. So I leaned on my networking knowledge I got from studying Network+ ages ago, going through the OSI model step by step.
+
+* It was not the physical layer, nothing had changed that could effect that and I still had flashing lights on the port.
+* It was not the data link layer, I could see its MAC in the MAC table on the mikrotik.
+* It was not the Network layer, I still had an IP and was able to ping 127.0.0.1, the default gateway, and 1.1.1.1.
+
+I wont bore you by going through the entire OSI model, but that was how I eventually realised that adguard was no longer responding to DNS requests. Brilliant. Why? Here is the rub between actual experiance and itpro.tv, AdGuard was bound to 10.0.1.3 and refused to answer DNS queries on the new 10.67.40.26 interface until bind_host was changed to 0.0.0.0 in AdGuardHome.yaml. Every service that binds to a specific IP rather than all interfaces will have this problem. It was at this moment I realised for so long I had taken for granted that devices I dealt with only ever had a single IP and a single MAC. Once again the data produces by a box and the box itself are entirley seperate entities, and arguable are entirely decoupled in their dependence on one another. 
+
+The second was default gateways. TrueNAS, AdGuard, Proxmox - all of them received DHCP leases but had no default gateway, so reply packets had nowhere to go. The symptom was always the same in that OPNsense could reach the device, the device couldn't reach anything else. The fix was adding the `routers [3]` option to each Kea subnet, something that I assumed would be handled automatically, but now understanding this assumption was somewhat naieve. Once set, every new lease includes the correct gateway automatically.
+
+The third was NFS volumes with hardcoded IPs. GitLab's `sourcecode_pool` volume pointed at `10.0.1.199`, the old TrueNAS IP. Docker had to be stopped, the volume deleted, recreated with the new IP `10.67.20.24`, and GitLab restarted. Any service mounting NFS from TrueNAS will have the same issue. it's on the cleanup list.
 
 ### Step 6 - 
 

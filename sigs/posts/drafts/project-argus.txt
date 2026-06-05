@@ -1,20 +1,45 @@
 ## The Plan
-- SIEM (Wazuh)
-- IDS/IPS (Suricata plugin)
-- Honeypots on isolated VLAN's
-- Vulnerability scanning
-- Incident response runbooks
-- PKI and cert management
-- Tighten DevSecOps pipelines
-- Active Deception & Tarpits (Endlessh to trap automated scanners)
-- DNS Sinkhole Shaming (Redirecting banned traffic to a local "VLAN Violation" landing page)
-- Digital Landmines (Deploying Canarytokens in sensitive directories and repos)
-- Physical Alert Escalation (Home Assistant webhooks for high-severity event tracking)
-- "Quis Custodiet" Guard (Dead Man's Switch monitoring via external heartbeat)
-- Log Apocalypse Mitigation (Logrotate and retention policy execution)
-- Thermal Panic Automation (IPMI-driven graceful VM shutdowns during ambient heat spikes)
 
-- Endpoint Detection & Response (Leveraging Wazuh agents for HIDS and Active Response)
+### Network Access Control
+- RADIUS server (Authentik) for 802.1X wireless authentication
+- MAB (MAC Authentication Bypass) for wired port authentication on MikroTik
+- Certificate authority for device certificates
+- Tighten inter-VLAN firewall rules (replace temporary allow-all rules based on observed traffic patterns)
+
+### Network Visibility
+- NetFlow/sFlow collection from MikroTik
+- IPFIX export to SIEM for network/host event correlation
+- IDS/IPS (Suricata plugin on OPNsense)
+
+### SIEM & Threat Detection
+- SIEM (Wazuh)
+- Endpoint Detection & Response (Wazuh agents for HIDS and Active Response)
 - Deep Kernel Telemetry (Sysmon for Windows / Auditd for Linux integrated into SIEM)
 - Open-Source Antivirus Engine (ClamAV integrated with Wazuh FIM for real-time malware scanning)
 - Live Digital Forensics & Incident Response (Velociraptor for active threat hunting)
+
+### Deception & Active Defence
+- Honeypots on isolated VLANs
+- Network-based honeypots — fake servers on unused IPs in each VLAN that should never receive traffic, any connection is an immediate alert
+- Active Deception & Tarpits (Endlessh to trap automated scanners)
+- DNS Sinkhole Shaming (Redirecting banned traffic to a local "VLAN Violation" landing page)
+- Digital Landmines (Deploying Canarytokens in sensitive directories and repos)
+
+### Identity & Access
+- Authentik IDP deployment
+- SSO across all internal services via OIDC/SAML
+- PKI and cert management
+    - SSH certificates and local CA for *.local.eddiequinn.casa 
+
+### Monitoring & Alerting
+- Vulnerability scanning
+- Physical Alert Escalation (Home Assistant webhooks for high-severity event tracking)
+- "Quis Custodiet" Guard (Dead Man's Switch monitoring via external heartbeat)
+- Thermal Panic Automation (IPMI-driven graceful VM shutdowns during ambient heat spikes)
+
+### Hardening & Compliance
+- Incident response runbooks
+- OpenSCAP for automated compliance checking against a baseline
+- Automated config backups for OPNsense and MikroTik with diff alerting
+- Log Apocalypse Mitigation (Logrotate and retention policy execution)
+- Tighten DevSecOps pipelines
