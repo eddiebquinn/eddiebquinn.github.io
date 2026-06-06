@@ -532,16 +532,32 @@ The current state, a wildcard `*.local.eddiequinn.casa` pointing everything at T
 
 The design has four layers.
 
-**The authorative tier**
-The actual IP addresses, one record per interface.
+**The authoritative tier**
+The actual IP addresses, one record per interface. This tier is split cleanly into internal functional services, physical hardware assets, virtual machines, and standalone cluster endpoints.
+
+The functional subdomains tell you exactly what kind of thing a service is and which VLAN it lives on: `svc` for VLAN 10 services, `infra` for VLAN 40 infrastructure, and `mgmt` for VLAN 45 management interfaces. 
 
 * `grafana.infra.local.eddiequinn.casa` points at `10.67.40.27`
 * `proxmox.mgmt.local.eddiequinn.casa` points at `10.67.45.27`
-* `idrac.arasaka-1.bartmos.svr.local.eddiequinn.casa` points at the iDRAC IP
 
-The subdomain before the zone tells you exactly what kind of thing it is and which VLAN it lives on. `svc` for VLAN 10 services, `infra` for VLAN 40 infrastructure, `mgmt` for VLAN 45 management interfaces, `svr` for physical servers, `str` for storage, `dmz` for the DMZ. Every name has a place in the hierarchy and every place in the hierarchy means something. These names live under `local.eddiequinn.casa` because that is exactly what they are, local. They are not intended for external resolution, they are not intended for human typing, they are the infrastructure talking to itself.
+Physical hardware gets its own identity tied to a geographic site under the `svr` subdomain. The `bartmos` in the server names is the site identifier—bartmos is my flat, named after Rache Bartmoss, the legendary netrunner whose posthumous virus took down the old Net. Fitting, given I just killed my own old network. Physical infrastructure lives here:
 
-Physical servers get their own identity separate from the services running on them. `arasaka-1.bartmos.svr.local.eddiequinn.casa` is a CNAME pointing at `proxmox.mgmt.local.eddiequinn.casa`, because right now `arasaka-1` runs Proxmox, but if that ever changes the server's identity stays stable and only the CNAME target changes. The hardware and the software running on it are separate concerns and the DNS reflects that. The `bartmos` in the server names is the site identifier,  bartmos is my flat, named after Rache Bartmoss, the legendary netrunner whose posthumous virus took down the old Net. Fitting, given I just killed my own old network. If I ever colocate a server, or put one at my parents' house, or at some point in my adult life acquire a second physical location, those machines get a different site name drawn from the same lore. `arasaka-3.songbird.svr.local.eddiequinn.casa` is unambiguous - an Arasaka-series (proxmox) server, at the Songbird site, a physical machine. The entire namespace scales to multiple locations without any restructuring, without any naming conflicts, and without me having to remember which machine lives where. The DNS tells me.
+* `arasaka-1.bartmos.svr.local.eddiequinn.casa` is the physical server node interface.
+* `idrac.arasaka-1.bartmos.svr.local.eddiequinn.casa` points to the physical machine's iDRAC IP.
+* `sw-core-01.bartmos.infra.local.eddiequinn.casa` points to the physical core switch (name subject to change, i need to think of a cyberpunkesk name for the switches)
+
+To handle clustering and virtualization without breaking abstraction, the network isolates collective cluster entities into `clstr.local.eddiequinn.casa`, while individual virtual machines live under `vrt.local.eddiequinn.casa`. 
+
+To future-proof the network, even single-node hypervisors are treated as a cluster pool. Currently, `arasaka-1` is the sole physical node inside a logical Proxmox cluster named `arasaka`. They will be prefixed with `bm` if it refers to a physical cluster e.g. a proxmox cluster, or `vrt` if it is a virtual cluster e.g. a kubernates cluster made up of vms.
+
+Records within `clstr` refer strictly to a cluster itself, not the individual items running inside it:
+* `arasaka.bm.clstr.local.eddiequinn.casa` represents the multi-node Proxmox cluster entity (e.g., a shared management VIP).
+* `netwatch.vrt.clstr.local.eddiequinn.casa` represents a nested Kubernetes (k3s) cluster entity (e.g., the collective control plane API load balancer).
+
+Individual virtual machines live in the `vrt` tier, identifying the specific guest OS instance and the compute cluster hosting it:
+* `infstack-1.arasaka.vrt.local.eddiequinn.casa` is a single, distinct VM instance running on the Arasaka compute pool.
+
+These infrastructure names are the backbone talking to itself. Functional service names are mapped via CNAME records to these stable infrastructure targets. If a virtual machine migrates to another physical node within the cluster, or if a physical host is swapped entirely, the underlying identity remains stable and the application routing remains unbroken.
 
 This is the difference between a naming scheme that was designed and a naming scheme that accumulated. The `*.local.eddiequinn.casa` wildcard accumulated. This was designed.
 
@@ -570,15 +586,13 @@ This is actually a simplification rather than a complication. Right now every Tr
 rule: "Host(`gitlab.local.eddiequinn.casa`) || Host(`gitlab.eddiequinn.casa`)"
 ```
 
-Once split-horizon is in place, both internal and external traffic arrives at Traefik using `gitlab.eddiequinn.casa`. The local variant disappears from Traefik config entirely:
+Once split-horizon is in place, both internal and external traffic arrives at Traefik using gitlab.eddiequinn.casa. The local variant disappears from Traefik config entirely:
 
 ```yaml
 rule: "Host(`gitlab.eddiequinn.casa`)"
 ```
 
 Half the routing rules, identical behaviour.
-
-
 
 ### Step 8 -
 Remove the 10.0.0.1 virtual IP from OPNsense LAN once everything is on VLANs
