@@ -425,13 +425,7 @@ At this point I was officially at the point of no return - it was also at this p
 
 The desktop stayed online. All VLAN gateways responded. Internet confirmed. The Blackwall was live.
 
-``` sh
-ping 10.0.0.1     — OPNsense LAN ✓
-ping 10.67.10.1   — Services ✓
-ping 10.67.40.1   — Infrastructure ✓
-ping 10.67.45.1   — Management ✓
-ping 8.8.8.8      — Internet ✓
-```
+![its alive](imag_copy.png)
 
 #### Validating the full stack
 A test Ubuntu VM (`opentik-test-1`, VMID 201) was spun up on Proxmox attached to `vmbr1` with VLAN tag 40. It did not initially get a DHCP lease. Troubleshooting shed light on three distinct issues
