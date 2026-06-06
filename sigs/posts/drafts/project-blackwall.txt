@@ -306,7 +306,7 @@ As was made clear in the previous step when i forgot to save my port forwards, t
 The VLAN architecture had been planned since the beginning of this project - eight distinct network enclaves, each with a specific purpose and trust boundary. Having the router in place meant I was able to actually stop blueprinting my walls and actually building them. I will freely admit, I have never done anything close to this before - I leaned on AI A LOT on this section, more so than i usually do. 
 
 
-**OPNsense Config**
+#### OPNsense Config
 The first thing I had to do was create the VLAN interfaces in OPNsense. Eight were created, all parented to `bge0`, each with their corresponding tag:
 
 | Device | Tag | Description |
@@ -342,10 +342,10 @@ Following this crisis and deescalation, the next step was to configure DHCP via 
 * The pool 10.67.X.24-10.67.X.254, leaving the the lower range free for static assignments
 * global DNS pointing at adguard on 10.0.1.3 as a temporary upstream until Bind9 is deployed
 
-**Proxmox Config**
+#### Proxmox Config
 On my proxmox host `arasaka-1` a new VLAN aware linux bridge `vmbr1` was created on `eno3`, which is currently an unused physical NIC. The decision to use a single VLAN-aware bridge rather than eight separate bridges keeps things clean: VLAN tags are assigned at the VM NIC level rather than requiring a dedicated bridge per network. Critically, this was placed on `eno3` rather than the existing eno2 interface to avoid disrupting any currently running VMs during the migration.
 
-**The MikroTik Trunk Configuration**
+#### The MikroTik Trunk Configuration
 The next step was configuring the actual switch and this was the thing I could not do at work. I knew if i fucked it up I would be locked out, so I would need to do where I could jack into the switch directly as a break glass access method. I had two methods I could use:
 
 * Use a console cable directly connected to the switch (the sane method)
@@ -433,7 +433,7 @@ ping 10.67.45.1   — Management ✓
 ping 8.8.8.8      — Internet ✓
 ```
 
-**Validating the full stack**
+#### Validating the full stack
 A test Ubuntu VM (`opentik-test-1`, VMID 201) was spun up on Proxmox attached to `vmbr1` with VLAN tag 40. It did not initially get a DHCP lease. Troubleshooting shed light on three distinct issues
 
 First, `ether13` had not been added to the bridge as a port member - the VLAN entries existed but the port wasn't carrying any traffic. This was fixed with `/interface bridge port add bridge=bridge interface=ether13`.
@@ -444,7 +444,7 @@ Third, with dnsmasq cleared, Kea started successfully but the VM still couldn't 
 
 Final confirmation: the VM received `10.67.40.24` from Kea, the gateway `10.67.40.1` responded to pings, and the full path from VM → Proxmox → ether13 → MikroTik → ether4 → OPNsense → VLAN 40 was confirmed end to end. The walls are built.
 
-**A midnight networking education**
+#### A midnight networking education
 It was at this point, sitting at my desk at 2am with a test VM finally talking to OPNsense, that I realised that I had largely let Hermes-Agent take the wheel on the MikroTik config without fully understanding what I had just done. I sat there and pondered, realising that all i really had done was deploy a ubiquiti network with extra steps, and I needed to understand what I had just done for any of this to be worth it. What followed was probably the only useful networking conversation I have ever had.
 
 The mental model that finally made everything click was thinking about my network as a medieval city. Each VLAN is a district, and the MikroTik is the road network connecting them.
@@ -469,7 +469,7 @@ The practical upshot for Blackwall long term is: Ansible for network IaC now, Ne
 
 It was 2am. The walls were built, and now I need to move everything into them.
 
-**Twelve hours of actual work, if we forget troubelshooting and crashouts**
+#### Twelve hours of actual work, if we forget troubelshooting and crashouts
 This is actually the second time I have sat down and wrote this section. The first attempt was just a bit too dry, and a bit too technical. Realistically I know what I did, and I really do not think anyone with enough patience to read this far into this post wants to know about me adding virtual NICs, managing DHCP reservations, and updating Traefik entries. The fact is what I had to do was very simple in theory, in practice this entire section spiked my cortisol something fierce.
 
 The theory: add a second network card to each VM, get it an IP on the correct VLAN, make a reservation so it keeps that IP, update the config files that reference the old IP. Repeat twenty-odd times. Straightforward.
@@ -493,11 +493,92 @@ The migration took the better part of a week of evenings, one of which ended wit
 
 There is probably a long mentor to mentee talk I can give here about persverance, working through problems, and never giving up - I will be honest if it wasnt for nicotine and beer i think that server would of gone out the window five or six times. I am not a role model and please do not emulate my actions. Im tired, see you next step.
 
-### Step 6 - 
+### Step 6 - Scary Nameservers and Nice Zone Files
 
-*incredibly rough draft*
-I did not want to use adguard as an upstream when i did bind 9, my idea scenario was traffic would flow from bind into unbound. I was going to use RPZ's to achieve this
-"adguard is the ubiquiti of selfhosted dns"
+> "Eddie just use adguard and be done with this, why are you using bind"
+
+You, it is exactly you that I am griping against here - No, I will not "run aaguard". Here is the thing right, adguard as a program is pretty good, it built really well on the puposes that were popualrised in homelabs by pihole, but other than the phrase "DNS Sinkhole" I have no idea how it works. I know that if a request comes in, and it matches a certain criteria, it is resolved to `0.0.0.0/0`, but I do not know what this criteria is? This alone is a pretty good reason for me to delve into running an actual nameserver, but there is also the is split horizon and long term planning. The fact is the `*.local.eddiequinn.casa` has served me well, but im starting to get *ever so slightly pissed off* with having to deal with the latency of the global [gitlab.eddiequinn.casa](https://gitlab.eddiequinn.casa) within my LAN - Sending a packet out just to go back in is stupid, and was now broken due to the NAT hairpinning issue aanyway. Long term planning is a more interesting reason. My goal with my homelab has always been to have it be entirley declarative, and realistically to do that I needed a plaintext driven nameserver, which bind is. I will not lie, [Christian Lempas video](https://www.youtube.com/watch?v=syzwLwE3Xq4&t=524s) played a large part in this decision also, but mine and hes goals for our homelabs are vary simmilar (i am aware of the parasocial aspect of me saying me and him as if we know each other).
+
+Before I get into the full plan, some context - Bind9 did not wait until Step 6 to make its first appearance. During the migration AdGuard decided to stop starting entirely, I am unsure why but it is probably something to do with a port binding issue. I had neither the patience nor the inclination to debug given I was planning to replace it within a few days anyway. I was faced with a choice: spend an hour fixing a service I was about to decommission, or just deploy the thing that was going to replace it and call it done. I deployed Bind9. A single wildcard A record pointing everything at Traefik, Unbound forwarding internal domain queries to Bind9, fifteen minutes of work.
+
+Effectively, it was just ths, an otions file, and files pointing at files. 
+
+```
+$TTL 300
+@   IN  SOA ns1.local.eddiequinn.casa. admin.local.eddiequinn.casa. (
+        2026060501 ; serial
+        3600       ; refresh
+        1800       ; retry
+        604800     ; expire
+        300 )      ; minimum TTL
+
+@       IN  NS  ns1.local.eddiequinn.casa.
+ns1     IN  A   10.67.40.25
+@       IN  A   10.67.40.25
+*       IN  A   10.67.40.25
+```
+
+It was scrappy, it was not the architecture I had planned, and it solved the immediate problem. What follows in this step is taking that MVP and building it into something I am actually proud of.
+
+My only concern for this move was that I might loose adblocking functionality, atleast an easy adblocking functionality... this realy is not the case however. RPZ (Response Policy Zones) is BIND9's answer to the question "how do I block ads and malware at the DNS level without running a separate tool". Before BIND resolves a query, it checks it against a special zone file. If the domain matches an entry in that zone, BIND returns whatever the zone says - in my cast this will be 0.0.0.0 or `NXDOMAIN`, which is DNS for "this doesn't exist, go away". If it doesn't match, the query gets resolved normally and the client is none the wiser. This is exactly what AdGuard and PiHole do. The difference is AdGuard wraps it in a web UI, a database, and a dashboard with pretty graphs. BIND puts it in a text file. I know which one I prefer.
+
+The practical implementation is straightforward. Blocklists are distributed in RPZ format by several well-maintained projects, OISD and Hagezi are the two I plan to use, both of which publish zone files covering millions of known ad, tracking, and malware domains. BIND fetches these automatically via zone transfer and keeps them up to date without any manual intervention. When a domain gets added to the blocklist it propagates to my resolver on the next refresh. When I want to whitelist something I add an override record to a local RPZ zone. When I want to add a custom block I add a record to the same file. All of it lives in the same GitLab repo as the rest of my infrastructure config. All of it is version controlled. All of it is declarative. This is the entirety of what AdGuard was doing, expressed in about fifteen lines of plaintext. The long term DNS architecture that this enables is the real prize though, and that deserves its own explanation.
+
+#### The Plan
+
+I want to be upfront about something. What I am about to describe is, by any reasonable measure, more complex than it needs to be for a one-person homelab in a one-bedroom flat. I am aware of this. I am doing it anyway, and I want to explain why.
+
+The current state, a wildcard `*.local.eddiequinn.casa` pointing everything at Traefik, works. It is functional, it is simple, and it would continue working indefinitely if I left it alone. The problem is it tells me nothing. When I see `gitlab.local.eddiequinn.casa` I know it is GitLab and I know it is internal, but I do not know what VLAN it is on, what tier of the infrastructure it belongs to, or how it relates to the physical hardware running it. As the homelab grows that flat naming scheme becomes a liability. Everything is equally important, equally located, equally opaque. What I want instead is a DNS namespace that mirrors the actual architecture. A name should tell you what something is, where it lives, and how it relates to everything else. This is not a novel idea, it is how enterprise networks have been named for decades, but it requires actually designing the namespace rather than letting it accumulate organically.
+
+The design has four layers.
+
+**The authorative tier**
+The actual IP addresses, one record per interface.
+
+* `grafana.infra.local.eddiequinn.casa` points at `10.67.40.27`
+* `proxmox.mgmt.local.eddiequinn.casa` points at `10.67.45.27`
+* `idrac.arasaka-1.bartmos.svr.local.eddiequinn.casa` points at the iDRAC IP
+
+The subdomain before the zone tells you exactly what kind of thing it is and which VLAN it lives on. `svc` for VLAN 10 services, `infra` for VLAN 40 infrastructure, `mgmt` for VLAN 45 management interfaces, `svr` for physical servers, `str` for storage, `dmz` for the DMZ. Every name has a place in the hierarchy and every place in the hierarchy means something. These names live under `local.eddiequinn.casa` because that is exactly what they are, local. They are not intended for external resolution, they are not intended for human typing, they are the infrastructure talking to itself.
+
+Physical servers get their own identity separate from the services running on them. `arasaka-1.bartmos.svr.local.eddiequinn.casa` is a CNAME pointing at `proxmox.mgmt.local.eddiequinn.casa`, because right now `arasaka-1` runs Proxmox, but if that ever changes the server's identity stays stable and only the CNAME target changes. The hardware and the software running on it are separate concerns and the DNS reflects that. The `bartmos` in the server names is the site identifier,  bartmos is my flat, named after Rache Bartmoss, the legendary netrunner whose posthumous virus took down the old Net. Fitting, given I just killed my own old network. If I ever colocate a server, or put one at my parents' house, or at some point in my adult life acquire a second physical location, those machines get a different site name drawn from the same lore. `arasaka-3.songbird.svr.local.eddiequinn.casa` is unambiguous - an Arasaka-series (proxmox) server, at the Songbird site, a physical machine. The entire namespace scales to multiple locations without any restructuring, without any naming conflicts, and without me having to remember which machine lives where. The DNS tells me.
+
+This is the difference between a naming scheme that was designed and a naming scheme that accumulated. The `*.local.eddiequinn.casa` wildcard accumulated. This was designed.
+
+**human-readable canonical names**
+
+* `gitlab.eddiequinn.casa`
+* `jellyfin.eddiequinn.casa`
+* `proxmox.eddiequinn.casa`
+
+These are the names people actually type. Internally they are CNAMEs pointing into the authoritative tier under `local.eddiequinn.casa`. Externally Cloudflare resolves them to Pangolin. The same name works everywhere, and the split-horizon mechanism handles routing it correctly based on where the query comes from.
+
+This is the split-horizon part. Bind9 holds an internal view of `eddiequinn.casa` with the canonical records, and is authoritative for `local.eddiequinn.casa` entirely. Unbound on OPNsense forwards queries from internal clients to Bind9. External clients use Cloudflare's public view which only knows `gitlab.eddiequinn.casa → PANGOLIN_IP`. The two views never conflict because they are served to different audiences - Bind9 only answers queries from `10.67.0.0/16`. The result is that `gitlab.eddiequinn.casa` resolves to `10.67.10.31` from inside the network and `PANGOLIN_IP` from outside it, without any client configuration, split DNS client software, or hairpinning. The packet goes where it should go based purely on where the query originated.
+
+**explicit override subdomains**
+
+* `gitlab.local.eddiequinn.casa` for when you want to force internal resolution
+* `gitlab.global.eddiequinn.casa` for when you want to force external.
+
+These are optional convenience records, not the primary way anything works. I will add them as needed rather than creating them for every service up front. The distinction matters: `gitlab.local.eddiequinn.casa` lives in the `local.eddiequinn.casa` zone and is unresolvable outside the network by design. `gitlab.global.eddiequinn.casa` lives in the public `eddiequinn.casa` zone and always resolves to Pangolin regardless of where the query comes from.
+
+**Traefik impact**
+
+This is actually a simplification rather than a complication. Right now every Traefik router rule looks like this:
+
+```yaml
+rule: "Host(`gitlab.local.eddiequinn.casa`) || Host(`gitlab.eddiequinn.casa`)"
+```
+
+Once split-horizon is in place, both internal and external traffic arrives at Traefik using `gitlab.eddiequinn.casa`. The local variant disappears from Traefik config entirely:
+
+```yaml
+rule: "Host(`gitlab.eddiequinn.casa`)"
+```
+
+Half the routing rules, identical behaviour.
+
+
 
 ### Step 8 -
 Remove the 10.0.0.1 virtual IP from OPNsense LAN once everything is on VLANs
