@@ -613,16 +613,20 @@ The zone files themselves are the thing I am most pleased with. They live in Git
 
 To be brutally honest, prior to this entire thing I thought "I think AdGuard is a bit cringe but it serves a purpose". I now just kind of view it the same way I do Manjaro Linux — just use Arch. At best AdGuard is a stepping stone to understanding what DNS actually is and what it can do. The abstraction is the product, the dashboard exists because the underlying config is considered too complicated for the target audience, and I just do not share that assumption. Bind9 is not actually that hard. It just requires you to read the error messages.
 
-### Step 8 -
-Remove the 10.0.0.1 virtual IP from OPNsense LAN once everything is on VLANs
-Strip the IP off bge0 and move WebUI to VLAN 45 only
-Remove the temporary Matrix port forwards once Pangolin tunnels are confirmed
-Configure proper inter-VLAN firewall rules replacing any temporary allow-all rules
-Move ISP router to an isolated VLAN
-Configure access ports on MikroTik for each physical device (desktop to VLAN 60, iDRAC ports to VLAN 45, etc)
-Point AdGuard at Bind9 once Bind9 is deployed, then deprecate AdGuard eventually
-Move Pangolin connector VM to VLAN 30 (DMZ)
-Cable management pass
+### Step 8 - Tying up loose ends
+
+- Remove the `10.0.0.1` virtual IP from OPNsense LAN — old network is fully decommissioned
+- Strip the IP off `bge0` and move WebUI to VLAN 45 only
+- Configure proper inter-VLAN firewall rules replacing temporary allow-all rules
+- Move ISP router to an isolated VLAN so it stays updated
+- Move Pangolin connector (newt) from infstack-1 VLAN 40 to VLAN 30 (DMZ)
+- Implement RPZ ad blocking via OISD and Hagezi — download script and cron job approach (see GitLab issue)
+- Deprecate AdGuard entirely once RPZ is confirmed working
+- arasaka-bkup-1 onto VLAN 40 — waiting on HDMI cable
+- Configure AP management onto VLAN 45 properly — currently on VLAN 40 alongside Omada
+- iDRAC daughter board for R330 — waiting on hardware order
+- Cable management pass
+- Merge Traefik project-blackhand branch
 
 ## Conclusion
 
