@@ -588,6 +588,31 @@ rule: "Host(`gitlab.eddiequinn.casa`)"
 
 Half the routing rules, identical behaviour.
 
+#### Execution (and why I dislike adguard even more now)
+
+Honestly, when I compare it to the migration from step 5, bind was a breath of fresh air. It runs as a Docker container on `infstack-1`, config and deployment files being pulled from GitLab. The MVP wildcard zone from the migration was replaced with the full tiered zone files described above, a second zone was added for `eddiequinn.casa` to handle the canonical names and split-horizon, and Unbound on OPNsense was pointed at Bind9 via a domain override. The whole thing took an afternoon, and I will be perfectly honest the vast majority of it was done half-cut.
+
+The interesting part was the debugging. The `eddiequinn.casa` zone initially refused to load because I had declared `ns1.local.eddiequinn.casa` as the nameserver. This was fine syntactically, but BIND couldn't find an address record for it within the `eddiequinn.casa` zone itself, and threw a fit. The fix was changing the SOA and NS to `ns1.eddiequinn.casa` and adding an A record for it in the same zone. Minor, annoying, and the kind of thing you only learn by doing.
+
+The CNAME chain depth was another moment of mild concern, buy in reality it just worked fine.
+
+`gitlab.eddiequinn.casa` → `traefik.infra.local.eddiequinn.casa` → `infstack-1.arasaka.bm.clstr.local.eddiequinn.casa` → `10.67.40.25` is three hops.
+
+BIND resolves the full chain internally and returns the final A record, so clients see a single answer and never need to chase the chain themselves. It works cleanly and the chain is readable - follow it and you understand exactly where the traffic ends up and why.
+
+The split-horizon worked first time, which I was not expecting. `gitlab.eddiequinn.casa` resolves to `10.67.40.25` from inside the network and to `PANGOLIN_IP` from outside it, without any configuration on the client side. The hairpinning problem that has existed since I first started Blackwall is gone. Internal traffic stays internal. It is a deeply satisfying thing to watch work.
+
+Too be perfectly honest, the only issue I did encounter was the the RPZ ad blocking. My intention was to pull OISD and Hagezi blocklists via zone transfer, the way a proper secondary nameserver would. It turned out that neither OISD nor Hagezi actually support AXFR - they distribute their RPZ files as HTTP downloads rather than via DNS zone transfer. I spent an embarrassing amount of time debugging connection timeouts before reading the documentation properly and discovering this. The infrastructure *is* in place...
+
+* The response-policy directive is in `named.conf.options`
+* `rpz.local` is live for custom rules
+
+But the automated blocklist ingestion needs a download script and a cron job rather than native zone transfer. This is in the backlog. My browser runs uBlock Origin and too be honest, I just want to bring this project home now.
+
+The zone files themselves are the thing I am most pleased with. They live in GitLab, they are plaintext, they are declarative, and they are version controlled. When I add a new VM I add a record. When I move a service to a different host I update a CNAME. When i fix the RPZ's, when I want to block a domain I will add a line to `rpz.local.zone` and push. The entire DNS state of the network is expressed in three files that any competent sysadmin could read and understand without documentation.
+
+To be brutally honest, prior to this entire thing I thought "I think AdGuard is a bit cringe but it serves a purpose". I now just kind of view it the same way I do Manjaro Linux — just use Arch. At best AdGuard is a stepping stone to understanding what DNS actually is and what it can do. The abstraction is the product, the dashboard exists because the underlying config is considered too complicated for the target audience, and I just do not share that assumption. Bind9 is not actually that hard. It just requires you to read the error messages.
+
 ### Step 8 -
 Remove the 10.0.0.1 virtual IP from OPNsense LAN once everything is on VLANs
 Strip the IP off bge0 and move WebUI to VLAN 45 only
