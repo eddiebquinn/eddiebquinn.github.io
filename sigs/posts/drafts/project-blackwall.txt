@@ -627,6 +627,7 @@ To be brutally honest, prior to this entire thing I thought "I think AdGuard is 
 - iDRAC daughter board for R330 — waiting on hardware order
 - Cable management pass
 - Merge Traefik project-blackhand branch
+- Traefik tidy up so it uses domain names rather than IP'
 
 ## Conclusion
 
