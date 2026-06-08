@@ -1,22 +1,29 @@
-Project Datashard
+# Project Datashard
+
 In the Cyberpunk universe, a datashard is a small piece of physical media — slotted into a reader, cracked open, and consumed. They contain everything: mission briefings, personal logs, corporate secrets, the last words of someone who didn't make it out. They are the fundamental unit of information in a world where data is currency.
+
 The blog is a datashard. Each post is a shard — a preserved record of thinking at a specific point in time, slotted into the reader and left there. Project Datashard is the work of making the reader worthy of the content.
-Objectives
 
-Build a custom Hugo theme layer on top of the existing risotto base, following strict shadowing conventions — no upstream files touched, all modifications in root overrides
-Implement a retro-futuristic terminal aesthetic: ASCII art header, blinking cursor micro-interactions, inverse video hovers, custom text selection
-Build a sidebar system status widget formatted as a telemetry printout
-Implement a vanilla JavaScript theme switcher with three terminal colour profiles — Monochrome, Green Phosphor, and Amber CRT — with state persisted via localStorage
-All interactive elements in vanilla JavaScript, zero framework dependencies
+## Objectives
 
-Constraints
+* **Tactical Red Team Aesthetic:** Build a custom Hugo theme layer on top of the existing `risotto` base using strict shadowing overrides. Transition from standard monochrome to a striking red-and-black terminal environment.
+* **Logo-Integrated ASCII Header:** Replace the standard text header with a prominent, monospace ASCII art title reading "GHOSTWIRE", prefixed with a solid, filled red double slash (`//`) that brings the long-standing personal brand identity directly into the terminal UI.
+* **Terminal Micro-Interactions:** Implement a solid red blinking block cursor (`█`) at terminal prompts, custom block text selection overrides (pure red background with black text), and keyboard-menu style "inverse video" color swapping on navigation hover states.
+* **Sidebar Telemetry Widget:** Build a boxed "Digital Garden Specs" widget positioned in the right-hand sidebar under the `whoami` profile, formatted cleanly as a monospace system status telemetry printout.
+* **Cryptographic Authenticity:** Incorporate raw, verifiable GPG clear-signed blocks natively at the base of public posts, styled cleanly in a muted, low-contrast dark red to reinforce code integrity and operational security.
+* **Self-Hosted Infrastructure:** Migrate away from GitHub Pages. Package the static build into a lightweight Docker container and serve it via **Angie** (the modern, high-performance Nginx drop-in replacement) to unlock native HTTP/3 capabilities and streamlined telemetry tracking.
+* **CLI User-Agent Interception:** Configure a custom twin-output build pipeline in Hugo to generate parallel `.html` and `.txt` variants of every single entry. Map an Angie rewrite rule to detect terminal user-agents (`curl`, `wget`, `httpie`) and seamlessly drop raw, plaintext GPG-signed payload blocks directly into the requester's terminal interface.
 
-Hugo configuration and root override architecture only
-Mobile-first — all terminal effects must degrade gracefully on small screens
-No compromise to readability — the aesthetic serves the content, not the other way around
+## Constraints
 
-Why now
+* **Upstream Integrity:** Hugo configuration and root override architecture only—never touch or modify the core `themes/` files directly to ensure long-term framework maintainability.
+* **Zero Bloat:** All interactive element tweaks must utilize vanilla CSS and lightweight, native JavaScript with absolutely zero framework or library dependencies.
+* **Content Over Form:** No compromise to readability. Mobile-first scaling must gracefully handle terminal typography, and visual effects must serve to illuminate the technical writing rather than distract from it.
+
+## Why Now
+
 Blackwall proved the infrastructure. Argus will prove the security posture. Datashard proves that the surface the world sees is as considered as everything running underneath it. A blog that looks like a terminal and reads like a person is the correct aesthetic for someone who builds enterprise networks in a one-bedroom flat and writes about it at 2am.
-Status: Planned. Begins after Project Blackwall is shipped and CCNA study is underway.
 
-![alt text](image.png)
+**Status:** Planned. Begins after Project Blackwall is shipped and CCNA study is underway.
+
+![Project Datashard Target Interface](target_interface.png)
