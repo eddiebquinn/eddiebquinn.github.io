@@ -5,7 +5,7 @@ I have always been into technology, I recall one of my first rigs was a Windows 
 
 I hate the education system - I have made peace with many of my libertarian gripes with government-led infrastructure, but my disgust with the education system is not a dead horse I am ready to stop beating yet. I learnt a vast amount from my time university and I assure you not an ounce of it was economics, and by my third year I was disenchanted and fed up with what I now called "the educational industrial complex", I just wanted out. I also however was not an idiot, and I understood abandoning the road more traveled by without a plan was tantamount to career suicide. So when the entire world began shutting its doors due to a nasty virus originating from China my natural reaction was "excellent, I have two weeks to figure out what the fuck to do with my life". It was not two weeks - I actually cannot quite pinpoint when lockdown really ended, I just know at some point everyone in the UK just stopped caring and went about their day. I do know that about a week in I found this video (after all there is only so much Civ V you can play before you need something else to distract yourself with):
 
-![BLOCK EVERYTHING w/ PiHole on Docker, OpenDNS and IFTTT](https://www.youtube.com/watch?v=dH3DdLy574M)
+[![BLOCK EVERYTHING w/ PiHole on Docker, OpenDNS and IFTTT](https://img.youtube.com/vi/dH3DdLy574M/maxresdefault.jpg)](https://www.youtube.com/watch?v=dH3DdLy574M)
 
 Tie that in with a discord server I was in needing someone to code a new bot, and suddenly every warning my parents ever fed me regarding the lack of a future I would have if I pursued tech as a career was deemed null and void. I went deep very quickly - programming, selfhosting, linux became all I did and wanted to do for all hours of the day. It was the only thing that actually excited me in years, and I happily fucked off my not so exciting career in economics in favour of a tech based career. 
 
@@ -32,7 +32,7 @@ I say all of this, but I do have a massive blindspot in my homelab and knowledge
 ## The Plan
 This is not a new idea for the record - For as long as I have wanted servers I have wanted a network that matches its technical depth... My attitude has however changed as time has gone on.
 
-![I fucking hate Ubiquiti](static/project_blackwall/image.png)
+![I fucking hate Ubiquiti](/project_blackwall/image.png)
 
 When I originally had plans for my dream homelab I just wasn't that much into networking. My idea of a "cool home network" came from Linus Tech Tips and Network Chuck, and in almost every one of these cases they seemed to lean heavily on Ubiquiti equipment. I understand this though, Ubiquiti is the "apple" of prosumer networking equipment - Its sleek, works great, and is expensive enough you think you are buying that real gourmet shit. So when I see YouTubers I look up too, and all my friends who are already into homelabbing all running dream machines and UniFi switches, it is not that hard to imagine my original plan was to do the same. I then saw a TikTok from a network engineer called [Lexi Cooper](https://www.linkedin.com/in/lexiecooper/) basically poking fun at guys who run Ubiquiti homelabs... Now I am not saying I changed my entire plan because a pretty girl on the internet challenged my masculinity, but it played a part.... 
 
@@ -111,7 +111,7 @@ Before I kick this section off I just want to clarify something - servers, espec
 
 So I am going to answer these three questions with the following diagram (made with [Rackula](https://github.com/RackulaLives/Rackula))
 
-![rack-planning](static/project_blackwall/image-1.png)
+![rack-planning](/project_blackwall/image-1.png)
 
 **Where am I now?**
 If you look at the `Old-Net` configuration, it’s the classic layout of someone who bought a server and forgot about networking. I have my PowerEdge R730xd anchored at the bottom (mainly because it was difficult enough just to get it there), a compute node in the middle, and a Raritan PDU at the very top rear. U20 is empty, because my core switching wasn't even worth putting on the diagram because it was that tired, 8-port unmanaged Netgear desktop switch dangling by a thread and a prayer behind the server chassis.
@@ -137,7 +137,7 @@ By sacrificing a few units of empty space today, I have completely modularized t
 
 All this aside there is another fact which it is easier to show rather than tell
 
-![my rack is a mess](static/project_blackwall/image-2.png)
+![my rack is a mess](/project_blackwall/image-2.png)
 
 My rack is a bit of a mess of cables and is in a bit of an inconvenient spot. That image was captured at the start of the project, as you can see by the fact I have the MikroTik mounted at the top. Homelabs do not become C13 and STP hydras overnight, there is just the inalienable fact that "there is nothing more permanent than a temporary solution" that you need to deal with. Every temporary cable, rushed fix, and workable error "ill fix later" compounds. Slowly the corner of your flat stops looking like a homelab and begins to look like a timeline of bad decisions. How did I get here? When I first moved into my flat I was given freedoms I never had when I lived with my parents, and I capitalized on this by buying a server and a rack. The natural place to put this was close to the ISP demarcation port in my flat, which was in the corner by the window. As the rack has grown with the homelab it has gradually got messier and messier, and tidying it is something I am going to have to do during Project Blackwall or never. So the following decisions were made
 
@@ -210,7 +210,7 @@ Friday turned out to be yet another hot day, lucky not as hot as it *has* been b
 
 I walked into my flat, put the server on top of the rack, attached its rails, and slid it in thinking "this is going ok so far" - This brief moment of naivety was quickly overshadowed after plugging the PDU in and I found out this server does not have an iDRAC port.
 
-![alt text](static/project_blackwall/image-6.png)
+![alt text](/project_blackwall/image-6.png)
 
 This one was not for me, the two servers I had bought previously had an iDRAC port, my friends server had an iDRAC port, the servers at work have an iDRAC port. It never at any point entered my mind this server would not have an iDRAC port - I expected maybe it wouldn't have a license, and I was prepared for that, but the lack of port threw me. I consulted the Oracle at this point (AI), and it told me "maybe iDRAC was on one of the regular ports", and so I plugged both in and had a look at DHCP. Nothing... I have a managed switch now... I need to actually configure the ports, it is not as simple as just "plug it in".
 
@@ -221,7 +221,7 @@ This one was not for me, the two servers I had bought previously had an iDRAC po
 
 Still no DHCP lease, so I pulled on my years of helpdesk experience and power cycled the server - two IPs now have DHCP leases, neither of which take me to the iDRAC login screen. I at this point checked the little screen on the front of the server and realized that iDRAC was statically assigned to an IP in 192.168.0.0/24, I changed this and wham bam, we had three distinct IPs coming from the server
 
-![alt text](static/project_blackwall/image-7.png)
+![alt text](/project_blackwall/image-7.png)
 
 I think "cool, well its working - I will just look into getting a daughter board eventually". I log into the portal using `root` / `calvin` and im hit with a "no license warning" when trying to use the console. Brilliant... It is now 18:54.
 
@@ -233,7 +233,7 @@ im in
 
 Because I knew time would be a bit of a crunch here, I prepared a [Ventoy](https://www.ventoy.net/en/index.html) USB a few days prior with the OPNsense iso on it, plugged it in and booted.
 
-![alt text](static/project_blackwall/image-5.png)
+![alt text](/project_blackwall/image-5.png)
 
 I thought the hard part was over at this point and it would be smooth sailing, this pipedream was quickly shutdown by RAID. After having a short argument with hermes-agent (I had switched from OpenClaw earlier on in the day) about using ZFS vs UFS, I landed on ZFS. I discovered that the disks were currently in hardware raid. I didn't want to deal with software raid layered atop hardware raid, so I decided to change the drives to HBA mode.
 
@@ -444,7 +444,7 @@ At this point I was officially at the point of no return - it was also at this p
 
 The desktop stayed online. All VLAN gateways responded. Internet confirmed. The Blackwall was live.
 
-![its alive](static/project_blackwall/imag_copy.png)
+![its alive](/project_blackwall/imag_copy.png)
 
 #### Validating the full stack
 A test Ubuntu VM (`opentik-test-1`, VMID 201) was spun up on Proxmox attached to `vmbr1` with VLAN tag 40. It did not initially get a DHCP lease. Troubleshooting shed light on three distinct issues
@@ -673,8 +673,8 @@ So what is next? Two things really.
 My tenure in helpdesk, despite having a great many technical achievements, is embarrassingly light on certifications, and frankly I want to move onto a job that actually excites me again. Project Blackwall has the distinct side effect of giving me a solid baseline across much of what the CCNA covers, and I would be a fool not to capitalise on that. My wallet is also running on fumes and needs some R&R at some point. The other thing is that in building Blackwall I have constructed very elaborate prison walls with no guards. I know what is inside the network. I do not yet know what it is doing. In Greek mythology, Argus Panoptes was a giant with a hundred eyes, a tireless, all-seeing warden who never slept. That feels about right. But that is a story for its own post.
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaiezmQAKCRBy4AiZROfD
-Z4ATAQDZ5/HbfQRcjwQ/QP0bJ0aZhx7duX3OeDfazkP1L4BviQD+KeAua+TcuxSI
-GB+44hQCyVlT/CIG9p1yEbuXXkHNuw4=
-=Zh9r
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCaie3BgAKCRBy4AiZROfD
+Z6XMAP9h5t4fnzkXRG7/LVyrUnOooeD93788Qg3g/Kld6IL02QEAz+FVKQ9qU+Pq
+L1AsIXTQW6QZ90SUsAADvtfr/g85UAQ=
+=zkuX
 -----END PGP SIGNATURE-----
