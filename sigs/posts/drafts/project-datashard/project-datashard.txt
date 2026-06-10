@@ -2,27 +2,72 @@
 
 In the Cyberpunk universe, a datashard is a small piece of physical media — slotted into a reader, cracked open, and consumed. They contain everything: mission briefings, personal logs, corporate secrets, the last words of someone who didn't make it out. They are the fundamental unit of information in a world where data is currency.
 
-The blog is a datashard. Each post is a shard — a preserved record of thinking at a specific point in time, slotted into the reader and left there. Project Datashard is the work of making the reader worthy of the content.
+The blog is a datashard. Each post is a shard — a preserved record of thinking at a specific point in time, slotted into the reader and left there. Project Datashard is the work of making the reader worthy of the content, the workflow worthy of the writing, and the archive worthy of the person I am now.
 
 ## Objectives
 
-* **Tactical Red Team Aesthetic:** Build a custom Hugo theme layer on top of the existing `risotto` base using strict shadowing overrides. Transition from standard monochrome to a striking red-and-black terminal environment.
-* **Logo-Integrated ASCII Header:** Replace the standard text header with a prominent, monospace ASCII art title reading "GHOSTWIRE", prefixed with a solid, filled red double slash (`//`) that brings the long-standing personal brand identity directly into the terminal UI.
-* **Terminal Micro-Interactions:** Implement a solid red blinking block cursor (`█`) at terminal prompts, custom block text selection overrides (pure red background with black text), and keyboard-menu style "inverse video" color swapping on navigation hover states.
-* **Sidebar Telemetry Widget:** Build a boxed "Digital Garden Specs" widget positioned in the right-hand sidebar under the `whoami` profile, formatted cleanly as a monospace system status telemetry printout.
-* **Cryptographic Authenticity:** Incorporate raw, verifiable GPG clear-signed blocks natively at the base of public posts, styled cleanly in a muted, low-contrast dark red to reinforce code integrity and operational security.
-* **Self-Hosted Infrastructure:** Migrate away from GitHub Pages. Package the static build into a lightweight Docker container and serve it via **Angie** (the modern, high-performance Nginx drop-in replacement) to unlock native HTTP/3 capabilities and streamlined telemetry tracking.
-* **CLI User-Agent Interception:** Configure a custom twin-output build pipeline in Hugo to generate parallel `.html` and `.txt` variants of every single entry. Map an Angie rewrite rule to detect terminal user-agents (`curl`, `wget`, `httpie`) and seamlessly drop raw, plaintext GPG-signed payload blocks directly into the requester's terminal interface.
+* **Fresh Theme, Not a Repaint:** Start clean with a custom Hugo theme and information architecture rather than forcing an existing theme into a shape it was never meant to hold. Datashard should feel deliberate from the foundation upward.
+* **Operator Console Aesthetic:** Build the visual language around the terminal I actually use: dark charcoal backgrounds, cool blue and cyan accents, clean monospace typography, restrained contrast, and a calm workstation feel rather than a theatrical red-team skin.
+* **Logo-Integrated Identity:** Replace the stock blog header with a stronger Ghostwire identity layer — likely including the long-standing `//` brand mark and a terminal-native presentation that feels sharp without becoming cosplay.
+* **Readable Terminal Micro-Interactions:** Add subtle terminal-like interactions where they improve the experience: block-style cursor motifs, inverse-video hover/focus states, selection styling, and keyboard-friendly navigation. Effects should support the reading experience, not dominate it.
+* **Sidebar Telemetry Widget:** Add a boxed "Digital Garden Specs" or similar telemetry module in the sidebar, presented like a clean operator readout and used to reinforce the site as a living technical system.
+* **Cryptographic Authenticity:** Preserve and better present the existing GPG clear-signed publishing model so authenticity is part of the public reading experience rather than a hidden implementation detail.
+* **Self-Hosted Infrastructure:** Move the site fully into the homelab, likely onto a dedicated VM, and publish it outward via Pangolin. The blog should be served from infrastructure I control rather than treated like a static afterthought.
+* **Multi-Network Publishing:** Build CI/CD that can publish the site to the plain web, Tor, and I2P. Datashard is not just about aesthetics; it is about distribution, resilience, and intentional presence across different networks.
+* **Twin Output Model:** Keep the goal of producing both `.html` and `.txt` representations of posts so the site can work both as a modern web publication and as something that still makes sense when consumed from a terminal.
+* **Fix the Writing Workflow:** Move post-linked media into the same source workflow as the posts themselves so long-form writing is no longer split awkwardly across repositories. If a post has screenshots, diagrams, or supporting assets, they should live with that post in `blog-posts`, not somewhere else that turns publishing into a ballache.
+* **Editorial Reset:** Use Datashard as an opportunity to review the existing body of work, retire or revise posts and projects that no longer fit, and make sure the public archive reflects the person, standards, and views I actually want represented now.
+
+## Scope
+
+Datashard is not just a theme project. It includes several connected workstreams:
+
+1. **Editorial Curation**
+   * Review old posts and project entries.
+   * Decide what stays public, what gets revised, what gets archived, and what gets removed entirely.
+   * Reassess items like `642` that may no longer fit the direction of the site.
+
+2. **Information Architecture**
+   * Reorganize the blog so posts, projects, logs, and other writing have a clearer home.
+   * Tighten taxonomy, navigation, section structure, and overall discoverability.
+
+3. **Authoring Pipeline**
+   * Refactor the current split between `blog-posts` and `hugo-site` so posts and their media can travel together.
+   * Improve the experience of writing large, image-heavy posts like Project Blackwall.
+
+4. **Theme and Presentation**
+   * Build a fresh custom Hugo presentation layer around the operator-console aesthetic.
+   * Keep the site technical, minimal, and highly readable on both desktop and mobile.
+
+5. **Publishing and Hosting**
+   * Deploy the site from CI/CD into the homelab.
+   * Expose it cleanly through Pangolin.
+   * Extend publication beyond the normal web into Tor and I2P.
 
 ## Constraints
 
-* **Upstream Integrity:** Hugo configuration and root override architecture only—never touch or modify the core `themes/` files directly to ensure long-term framework maintainability.
-* **Zero Bloat:** All interactive element tweaks must utilize vanilla CSS and lightweight, native JavaScript with absolutely zero framework or library dependencies.
-* **Content Over Form:** No compromise to readability. Mobile-first scaling must gracefully handle terminal typography, and visual effects must serve to illuminate the technical writing rather than distract from it.
+* **No Theme Debt:** Do not force the design to remain coupled to `risotto` if starting fresh is cleaner.
+* **Zero Bloat:** Use vanilla CSS and lightweight native JavaScript only where necessary. No frameworks, no ornamental dependency pile.
+* **Content Over Performance Art:** The site should feel technical and distinctive, but the writing still comes first. Readability beats gimmicks.
+* **Mobile Must Still Work:** Terminal styling is only valid if it remains usable on small screens and does not collapse into novelty.
+* **Authenticity Over Cosplay:** The design should reflect the environment I actually use, not a cooler-but-faker version of it.
+* **Workflow Matters:** Publishing ergonomics are part of the deliverable. If writing and managing assets is painful, the system is unfinished.
+
+## Open Questions
+
+* Should terminal clients receive explicit `.txt` endpoints, user-agent based routing, or both?
+* Should all historical posts remain public, or should some be rewritten, archived, or removed?
+* Which existing sections survive the reorganization, and which need replacing?
+* How much of the visual identity should lean on ASCII branding versus cleaner modern terminal composition?
+* Should Tor and I2P serve identical builds, or just mirrored access to the same generated artifact?
 
 ## Why Now
 
-Blackwall proved the infrastructure. Argus will prove the security posture. Datashard proves that the surface the world sees is as considered as everything running underneath it. A blog that looks like a terminal and reads like a person is the correct aesthetic for someone who builds enterprise networks in a one-bedroom flat and writes about it at 2am.
+Blackwall proved the infrastructure. Argus will prove the security posture. Datashard is about bringing the public face into alignment with the systems work behind it.
+
+It is also an editorial line in the sand. The site should not simply be a dumping ground for everything I have ever posted. It should be a curated archive of the work, ideas, and projects that still represent me.
+
+A blog that looks like the terminal I actually use, publishes from infrastructure I actually run, and reflects the person I have actually grown into is the correct next step.
 
 **Status:** Planned. Begins after Project Blackwall is shipped and CCNA study is underway.
 
