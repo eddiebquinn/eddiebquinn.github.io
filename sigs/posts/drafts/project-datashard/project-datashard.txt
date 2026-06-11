@@ -17,6 +17,7 @@ The blog is a datashard. Each post is a shard — a preserved record of thinking
 * **Twin Output Model:** Keep the goal of producing both `.html` and `.txt` representations of posts so the site can work both as a modern web publication and as something that still makes sense when consumed from a terminal.
 * **Fix the Writing Workflow:** Move post-linked media into the same source workflow as the posts themselves so long-form writing is no longer split awkwardly across repositories. If a post has screenshots, diagrams, or supporting assets, they should live with that post in `blog-posts`, not somewhere else that turns publishing into a ballache.
 * **Editorial Reset:** Use Datashard as an opportunity to review the existing body of work, retire or revise posts and projects that no longer fit, and make sure the public archive reflects the person, standards, and views I actually want represented now.
+* **Employer-Safe Whitepapers:** Add a dedicated whitepaper / portfolio section for polished case studies that extract the architecture, tradeoffs, implementation, and results from projects like Blackwall without relying on the blog's more candid tone to do the employer-facing job.
 
 ## Scope
 
