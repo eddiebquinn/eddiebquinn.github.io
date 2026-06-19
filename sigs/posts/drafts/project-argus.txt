@@ -29,7 +29,9 @@
 - Authentik IDP deployment
 - SSO across all internal services via OIDC/SAML
 - PKI and cert management
-    - SSH certificates and local CA for *.local.eddiequinn.casa 
+    - SSH certificates and local CA for *.local.eddiequinn.casa
+- Service account standardisation
+    - Naming convention: `svc-[system]-[purpose]`
 
 ### Monitoring & Alerting
 - Vulnerability scanning
@@ -43,17 +45,5 @@
 - Automated config backups for OPNsense and MikroTik with diff alerting
 - Log Apocalypse Mitigation (Logrotate and retention policy execution)
 - Tighten DevSecOps pipelines
-
-### Identity & Access — VM Fleet Integration
-- VM-level identity via Authentik LDAP (sssd/PAM/nsswitch) — replaces per-VM Ansible user provisioning
-- Migration of existing VM fleet to NixOS to support this as shared, declarative config rather than per-host setup
-    - Reusable `ldap-auth.nix` module imported by every host — single point of change for LDAP config across fleet
-    - Scope boundary: VM login only (SSH, local users/groups, sudo via LDAP group mapping). Container/service-level auth on these VMs remains a separate concern.
-- OpenTofu (via `bpg/proxmox` provider) for VM provisioning on Proxmox
-    - Pre-baked NixOS images (`nixos-generators`) cloned per VM, rather than live config push to bare VMs
-    - Static IPs per VM via existing DHCP reservation scheme (Blackwall-aligned)
-- Migration approach: one-by-one cutover per VM (stand up NixOS replacement, verify, decommission original) rather than fleet-wide big-bang
-- Open decisions, to resolve at build time:
-    - TLS to Authentik LDAP outpost — proper PKI cert (tie-in to PKI work above) vs. interim self-signed/StartTLS
-    - Sudo/group mapping model — flat vs. distinct admin/non-admin LDAP groups
-- Note: this work was scoped out of Project Blackwall during VM-auth planning; NixOS/OpenTofu chosen as least-effort path for this specific problem, not as an early start on Full IaC project (though it happens to advance it)
+- Improve backups
+- Get a UPS
