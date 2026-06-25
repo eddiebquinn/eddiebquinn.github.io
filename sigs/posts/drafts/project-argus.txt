@@ -126,6 +126,7 @@ Honeypots, canarytokens, OpenSCAP, ILM (Index Lifecycle Management) storage roll
 - NetFlow/sFlow collection from MikroTik
 - IPFIX export to SIEM for network/host event correlation
 - IDS/IPS (Suricata plugin on OPNsense)
+- SNMP polling — OPNsense, MikroTik, iDRAC, UPS — for hardware/interface health metrics feeding Grafana/Prometheus
 
 ### SIEM & Threat Detection
 - SIEM (Wazuh)
