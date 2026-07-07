@@ -1,0 +1,47 @@
+# grapheneos_playbook.yml — Draft Plan
++
++## Premise / One-liner
++
++Switching to GrapheneOS is simultaneously the most anticlimactic change you'll ever experience and the most important choice you'll make with a device. This post is not a tutorial. It's what comes after.
++
++## Structure
++
++### 1. The UK Slide (cold open)
++
++The UK tech landscape keeps shifting — Online Safety Act, chat control, creeping surveillance, the VPN ban threats. Each step adjusts my threat model. At some point the cumulative delta crosses a threshold and fast-tracking changes (like GrapheneOS) stops being "eventually" and becomes "today." Name the specific triggers that pushed it over the edge. Keep this tight — it's the *why*, not the post.
++
++### 2. The Linux Problem (the real hook)
++
++Define it properly: people say "I want to learn Linux" as if it's a skill like welding. It's not. You don't learn Linux. You just use it. The anticlimax of arriving at a desktop that just works — the revolution was internal. Same with GrapheneOS: you flash it, you boot it, and it's just a phone. The radical act was the decision, not the installation. But the decision matters because it transforms a device you didn't fully own into one you do.
++
++### 3. The Banality of Freedom
++
++When you've been told for years that switching will set you free, and then you're just... using a phone... it can feel like nothing happened. That's the point. The phone should be boring. The privacy should be invisible. The only thing that changed was who's in control. The absence of surveillance *feels* like nothing because it's the default state — the creep was what felt normal. This is the anticlimax as feature, not bug.
++
++### 4. So What *Do* You Do? (the practical bit, kept minimal)
++
++Not a settings walkthrough. Just directional pointers for the person sitting with a booted Graphene phone wondering what's next:
++
++- **Profiles matter more than apps** — split your life into profiles early (personal / work / fintech / whatever). This is the one structural decision that's hard to undo later. Do it now, not in six months.
++- **You need a FMD server** — if you lose this phone, "Find My Device" is no longer Google's problem. It's yours. Set it up before you need it (speaking from experience).
++- **You'll chase notifications for a while** — some apps need web push workarounds, some won't work at all. That's fine. Let the friction guide you to which apps you actually need vs which ones just had permission to buzz you.
++- **The default setup is good** — don't tweak everything immediately. Use it for a week. See what actually bothers you before you start pulling levers.
++
++### 5. Coda: The Only Freedom That Matters
++
++Circle back to the choice itself. The ability to choose is the only freedom that really counts, and every time you make a decision like this — Linux, Graphene, self-hosting — you're exercising it. The phone being boring afterwards is proof you did it right.
++
++## Anti-instructions (the constraint)
++
++- No `fastboot`, no `adb`, no installation commands.
++- No app recommendations list.
++- No link to the GrapheneOS install docs.
++- If it reads like a tutorial, cut it. This is a *reflection* with direction, not a *guide*.
++
++## Tone markers (matching existing blog voice)
++
++- Starts with a tangent (the UK trajectory as cold open)
++- Self-aware about over-engineering ("I lost my other GrapheneOS phone" as punchline)
++- Swears when it lands
++- Ends back at the same principle the opening implied
++- GPG signed, as always
