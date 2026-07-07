@@ -1,0 +1,266 @@
+# Project Argus — Phase 1: Inter-VLAN Flow Audit & Required Allowlist
+
+> Status: **Inferred/required allowlist** — built from source-of-truth configs (DNS, Traefik, Ansible inventory, Blackwall design post) and a no-credential port scan. Must be validated against live OPNsense + MikroTik firewall rules before policy is changed.
+
+## 1. Sources consumed
+
+| Source | What it gave us |
+|--------|-----------------|
+| `blog-posts/posts/drafts/project-argus.md` | Phase 1 scope, exit criteria, deferred work, design principles. |
+| `blog-posts/posts/2026/june/project-blackwall.md` | VLAN design intent, temporary flat-network caveat, MAB/MPSK/RADIUS plans. |
+| `ansible-playbooks/inventory/hosts.yml` | Host-to-IP-and-MAC mapping, group membership. |
+| `bind9-git/config/zones/local.eddiequinn.casa.zone` | Authoritative service-to-host mapping per VLAN/subdomain tier. |
+| `traefik-git/data/config.yml` | Ingress surface: which public hostnames proxy to which internal service:port. |
+| No-credential TCP port scan (2026-07-07) | Ground-truth listening ports on reachable hosts. |
+
+## 2. VLAN / subnet inventory
+
+| VLAN | Name | Subnet | Trust role | Design intent (from Blackwall) |
+|------|------|--------|------------|--------------------------------|
+| 10 | Services | `10.67.10.0/24` | Core apps | User-facing services; allowed to Infrastructure, Storage, DMZ. |
+| 20 | Storage | `10.67.20.0/24` | Core data | TrueNAS / storage plane; allowed to Services, Endpoints. |
+| 30 | DMZ | `10.67.30.0/24` | Perimeter | Pangolin connectors, public ingress; allowed to WAN + explicit Services. |
+| 40 | Infrastructure | `10.67.40.0/24` | Ops nervous system | DNS, Authentik, monitoring, Traefik, Komodo; allowed to Services, Storage, DMZ, Management. |
+| 45 | Management | `10.67.45.0/24` | Control plane | Proxmox, iDRAC, OPNsense, MikroTik, PDU; no direct access from user VLANs. |
+| 50 | Guest | `10.67.50.0/24` | Untrusted users | Internet only, 15/1 Mbps. |
+| 60 | Endpoint Devices | `10.67.60.0/24` | Trusted users | Services, Storage, Infrastructure per need. |
+| 70 | IoT | `10.67.70.0/24` | Untrusted things | Internet only; client isolation at switch. |
+| — | Legacy flat | `10.0.0.0/16` | Temporary | Mentioned in Blackwall as a migration bridge; must be confirmed removed or scoped. |
+
+## 3. Known hosts by VLAN
+
+### VLAN 10 — Services (`10.67.10.0/24`)
+
+| Host | IP | MAC / notes | Listening ports (scan) | Traefik-backed services |
+|------|----|-------------|------------------------|-------------------------|
+| appstack-1 | 10.67.10.25 | `bc:24:11:0e:f4:00` | 22, 2283, 3000, 3737, 8080, 8086, 8087, 9000 | immich, searxng, jobsync, homepage, reader, ntfy? |
+| arrstack-1 | 10.67.10.26 | `bc:24:11:b9:ef:07` | 22, 7878, 8989, 9696 | radarr, sonarr, prowlarr |
+| mediastack-1 | 10.67.10.27 | `bc:24:11:31:be:43` | 22, 8096, 13378 | jellyfin, audiobookshelf, seer |
+| kasm-1 | 10.67.10.28 | `bc:24:11:fe:d2:0b` | 22, 443 | kasm |
+| nextcloud-1 | 10.67.10.29 | `bc:24:11:96:71:59` | 22, 8080 | nextcloud, nextcloud-aio |
+| devstack-1 | 10.67.10.31 | `bc:24:11:c3:cc:26` | 22, 80, 5050, 8080 | gitlab, gitlab-registry |
+
+### VLAN 20 — Storage (`10.67.20.0/24`)
+
+| Host | IP | Notes | Listening ports (scan) |
+|------|----|-------|------------------------|
+| datafortress-1 | 10.67.20.24 | TrueNAS | 80, 443 |
+
+### VLAN 30 — DMZ (`10.67.30.0/24`)
+
+| Host | IP | MAC / notes | Listening ports (scan) |
+|------|----|-------------|------------------------|
+| matrix-1 | 10.67.30.24 | `bc:24:11:2d:5a:9d` | 22, 80, 443 |
+| newt-1 | 10.67.30.25 | `bc:24:11:7c:61:ed` | 22 only (likely Pangolin connector) |
+| pangolin-1 | 89.127.232.7 | VPS, external | not reachable from inside via this scan |
+
+### VLAN 40 — Infrastructure (`10.67.40.0/24`)
+
+| Host | IP | MAC / notes | Listening ports (scan) | Services |
+|------|----|-------------|------------------------|----------|
+| infstack-1 | 10.67.40.25 | `bc:24:11:39:45:9e` | 22, 53, 80, 443, 3050, 8043, 8080, 9000, 9120 | Bind9 DNS, Traefik ingress, Omada, dbackup, Infisical, Authentik, Komodo |
+| monitoring-1 | 10.67.40.27 | `bc:24:11:61:f7:eb` | 22, 3000 | Grafana, Prometheus |
+| bartmos-ap-1 | 10.67.40.24 | Omada AP (zone file) | not scanned | WiFi controller target |
+
+### VLAN 45 — Management (`10.67.45.0/24`)
+
+| Host | IP | Notes |
+|------|----|-------|
+| blackice-1 | 10.67.45.1 | OPNsense router/gateway |
+| gridlink-1 | 10.67.45.2 | MikroTik CRS328 switch management IP |
+| arasaka-1 | 10.67.45.27 | Proxmox hypervisor |
+| idrac.arasaka-1 | 10.67.45.24 | Proxmox iDRAC |
+| idrac.datafortress-1 | 10.67.45.25 | TrueNAS iDRAC |
+| petrochem-pdu-1 | 10.67.45.26 | Raritan PDU |
+
+## 4. Required inter-VLAN allowlist (inferred)
+
+This matrix is the **intended/required state** derived from service architecture. Each row should be cross-checked against live OPNsense/MikroTik rules and observed traffic before becoming policy.
+
+| Source zone | Dest zone | Dest hosts / services | Proto/Port | Direction | Justification |
+|-------------|-----------|----------------------|------------|-----------|---------------|
+| **Endpoint (60)** | Services (10) | Any `*.svc.local.eddiequinn.casa` (Traefik on 10.67.40.25:443 via DNS) | TCP 443 | User → apps | User access to internal apps via Traefik ingress. |
+| **Endpoint (60)** | Storage (20) | datafortress-1:443 / SMB/NFS | TCP 443, 445, 2049 | User → NAS | TrueNAS web UI, SMB shares, NFS mounts. |
+| **Endpoint (60)** | Infrastructure (40) | infstack-1:53 (DNS), infstack-1:443 (Traefik), monitoring-1:3000 (Grafana) | TCP/UDP 53, TCP 443, TCP 3000 | User → infra | DNS resolution, SSO/Authentik flow, monitoring dashboards. |
+| **Endpoint (60)** | Management (45) | *none by default* | — | Deny | Admin interfaces must require deliberate placement into VLAN 45. |
+| **Guest (50)** | WAN | any | TCP/UDP high ports | Allow | Internet only. |
+| **Guest (50)** | any internal | any | any | Deny | Untrusted devices. |
+| **IoT (70)** | WAN | any (rate-limited 15/1) | TCP/UDP high ports | Allow | Internet only; client isolation on switch. |
+| **IoT (70)** | any internal | any | any | Deny | Untrusted devices; explicit per-device exceptions only. |
+| **Services (10)** | Storage (20) | datafortress-1:443, 445, 2049 | TCP 443/445/2049 | App → NAS | Application data mounts, backups, media libraries. |
+| **Services (10)** | Infrastructure (40) | infstack-1:53 DNS, infstack-1:9000 Authentik, infstack-1:9120 Komodo, infstack-1:53? | TCP/UDP 53, TCP 9000, TCP 9120 | App → infra | DNS, OIDC auth, GitOps/deployment control. |
+| **Services (10)** | Management (45) | *none by default* | — | Deny | Apps should not reach admin interfaces. |
+| **DMZ (30)** | Services (10) | devstack-1:80/443/5050 (GitLab), appstack-1:8086 (ntfy?), nextcloud-1:8080 | TCP 80, 443, 5050, 8080, 8086 | Ingress proxy → backend | Pangolin/Traefik ingress from VPS/DMZ connectors to internal services. |
+| **DMZ (30)** | WAN | any | any | Allow | DMZ hosts need outbound for tunnels, updates, Matrix federation. |
+| **DMZ (30)** | Management (45) | *none* | — | Deny | DMZ must never reach control plane. |
+| **Infrastructure (40)** | Services (10) | Any service host for deployment/monitoring probes | TCP 22, 80, 443, 8080, 9120, etc. | Infra → app | Komodo deploys, Prometheus scraping, Ansible. |
+| **Infrastructure (40)** | Storage (20) | datafortress-1:443/445/2049 | TCP 443/445/2049 | Backups, metrics storage | dbackup, monitoring data. |
+| **Infrastructure (40)** | DMZ (30) | matrix-1:443, newt-1 | TCP 443, tunnel ports | Infra → DMZ | Monitor/manage DMZ connectors. |
+| **Infrastructure (40)** | Management (45) | OPNsense API, MikroTik API/SSH, Proxmox API | TCP 443, 22, 8291, 8728/8729 | Infra orchestration | Terraform/Ansible/Komodo managing control plane. |
+| **Management (45)** | any | *none except established return* | — | Deny by default | Admin interfaces are sinks, not sources. |
+| **WAN** | DMZ (30) | matrix-1:443, newt-1 (Pangolin tunnel) | TCP 443, Pangolin tunnel port | Allow | Public ingress to explicitly exposed connectors. |
+| **WAN** | any other | any | any | Deny | No direct WAN-to-internal except DMZ. |
+
+## 5. Service-level port map (from Traefik + scan)
+
+| Public hostname | Backend target (from Traefik) | VLAN | Port | Notes |
+|-----------------|------------------------------|------|------|-------|
+| gitlab.eddiequinn.casa | gitlab.svc.local.eddiequinn.casa | 10 | 80 | devstack-1 |
+| r.gitlab.eddiequinn.casa | r.gitlab.svc.local.eddiequinn.casa | 10 | 5050 | devstack-1 registry |
+| nextcloud.eddiequinn.casa | nextcloud.svc.local.eddiequinn.casa | 10 | 11000 | nextcloud-1 |
+| jellyfin.eddiequinn.casa | jellyfin.svc.local.eddiequinn.casa | 10 | 8096 | mediastack-1 |
+| audiobookshelf.eddiequinn.casa | audiobookshelf.svc.local.eddiequinn.casa | 10 | 13378 | mediastack-1 |
+| sonarr/radarr/prowlarr.eddiequinn.casa | arrstack-1 backends | 10 | 8989/7878/9696 | arrstack-1 |
+| traefik/ingress | infstack-1 | 40 | 80/443 | all public names route here first |
+| auth.eddiequinn.casa | authentik.infra.local.eddiequinn.casa | 40 | 9000 | infstack-1 |
+| grafana.eddiequinn.casa | grafana.infra.local.eddiequinn.casa | 40 | 3000 | monitoring-1 |
+| proxmox.eddiequinn.casa | proxmox.mgmt.local.eddiequinn.casa | 45 | 8006 | arasaka-1 |
+| opnsense.eddiequinn.casa | opnsense.mgmt.local.eddiequinn.casa | 45 | 443 | blackice-1 |
+
+## 6. Unknowns that must be confirmed
+
+1. **Live firewall state on OPNsense** — are there still temporary allow-all rules between VLANs? Between `10.0.0.0/16` and the new VLANs?
+2. **MikroTik VLAN routing/L3 configuration** — is the switch doing any inter-VLAN routing, or is all L3 handled by OPNsense?
+3. **DHCP / wireless VLANs (50/60/70)** — no static inventory exists; clients must be discovered from OPNsense DHCP leases or MikroTik MAC table.
+4. **TrueNAS service ports** — scan shows 80/443; need to confirm SMB/NFS/AFP/iSCSI ports and initiator subnets.
+5. **Pangolin tunnel details** — exact ports, whether newt-1 or matrix-1 hosts the tunnel, and whether it ingresses to DMZ or Services.
+6. **Management-plane access path** — is the OPNsense WebUI currently bound to `10.67.0.1/16` on `bge0` as described in Blackwall, or has it been moved to VLAN 45?
+7. **MikroTik MAB state** — is MAB configured already, and which ports are in which VLAN?
+
+## 7. Live data-collection playbook
+
+Run these commands and save outputs into a `argus-phase1-evidence/` directory. This is the evidence needed to turn the inferred matrix above into a validated allowlist.
+
+### 7.1 OPNsense (blackice-1, 10.67.45.1)
+
+Via SSH or console as a read-only admin:
+
+```sh
+# Firewall rules (filter + nat)
+pfctl -sr
+pfctl -sn
+
+# Stateful table and interface list
+pfctl -ss | head -n 500
+ifconfig -a
+
+# Routes
+netstat -rn
+
+# DHCP leases (shows client VLAN assignment)
+cat /var/dhcpd/var/db/dhcpd.leases
+
+# Config backup (XML) — inspect offline for rules, aliases, interfaces
+# WebUI: System > Configuration > Backups
+# Or CLI: cp /conf/config.xml /tmp/config.xml and pull via scp
+```
+
+### 7.2 MikroTik CRS328 (gridlink-1, 10.67.45.2)
+
+Via SSH/Winbox/console:
+
+```rsc
+# Layer-2 / VLAN fabric
+/interface bridge print detail
+/interface bridge vlan print detail
+/interface bridge port print
+
+# Layer-3 / IPs
+/ip address print
+/ip route print
+
+# Firewall/filter on RouterOS (if any L3 is done here)
+/ip firewall filter print
+/ip firewall nat print
+
+# DHCP server/leases per VLAN
+/ip dhcp-server lease print
+/ip dhcp-server print
+
+# MAB / RADIUS if configured
+/interface dot1x server print
+/radius print
+
+# Switch port-to-MAC mapping
+/interface bridge host print
+```
+
+### 7.3 Linux service hosts
+
+Run on every managed host (Ansible can do this once SSH keys are available):
+
+```sh
+# Listening sockets
+ss -tlnp
+ss -ulnp
+
+# Established inter-VLAN conversations (run during active period)
+ss -tn state established '( dport != :22 )' | head -n 200
+
+# Local firewall rules (if host-level filtering exists)
+sudo iptables -L -n -v
+sudo nft list ruleset 2>/dev/null
+
+# Active Docker networks / published ports
+sudo docker network ls
+sudo docker ps --format 'table {{.Names}}\t{{.Ports}}'
+```
+
+### 7.4 TrueNAS (datafortress-1)
+
+- WebUI: Network → Interfaces, Sharing → SMB/NFS, Services → list active services.
+- CLI (if root SSH enabled):
+  ```sh
+  ifconfig
+  netstat -rn
+  midclt call sharing.smb.query
+  midclt call sharing.nfs.query
+  ```
+
+### 7.5 Proxmox (arasaka-1)
+
+```sh
+# VM network attachments per bridge/VLAN
+qm config <vmid> | grep -E 'net|bridge|tag'
+# Or bulk:
+pvesh get /nodes/arasaka-1/qemu --output-format json | jq '.[] | {vmid,name}'
+```
+
+## 8. Recommended Phase 1 execution order
+
+1. **Collect evidence** — run section 7 commands and store in `argus-phase1-evidence/`.
+2. **Map current rules** — translate OPNsense `pfctl -sr` and MikroTik `/ip firewall filter print` into a plain-text "current allowlist".
+3. **Diff current vs required** — identify every current rule that is broader than the matrix in section 4.
+4. **Draft firewall policy changes** — create OPNsense aliases and rules (and MikroTik filter rules if it does L3) that match the required matrix.
+5. **Staged enforcement** — add rules as `log` only first; observe for 7 days; then switch to `block` for over-permissive rules.
+6. **Validate exit criteria** (from Argus brief):
+   - Temporary inter-VLAN allow-all rules removed except documented exceptions.
+   - At least one wired MAB path validated end-to-end.
+   - At least one wireless RADIUS-backed auth path validated end-to-end.
+   - CA operational for first certificate use case.
+   - MAB ports constrained by firewall policy, not trusted on MAC alone.
+
+## 9. Suggested artifact repository
+
+Create a new GitLab repo (e.g. `homelab/argus`) and commit:
+
+```
+argus/
+├── phase1/
+│   ├── allowlist.md                 # this file
+│   ├── evidence/
+│   │   ├── opnsense-pfctl-sr.txt
+│   │   ├── opnsense-config.xml
+│   │   ├── mikrotik-filter.rsc
+│   │   ├── mikrotik-bridge-vlan.txt
+│   │   └── linux-ss-tlnp/           # one file per host
+│   └── policy/
+│       ├── opnsense-aliases.json    # proposed aliases
+│       └── opnsense-rules.csv       # proposed rules
+```
+
+## 10. Immediate next action
+
+The single most useful thing to do next is pull the live OPNsense and MikroTik configs. Without them, section 4 remains a design document. With them, it becomes a migration plan.
+
+If you can place an SSH key into this session or run the section 7 commands and paste the outputs, I can turn the inferred matrix into a concrete rule-by-rule diff.

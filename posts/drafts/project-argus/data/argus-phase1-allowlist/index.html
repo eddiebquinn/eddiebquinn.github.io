@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1></h1>
+    </header>
+    <div class="content__body">
+        <h1 id="project-argus--phase-1-inter-vlan-flow-audit--required-allowlist">Project Argus — Phase 1: Inter-VLAN Flow Audit &amp; Required Allowlist</h1>
+<blockquote>
+<p>Status: <strong>Inferred/required allowlist</strong> — built from source-of-truth configs (DNS, Traefik, Ansible inventory, Blackwall design post) and a no-credential port scan. Must be validated against live OPNsense + MikroTik firewall rules before policy is changed.</p>
+</blockquote>
+<h2 id="1-sources-consumed">1. Sources consumed</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it gave us</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blog-posts/posts/drafts/project-argus.md</code></td>
+<td>Phase 1 scope, exit criteria, deferred work, design principles.</td>
+</tr>
+<tr>
+<td><code>blog-posts/posts/2026/june/project-blackwall.md</code></td>
+<td>VLAN design intent, temporary flat-network caveat, MAB/MPSK/RADIUS plans.</td>
+</tr>
+<tr>
+<td><code>ansible-playbooks/inventory/hosts.yml</code></td>
+<td>Host-to-IP-and-MAC mapping, group membership.</td>
+</tr>
+<tr>
+<td><code>bind9-git/config/zones/local.eddiequinn.casa.zone</code></td>
+<td>Authoritative service-to-host mapping per VLAN/subdomain tier.</td>
+</tr>
+<tr>
+<td><code>traefik-git/data/config.yml</code></td>
+<td>Ingress surface: which public hostnames proxy to which internal service:port.</td>
+</tr>
+<tr>
+<td>No-credential TCP port scan (2026-07-07)</td>
+<td>Ground-truth listening ports on reachable hosts.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-vlan--subnet-inventory">2. VLAN / subnet inventory</h2>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Name</th>
+<th>Subnet</th>
+<th>Trust role</th>
+<th>Design intent (from Blackwall)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Services</td>
+<td><code>10.67.10.0/24</code></td>
+<td>Core apps</td>
+<td>User-facing services; allowed to Infrastructure, Storage, DMZ.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Storage</td>
+<td><code>10.67.20.0/24</code></td>
+<td>Core data</td>
+<td>TrueNAS / storage plane; allowed to Services, Endpoints.</td>
+</tr>
+<tr>
+<td>30</td>
+<td>DMZ</td>
+<td><code>10.67.30.0/24</code></td>
+<td>Perimeter</td>
+<td>Pangolin connectors, public ingress; allowed to WAN + explicit Services.</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Infrastructure</td>
+<td><code>10.67.40.0/24</code></td>
+<td>Ops nervous system</td>
+<td>DNS, Authentik, monitoring, Traefik, Komodo; allowed to Services, Storage, DMZ, Management.</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Management</td>
+<td><code>10.67.45.0/24</code></td>
+<td>Control plane</td>
+<td>Proxmox, iDRAC, OPNsense, MikroTik, PDU; no direct access from user VLANs.</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Guest</td>
+<td><code>10.67.50.0/24</code></td>
+<td>Untrusted users</td>
+<td>Internet only, 15/1 Mbps.</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Endpoint Devices</td>
+<td><code>10.67.60.0/24</code></td>
+<td>Trusted users</td>
+<td>Services, Storage, Infrastructure per need.</td>
+</tr>
+<tr>
+<td>70</td>
+<td>IoT</td>
+<td><code>10.67.70.0/24</code></td>
+<td>Untrusted things</td>
+<td>Internet only; client isolation at switch.</td>
+</tr>
+<tr>
+<td>—</td>
+<td>Legacy flat</td>
+<td><code>10.0.0.0/16</code></td>
+<td>Temporary</td>
+<td>Mentioned in Blackwall as a migration bridge; must be confirmed removed or scoped.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-known-hosts-by-vlan">3. Known hosts by VLAN</h2>
+<h3 id="vlan-10--services-106710024">VLAN 10 — Services (<code>10.67.10.0/24</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>MAC / notes</th>
+<th>Listening ports (scan)</th>
+<th>Traefik-backed services</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appstack-1</td>
+<td>10.67.10.25</td>
+<td><code>bc:24:11:0e:f4:00</code></td>
+<td>22, 2283, 3000, 3737, 8080, 8086, 8087, 9000</td>
+<td>immich, searxng, jobsync, homepage, reader, ntfy?</td>
+</tr>
+<tr>
+<td>arrstack-1</td>
+<td>10.67.10.26</td>
+<td><code>bc:24:11:b9:ef:07</code></td>
+<td>22, 7878, 8989, 9696</td>
+<td>radarr, sonarr, prowlarr</td>
+</tr>
+<tr>
+<td>mediastack-1</td>
+<td>10.67.10.27</td>
+<td><code>bc:24:11:31:be:43</code></td>
+<td>22, 8096, 13378</td>
+<td>jellyfin, audiobookshelf, seer</td>
+</tr>
+<tr>
+<td>kasm-1</td>
+<td>10.67.10.28</td>
+<td><code>bc:24:11:fe:d2:0b</code></td>
+<td>22, 443</td>
+<td>kasm</td>
+</tr>
+<tr>
+<td>nextcloud-1</td>
+<td>10.67.10.29</td>
+<td><code>bc:24:11:96:71:59</code></td>
+<td>22, 8080</td>
+<td>nextcloud, nextcloud-aio</td>
+</tr>
+<tr>
+<td>devstack-1</td>
+<td>10.67.10.31</td>
+<td><code>bc:24:11:c3:cc:26</code></td>
+<td>22, 80, 5050, 8080</td>
+<td>gitlab, gitlab-registry</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vlan-20--storage-106720024">VLAN 20 — Storage (<code>10.67.20.0/24</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>Notes</th>
+<th>Listening ports (scan)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>datafortress-1</td>
+<td>10.67.20.24</td>
+<td>TrueNAS</td>
+<td>80, 443</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vlan-30--dmz-106730024">VLAN 30 — DMZ (<code>10.67.30.0/24</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>MAC / notes</th>
+<th>Listening ports (scan)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>matrix-1</td>
+<td>10.67.30.24</td>
+<td><code>bc:24:11:2d:5a:9d</code></td>
+<td>22, 80, 443</td>
+</tr>
+<tr>
+<td>newt-1</td>
+<td>10.67.30.25</td>
+<td><code>bc:24:11:7c:61:ed</code></td>
+<td>22 only (likely Pangolin connector)</td>
+</tr>
+<tr>
+<td>pangolin-1</td>
+<td>89.127.232.7</td>
+<td>VPS, external</td>
+<td>not reachable from inside via this scan</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vlan-40--infrastructure-106740024">VLAN 40 — Infrastructure (<code>10.67.40.0/24</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>MAC / notes</th>
+<th>Listening ports (scan)</th>
+<th>Services</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>infstack-1</td>
+<td>10.67.40.25</td>
+<td><code>bc:24:11:39:45:9e</code></td>
+<td>22, 53, 80, 443, 3050, 8043, 8080, 9000, 9120</td>
+<td>Bind9 DNS, Traefik ingress, Omada, dbackup, Infisical, Authentik, Komodo</td>
+</tr>
+<tr>
+<td>monitoring-1</td>
+<td>10.67.40.27</td>
+<td><code>bc:24:11:61:f7:eb</code></td>
+<td>22, 3000</td>
+<td>Grafana, Prometheus</td>
+</tr>
+<tr>
+<td>bartmos-ap-1</td>
+<td>10.67.40.24</td>
+<td>Omada AP (zone file)</td>
+<td>not scanned</td>
+<td>WiFi controller target</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vlan-45--management-106745024">VLAN 45 — Management (<code>10.67.45.0/24</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blackice-1</td>
+<td>10.67.45.1</td>
+<td>OPNsense router/gateway</td>
+</tr>
+<tr>
+<td>gridlink-1</td>
+<td>10.67.45.2</td>
+<td>MikroTik CRS328 switch management IP</td>
+</tr>
+<tr>
+<td>arasaka-1</td>
+<td>10.67.45.27</td>
+<td>Proxmox hypervisor</td>
+</tr>
+<tr>
+<td>idrac.arasaka-1</td>
+<td>10.67.45.24</td>
+<td>Proxmox iDRAC</td>
+</tr>
+<tr>
+<td>idrac.datafortress-1</td>
+<td>10.67.45.25</td>
+<td>TrueNAS iDRAC</td>
+</tr>
+<tr>
+<td>petrochem-pdu-1</td>
+<td>10.67.45.26</td>
+<td>Raritan PDU</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-required-inter-vlan-allowlist-inferred">4. Required inter-VLAN allowlist (inferred)</h2>
+<p>This matrix is the <strong>intended/required state</strong> derived from service architecture. Each row should be cross-checked against live OPNsense/MikroTik rules and observed traffic before becoming policy.</p>
+<table>
+<thead>
+<tr>
+<th>Source zone</th>
+<th>Dest zone</th>
+<th>Dest hosts / services</th>
+<th>Proto/Port</th>
+<th>Direction</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Endpoint (60)</strong></td>
+<td>Services (10)</td>
+<td>Any <code>*.svc.local.eddiequinn.casa</code> (Traefik on 10.67.40.25:443 via DNS)</td>
+<td>TCP 443</td>
+<td>User → apps</td>
+<td>User access to internal apps via Traefik ingress.</td>
+</tr>
+<tr>
+<td><strong>Endpoint (60)</strong></td>
+<td>Storage (20)</td>
+<td>datafortress-1:443 / SMB/NFS</td>
+<td>TCP 443, 445, 2049</td>
+<td>User → NAS</td>
+<td>TrueNAS web UI, SMB shares, NFS mounts.</td>
+</tr>
+<tr>
+<td><strong>Endpoint (60)</strong></td>
+<td>Infrastructure (40)</td>
+<td>infstack-1:53 (DNS), infstack-1:443 (Traefik), monitoring-1:3000 (Grafana)</td>
+<td>TCP/UDP 53, TCP 443, TCP 3000</td>
+<td>User → infra</td>
+<td>DNS resolution, SSO/Authentik flow, monitoring dashboards.</td>
+</tr>
+<tr>
+<td><strong>Endpoint (60)</strong></td>
+<td>Management (45)</td>
+<td><em>none by default</em></td>
+<td>—</td>
+<td>Deny</td>
+<td>Admin interfaces must require deliberate placement into VLAN 45.</td>
+</tr>
+<tr>
+<td><strong>Guest (50)</strong></td>
+<td>WAN</td>
+<td>any</td>
+<td>TCP/UDP high ports</td>
+<td>Allow</td>
+<td>Internet only.</td>
+</tr>
+<tr>
+<td><strong>Guest (50)</strong></td>
+<td>any internal</td>
+<td>any</td>
+<td>any</td>
+<td>Deny</td>
+<td>Untrusted devices.</td>
+</tr>
+<tr>
+<td><strong>IoT (70)</strong></td>
+<td>WAN</td>
+<td>any (rate-limited 15/1)</td>
+<td>TCP/UDP high ports</td>
+<td>Allow</td>
+<td>Internet only; client isolation on switch.</td>
+</tr>
+<tr>
+<td><strong>IoT (70)</strong></td>
+<td>any internal</td>
+<td>any</td>
+<td>any</td>
+<td>Deny</td>
+<td>Untrusted devices; explicit per-device exceptions only.</td>
+</tr>
+<tr>
+<td><strong>Services (10)</strong></td>
+<td>Storage (20)</td>
+<td>datafortress-1:443, 445, 2049</td>
+<td>TCP 443/445/2049</td>
+<td>App → NAS</td>
+<td>Application data mounts, backups, media libraries.</td>
+</tr>
+<tr>
+<td><strong>Services (10)</strong></td>
+<td>Infrastructure (40)</td>
+<td>infstack-1:53 DNS, infstack-1:9000 Authentik, infstack-1:9120 Komodo, infstack-1:53?</td>
+<td>TCP/UDP 53, TCP 9000, TCP 9120</td>
+<td>App → infra</td>
+<td>DNS, OIDC auth, GitOps/deployment control.</td>
+</tr>
+<tr>
+<td><strong>Services (10)</strong></td>
+<td>Management (45)</td>
+<td><em>none by default</em></td>
+<td>—</td>
+<td>Deny</td>
+<td>Apps should not reach admin interfaces.</td>
+</tr>
+<tr>
+<td><strong>DMZ (30)</strong></td>
+<td>Services (10)</td>
+<td>devstack-1:80/443/5050 (GitLab), appstack-1:8086 (ntfy?), nextcloud-1:8080</td>
+<td>TCP 80, 443, 5050, 8080, 8086</td>
+<td>Ingress proxy → backend</td>
+<td>Pangolin/Traefik ingress from VPS/DMZ connectors to internal services.</td>
+</tr>
+<tr>
+<td><strong>DMZ (30)</strong></td>
+<td>WAN</td>
+<td>any</td>
+<td>any</td>
+<td>Allow</td>
+<td>DMZ hosts need outbound for tunnels, updates, Matrix federation.</td>
+</tr>
+<tr>
+<td><strong>DMZ (30)</strong></td>
+<td>Management (45)</td>
+<td><em>none</em></td>
+<td>—</td>
+<td>Deny</td>
+<td>DMZ must never reach control plane.</td>
+</tr>
+<tr>
+<td><strong>Infrastructure (40)</strong></td>
+<td>Services (10)</td>
+<td>Any service host for deployment/monitoring probes</td>
+<td>TCP 22, 80, 443, 8080, 9120, etc.</td>
+<td>Infra → app</td>
+<td>Komodo deploys, Prometheus scraping, Ansible.</td>
+</tr>
+<tr>
+<td><strong>Infrastructure (40)</strong></td>
+<td>Storage (20)</td>
+<td>datafortress-1:443/445/2049</td>
+<td>TCP 443/445/2049</td>
+<td>Backups, metrics storage</td>
+<td>dbackup, monitoring data.</td>
+</tr>
+<tr>
+<td><strong>Infrastructure (40)</strong></td>
+<td>DMZ (30)</td>
+<td>matrix-1:443, newt-1</td>
+<td>TCP 443, tunnel ports</td>
+<td>Infra → DMZ</td>
+<td>Monitor/manage DMZ connectors.</td>
+</tr>
+<tr>
+<td><strong>Infrastructure (40)</strong></td>
+<td>Management (45)</td>
+<td>OPNsense API, MikroTik API/SSH, Proxmox API</td>
+<td>TCP 443, 22, 8291, 8728/8729</td>
+<td>Infra orchestration</td>
+<td>Terraform/Ansible/Komodo managing control plane.</td>
+</tr>
+<tr>
+<td><strong>Management (45)</strong></td>
+<td>any</td>
+<td><em>none except established return</em></td>
+<td>—</td>
+<td>Deny by default</td>
+<td>Admin interfaces are sinks, not sources.</td>
+</tr>
+<tr>
+<td><strong>WAN</strong></td>
+<td>DMZ (30)</td>
+<td>matrix-1:443, newt-1 (Pangolin tunnel)</td>
+<td>TCP 443, Pangolin tunnel port</td>
+<td>Allow</td>
+<td>Public ingress to explicitly exposed connectors.</td>
+</tr>
+<tr>
+<td><strong>WAN</strong></td>
+<td>any other</td>
+<td>any</td>
+<td>any</td>
+<td>Deny</td>
+<td>No direct WAN-to-internal except DMZ.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-service-level-port-map-from-traefik--scan">5. Service-level port map (from Traefik + scan)</h2>
+<table>
+<thead>
+<tr>
+<th>Public hostname</th>
+<th>Backend target (from Traefik)</th>
+<th>VLAN</th>
+<th>Port</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gitlab.eddiequinn.casa</td>
+<td>gitlab.svc.local.eddiequinn.casa</td>
+<td>10</td>
+<td>80</td>
+<td>devstack-1</td>
+</tr>
+<tr>
+<td>r.gitlab.eddiequinn.casa</td>
+<td>r.gitlab.svc.local.eddiequinn.casa</td>
+<td>10</td>
+<td>5050</td>
+<td>devstack-1 registry</td>
+</tr>
+<tr>
+<td>nextcloud.eddiequinn.casa</td>
+<td>nextcloud.svc.local.eddiequinn.casa</td>
+<td>10</td>
+<td>11000</td>
+<td>nextcloud-1</td>
+</tr>
+<tr>
+<td>jellyfin.eddiequinn.casa</td>
+<td>jellyfin.svc.local.eddiequinn.casa</td>
+<td>10</td>
+<td>8096</td>
+<td>mediastack-1</td>
+</tr>
+<tr>
+<td>audiobookshelf.eddiequinn.casa</td>
+<td>audiobookshelf.svc.local.eddiequinn.casa</td>
+<td>10</td>
+<td>13378</td>
+<td>mediastack-1</td>
+</tr>
+<tr>
+<td>sonarr/radarr/prowlarr.eddiequinn.casa</td>
+<td>arrstack-1 backends</td>
+<td>10</td>
+<td>8989/7878/9696</td>
+<td>arrstack-1</td>
+</tr>
+<tr>
+<td>traefik/ingress</td>
+<td>infstack-1</td>
+<td>40</td>
+<td>80/443</td>
+<td>all public names route here first</td>
+</tr>
+<tr>
+<td>auth.eddiequinn.casa</td>
+<td>authentik.infra.local.eddiequinn.casa</td>
+<td>40</td>
+<td>9000</td>
+<td>infstack-1</td>
+</tr>
+<tr>
+<td>grafana.eddiequinn.casa</td>
+<td>grafana.infra.local.eddiequinn.casa</td>
+<td>40</td>
+<td>3000</td>
+<td>monitoring-1</td>
+</tr>
+<tr>
+<td>proxmox.eddiequinn.casa</td>
+<td>proxmox.mgmt.local.eddiequinn.casa</td>
+<td>45</td>
+<td>8006</td>
+<td>arasaka-1</td>
+</tr>
+<tr>
+<td>opnsense.eddiequinn.casa</td>
+<td>opnsense.mgmt.local.eddiequinn.casa</td>
+<td>45</td>
+<td>443</td>
+<td>blackice-1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-unknowns-that-must-be-confirmed">6. Unknowns that must be confirmed</h2>
+<ol>
+<li><strong>Live firewall state on OPNsense</strong> — are there still temporary allow-all rules between VLANs? Between <code>10.0.0.0/16</code> and the new VLANs?</li>
+<li><strong>MikroTik VLAN routing/L3 configuration</strong> — is the switch doing any inter-VLAN routing, or is all L3 handled by OPNsense?</li>
+<li><strong>DHCP / wireless VLANs (50/60/70)</strong> — no static inventory exists; clients must be discovered from OPNsense DHCP leases or MikroTik MAC table.</li>
+<li><strong>TrueNAS service ports</strong> — scan shows 80/443; need to confirm SMB/NFS/AFP/iSCSI ports and initiator subnets.</li>
+<li><strong>Pangolin tunnel details</strong> — exact ports, whether newt-1 or matrix-1 hosts the tunnel, and whether it ingresses to DMZ or Services.</li>
+<li><strong>Management-plane access path</strong> — is the OPNsense WebUI currently bound to <code>10.67.0.1/16</code> on <code>bge0</code> as described in Blackwall, or has it been moved to VLAN 45?</li>
+<li><strong>MikroTik MAB state</strong> — is MAB configured already, and which ports are in which VLAN?</li>
+</ol>
+<h2 id="7-live-data-collection-playbook">7. Live data-collection playbook</h2>
+<p>Run these commands and save outputs into a <code>argus-phase1-evidence/</code> directory. This is the evidence needed to turn the inferred matrix above into a validated allowlist.</p>
+<h3 id="71-opnsense-blackice-1-1067451">7.1 OPNsense (blackice-1, 10.67.45.1)</h3>
+<p>Via SSH or console as a read-only admin:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Firewall rules (filter + nat)</span>
+</span></span><span style="display:flex;"><span>pfctl -sr
+</span></span><span style="display:flex;"><span>pfctl -sn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Stateful table and interface list</span>
+</span></span><span style="display:flex;"><span>pfctl -ss | head -n <span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>ifconfig -a
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Routes</span>
+</span></span><span style="display:flex;"><span>netstat -rn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># DHCP leases (shows client VLAN assignment)</span>
+</span></span><span style="display:flex;"><span>cat /var/dhcpd/var/db/dhcpd.leases
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Config backup (XML) — inspect offline for rules, aliases, interfaces</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># WebUI: System &gt; Configuration &gt; Backups</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or CLI: cp /conf/config.xml /tmp/config.xml and pull via scp</span>
+</span></span></code></pre></div><h3 id="72-mikrotik-crs328-gridlink-1-1067452">7.2 MikroTik CRS328 (gridlink-1, 10.67.45.2)</h3>
+<p>Via SSH/Winbox/console:</p>
+<pre tabindex="0"><code class="language-rsc" data-lang="rsc"># Layer-2 / VLAN fabric
+/interface bridge print detail
+/interface bridge vlan print detail
+/interface bridge port print
+
+# Layer-3 / IPs
+/ip address print
+/ip route print
+
+# Firewall/filter on RouterOS (if any L3 is done here)
+/ip firewall filter print
+/ip firewall nat print
+
+# DHCP server/leases per VLAN
+/ip dhcp-server lease print
+/ip dhcp-server print
+
+# MAB / RADIUS if configured
+/interface dot1x server print
+/radius print
+
+# Switch port-to-MAC mapping
+/interface bridge host print
+</code></pre><h3 id="73-linux-service-hosts">7.3 Linux service hosts</h3>
+<p>Run on every managed host (Ansible can do this once SSH keys are available):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Listening sockets</span>
+</span></span><span style="display:flex;"><span>ss -tlnp
+</span></span><span style="display:flex;"><span>ss -ulnp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Established inter-VLAN conversations (run during active period)</span>
+</span></span><span style="display:flex;"><span>ss -tn state established <span style="color:#e6db74">&#39;( dport != :22 )&#39;</span> | head -n <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Local firewall rules (if host-level filtering exists)</span>
+</span></span><span style="display:flex;"><span>sudo iptables -L -n -v
+</span></span><span style="display:flex;"><span>sudo nft list ruleset 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Active Docker networks / published ports</span>
+</span></span><span style="display:flex;"><span>sudo docker network ls
+</span></span><span style="display:flex;"><span>sudo docker ps --format <span style="color:#e6db74">&#39;table {{.Names}}\t{{.Ports}}&#39;</span>
+</span></span></code></pre></div><h3 id="74-truenas-datafortress-1">7.4 TrueNAS (datafortress-1)</h3>
+<ul>
+<li>WebUI: Network → Interfaces, Sharing → SMB/NFS, Services → list active services.</li>
+<li>CLI (if root SSH enabled):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ifconfig
+</span></span><span style="display:flex;"><span>netstat -rn
+</span></span><span style="display:flex;"><span>midclt call sharing.smb.query
+</span></span><span style="display:flex;"><span>midclt call sharing.nfs.query
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="75-proxmox-arasaka-1">7.5 Proxmox (arasaka-1)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># VM network attachments per bridge/VLAN</span>
+</span></span><span style="display:flex;"><span>qm config &lt;vmid&gt; | grep -E <span style="color:#e6db74">&#39;net|bridge|tag&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or bulk:</span>
+</span></span><span style="display:flex;"><span>pvesh get /nodes/arasaka-1/qemu --output-format json | jq <span style="color:#e6db74">&#39;.[] | {vmid,name}&#39;</span>
+</span></span></code></pre></div><h2 id="8-recommended-phase-1-execution-order">8. Recommended Phase 1 execution order</h2>
+<ol>
+<li><strong>Collect evidence</strong> — run section 7 commands and store in <code>argus-phase1-evidence/</code>.</li>
+<li><strong>Map current rules</strong> — translate OPNsense <code>pfctl -sr</code> and MikroTik <code>/ip firewall filter print</code> into a plain-text &ldquo;current allowlist&rdquo;.</li>
+<li><strong>Diff current vs required</strong> — identify every current rule that is broader than the matrix in section 4.</li>
+<li><strong>Draft firewall policy changes</strong> — create OPNsense aliases and rules (and MikroTik filter rules if it does L3) that match the required matrix.</li>
+<li><strong>Staged enforcement</strong> — add rules as <code>log</code> only first; observe for 7 days; then switch to <code>block</code> for over-permissive rules.</li>
+<li><strong>Validate exit criteria</strong> (from Argus brief):
+<ul>
+<li>Temporary inter-VLAN allow-all rules removed except documented exceptions.</li>
+<li>At least one wired MAB path validated end-to-end.</li>
+<li>At least one wireless RADIUS-backed auth path validated end-to-end.</li>
+<li>CA operational for first certificate use case.</li>
+<li>MAB ports constrained by firewall policy, not trusted on MAC alone.</li>
+</ul>
+</li>
+</ol>
+<h2 id="9-suggested-artifact-repository">9. Suggested artifact repository</h2>
+<p>Create a new GitLab repo (e.g. <code>homelab/argus</code>) and commit:</p>
+<pre tabindex="0"><code>argus/
+├── phase1/
+│   ├── allowlist.md                 # this file
+│   ├── evidence/
+│   │   ├── opnsense-pfctl-sr.txt
+│   │   ├── opnsense-config.xml
+│   │   ├── mikrotik-filter.rsc
+│   │   ├── mikrotik-bridge-vlan.txt
+│   │   └── linux-ss-tlnp/           # one file per host
+│   └── policy/
+│       ├── opnsense-aliases.json    # proposed aliases
+│       └── opnsense-rules.csv       # proposed rules
+</code></pre><h2 id="10-immediate-next-action">10. Immediate next action</h2>
+<p>The single most useful thing to do next is pull the live OPNsense and MikroTik configs. Without them, section 4 remains a design document. With them, it becomes a migration plan.</p>
+<p>If you can place an SSH key into this session or run the section 7 commands and paste the outputs, I can turn the inferred matrix into a concrete rule-by-rule diff.</p>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/drafts/project-argus/data/argus-phase1-allowlist.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

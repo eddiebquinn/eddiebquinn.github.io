@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1></h1>
+    </header>
+    <div class="content__body">
+        <h1 id="project-argus--phase-1-live-audit-diff">Project Argus — Phase 1: Live Audit Diff</h1>
+<blockquote>
+<p>Generated from live pulls of OPNsense (10.67.45.1) and MikroTik (10.67.45.2) on 2026-07-07.
+Credentials provided by operator are read-only/admin-audit and are assumed rotated after use.</p>
+</blockquote>
+<h2 id="1-executive-summary">1. Executive summary</h2>
+<p>Your network is currently running <strong>wide-open inter-VLAN</strong>. Every internal VLAN has a user-created <code>Temporary allow all - migration</code> pass rule. The MikroTik is doing only Layer-2 switching (no RouterOS firewall rules), so <strong>all inter-VLAN enforcement is on OPNsense</strong>. Until the temporary rules are removed, Project Argus Phase 1 cannot be considered complete.</p>
+<p>Two non-design VLANs are present: <strong>VLAN 71 (ISPRouter, 10.67.81.0/24)</strong> and a residual <strong>10.0.0.0/16</strong> address on the MikroTik bridge. Both need explicit decisions.</p>
+<h2 id="2-opnsense-live-interface-map">2. OPNsense live interface map</h2>
+<table>
+<thead>
+<tr>
+<th>OPNsense if</th>
+<th>VLAN</th>
+<th>Subnet / role</th>
+<th>Live state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WAN (<code>bge1</code>)</td>
+<td>—</td>
+<td>2.124.228.243/22</td>
+<td>DHCP from Sky</td>
+</tr>
+<tr>
+<td>LAN (<code>bge0</code>)</td>
+<td>trunk / native?</td>
+<td>IPv6 only in UI</td>
+<td>Bound to LAN identifier; IPv4 not shown in overview but may still carry <code>10.67.0.1/16</code> per Blackwall post.</td>
+</tr>
+<tr>
+<td><code>vlan01</code></td>
+<td>10</td>
+<td>10.67.10.1/24</td>
+<td>Services</td>
+</tr>
+<tr>
+<td><code>vlan02</code></td>
+<td>20</td>
+<td>10.67.20.1/24</td>
+<td>Storage</td>
+</tr>
+<tr>
+<td><code>vlan03</code></td>
+<td>30</td>
+<td>10.67.30.1/24</td>
+<td>DMZ</td>
+</tr>
+<tr>
+<td><code>vlan04</code></td>
+<td>40</td>
+<td>10.67.40.1/24</td>
+<td>Infrastructure</td>
+</tr>
+<tr>
+<td><code>vlan05</code></td>
+<td>45</td>
+<td>10.67.45.1/24</td>
+<td>Management</td>
+</tr>
+<tr>
+<td><code>vlan06</code></td>
+<td>50</td>
+<td>10.67.50.1/24</td>
+<td>Guest</td>
+</tr>
+<tr>
+<td><code>vlan07</code></td>
+<td>60</td>
+<td>10.67.60.1/24</td>
+<td>Endpoints</td>
+</tr>
+<tr>
+<td><code>vlan08</code></td>
+<td>70</td>
+<td>10.67.70.1/24</td>
+<td>IoT</td>
+</tr>
+<tr>
+<td><code>vlan09</code></td>
+<td>71</td>
+<td>10.67.81.1/24</td>
+<td>ISPRouter (not in original Blackwall design)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question for you:</strong> Is <code>bge0</code> / LAN still carrying <code>10.67.0.1/16</code> or the old <code>10.0.0.0/16</code> virtual IP? If yes, that is another migration leftover to remove.</p>
+<h2 id="3-opnsense-live-user-rules">3. OPNsense live user rules</h2>
+<p>These are the operator-created (non-automatic) filter rules, in evaluation order.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Description</th>
+<th>Interface</th>
+<th>Action</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Port</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Matrix HTTPS</td>
+<td>WAN</td>
+<td>pass</td>
+<td>any</td>
+<td>wanip</td>
+<td>443/tcp</td>
+<td>Public Matrix ingress</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Matrix Federation</td>
+<td>WAN</td>
+<td>pass</td>
+<td>any</td>
+<td>wanip</td>
+<td>8448/tcp</td>
+<td>Public Matrix federation</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Syncthing</td>
+<td>WAN</td>
+<td>pass</td>
+<td>any</td>
+<td>10.67.10.26</td>
+<td>22000/tcp/udp</td>
+<td>Direct port-forward to arrstack-1</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>Services</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Allow Services to Storage</td>
+<td>Services</td>
+<td>pass</td>
+<td>10.67.10.0/24</td>
+<td>10.67.20.0/24</td>
+<td>any</td>
+<td>Keep, but tighten ports</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>Storage</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Allow Services to Storage</td>
+<td>Storage</td>
+<td>pass</td>
+<td>10.67.20.0/24</td>
+<td>10.67.10.0/24</td>
+<td>any</td>
+<td>Keep, but tighten ports</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>DMZ</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Matrix HTTPS</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>any</td>
+<td>wanip</td>
+<td>443/tcp</td>
+<td>Duplicate WAN rule? Review.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Matrix Federation</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>any</td>
+<td>wanip</td>
+<td>8448/tcp</td>
+<td>Duplicate WAN rule? Review.</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>Infrastructure</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>Management</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>Guest</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Allow DNS to adguard</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>53/udp</td>
+<td>Misleading description — allows UDP/53 to any. Review if Bind9 is now authoritative.</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Temporary allow all - migration</strong></td>
+<td>IoT</td>
+<td>pass</td>
+<td>any</td>
+<td>any</td>
+<td>any</td>
+<td><strong>REMOVE THIS</strong></td>
+</tr>
+<tr>
+<td>17</td>
+<td>Block to internal 10/8</td>
+<td>ISPRouter</td>
+<td>block</td>
+<td>10.67.81.0/24</td>
+<td>10.0.0.0/8</td>
+<td>any</td>
+<td>Good — keeps ISP router isolated</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Block to internal 172.16/12</td>
+<td>ISPRouter</td>
+<td>block</td>
+<td>10.67.81.0/24</td>
+<td>172.16.0.0/12</td>
+<td>any</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Block to internal 192.168.0/16</td>
+<td>ISPRouter</td>
+<td>block</td>
+<td>10.67.81.0/24</td>
+<td>192.168.0.0/16</td>
+<td>any</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Allow to WAN</td>
+<td>ISPRouter</td>
+<td>pass</td>
+<td>10.67.81.0/24</td>
+<td>any</td>
+<td>any</td>
+<td>Good — ISP router internet only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-mikrotik-live-findings">4. MikroTik live findings</h2>
+<h3 id="l2-switching">L2 switching</h3>
+<ul>
+<li>Single bridge <code>bridge</code>, VLAN filtering enabled (<code>vlan-filtering: true</code>).</li>
+<li><code>ether4</code> and <code>ether13</code> are the <strong>trunk ports</strong> (tagged for every VLAN).</li>
+<li><code>ether4</code> connects to OPNsense; <code>ether13</code> likely connects to the other switch/AP.</li>
+<li>Switch has <strong>no L3 firewall rules</strong> (<code>/ip firewall filter print</code> = 0 rows) and <strong>no NAT</strong> (<code>/ip firewall nat print</code> = 0 rows).</li>
+<li>Therefore <strong>all inter-VLAN routing and filtering is delegated to OPNsense</strong>.</li>
+</ul>
+<h3 id="vlan-to-port-mapping">VLAN-to-port mapping</h3>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Tagged ports</th>
+<th>Untagged ports</th>
+<th>Purpose inferred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ether4</td>
+<td>ether7, bridge</td>
+<td>Default / native?</td>
+</tr>
+<tr>
+<td>10</td>
+<td>ether4, ether13</td>
+<td>—</td>
+<td>Services</td>
+</tr>
+<tr>
+<td>20</td>
+<td>ether4, ether13</td>
+<td>ether11</td>
+<td>Storage (TrueNAS direct)</td>
+</tr>
+<tr>
+<td>30</td>
+<td>ether4, ether13</td>
+<td>—</td>
+<td>DMZ</td>
+</tr>
+<tr>
+<td>40</td>
+<td>ether4, ether13</td>
+<td>ether7</td>
+<td>Infrastructure</td>
+</tr>
+<tr>
+<td>45</td>
+<td>ether4, ether13, <strong>bridge</strong></td>
+<td>ether1, ether5, ether9, ether12</td>
+<td>Management</td>
+</tr>
+<tr>
+<td>50</td>
+<td>ether4, ether7, ether13</td>
+<td>—</td>
+<td>Guest (WiFi)</td>
+</tr>
+<tr>
+<td>60</td>
+<td>ether4, ether7, ether13</td>
+<td>ether17</td>
+<td>Endpoints</td>
+</tr>
+<tr>
+<td>70</td>
+<td>ether4, ether7, ether13</td>
+<td>—</td>
+<td>IoT (WiFi)</td>
+</tr>
+<tr>
+<td>71</td>
+<td>ether4</td>
+<td>ether15</td>
+<td>ISP Router</td>
+</tr>
+</tbody>
+</table>
+<h3 id="management-vlan-45-concern">Management VLAN (45) concern</h3>
+<p><strong>Untagged management ports:</strong> <code>ether1</code>, <code>ether5</code>, <code>ether9</code>, <code>ether12</code>. That is four physical jacks that will land directly in VLAN 45 if something is plugged in. For a &ldquo;no direct access from user VLANs&rdquo; control plane, this is a lot of physical exposure. Recommend:</p>
+<ol>
+<li>Audit what is actually plugged into those ports.</li>
+<li>Move non-management devices to their proper VLANs.</li>
+<li>Consider disabling unused management ports or setting their PVID to a quarantine VLAN.</li>
+</ol>
+<h3 id="residual-legacy-ip">Residual legacy IP</h3>
+<p>The bridge still has <code>10.0.1.34/16</code>. This is a leftover from the flat <code>10.0.0.0/16</code> migration network. It has a connected route for <code>10.0.0.0/16</code>, and default gateway is <code>10.67.45.1</code>. Recommend removing this address once you confirm nothing references it.</p>
+<h2 id="5-current-vs-required-allowlist--the-gap">5. Current vs required allowlist — the gap</h2>
+<table>
+<thead>
+<tr>
+<th>Required flow</th>
+<th>Current state</th>
+<th>Gap / action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Endpoint → Services (443)</td>
+<td>Allowed by &ldquo;Temporary allow all - migration&rdquo; on Endpoints</td>
+<td>Replace with explicit Endpoint → 10.67.40.25:443 rule.</td>
+</tr>
+<tr>
+<td>Endpoint → Storage (443/445/2049)</td>
+<td>Allowed by same temp rule</td>
+<td>Add explicit Endpoint → 10.67.20.0/24 services rule.</td>
+</tr>
+<tr>
+<td>Endpoint → DNS (10.67.40.25:53)</td>
+<td>Allowed by &ldquo;Allow DNS to adguard&rdquo; UDP/53 to any</td>
+<td>Tighten source to Endpoints subnet, dest to 10.67.40.25:53 (TCP+UDP).</td>
+</tr>
+<tr>
+<td>Endpoint → Management</td>
+<td>Currently allowed by temp rule</td>
+<td>Must be <strong>denied</strong>; admin access only from VLAN 45.</td>
+</tr>
+<tr>
+<td>Guest → Internet only</td>
+<td>Currently allowed by temp rule to any</td>
+<td>Replace with Guest → !RFC1918 allow, then default deny.</td>
+</tr>
+<tr>
+<td>IoT → Internet only</td>
+<td>Currently allowed by temp rule to any</td>
+<td>Same as Guest. Also confirm MikroTik client isolation for WiFi.</td>
+</tr>
+<tr>
+<td>Services → Storage</td>
+<td>Explicit rule exists but too broad (any port)</td>
+<td>Restrict to required ports: 443 (TrueNAS UI), 445 (SMB), 2049 (NFS), maybe iSCSI 3260.</td>
+</tr>
+<tr>
+<td>Services → Infrastructure (DNS/Authentik/Komodo)</td>
+<td>Allowed by temp rule</td>
+<td>Add explicit Services → 10.67.40.25:53/9000/9120 etc.</td>
+</tr>
+<tr>
+<td>Services → Management</td>
+<td>Allowed by temp rule</td>
+<td><strong>Deny</strong>.</td>
+</tr>
+<tr>
+<td>DMZ → Services</td>
+<td>Allowed by temp rule</td>
+<td>Replace with explicit DMZ → GitLab/Nextcloud/backends only.</td>
+</tr>
+<tr>
+<td>DMZ → Management</td>
+<td>Allowed by temp rule</td>
+<td><strong>Deny</strong>.</td>
+</tr>
+<tr>
+<td>Infrastructure → Services/Storage/DMZ/Management</td>
+<td>Allowed by temp rule</td>
+<td>Keep as needed, but log and tighten per orchestration need.</td>
+</tr>
+<tr>
+<td>WAN → DMZ</td>
+<td>Matrix HTTPS + Federation rules exist</td>
+<td>Keep; review whether Matrix should move to Services and only DMZ connectors stay in DMZ.</td>
+</tr>
+<tr>
+<td>ISPRouter → internal</td>
+<td>Blocked by rules 17-19</td>
+<td>Good. Keep.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-immediate-risks">6. Immediate risks</h2>
+<ol>
+<li><strong>Lateral movement is unrestricted.</strong> Any compromised host in Guest, IoT, Endpoints, Services, Storage, DMZ, or Infrastructure can reach any other internal subnet and any management interface.</li>
+<li><strong>Management VLAN is physically exposed.</strong> Four untagged management ports mean plugging a device into the wrong jack grants access to VLAN 45.</li>
+<li><strong>Unknown VLAN 71.</strong> <code>10.67.81.0/24</code> / ISPRouter is not in the Blackwall design. If it is the ISP router isolation VLAN, it should be documented; if leftover, removed.</li>
+<li><strong>Legacy flat network still present.</strong> MikroTik bridge address <code>10.0.1.34/16</code> and OPNsense <code>bge0</code> LAN IP may still bridge old and new networks.</li>
+<li><strong>Duplicate Matrix rules.</strong> Rules on both WAN and DMZ for Matrix 443/8448 — verify which interface Matrix actually ingresses on.</li>
+</ol>
+<h2 id="7-proposed-opnsense-rule-changes">7. Proposed OPNsense rule changes</h2>
+<h3 id="remove-after-observation-window">Remove (after observation window)</h3>
+<table>
+<thead>
+<tr>
+<th>Rule description to delete</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Temporary allow all - migration</code> on Services</td>
+<td>Replaced by explicit allowlist.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on Storage</td>
+<td>Replaced by explicit allowlist.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on DMZ</td>
+<td>Replaced by explicit allowlist.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on Infrastructure</td>
+<td>Replaced by explicit allowlist.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on Management</td>
+<td>Replaced by explicit allowlist.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on Guest</td>
+<td>Replaced by internet-only rule.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on Endpoints</td>
+<td>Replaced by explicit allowlist.</td>
+</tr>
+<tr>
+<td><code>Temporary allow all - migration</code> on IoT</td>
+<td>Replaced by internet-only rule.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="add--tighten">Add / tighten</h3>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Interface</th>
+<th>Action</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Port</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>10.67.60.0/24</td>
+<td>10.67.40.25</td>
+<td>53/tcp+udp</td>
+<td>Endpoint DNS to Bind9</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>10.67.60.0/24</td>
+<td>10.67.40.25</td>
+<td>443/tcp</td>
+<td>Endpoint HTTPS to Traefik</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>10.67.60.0/24</td>
+<td>10.67.40.27</td>
+<td>3000/tcp</td>
+<td>Endpoint Grafana</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>10.67.60.0/24</td>
+<td>10.67.20.24</td>
+<td>443/tcp,445/tcp,2049</td>
+<td>Endpoint NAS access</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Endpoints</td>
+<td>block</td>
+<td>10.67.60.0/24</td>
+<td>10.67.45.0/24</td>
+<td>any</td>
+<td>Endpoint no management</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Guest</td>
+<td>pass</td>
+<td>10.67.50.0/24</td>
+<td>!RFC1918</td>
+<td>any</td>
+<td>Guest internet only</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Guest</td>
+<td>block</td>
+<td>10.67.50.0/24</td>
+<td>RFC1918</td>
+<td>any</td>
+<td>Guest no internal</td>
+</tr>
+<tr>
+<td>30</td>
+<td>IoT</td>
+<td>pass</td>
+<td>10.67.70.0/24</td>
+<td>!RFC1918</td>
+<td>any</td>
+<td>IoT internet only</td>
+</tr>
+<tr>
+<td>31</td>
+<td>IoT</td>
+<td>block</td>
+<td>10.67.70.0/24</td>
+<td>RFC1918</td>
+<td>any</td>
+<td>IoT no internal</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Services</td>
+<td>pass</td>
+<td>10.67.10.0/24</td>
+<td>10.67.40.25</td>
+<td>53/tcp+udp</td>
+<td>Services DNS</td>
+</tr>
+<tr>
+<td>41</td>
+<td>Services</td>
+<td>pass</td>
+<td>10.67.10.0/24</td>
+<td>10.67.40.25</td>
+<td>9000/tcp</td>
+<td>Services Authentik</td>
+</tr>
+<tr>
+<td>42</td>
+<td>Services</td>
+<td>pass</td>
+<td>10.67.10.0/24</td>
+<td>10.67.40.25</td>
+<td>9120/tcp</td>
+<td>Services Komodo</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Services</td>
+<td>pass</td>
+<td>10.67.10.0/24</td>
+<td>10.67.20.24</td>
+<td>443/445/2049/3260</td>
+<td>Services to NAS</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Services</td>
+<td>block</td>
+<td>10.67.10.0/24</td>
+<td>10.67.45.0/24</td>
+<td>any</td>
+<td>Services no management</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Storage</td>
+<td>pass</td>
+<td>10.67.20.0/24</td>
+<td>10.67.10.0/24</td>
+<td>limited</td>
+<td>Storage to Services (narrow to required initiators)</td>
+</tr>
+<tr>
+<td>51</td>
+<td>Storage</td>
+<td>block</td>
+<td>10.67.20.0/24</td>
+<td>10.67.45.0/24</td>
+<td>any</td>
+<td>Storage no management</td>
+</tr>
+<tr>
+<td>60</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>10.67.30.0/24</td>
+<td>10.67.10.31</td>
+<td>80/tcp,443/tcp,5050/tcp</td>
+<td>DMZ to GitLab</td>
+</tr>
+<tr>
+<td>61</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>10.67.30.0/24</td>
+<td>10.67.10.29</td>
+<td>8080/tcp</td>
+<td>DMZ to Nextcloud</td>
+</tr>
+<tr>
+<td>62</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>10.67.30.0/24</td>
+<td>10.67.40.25</td>
+<td>53/tcp+udp</td>
+<td>DMZ DNS</td>
+</tr>
+<tr>
+<td>63</td>
+<td>DMZ</td>
+<td>block</td>
+<td>10.67.30.0/24</td>
+<td>10.67.45.0/24</td>
+<td>any</td>
+<td>DMZ no management</td>
+</tr>
+<tr>
+<td>70</td>
+<td>Management</td>
+<td>block</td>
+<td>10.67.45.0/24</td>
+<td>any</td>
+<td>any</td>
+<td>Management is a sink (except return traffic)</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Infrastructure</td>
+<td>pass</td>
+<td>10.67.40.0/24</td>
+<td>10.67.10.0/24,10.67.20.0/24,10.67.30.0/24,10.67.45.0/24</td>
+<td>required</td>
+<td>Infra orchestration/monitoring</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-proposed-mikrotik-changes">8. Proposed MikroTik changes</h2>
+<p>MikroTik currently does no L3 filtering, so these are Layer-2 / management hygiene items:</p>
+<ol>
+<li><strong>Remove bridge IP <code>10.0.1.34/16</code></strong> once migration is confirmed complete.</li>
+<li><strong>Audit untagged VLAN 45 ports</strong> (<code>ether1</code>, <code>ether5</code>, <code>ether9</code>, <code>ether12</code>). Only management devices should live here.</li>
+<li><strong>Consider setting unused access ports to disabled</strong> or to PVID 999 (quarantine VLAN).</li>
+<li><strong>Enable DHCP snooping + ARP inspection</strong> on user-facing VLANs if MikroTik supports it on this hardware, as a MAC-spoofing mitigation for MAB.</li>
+<li><strong>Confirm MAB is not yet configured</strong> (it is not visible in the API output). When implemented, bind it to firewall constraints per Argus exit criteria.</li>
+</ol>
+<h2 id="9-suggested-staged-rollout">9. Suggested staged rollout</h2>
+<p><strong>Week 1 — Log mode</strong></p>
+<ol>
+<li>Add all proposed block rules with <strong>Log enabled</strong> but <strong>Action = Pass</strong> (so you can see what would be blocked without breaking anything).
+<ul>
+<li>Alternative: add block rules with log, but place them below the temp allow-all so they never hit. Better: temporarily disable the temp allow-all rules during a test window.</li>
+</ul>
+</li>
+<li>Collect OPNsense logs for 7 days.</li>
+</ol>
+<p><strong>Week 2 — Enforce</strong></p>
+<ol>
+<li>Remove temp allow-all rules.</li>
+<li>Switch log-only rules to block/pass as designed.</li>
+<li>Monitor for breakage.</li>
+</ol>
+<p><strong>Week 3 — Harden MikroTik</strong></p>
+<ol>
+<li>Clean legacy bridge IP.</li>
+<li>Audit VLAN 45 physical ports.</li>
+<li>Document final port map.</li>
+</ol>
+<h2 id="10-open-questions">10. Open questions</h2>
+<ol>
+<li>What device/service is on <code>10.67.60.24</code>? It has active MikroTik www connections.</li>
+<li>What is plugged into MikroTik <code>ether1</code>, <code>ether5</code>, <code>ether9</code>, <code>ether12</code>, <code>ether15</code>, <code>ether17</code>?</li>
+<li>Is Matrix (10.67.30.24) meant to stay in DMZ or move to Services?</li>
+<li>Does OPNsense <code>bge0</code> / LAN still have the <code>10.67.0.1/16</code> or <code>10.0.0.0/16</code> migration IP?</li>
+<li>Where is DHCPv4 running? No DHCP server on MikroTik; OPNsense DHCP leases API was not reachable.</li>
+</ol>
+<h2 id="11-files-generated">11. Files generated</h2>
+<ul>
+<li><code>/opt/data/work/argus-phase1-allowlist.md</code> — inferred required allowlist.</li>
+<li><code>/opt/data/work/argus-phase1-diff.md</code> — this file (live current state + gap analysis).</li>
+<li><code>/tmp/opnsense-filter-rules.json</code> — full raw OPNsense filter rule dump.</li>
+<li><code>/tmp/mikrotik-state.json</code> — full raw MikroTik state dump.</li>
+</ul>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/drafts/project-argus/data/argus-phase1-diff.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

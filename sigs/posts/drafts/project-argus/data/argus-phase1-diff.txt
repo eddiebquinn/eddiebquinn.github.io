@@ -1,0 +1,203 @@
+# Project Argus — Phase 1: Live Audit Diff
+
+> Generated from live pulls of OPNsense (10.67.45.1) and MikroTik (10.67.45.2) on 2026-07-07.
+> Credentials provided by operator are read-only/admin-audit and are assumed rotated after use.
+
+## 1. Executive summary
+
+Your network is currently running **wide-open inter-VLAN**. Every internal VLAN has a user-created `Temporary allow all - migration` pass rule. The MikroTik is doing only Layer-2 switching (no RouterOS firewall rules), so **all inter-VLAN enforcement is on OPNsense**. Until the temporary rules are removed, Project Argus Phase 1 cannot be considered complete.
+
+Two non-design VLANs are present: **VLAN 71 (ISPRouter, 10.67.81.0/24)** and a residual **10.0.0.0/16** address on the MikroTik bridge. Both need explicit decisions.
+
+## 2. OPNsense live interface map
+
+| OPNsense if | VLAN | Subnet / role | Live state |
+|-------------|------|---------------|------------|
+| WAN (`bge1`) | — | 2.124.228.243/22 | DHCP from Sky |
+| LAN (`bge0`) | trunk / native? | IPv6 only in UI | Bound to LAN identifier; IPv4 not shown in overview but may still carry `10.67.0.1/16` per Blackwall post. |
+| `vlan01` | 10 | 10.67.10.1/24 | Services |
+| `vlan02` | 20 | 10.67.20.1/24 | Storage |
+| `vlan03` | 30 | 10.67.30.1/24 | DMZ |
+| `vlan04` | 40 | 10.67.40.1/24 | Infrastructure |
+| `vlan05` | 45 | 10.67.45.1/24 | Management |
+| `vlan06` | 50 | 10.67.50.1/24 | Guest |
+| `vlan07` | 60 | 10.67.60.1/24 | Endpoints |
+| `vlan08` | 70 | 10.67.70.1/24 | IoT |
+| `vlan09` | 71 | 10.67.81.1/24 | ISPRouter (not in original Blackwall design) |
+
+**Question for you:** Is `bge0` / LAN still carrying `10.67.0.1/16` or the old `10.0.0.0/16` virtual IP? If yes, that is another migration leftover to remove.
+
+## 3. OPNsense live user rules
+
+These are the operator-created (non-automatic) filter rules, in evaluation order.
+
+| # | Description | Interface | Action | Source | Dest | Port | Notes |
+|---|-------------|-----------|--------|--------|------|------|-------|
+| 1 | Matrix HTTPS | WAN | pass | any | wanip | 443/tcp | Public Matrix ingress |
+| 2 | Matrix Federation | WAN | pass | any | wanip | 8448/tcp | Public Matrix federation |
+| 3 | Syncthing | WAN | pass | any | 10.67.10.26 | 22000/tcp/udp | Direct port-forward to arrstack-1 |
+| 4 | **Temporary allow all - migration** | Services | pass | any | any | any | **REMOVE THIS** |
+| 5 | Allow Services to Storage | Services | pass | 10.67.10.0/24 | 10.67.20.0/24 | any | Keep, but tighten ports |
+| 6 | **Temporary allow all - migration** | Storage | pass | any | any | any | **REMOVE THIS** |
+| 7 | Allow Services to Storage | Storage | pass | 10.67.20.0/24 | 10.67.10.0/24 | any | Keep, but tighten ports |
+| 8 | **Temporary allow all - migration** | DMZ | pass | any | any | any | **REMOVE THIS** |
+| 9 | Matrix HTTPS | DMZ | pass | any | wanip | 443/tcp | Duplicate WAN rule? Review. |
+| 10 | Matrix Federation | DMZ | pass | any | wanip | 8448/tcp | Duplicate WAN rule? Review. |
+| 11 | **Temporary allow all - migration** | Infrastructure | pass | any | any | any | **REMOVE THIS** |
+| 12 | **Temporary allow all - migration** | Management | pass | any | any | any | **REMOVE THIS** |
+| 13 | **Temporary allow all - migration** | Guest | pass | any | any | any | **REMOVE THIS** |
+| 14 | **Temporary allow all - migration** | Endpoints | pass | any | any | any | **REMOVE THIS** |
+| 15 | Allow DNS to adguard | Endpoints | pass | any | any | 53/udp | Misleading description — allows UDP/53 to any. Review if Bind9 is now authoritative. |
+| 16 | **Temporary allow all - migration** | IoT | pass | any | any | any | **REMOVE THIS** |
+| 17 | Block to internal 10/8 | ISPRouter | block | 10.67.81.0/24 | 10.0.0.0/8 | any | Good — keeps ISP router isolated |
+| 18 | Block to internal 172.16/12 | ISPRouter | block | 10.67.81.0/24 | 172.16.0.0/12 | any | Good |
+| 19 | Block to internal 192.168.0/16 | ISPRouter | block | 10.67.81.0/24 | 192.168.0.0/16 | any | Good |
+| 20 | Allow to WAN | ISPRouter | pass | 10.67.81.0/24 | any | any | Good — ISP router internet only |
+
+## 4. MikroTik live findings
+
+### L2 switching
+
+- Single bridge `bridge`, VLAN filtering enabled (`vlan-filtering: true`).
+- `ether4` and `ether13` are the **trunk ports** (tagged for every VLAN).
+- `ether4` connects to OPNsense; `ether13` likely connects to the other switch/AP.
+- Switch has **no L3 firewall rules** (`/ip firewall filter print` = 0 rows) and **no NAT** (`/ip firewall nat print` = 0 rows).
+- Therefore **all inter-VLAN routing and filtering is delegated to OPNsense**.
+
+### VLAN-to-port mapping
+
+| VLAN | Tagged ports | Untagged ports | Purpose inferred |
+|------|--------------|----------------|------------------|
+| 1 | ether4 | ether7, bridge | Default / native? |
+| 10 | ether4, ether13 | — | Services |
+| 20 | ether4, ether13 | ether11 | Storage (TrueNAS direct) |
+| 30 | ether4, ether13 | — | DMZ |
+| 40 | ether4, ether13 | ether7 | Infrastructure |
+| 45 | ether4, ether13, **bridge** | ether1, ether5, ether9, ether12 | Management |
+| 50 | ether4, ether7, ether13 | — | Guest (WiFi) |
+| 60 | ether4, ether7, ether13 | ether17 | Endpoints |
+| 70 | ether4, ether7, ether13 | — | IoT (WiFi) |
+| 71 | ether4 | ether15 | ISP Router |
+
+### Management VLAN (45) concern
+
+**Untagged management ports:** `ether1`, `ether5`, `ether9`, `ether12`. That is four physical jacks that will land directly in VLAN 45 if something is plugged in. For a "no direct access from user VLANs" control plane, this is a lot of physical exposure. Recommend:
+
+1. Audit what is actually plugged into those ports.
+2. Move non-management devices to their proper VLANs.
+3. Consider disabling unused management ports or setting their PVID to a quarantine VLAN.
+
+### Residual legacy IP
+
+The bridge still has `10.0.1.34/16`. This is a leftover from the flat `10.0.0.0/16` migration network. It has a connected route for `10.0.0.0/16`, and default gateway is `10.67.45.1`. Recommend removing this address once you confirm nothing references it.
+
+## 5. Current vs required allowlist — the gap
+
+| Required flow | Current state | Gap / action |
+|---------------|---------------|--------------|
+| Endpoint → Services (443) | Allowed by "Temporary allow all - migration" on Endpoints | Replace with explicit Endpoint → 10.67.40.25:443 rule. |
+| Endpoint → Storage (443/445/2049) | Allowed by same temp rule | Add explicit Endpoint → 10.67.20.0/24 services rule. |
+| Endpoint → DNS (10.67.40.25:53) | Allowed by "Allow DNS to adguard" UDP/53 to any | Tighten source to Endpoints subnet, dest to 10.67.40.25:53 (TCP+UDP). |
+| Endpoint → Management | Currently allowed by temp rule | Must be **denied**; admin access only from VLAN 45. |
+| Guest → Internet only | Currently allowed by temp rule to any | Replace with Guest → !RFC1918 allow, then default deny. |
+| IoT → Internet only | Currently allowed by temp rule to any | Same as Guest. Also confirm MikroTik client isolation for WiFi. |
+| Services → Storage | Explicit rule exists but too broad (any port) | Restrict to required ports: 443 (TrueNAS UI), 445 (SMB), 2049 (NFS), maybe iSCSI 3260. |
+| Services → Infrastructure (DNS/Authentik/Komodo) | Allowed by temp rule | Add explicit Services → 10.67.40.25:53/9000/9120 etc. |
+| Services → Management | Allowed by temp rule | **Deny**. |
+| DMZ → Services | Allowed by temp rule | Replace with explicit DMZ → GitLab/Nextcloud/backends only. |
+| DMZ → Management | Allowed by temp rule | **Deny**. |
+| Infrastructure → Services/Storage/DMZ/Management | Allowed by temp rule | Keep as needed, but log and tighten per orchestration need. |
+| WAN → DMZ | Matrix HTTPS + Federation rules exist | Keep; review whether Matrix should move to Services and only DMZ connectors stay in DMZ. |
+| ISPRouter → internal | Blocked by rules 17-19 | Good. Keep. |
+
+## 6. Immediate risks
+
+1. **Lateral movement is unrestricted.** Any compromised host in Guest, IoT, Endpoints, Services, Storage, DMZ, or Infrastructure can reach any other internal subnet and any management interface.
+2. **Management VLAN is physically exposed.** Four untagged management ports mean plugging a device into the wrong jack grants access to VLAN 45.
+3. **Unknown VLAN 71.** `10.67.81.0/24` / ISPRouter is not in the Blackwall design. If it is the ISP router isolation VLAN, it should be documented; if leftover, removed.
+4. **Legacy flat network still present.** MikroTik bridge address `10.0.1.34/16` and OPNsense `bge0` LAN IP may still bridge old and new networks.
+5. **Duplicate Matrix rules.** Rules on both WAN and DMZ for Matrix 443/8448 — verify which interface Matrix actually ingresses on.
+
+## 7. Proposed OPNsense rule changes
+
+### Remove (after observation window)
+
+| Rule description to delete | Reason |
+|----------------------------|--------|
+| `Temporary allow all - migration` on Services | Replaced by explicit allowlist. |
+| `Temporary allow all - migration` on Storage | Replaced by explicit allowlist. |
+| `Temporary allow all - migration` on DMZ | Replaced by explicit allowlist. |
+| `Temporary allow all - migration` on Infrastructure | Replaced by explicit allowlist. |
+| `Temporary allow all - migration` on Management | Replaced by explicit allowlist. |
+| `Temporary allow all - migration` on Guest | Replaced by internet-only rule. |
+| `Temporary allow all - migration` on Endpoints | Replaced by explicit allowlist. |
+| `Temporary allow all - migration` on IoT | Replaced by internet-only rule. |
+
+### Add / tighten
+
+| Priority | Interface | Action | Source | Destination | Port | Description |
+|----------|-----------|--------|--------|-------------|------|-------------|
+| 10 | Endpoints | pass | 10.67.60.0/24 | 10.67.40.25 | 53/tcp+udp | Endpoint DNS to Bind9 |
+| 11 | Endpoints | pass | 10.67.60.0/24 | 10.67.40.25 | 443/tcp | Endpoint HTTPS to Traefik |
+| 12 | Endpoints | pass | 10.67.60.0/24 | 10.67.40.27 | 3000/tcp | Endpoint Grafana |
+| 13 | Endpoints | pass | 10.67.60.0/24 | 10.67.20.24 | 443/tcp,445/tcp,2049 | Endpoint NAS access |
+| 14 | Endpoints | block | 10.67.60.0/24 | 10.67.45.0/24 | any | Endpoint no management |
+| 20 | Guest | pass | 10.67.50.0/24 | !RFC1918 | any | Guest internet only |
+| 21 | Guest | block | 10.67.50.0/24 | RFC1918 | any | Guest no internal |
+| 30 | IoT | pass | 10.67.70.0/24 | !RFC1918 | any | IoT internet only |
+| 31 | IoT | block | 10.67.70.0/24 | RFC1918 | any | IoT no internal |
+| 40 | Services | pass | 10.67.10.0/24 | 10.67.40.25 | 53/tcp+udp | Services DNS |
+| 41 | Services | pass | 10.67.10.0/24 | 10.67.40.25 | 9000/tcp | Services Authentik |
+| 42 | Services | pass | 10.67.10.0/24 | 10.67.40.25 | 9120/tcp | Services Komodo |
+| 43 | Services | pass | 10.67.10.0/24 | 10.67.20.24 | 443/445/2049/3260 | Services to NAS |
+| 44 | Services | block | 10.67.10.0/24 | 10.67.45.0/24 | any | Services no management |
+| 50 | Storage | pass | 10.67.20.0/24 | 10.67.10.0/24 | limited | Storage to Services (narrow to required initiators) |
+| 51 | Storage | block | 10.67.20.0/24 | 10.67.45.0/24 | any | Storage no management |
+| 60 | DMZ | pass | 10.67.30.0/24 | 10.67.10.31 | 80/tcp,443/tcp,5050/tcp | DMZ to GitLab |
+| 61 | DMZ | pass | 10.67.30.0/24 | 10.67.10.29 | 8080/tcp | DMZ to Nextcloud |
+| 62 | DMZ | pass | 10.67.30.0/24 | 10.67.40.25 | 53/tcp+udp | DMZ DNS |
+| 63 | DMZ | block | 10.67.30.0/24 | 10.67.45.0/24 | any | DMZ no management |
+| 70 | Management | block | 10.67.45.0/24 | any | any | Management is a sink (except return traffic) |
+| 80 | Infrastructure | pass | 10.67.40.0/24 | 10.67.10.0/24,10.67.20.0/24,10.67.30.0/24,10.67.45.0/24 | required | Infra orchestration/monitoring |
+
+## 8. Proposed MikroTik changes
+
+MikroTik currently does no L3 filtering, so these are Layer-2 / management hygiene items:
+
+1. **Remove bridge IP `10.0.1.34/16`** once migration is confirmed complete.
+2. **Audit untagged VLAN 45 ports** (`ether1`, `ether5`, `ether9`, `ether12`). Only management devices should live here.
+3. **Consider setting unused access ports to disabled** or to PVID 999 (quarantine VLAN).
+4. **Enable DHCP snooping + ARP inspection** on user-facing VLANs if MikroTik supports it on this hardware, as a MAC-spoofing mitigation for MAB.
+5. **Confirm MAB is not yet configured** (it is not visible in the API output). When implemented, bind it to firewall constraints per Argus exit criteria.
+
+## 9. Suggested staged rollout
+
+**Week 1 — Log mode**
+1. Add all proposed block rules with **Log enabled** but **Action = Pass** (so you can see what would be blocked without breaking anything).
+   - Alternative: add block rules with log, but place them below the temp allow-all so they never hit. Better: temporarily disable the temp allow-all rules during a test window.
+2. Collect OPNsense logs for 7 days.
+
+**Week 2 — Enforce**
+1. Remove temp allow-all rules.
+2. Switch log-only rules to block/pass as designed.
+3. Monitor for breakage.
+
+**Week 3 — Harden MikroTik**
+1. Clean legacy bridge IP.
+2. Audit VLAN 45 physical ports.
+3. Document final port map.
+
+## 10. Open questions
+
+1. What device/service is on `10.67.60.24`? It has active MikroTik www connections.
+2. What is plugged into MikroTik `ether1`, `ether5`, `ether9`, `ether12`, `ether15`, `ether17`?
+3. Is Matrix (10.67.30.24) meant to stay in DMZ or move to Services?
+4. Does OPNsense `bge0` / LAN still have the `10.67.0.1/16` or `10.0.0.0/16` migration IP?
+5. Where is DHCPv4 running? No DHCP server on MikroTik; OPNsense DHCP leases API was not reachable.
+
+## 11. Files generated
+
+- `/opt/data/work/argus-phase1-allowlist.md` — inferred required allowlist.
+- `/opt/data/work/argus-phase1-diff.md` — this file (live current state + gap analysis).
+- `/tmp/opnsense-filter-rules.json` — full raw OPNsense filter rule dump.
+- `/tmp/mikrotik-state.json` — full raw MikroTik state dump.
