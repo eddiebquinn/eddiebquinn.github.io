@@ -1,0 +1,232 @@
+# Project Argus — Phase 1 Consolidated Digest
+
+Generated: 2026-07-07T23:30:00Z
+
+## Sources
+
+- **opnsense_filter_rules**: /tmp/opnsense-filter-rules.json
+- **mikrotik_state**: /tmp/mikrotik-state.json
+- **compose_files**: GitLab group compose-files (30 repos)
+- **traefik_config**: compose-files/traefik data/config.yml
+- **ansible_inventory**: machines/ansible-playbooks inventory/hosts.yml
+
+- **network_flows_job**: [5173](https://gitlab.eddiequinn.casa/machines/ansible-playbooks/-/jobs/5173) — success
+
+## VLAN Inventory
+
+| VLAN | Name | Subnet |
+|------|------|--------|
+| 10 | Services | 10.67.10.0/24 |
+| 20 | Storage | 10.67.20.0/24 |
+| 30 | DMZ | 10.67.30.0/24 |
+| 40 | Infrastructure | 10.67.40.0/24 |
+| 45 | Management | 10.67.45.0/24 |
+| 50 | Guest | 10.67.50.0/24 |
+| 60 | Endpoints | 10.67.60.0/24 |
+| 70 | IoT | 10.67.70.0/24 |
+| 71 | ISPRouter | 10.67.71.0/24 |
+
+## Host Inventory
+
+| Host | IP | VLAN | Groups | MAC |
+|------|----|------|--------|-----|
+| matrix-1 | 10.67.30.24 | DMZ (30) | docker_hosts | bc:24:11:2d:5a:9d |
+| newt-1 | 10.67.30.25 | DMZ (30) | docker_hosts | bc:24:11:7c:61:ed |
+| appstack-1 | 10.67.10.25 | Services (10) | docker_hosts | bc:24:11:0e:f4:00 |
+| arrstack-1 | 10.67.10.26 | Services (10) | docker_hosts | bc:24:11:b9:ef:07 |
+| devstack-1 | 10.67.10.31 | Services (10) | docker_hosts | bc:24:11:c3:cc:26 |
+| infstack-1 | 10.67.40.25 | Infrastructure (40) | docker_hosts | bc:24:11:39:45:9e |
+| mediastack-1 | 10.67.10.27 | Services (10) | docker_hosts | bc:24:11:31:be:43 |
+| pangolin-1 | 89.127.232.7 | Unknown (None) | docker_hosts | None |
+| nextcloud-1 | 10.67.10.29 | Services (10) | docker_hosts | bc:24:11:96:71:59 |
+| monitoring-1 | 10.67.40.27 | Infrastructure (40) | docker_hosts | bc:24:11:61:f7:eb |
+| kasm-1 | 10.67.10.28 | Services (10) | docker_hosts | bc:24:11:fe:d2:0b |
+| arasaka-1 | 10.67.45.27 | Management (45) | core_infra | bc:30:5b:ed:68:5d |
+| datafortress-1 | 10.67.20.24 | Storage (20) | core_infra | ec:f4:bb:c7:0c:c0 |
+
+## Public Services via Traefik
+
+| Public Host | Zone | Internal Host | Port | TLS |
+|-------------|------|---------------|------|-----|
+| proxmox.eddiequinn.casa | Management | proxmox.mgmt.local.eddiequinn.casa | 8006 | True |
+| truenas.eddiequinn.casa | Storage | truenas.str.local.eddiequinn.casa | 80 | False |
+| jellyfin.eddiequinn.casa | Services | jellyfin.svc.local.eddiequinn.casa | 8096 | False |
+| seer.eddiequinn.casa | Services | seer.svc.local.eddiequinn.casa | 5055 | False |
+| sonarr.eddiequinn.casa | Services | sonarr.svc.local.eddiequinn.casa | 8989 | False |
+| radarr.eddiequinn.casa | Services | radarr.svc.local.eddiequinn.casa | 7878 | False |
+| prowlarr.eddiequinn.casa | Services | prowlarr.svc.local.eddiequinn.casa | 9696 | False |
+| syncthing.eddiequinn.casa | Services | syncthing.svc.local.eddiequinn.casa | 8384 | False |
+| qui.eddiequinn.casa | Services | qui.svc.local.eddiequinn.casa | 7476 | False |
+| gitlab.eddiequinn.casa | Services | gitlab.svc.local.eddiequinn.casa | 80 | False |
+| r.gitlab.eddiequinn.casa | Services | r.gitlab.svc.local.eddiequinn.casa | 5050 | True |
+| audiobookshelf.eddiequinn.casa | Services | audiobookshelf.svc.local.eddiequinn.casa | 13378 | False |
+| immich.eddiequinn.casa | Services | immich.svc.local.eddiequinn.casa | 2283 | False |
+| sx.eddiequinn.casa | Services | searxng.svc.local.eddiequinn.casa | 8087 | False |
+| jobsync.eddiequinn.casa | Services | jobsync.svc.local.eddiequinn.casa | 3737 | False |
+| kasm.eddiequinn.casa | Services | kasm.svc.local.eddiequinn.casa | 443 | False |
+| nextcloud-aio.eddiequinn.casa | Services | nextcloud-aio.svc.local.eddiequinn.casa | 8080 | False |
+| nextcloud.eddiequinn.casa | Services | nextcloud.svc.local.eddiequinn.casa | 11000 | False |
+| ntfy.eddiequinn.casa | Services | ntfy.svc.local.eddiequinn.casa | 8086 | False |
+| pdu.eddiequinn.casa | Management | pdu.mgmt.local.eddiequinn.casa | 443 | False |
+| omada.eddiequinn.casa | Infrastructure | omada.infra.local.eddiequinn.casa | 8043 | False |
+| grafana.eddiequinn.casa | Infrastructure | grafana.infra.local.eddiequinn.casa | 3000 | False |
+| prometheus.eddiequinn.casa | Infrastructure | prometheus.infra.local.eddiequinn.casa | 9090 | False |
+| dbackup.eddiequinn.casa | Infrastructure | dbackup.infra.local.eddiequinn.casa | 3050 | False |
+| home.eddiequinn.casa | Services | homepage.svc.local.eddiequinn.casa | 3000 | False |
+| komodo.eddiequinn.casa | Services | komodo.svc.local.eddiequinn.casa | 9120 | False |
+| infisical.eddiequinn.casa | Infrastructure | infisical.infra.local.eddiequinn.casa | 8080 | False |
+| reader.eddiequinn.casa | Services | reader.svc.local.eddiequinn.casa | 8082 | False |
+| opnsense.eddiequinn.casa | Management | opnsense.mgmt.local.eddiequinn.casa | 443 | False |
+| auth.eddiequinn.casa | Infrastructure | authentik.infra.local.eddiequinn.casa | 9000 | False |
+| fmd.eddiequinn.casa | Services | fmd.svc.local.eddiequinn.casa | 8080 | False |
+
+## Live Network Flows Summary
+
+Job [5173](https://gitlab.eddiequinn.casa/machines/ansible-playbooks/-/jobs/5173) captured 11 hosts, 230 listening sockets, 116 publicly bound.
+
+| Host | IP | Listening | Containers | Komodo Stacks |
+|------|----|-----------|------------|---------------|
+| appstack-1 | 10.67.10.25 | 39 | 35 | ai-stack, commafeed, fmd-foss, homepage, immich... |
+| arrstack-1 | 10.67.10.26 | 24 | 16 | arr-stack, syncthing |
+| devstack-1 | 10.67.10.31 | 20 | 14 | gitlab, renovate |
+| infstack-1 | 10.67.40.25 | 52 | 32 | authentik, bind9, dbackup, infisical, omada... |
+| kasm-1 | 10.67.10.28 | 8 | 13 | NO_KOMODO_REPO_ROOT |
+| matrix-1 | 10.67.30.24 | 22 | 16 | synapse |
+| mediastack-1 | 10.67.10.27 | 14 | 14 | audiobookshelf, jelly-stack, matrix-synapse |
+| monitoring-1 | 10.67.40.27 | 15 | 12 |  |
+| newt-1 | 10.67.30.25 | 7 | 8 |  |
+| nextcloud-1 | 10.67.10.29 | 12 | 17 | nextcloud-aio, nextcloud |
+| pangolin-1 | 89.127.232.7 | 17 | 12 |  |
+
+## Top Listening Ports
+
+| Port | Occurrences | Sample Hosts |
+|------|-------------|--------------|
+| 18080 | 20 | appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1 |
+| 8120 | 18 | appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1 |
+| 22 | 16 | appstack-1, arrstack-1, devstack-1, infstack-1, kasm-1 |
+| 25 | 12 | appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1 |
+| 53 | 12 | infstack-1, kasm-1, monitoring-1, newt-1, nextcloud-1 |
+| 9100 | 10 | appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1 |
+| 443 | 10 | devstack-1, infstack-1, kasm-1, matrix-1, pangolin-1 |
+| 8080 | 8 | appstack-1, devstack-1, infstack-1, nextcloud-1 |
+| 80 | 8 | devstack-1, infstack-1, matrix-1, pangolin-1 |
+| 111 | 6 | appstack-1, arrstack-1, infstack-1 |
+| 5432 | 5 | appstack-1, infstack-1, matrix-1 |
+| 9000 | 4 | appstack-1, infstack-1 |
+| 3000 | 4 | appstack-1, monitoring-1 |
+| 2424 | 4 | devstack-1, pangolin-1 |
+| 9115 | 4 | infstack-1, monitoring-1 |
+| 9090 | 4 | infstack-1, monitoring-1 |
+| 8448 | 4 | matrix-1, pangolin-1 |
+| 8642 | 2 | appstack-1 |
+| 8765 | 2 | appstack-1 |
+| 9119 | 2 | appstack-1 |
+| 9001 | 2 | appstack-1 |
+| 5678 | 2 | appstack-1 |
+| 8086 | 2 | appstack-1 |
+| 8087 | 2 | appstack-1 |
+| 8082 | 2 | appstack-1 |
+| 3737 | 2 | appstack-1 |
+| 2283 | 2 | appstack-1 |
+| 22000 | 2 | arrstack-1 |
+| 8989 | 2 | arrstack-1 |
+| 8384 | 2 | arrstack-1 |
+
+## Compose Stacks
+
+| Repo | Hint VLAN | Services |
+|------|-----------|----------|
+| compose-files/fmd-foss | Services | fmd |
+| compose-files/ntfy | Services | ntfy |
+| compose-files/ai-stack | Services | honcho-api, honcho-deriver, honcho-db, honcho-redis, hermes |
+| compose-files/authentik | Infrastructure | postgresql, server, worker |
+| compose-files/bind9 | Infrastructure | bind9, rpz-updater |
+| compose-files/omada | Infrastructure | omada-controller |
+| compose-files/jobsync | Services | app |
+| compose-files/omnisearch | Services | omnisearch |
+| compose-files/dbackup | Infrastructure | dbackup |
+| compose-files/commafeed | Unknown | commafeed |
+| compose-files/homepage | Services | homepage |
+| compose-files/the-lounge | Services | thelounge |
+| compose-files/radicale | Services | radicale |
+| compose-files/gitlab | Services | gitlab, gitlab-runner |
+| compose-files/searxng | Services | redis, searxng |
+| compose-files/immich | Services | immich-server, immich-machine-learning, redis, database |
+| compose-files/n8n | Services | n8n |
+| compose-files/synapse | Unknown | synapse-db-18, synapse, caddy, coturn, maubot, hookshot, synapse-admin |
+| compose-files/nextcloud | Services | nextcloud-aio-mastercontainer |
+| compose-files/infisical | Infrastructure | backend, redis, db |
+| compose-files/renovate | Infrastructure | renovate-ce |
+| compose-files/syncthing | Services | syncthing |
+| compose-files/jelly-stack | Services | jellyfin, seerr |
+| compose-files/freshrss | Services | freshrss |
+| compose-files/audiobookshelf | Services | audiobookshelf |
+| compose-files/arr-stack | Services | prowlarr, flaresolverr, radarr, sonarr, qui |
+| compose-files/traefik | Services | traefik |
+| compose-files/cloudflare-utils | Infrastructure | cloudflare-ddns |
+| compose-files/uptimekuma | Services | uptime-kuma |
+| compose-files/semaphore | Infrastructure | semaphore |
+
+## OPNsense User Rules
+
+| Description | Interface | Action | Protocol | Source | Destination | Port |
+|-------------|-----------|--------|----------|--------|-------------|------|
+| Matrix HTTPS | WAN | pass | tcp | any | wanip | 443 |
+| Matrix Federation | WAN | pass | tcp | any | wanip | 8448 |
+| Syncthing | WAN | pass | tcp/udp | any | 10.67.10.26 | 22000 |
+| Temporary allow all - migration | Services | pass |  | any | any |  |
+| Allow Services to Storage | Services | pass |  | 10.67.10.0/24 | 10.67.20.0/24 |  |
+| Temporary allow all - migration | Storage | pass |  | any | any |  |
+| Allow Services to Storage | Storage | pass |  | 10.67.20.0/24 | 10.67.10.0/24 |  |
+| Temporary allow all - migration | DMZ | pass |  | any | any |  |
+| Matrix HTTPS | DMZ | pass | tcp | any | wanip | 443 |
+| Matrix Federation | DMZ | pass | tcp | any | wanip | 8448 |
+| Temporary allow all - migration | Infrastructure | pass |  | any | any |  |
+| Temporary allow all - migration | Management | pass |  | any | any |  |
+| Temporary allow all - migration | Guest | pass |  | any | any |  |
+| Temporary allow all - migration | Endpoints | pass |  | any | any |  |
+| Allow DNS to adguard | Endpoints | pass | udp | any | any | 53 |
+| Temporary allow all - migration | IoT | pass |  | any | any |  |
+| Block to internal 10/8 | ISPRouter | block |  | 10.67.81.0/24 | 10.0.0.0/8 |  |
+| Block to internal 172.16/12 | ISPRouter | block |  | 10.67.81.0/24 | 172.16.0.0/12 |  |
+| Block to internal 192.168.0/16 | ISPRouter | block |  | 10.67.81.0/24 | 192.168.0.0/16 |  |
+| Allow to WAN | ISPRouter | pass |  | 10.67.81.0/24 | any |  |
+
+## MikroTik VLAN Port Map
+
+| VLAN | Tagged | Untagged |
+|------|--------|----------|
+| 10 | ether4,ether13 |  |
+| 20 | ether4,ether13 | ether11 |
+| 30 | ether4,ether13 |  |
+| 40 | ether4,ether13 | ether7 |
+| 45 | ether4,ether13,bridge | ether9,ether1,ether12,ether5 |
+| 50 | ether4,ether7,ether13 |  |
+| 60 | ether4,ether7,ether13 | ether17 |
+| 70 | ether4,ether7,ether13 |  |
+| 1 | ether4 | ether7 |
+| 1 |  | bridge,ether13 |
+| 71 | ether4 | ether15 |
+
+## Observations
+
+- Every internal VLAN has a "Temporary allow all - migration" pass rule on OPNsense.
+- MikroTik has no L3 firewall rules; all inter-VLAN filtering is delegated to OPNsense.
+- VLAN 45 (Management) has four untagged access ports on MikroTik: ether1, ether5, ether9, ether12.
+- MikroTik bridge retains legacy 10.0.1.34/16 address.
+- VLAN 71 (ISPRouter / 10.67.81.0/24) is present but not in original Blackwall design.
+- 31 public hostnames are exposed through Traefik on Infrastructure host (grafana/infisical/authentik) or Services host (all others).
+- 30 compose-files repos define deployed stacks; ai-stack, synapse, arr-stack, immich, authentik are multi-service.
+- Live network-flows job captured 11 hosts with 230 listening sockets (116 publicly bound).
+- Port 18080 is the most common public bind, likely Traefik metrics or a common app port.
+- Port 22 (SSH) is open on most hosts; port 25 (postfix/master) appears on several hosts bound to 127.0.0.1 only.
+- Port 9100 (node_exporter) is present across infrastructure/hosts.
+- Docker proxy processes bind the vast majority of public ports; host networking is minimal.
+
+## Recommended Next Steps
+
+1. Run ansible-discover-network-flows CI job to collect live sockets, containers, and /etc/komodo/repos state.
+2. Replace temporary allow-all OPNsense rules with explicit allowlist per argus-phase1-diff.md section 7.
+3. Audit MikroTik untagged VLAN 45 ports and remove legacy bridge IP.
+4. Map TrueNAS shares to exact initiator subnets once network-flows job runs.

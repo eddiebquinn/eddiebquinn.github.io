@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1></h1>
+    </header>
+    <div class="content__body">
+        <h1 id="project-argus--phase-1-consolidated-digest">Project Argus — Phase 1 Consolidated Digest</h1>
+<p>Generated: 2026-07-07T23:30:00Z</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>
+<p><strong>opnsense_filter_rules</strong>: /tmp/opnsense-filter-rules.json</p>
+</li>
+<li>
+<p><strong>mikrotik_state</strong>: /tmp/mikrotik-state.json</p>
+</li>
+<li>
+<p><strong>compose_files</strong>: GitLab group compose-files (30 repos)</p>
+</li>
+<li>
+<p><strong>traefik_config</strong>: compose-files/traefik data/config.yml</p>
+</li>
+<li>
+<p><strong>ansible_inventory</strong>: machines/ansible-playbooks inventory/hosts.yml</p>
+</li>
+<li>
+<p><strong>network_flows_job</strong>: <a href="https://gitlab.eddiequinn.casa/machines/ansible-playbooks/-/jobs/5173">5173</a> — success</p>
+</li>
+</ul>
+<h2 id="vlan-inventory">VLAN Inventory</h2>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Name</th>
+<th>Subnet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Services</td>
+<td>10.67.10.0/24</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Storage</td>
+<td>10.67.20.0/24</td>
+</tr>
+<tr>
+<td>30</td>
+<td>DMZ</td>
+<td>10.67.30.0/24</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Infrastructure</td>
+<td>10.67.40.0/24</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Management</td>
+<td>10.67.45.0/24</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Guest</td>
+<td>10.67.50.0/24</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Endpoints</td>
+<td>10.67.60.0/24</td>
+</tr>
+<tr>
+<td>70</td>
+<td>IoT</td>
+<td>10.67.70.0/24</td>
+</tr>
+<tr>
+<td>71</td>
+<td>ISPRouter</td>
+<td>10.67.71.0/24</td>
+</tr>
+</tbody>
+</table>
+<h2 id="host-inventory">Host Inventory</h2>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>VLAN</th>
+<th>Groups</th>
+<th>MAC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>matrix-1</td>
+<td>10.67.30.24</td>
+<td>DMZ (30)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:2d:5a:9d</td>
+</tr>
+<tr>
+<td>newt-1</td>
+<td>10.67.30.25</td>
+<td>DMZ (30)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:7c:61:ed</td>
+</tr>
+<tr>
+<td>appstack-1</td>
+<td>10.67.10.25</td>
+<td>Services (10)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:0e:f4:00</td>
+</tr>
+<tr>
+<td>arrstack-1</td>
+<td>10.67.10.26</td>
+<td>Services (10)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:b9:ef:07</td>
+</tr>
+<tr>
+<td>devstack-1</td>
+<td>10.67.10.31</td>
+<td>Services (10)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:c3:cc:26</td>
+</tr>
+<tr>
+<td>infstack-1</td>
+<td>10.67.40.25</td>
+<td>Infrastructure (40)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:39:45:9e</td>
+</tr>
+<tr>
+<td>mediastack-1</td>
+<td>10.67.10.27</td>
+<td>Services (10)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:31:be:43</td>
+</tr>
+<tr>
+<td>pangolin-1</td>
+<td>89.127.232.7</td>
+<td>Unknown (None)</td>
+<td>docker_hosts</td>
+<td>None</td>
+</tr>
+<tr>
+<td>nextcloud-1</td>
+<td>10.67.10.29</td>
+<td>Services (10)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:96:71:59</td>
+</tr>
+<tr>
+<td>monitoring-1</td>
+<td>10.67.40.27</td>
+<td>Infrastructure (40)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:61:f7:eb</td>
+</tr>
+<tr>
+<td>kasm-1</td>
+<td>10.67.10.28</td>
+<td>Services (10)</td>
+<td>docker_hosts</td>
+<td>bc:24:11:fe:d2:0b</td>
+</tr>
+<tr>
+<td>arasaka-1</td>
+<td>10.67.45.27</td>
+<td>Management (45)</td>
+<td>core_infra</td>
+<td>bc:30:5b:ed:68:5d</td>
+</tr>
+<tr>
+<td>datafortress-1</td>
+<td>10.67.20.24</td>
+<td>Storage (20)</td>
+<td>core_infra</td>
+<td>ec:f4:bb:c7:0c:c0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-services-via-traefik">Public Services via Traefik</h2>
+<table>
+<thead>
+<tr>
+<th>Public Host</th>
+<th>Zone</th>
+<th>Internal Host</th>
+<th>Port</th>
+<th>TLS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>proxmox.eddiequinn.casa</td>
+<td>Management</td>
+<td>proxmox.mgmt.local.eddiequinn.casa</td>
+<td>8006</td>
+<td>True</td>
+</tr>
+<tr>
+<td>truenas.eddiequinn.casa</td>
+<td>Storage</td>
+<td>truenas.str.local.eddiequinn.casa</td>
+<td>80</td>
+<td>False</td>
+</tr>
+<tr>
+<td>jellyfin.eddiequinn.casa</td>
+<td>Services</td>
+<td>jellyfin.svc.local.eddiequinn.casa</td>
+<td>8096</td>
+<td>False</td>
+</tr>
+<tr>
+<td>seer.eddiequinn.casa</td>
+<td>Services</td>
+<td>seer.svc.local.eddiequinn.casa</td>
+<td>5055</td>
+<td>False</td>
+</tr>
+<tr>
+<td>sonarr.eddiequinn.casa</td>
+<td>Services</td>
+<td>sonarr.svc.local.eddiequinn.casa</td>
+<td>8989</td>
+<td>False</td>
+</tr>
+<tr>
+<td>radarr.eddiequinn.casa</td>
+<td>Services</td>
+<td>radarr.svc.local.eddiequinn.casa</td>
+<td>7878</td>
+<td>False</td>
+</tr>
+<tr>
+<td>prowlarr.eddiequinn.casa</td>
+<td>Services</td>
+<td>prowlarr.svc.local.eddiequinn.casa</td>
+<td>9696</td>
+<td>False</td>
+</tr>
+<tr>
+<td>syncthing.eddiequinn.casa</td>
+<td>Services</td>
+<td>syncthing.svc.local.eddiequinn.casa</td>
+<td>8384</td>
+<td>False</td>
+</tr>
+<tr>
+<td>qui.eddiequinn.casa</td>
+<td>Services</td>
+<td>qui.svc.local.eddiequinn.casa</td>
+<td>7476</td>
+<td>False</td>
+</tr>
+<tr>
+<td>gitlab.eddiequinn.casa</td>
+<td>Services</td>
+<td>gitlab.svc.local.eddiequinn.casa</td>
+<td>80</td>
+<td>False</td>
+</tr>
+<tr>
+<td>r.gitlab.eddiequinn.casa</td>
+<td>Services</td>
+<td>r.gitlab.svc.local.eddiequinn.casa</td>
+<td>5050</td>
+<td>True</td>
+</tr>
+<tr>
+<td>audiobookshelf.eddiequinn.casa</td>
+<td>Services</td>
+<td>audiobookshelf.svc.local.eddiequinn.casa</td>
+<td>13378</td>
+<td>False</td>
+</tr>
+<tr>
+<td>immich.eddiequinn.casa</td>
+<td>Services</td>
+<td>immich.svc.local.eddiequinn.casa</td>
+<td>2283</td>
+<td>False</td>
+</tr>
+<tr>
+<td>sx.eddiequinn.casa</td>
+<td>Services</td>
+<td>searxng.svc.local.eddiequinn.casa</td>
+<td>8087</td>
+<td>False</td>
+</tr>
+<tr>
+<td>jobsync.eddiequinn.casa</td>
+<td>Services</td>
+<td>jobsync.svc.local.eddiequinn.casa</td>
+<td>3737</td>
+<td>False</td>
+</tr>
+<tr>
+<td>kasm.eddiequinn.casa</td>
+<td>Services</td>
+<td>kasm.svc.local.eddiequinn.casa</td>
+<td>443</td>
+<td>False</td>
+</tr>
+<tr>
+<td>nextcloud-aio.eddiequinn.casa</td>
+<td>Services</td>
+<td>nextcloud-aio.svc.local.eddiequinn.casa</td>
+<td>8080</td>
+<td>False</td>
+</tr>
+<tr>
+<td>nextcloud.eddiequinn.casa</td>
+<td>Services</td>
+<td>nextcloud.svc.local.eddiequinn.casa</td>
+<td>11000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>ntfy.eddiequinn.casa</td>
+<td>Services</td>
+<td>ntfy.svc.local.eddiequinn.casa</td>
+<td>8086</td>
+<td>False</td>
+</tr>
+<tr>
+<td>pdu.eddiequinn.casa</td>
+<td>Management</td>
+<td>pdu.mgmt.local.eddiequinn.casa</td>
+<td>443</td>
+<td>False</td>
+</tr>
+<tr>
+<td>omada.eddiequinn.casa</td>
+<td>Infrastructure</td>
+<td>omada.infra.local.eddiequinn.casa</td>
+<td>8043</td>
+<td>False</td>
+</tr>
+<tr>
+<td>grafana.eddiequinn.casa</td>
+<td>Infrastructure</td>
+<td>grafana.infra.local.eddiequinn.casa</td>
+<td>3000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>prometheus.eddiequinn.casa</td>
+<td>Infrastructure</td>
+<td>prometheus.infra.local.eddiequinn.casa</td>
+<td>9090</td>
+<td>False</td>
+</tr>
+<tr>
+<td>dbackup.eddiequinn.casa</td>
+<td>Infrastructure</td>
+<td>dbackup.infra.local.eddiequinn.casa</td>
+<td>3050</td>
+<td>False</td>
+</tr>
+<tr>
+<td>home.eddiequinn.casa</td>
+<td>Services</td>
+<td>homepage.svc.local.eddiequinn.casa</td>
+<td>3000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>komodo.eddiequinn.casa</td>
+<td>Services</td>
+<td>komodo.svc.local.eddiequinn.casa</td>
+<td>9120</td>
+<td>False</td>
+</tr>
+<tr>
+<td>infisical.eddiequinn.casa</td>
+<td>Infrastructure</td>
+<td>infisical.infra.local.eddiequinn.casa</td>
+<td>8080</td>
+<td>False</td>
+</tr>
+<tr>
+<td>reader.eddiequinn.casa</td>
+<td>Services</td>
+<td>reader.svc.local.eddiequinn.casa</td>
+<td>8082</td>
+<td>False</td>
+</tr>
+<tr>
+<td>opnsense.eddiequinn.casa</td>
+<td>Management</td>
+<td>opnsense.mgmt.local.eddiequinn.casa</td>
+<td>443</td>
+<td>False</td>
+</tr>
+<tr>
+<td>auth.eddiequinn.casa</td>
+<td>Infrastructure</td>
+<td>authentik.infra.local.eddiequinn.casa</td>
+<td>9000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>fmd.eddiequinn.casa</td>
+<td>Services</td>
+<td>fmd.svc.local.eddiequinn.casa</td>
+<td>8080</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<h2 id="live-network-flows-summary">Live Network Flows Summary</h2>
+<p>Job <a href="https://gitlab.eddiequinn.casa/machines/ansible-playbooks/-/jobs/5173">5173</a> captured 11 hosts, 230 listening sockets, 116 publicly bound.</p>
+<table>
+<thead>
+<tr>
+<th>Host</th>
+<th>IP</th>
+<th>Listening</th>
+<th>Containers</th>
+<th>Komodo Stacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appstack-1</td>
+<td>10.67.10.25</td>
+<td>39</td>
+<td>35</td>
+<td>ai-stack, commafeed, fmd-foss, homepage, immich&hellip;</td>
+</tr>
+<tr>
+<td>arrstack-1</td>
+<td>10.67.10.26</td>
+<td>24</td>
+<td>16</td>
+<td>arr-stack, syncthing</td>
+</tr>
+<tr>
+<td>devstack-1</td>
+<td>10.67.10.31</td>
+<td>20</td>
+<td>14</td>
+<td>gitlab, renovate</td>
+</tr>
+<tr>
+<td>infstack-1</td>
+<td>10.67.40.25</td>
+<td>52</td>
+<td>32</td>
+<td>authentik, bind9, dbackup, infisical, omada&hellip;</td>
+</tr>
+<tr>
+<td>kasm-1</td>
+<td>10.67.10.28</td>
+<td>8</td>
+<td>13</td>
+<td>NO_KOMODO_REPO_ROOT</td>
+</tr>
+<tr>
+<td>matrix-1</td>
+<td>10.67.30.24</td>
+<td>22</td>
+<td>16</td>
+<td>synapse</td>
+</tr>
+<tr>
+<td>mediastack-1</td>
+<td>10.67.10.27</td>
+<td>14</td>
+<td>14</td>
+<td>audiobookshelf, jelly-stack, matrix-synapse</td>
+</tr>
+<tr>
+<td>monitoring-1</td>
+<td>10.67.40.27</td>
+<td>15</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>newt-1</td>
+<td>10.67.30.25</td>
+<td>7</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>nextcloud-1</td>
+<td>10.67.10.29</td>
+<td>12</td>
+<td>17</td>
+<td>nextcloud-aio, nextcloud</td>
+</tr>
+<tr>
+<td>pangolin-1</td>
+<td>89.127.232.7</td>
+<td>17</td>
+<td>12</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="top-listening-ports">Top Listening Ports</h2>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Occurrences</th>
+<th>Sample Hosts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18080</td>
+<td>20</td>
+<td>appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1</td>
+</tr>
+<tr>
+<td>8120</td>
+<td>18</td>
+<td>appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1</td>
+</tr>
+<tr>
+<td>22</td>
+<td>16</td>
+<td>appstack-1, arrstack-1, devstack-1, infstack-1, kasm-1</td>
+</tr>
+<tr>
+<td>25</td>
+<td>12</td>
+<td>appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1</td>
+</tr>
+<tr>
+<td>53</td>
+<td>12</td>
+<td>infstack-1, kasm-1, monitoring-1, newt-1, nextcloud-1</td>
+</tr>
+<tr>
+<td>9100</td>
+<td>10</td>
+<td>appstack-1, arrstack-1, devstack-1, infstack-1, matrix-1</td>
+</tr>
+<tr>
+<td>443</td>
+<td>10</td>
+<td>devstack-1, infstack-1, kasm-1, matrix-1, pangolin-1</td>
+</tr>
+<tr>
+<td>8080</td>
+<td>8</td>
+<td>appstack-1, devstack-1, infstack-1, nextcloud-1</td>
+</tr>
+<tr>
+<td>80</td>
+<td>8</td>
+<td>devstack-1, infstack-1, matrix-1, pangolin-1</td>
+</tr>
+<tr>
+<td>111</td>
+<td>6</td>
+<td>appstack-1, arrstack-1, infstack-1</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>5</td>
+<td>appstack-1, infstack-1, matrix-1</td>
+</tr>
+<tr>
+<td>9000</td>
+<td>4</td>
+<td>appstack-1, infstack-1</td>
+</tr>
+<tr>
+<td>3000</td>
+<td>4</td>
+<td>appstack-1, monitoring-1</td>
+</tr>
+<tr>
+<td>2424</td>
+<td>4</td>
+<td>devstack-1, pangolin-1</td>
+</tr>
+<tr>
+<td>9115</td>
+<td>4</td>
+<td>infstack-1, monitoring-1</td>
+</tr>
+<tr>
+<td>9090</td>
+<td>4</td>
+<td>infstack-1, monitoring-1</td>
+</tr>
+<tr>
+<td>8448</td>
+<td>4</td>
+<td>matrix-1, pangolin-1</td>
+</tr>
+<tr>
+<td>8642</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>8765</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>9119</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>9001</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>5678</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>8086</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>8087</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>8082</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>3737</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>2283</td>
+<td>2</td>
+<td>appstack-1</td>
+</tr>
+<tr>
+<td>22000</td>
+<td>2</td>
+<td>arrstack-1</td>
+</tr>
+<tr>
+<td>8989</td>
+<td>2</td>
+<td>arrstack-1</td>
+</tr>
+<tr>
+<td>8384</td>
+<td>2</td>
+<td>arrstack-1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="compose-stacks">Compose Stacks</h2>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Hint VLAN</th>
+<th>Services</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>compose-files/fmd-foss</td>
+<td>Services</td>
+<td>fmd</td>
+</tr>
+<tr>
+<td>compose-files/ntfy</td>
+<td>Services</td>
+<td>ntfy</td>
+</tr>
+<tr>
+<td>compose-files/ai-stack</td>
+<td>Services</td>
+<td>honcho-api, honcho-deriver, honcho-db, honcho-redis, hermes</td>
+</tr>
+<tr>
+<td>compose-files/authentik</td>
+<td>Infrastructure</td>
+<td>postgresql, server, worker</td>
+</tr>
+<tr>
+<td>compose-files/bind9</td>
+<td>Infrastructure</td>
+<td>bind9, rpz-updater</td>
+</tr>
+<tr>
+<td>compose-files/omada</td>
+<td>Infrastructure</td>
+<td>omada-controller</td>
+</tr>
+<tr>
+<td>compose-files/jobsync</td>
+<td>Services</td>
+<td>app</td>
+</tr>
+<tr>
+<td>compose-files/omnisearch</td>
+<td>Services</td>
+<td>omnisearch</td>
+</tr>
+<tr>
+<td>compose-files/dbackup</td>
+<td>Infrastructure</td>
+<td>dbackup</td>
+</tr>
+<tr>
+<td>compose-files/commafeed</td>
+<td>Unknown</td>
+<td>commafeed</td>
+</tr>
+<tr>
+<td>compose-files/homepage</td>
+<td>Services</td>
+<td>homepage</td>
+</tr>
+<tr>
+<td>compose-files/the-lounge</td>
+<td>Services</td>
+<td>thelounge</td>
+</tr>
+<tr>
+<td>compose-files/radicale</td>
+<td>Services</td>
+<td>radicale</td>
+</tr>
+<tr>
+<td>compose-files/gitlab</td>
+<td>Services</td>
+<td>gitlab, gitlab-runner</td>
+</tr>
+<tr>
+<td>compose-files/searxng</td>
+<td>Services</td>
+<td>redis, searxng</td>
+</tr>
+<tr>
+<td>compose-files/immich</td>
+<td>Services</td>
+<td>immich-server, immich-machine-learning, redis, database</td>
+</tr>
+<tr>
+<td>compose-files/n8n</td>
+<td>Services</td>
+<td>n8n</td>
+</tr>
+<tr>
+<td>compose-files/synapse</td>
+<td>Unknown</td>
+<td>synapse-db-18, synapse, caddy, coturn, maubot, hookshot, synapse-admin</td>
+</tr>
+<tr>
+<td>compose-files/nextcloud</td>
+<td>Services</td>
+<td>nextcloud-aio-mastercontainer</td>
+</tr>
+<tr>
+<td>compose-files/infisical</td>
+<td>Infrastructure</td>
+<td>backend, redis, db</td>
+</tr>
+<tr>
+<td>compose-files/renovate</td>
+<td>Infrastructure</td>
+<td>renovate-ce</td>
+</tr>
+<tr>
+<td>compose-files/syncthing</td>
+<td>Services</td>
+<td>syncthing</td>
+</tr>
+<tr>
+<td>compose-files/jelly-stack</td>
+<td>Services</td>
+<td>jellyfin, seerr</td>
+</tr>
+<tr>
+<td>compose-files/freshrss</td>
+<td>Services</td>
+<td>freshrss</td>
+</tr>
+<tr>
+<td>compose-files/audiobookshelf</td>
+<td>Services</td>
+<td>audiobookshelf</td>
+</tr>
+<tr>
+<td>compose-files/arr-stack</td>
+<td>Services</td>
+<td>prowlarr, flaresolverr, radarr, sonarr, qui</td>
+</tr>
+<tr>
+<td>compose-files/traefik</td>
+<td>Services</td>
+<td>traefik</td>
+</tr>
+<tr>
+<td>compose-files/cloudflare-utils</td>
+<td>Infrastructure</td>
+<td>cloudflare-ddns</td>
+</tr>
+<tr>
+<td>compose-files/uptimekuma</td>
+<td>Services</td>
+<td>uptime-kuma</td>
+</tr>
+<tr>
+<td>compose-files/semaphore</td>
+<td>Infrastructure</td>
+<td>semaphore</td>
+</tr>
+</tbody>
+</table>
+<h2 id="opnsense-user-rules">OPNsense User Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Interface</th>
+<th>Action</th>
+<th>Protocol</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Matrix HTTPS</td>
+<td>WAN</td>
+<td>pass</td>
+<td>tcp</td>
+<td>any</td>
+<td>wanip</td>
+<td>443</td>
+</tr>
+<tr>
+<td>Matrix Federation</td>
+<td>WAN</td>
+<td>pass</td>
+<td>tcp</td>
+<td>any</td>
+<td>wanip</td>
+<td>8448</td>
+</tr>
+<tr>
+<td>Syncthing</td>
+<td>WAN</td>
+<td>pass</td>
+<td>tcp/udp</td>
+<td>any</td>
+<td>10.67.10.26</td>
+<td>22000</td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>Services</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Allow Services to Storage</td>
+<td>Services</td>
+<td>pass</td>
+<td></td>
+<td>10.67.10.0/24</td>
+<td>10.67.20.0/24</td>
+<td></td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>Storage</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Allow Services to Storage</td>
+<td>Storage</td>
+<td>pass</td>
+<td></td>
+<td>10.67.20.0/24</td>
+<td>10.67.10.0/24</td>
+<td></td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>DMZ</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Matrix HTTPS</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>tcp</td>
+<td>any</td>
+<td>wanip</td>
+<td>443</td>
+</tr>
+<tr>
+<td>Matrix Federation</td>
+<td>DMZ</td>
+<td>pass</td>
+<td>tcp</td>
+<td>any</td>
+<td>wanip</td>
+<td>8448</td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>Infrastructure</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>Management</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>Guest</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Allow DNS to adguard</td>
+<td>Endpoints</td>
+<td>pass</td>
+<td>udp</td>
+<td>any</td>
+<td>any</td>
+<td>53</td>
+</tr>
+<tr>
+<td>Temporary allow all - migration</td>
+<td>IoT</td>
+<td>pass</td>
+<td></td>
+<td>any</td>
+<td>any</td>
+<td></td>
+</tr>
+<tr>
+<td>Block to internal 10/8</td>
+<td>ISPRouter</td>
+<td>block</td>
+<td></td>
+<td>10.67.81.0/24</td>
+<td>10.0.0.0/8</td>
+<td></td>
+</tr>
+<tr>
+<td>Block to internal 172.16/12</td>
+<td>ISPRouter</td>
+<td>block</td>
+<td></td>
+<td>10.67.81.0/24</td>
+<td>172.16.0.0/12</td>
+<td></td>
+</tr>
+<tr>
+<td>Block to internal 192.168.0/16</td>
+<td>ISPRouter</td>
+<td>block</td>
+<td></td>
+<td>10.67.81.0/24</td>
+<td>192.168.0.0/16</td>
+<td></td>
+</tr>
+<tr>
+<td>Allow to WAN</td>
+<td>ISPRouter</td>
+<td>pass</td>
+<td></td>
+<td>10.67.81.0/24</td>
+<td>any</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="mikrotik-vlan-port-map">MikroTik VLAN Port Map</h2>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Tagged</th>
+<th>Untagged</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>ether4,ether13</td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>ether4,ether13</td>
+<td>ether11</td>
+</tr>
+<tr>
+<td>30</td>
+<td>ether4,ether13</td>
+<td></td>
+</tr>
+<tr>
+<td>40</td>
+<td>ether4,ether13</td>
+<td>ether7</td>
+</tr>
+<tr>
+<td>45</td>
+<td>ether4,ether13,bridge</td>
+<td>ether9,ether1,ether12,ether5</td>
+</tr>
+<tr>
+<td>50</td>
+<td>ether4,ether7,ether13</td>
+<td></td>
+</tr>
+<tr>
+<td>60</td>
+<td>ether4,ether7,ether13</td>
+<td>ether17</td>
+</tr>
+<tr>
+<td>70</td>
+<td>ether4,ether7,ether13</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>ether4</td>
+<td>ether7</td>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td>bridge,ether13</td>
+</tr>
+<tr>
+<td>71</td>
+<td>ether4</td>
+<td>ether15</td>
+</tr>
+</tbody>
+</table>
+<h2 id="observations">Observations</h2>
+<ul>
+<li>Every internal VLAN has a &ldquo;Temporary allow all - migration&rdquo; pass rule on OPNsense.</li>
+<li>MikroTik has no L3 firewall rules; all inter-VLAN filtering is delegated to OPNsense.</li>
+<li>VLAN 45 (Management) has four untagged access ports on MikroTik: ether1, ether5, ether9, ether12.</li>
+<li>MikroTik bridge retains legacy 10.0.1.34/16 address.</li>
+<li>VLAN 71 (ISPRouter / 10.67.81.0/24) is present but not in original Blackwall design.</li>
+<li>31 public hostnames are exposed through Traefik on Infrastructure host (grafana/infisical/authentik) or Services host (all others).</li>
+<li>30 compose-files repos define deployed stacks; ai-stack, synapse, arr-stack, immich, authentik are multi-service.</li>
+<li>Live network-flows job captured 11 hosts with 230 listening sockets (116 publicly bound).</li>
+<li>Port 18080 is the most common public bind, likely Traefik metrics or a common app port.</li>
+<li>Port 22 (SSH) is open on most hosts; port 25 (postfix/master) appears on several hosts bound to 127.0.0.1 only.</li>
+<li>Port 9100 (node_exporter) is present across infrastructure/hosts.</li>
+<li>Docker proxy processes bind the vast majority of public ports; host networking is minimal.</li>
+</ul>
+<h2 id="recommended-next-steps">Recommended Next Steps</h2>
+<ol>
+<li>Run ansible-discover-network-flows CI job to collect live sockets, containers, and /etc/komodo/repos state.</li>
+<li>Replace temporary allow-all OPNsense rules with explicit allowlist per argus-phase1-diff.md section 7.</li>
+<li>Audit MikroTik untagged VLAN 45 ports and remove legacy bridge IP.</li>
+<li>Map TrueNAS shares to exact initiator subnets once network-flows job runs.</li>
+</ol>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/drafts/project-argus/data/argus-phase1-digest.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

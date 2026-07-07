@@ -415,5 +415,12 @@
       <guid>https://eddiequinn.xyz/posts/drafts/project-argus/data/argus-phase1-diff/</guid>
       <description>Project Argus — Phase 1: Live Audit Diff Generated from live pulls of OPNsense (10.67.45.1) and MikroTik (10.67.45.2) on 2026-07-07. Credentials provided by operator are read-only/admin-audit and are assumed rotated after use.&#xA;1. Executive summary Your network is currently running wide-open inter-VLAN. Every internal VLAN has a user-created Temporary allow all - migration pass rule. The MikroTik is doing only Layer-2 switching (no RouterOS firewall rules), so all inter-VLAN enforcement is on OPNsense.</description>
     </item>
+    <item>
+      <title></title>
+      <link>https://eddiequinn.xyz/posts/drafts/project-argus/data/argus-phase1-digest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/drafts/project-argus/data/argus-phase1-digest/</guid>
+      <description>Project Argus — Phase 1 Consolidated Digest Generated: 2026-07-07T23:30:00Z&#xA;Sources opnsense_filter_rules: /tmp/opnsense-filter-rules.json&#xA;mikrotik_state: /tmp/mikrotik-state.json&#xA;compose_files: GitLab group compose-files (30 repos)&#xA;traefik_config: compose-files/traefik data/config.yml&#xA;ansible_inventory: machines/ansible-playbooks inventory/hosts.yml&#xA;network_flows_job: 5173 — success&#xA;VLAN Inventory VLAN Name Subnet 10 Services 10.67.10.0/24 20 Storage 10.67.20.0/24 30 DMZ 10.67.30.0/24 40 Infrastructure 10.67.40.0/24 45 Management 10.67.45.0/24 50 Guest 10.67.50.0/24 60 Endpoints 10.67.60.0/24 70 IoT 10.67.70.0/24 71 ISPRouter 10.67.71.0/24 Host Inventory Host IP VLAN Groups MAC matrix-1 10.</description>
+    </item>
   </channel>
 </rss>
