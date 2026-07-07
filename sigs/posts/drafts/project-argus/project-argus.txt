@@ -1,0 +1,198 @@
+## Design Principles
+
+**Automation over manual toil.** This is a one-person operation — there is no team to catch what manual checking misses, so consistency has to come from automation rather than discipline. Anything repeatable (triage, compliance drift response, config-change review) should become a playbook, not a recurring task on a checklist. The same principle scales directly into a professional SOC context: automation saves analyst time, removes human variance from routine decisions, and that consistency translates into headcount cost savings — the argument that actually lands with budget holders.
+
+**Free and genuinely open source, not "free tier."** Hardware is buy-once-cry-once; software is a different bar entirely — it needs to be free *and* meet the OSI definition of open source, not freemium, not source-available, not "fair-code" with commercial restrictions baked in. Where a tool's licensing model has shifted (e.g. a project moving to a license-key or read-only-after-trial structure), that's treated as a disqualifier regardless of how capable the tool is.
+
+**Homelab risk tolerance, used deliberately.** Running solo, non-commercial infrastructure means the cost of a rough edge is an evening of debugging, not a customer-facing outage or compliance finding. That's a genuine advantage, not just a constraint to work around — it means newer, less battle-tested open-source projects are fair game here in a way they wouldn't be in an enterprise SOC, and adopting them early (and feeding back bugs/issues) is itself part of the value of the project.
+
+**Mechanism over configuration.** Solutions are chosen by understanding *why* something works (e.g. why a reverse proxy makes "local-only" auth checks succeed) rather than memorizing which box to tick. That's also why security boundaries get re-verified at the network layer rather than trusted to a single setting — an app-level control (like disabling local auth) is only as strong as what's actually allowed to reach the app.
+
+**Documentation and evidence as a first-class output.** Where it doesn't cost much extra, decisions get a paper trail — incident writeups, tabletop notes, detection-validation results, program metrics over time. This isn't bureaucracy for its own sake; it's what turns "I ran some tools" into demonstrable proof the program does what it claims, and it's the artifact a portfolio or interview actually needs.
+
+**If it isn't version-controlled, it's a temporary configuration.** This applies heavily to detection logic. Custom Wazuh and Sigma rules shouldn't be edited inside a web console; they must live in the infrastructure repo and deploy via a pipeline. If a host completely fails, defensive visibility must be as reproducible as the network walls.
+
+**Assume the pipeline is compromised.** Because infrastructure is tightly coupled with GitLab and automated orchestration runners, those execution environments are high-priority targets. DevSecOps pipelines must include native, non-negotiable gates (like Gitleaks) to ensure no high-value keys leak into the infrastructure definitions.
+
+## Rollout
+
+The single biggest risk to this project isn't picking the wrong tool — it's turning everything on at once and drowning in noise within a week, with no team to absorb the fatigue. Each phase below has to be substantially settled before the next one is trusted to mean anything. Spacing is deliberately loose (weeks, not days) because the point of several phases is to *observe*, not to act.
+
+**Phase 1 — Access & Segmentation (weeks 1–3)**
+Network Access Control work goes first: tighten the loose inter-VLAN rules, get MAB and MPSK live, stand up the CA. Nothing in later phases is trustworthy if traffic can still move anywhere it likes — a NetFlow baseline captured over flat, allow-all rules isn't a baseline, it's noise wearing one. Ensure any ports running MAB are strictly bound by OPNsense firewall constraints to mitigate trivial MAC spoofing.
+
+**Phase 2A — Identity Control Plane (runs alongside Phase 1, finishes before Phase 3)**
+Authentik deployment, RADIUS, SSO, PKI, and service account standardisation sit here. This thread must be solid before later phases rely on it for authentication, certificates, or role mapping.
+
+**Phase 2B — Secrets Control Plane (starts during Phase 2A, finishes before downstream automation depends on it)**
+Infisical is being ripped out and replaced with OpenBao to act as the declarative vault for all high-value keys (RADIUS secrets, Tracecat API tokens, OPNsense/MikroTik credentials). GitLab and Ansible secret consumption should be moved onto the new model here, with break-glass and unseal/recovery design treated as part of the phase rather than an afterthought.
+
+**Phase 3 — Visibility & Normalization, observe-only (weeks 4–7, no alerting yet)**
+Bring up NetFlow/sFlow, IPFIX, and Suricata — but in logging mode, not alerting mode. Crucially, dedicate time here to **Log Parsing Normalization** to ensure Wazuh/syslog is correctly mapping MikroTik's sFlow formatting. Build the log source coverage matrix here. The goal of this phase is entirely to learn what "normal" looks like on this specific network. Nothing gets acted on yet.
+
+**Phase 4 — Detection, rules added deliberately (weeks 8–12)**
+Wazuh comes up with default rulesets largely *disabled*, not enabled — categories get turned on one at a time, each validated with an Atomic Red Team test before being trusted. Custom Sigma rules are deployed via GitOps. This is where MISP feeds get wired in, and where the daily "how many alerts, how many were real" metric starts getting tracked. Don't move to Phase 5 until alert volume has visibly trended down.
+
+**Phase 5 — Orchestration & Response (week 12+, ongoing)**
+Tracecat goes in last, deliberately. Automating a response to a detection you haven't yet proven trustworthy just automates a false positive into an action. Start with low-stakes playbooks (case creation, notification) before anything that takes an automated containment action like blocking an IP or isolating a port.
+
+**Phase 6 — Deception, Hardening, Compliance (ongoing, lowest urgency)**
+Honeypots, canarytokens, OpenSCAP, ILM (Index Lifecycle Management) storage rolling, UPS implementation, and "Schrödinger’s Backup" restore drills. These add value independent of whether the core detection loop is tuned, but they sit last because they require the plumbing of Phases 4/5 to actually be noticed and acted upon.
+
+**Ongoing throughout** — incident writeups, tabletop exercises, and Kubernetes migration sit outside this sequence entirely; they're not gated by it and can happen whenever there's a natural opportunity.
+
+## Phase Exit Criteria
+
+**Phase 1 — Access & Segmentation**
+- Temporary inter-VLAN allow-all rules are removed except for explicitly documented exceptions.
+- At least one wired MAB path is validated end to end.
+- At least one wireless RADIUS-backed auth path is validated end to end.
+- The CA is operational for the first intended certificate use case.
+- MAB-connected ports are demonstrably constrained by firewall policy, not trusted on MAC checks alone.
+
+**Phase 2A — Identity Control Plane**
+- Authentik is the established identity source for the intended services in scope.
+- RADIUS auth works for the target network access path being migrated first.
+- SSO for the priority services is stable enough that downstream systems can depend on it.
+- PKI issuance and renewal flow is documented and repeatable.
+- Service account naming and ownership conventions are written down and in active use.
+
+**Phase 2B — Secrets Control Plane**
+- OpenBao is live with a documented break-glass and recovery model.
+- High-value secrets targeted by the migration are stored in OpenBao rather than legacy ad hoc environment-variable handling.
+- GitLab secret consumption is proven against OpenBao using the intended workflow.
+- Ansible secret consumption is proven against OpenBao using the intended workflow.
+- Infisical is no longer a hidden dependency for newly migrated services.
+
+**Phase 3 — Visibility & Normalization**
+- Planned network and host log sources are onboarded or explicitly deferred.
+- MikroTik flow/log parsing is confirmed correct in the ingest path.
+- The log source coverage matrix exists and identifies remaining blind spots.
+- A baseline observation window has been captured before alert-driven action is enabled.
+- No automated response actions depend on this data yet.
+
+**Phase 4 — Detection**
+- Default Wazuh rules remain mostly disabled, with enabled categories chosen deliberately.
+- Each enabled detection category has at least one validation test behind it.
+- Custom Sigma/Wazuh detections are version-controlled and deployed through the pipeline.
+- Alert volume, true-positive rate, and false-positive trend are being tracked.
+- Detection noise has dropped enough that human review is sustainable.
+
+**Phase 5 — Orchestration & Response**
+- Initial Tracecat playbooks are limited to low-stakes actions such as case creation and notification.
+- Automated actions are only attached to detections that have already been validated.
+- Response workflows leave an audit trail of trigger, action, and outcome.
+- At least one end-to-end alert-to-case flow has been exercised successfully.
+
+**Phase 6 — Deception, Hardening, Compliance**
+- These controls are treated as maturity layers, not substitutes for unfinished visibility or detection work.
+- Each added control has a documented owner, expected signal, and maintenance burden.
+
+## Explicitly Deferred Until Foundation Is Stable
+
+- Honeypots, canarytokens, Endlessh, and other deception-first experiments
+- Automated containment actions such as port isolation or auto-blocking
+- Home Assistant escalation for anything beyond simple notification
+- Compliance/reporting expansion that depends on immature telemetry
+- Backup restore-drill automation beyond basic backup health validation
+- Kubernetes migration work that would compete with the detection-and-response core
+
+## Portfolio Outputs
+
+- Network segmentation decision record and firewall-tightening notes
+- Identity architecture note covering Authentik, RADIUS, PKI, and service-account conventions
+- Secrets migration decision record covering Infisical to OpenBao
+- Log source coverage matrix
+- Detection validation report with Atomic Red Team results and time-to-alert notes
+- Alert-volume / false-positive trend snapshots over time
+- Sample incident writeup (real incident or controlled simulation)
+- Tabletop exercise notes and lessons learned
+- Architecture diagram for the detection-and-response stack
+- Short retrospective on what became foundational controls vs. supplemental controls
+
+## The Plan
+
+### Network Access Control
+- RADIUS server (Authentik) for 802.1X wireless authentication
+- MPSK (Multi Pre-Shared Key) wifi migration — collapse current 3 SSIDs into fewer broadcast SSIDs, with per-device/per-group PSKs mapped to VLANs via the same Authentik RADIUS server
+    - Security: a single compromised PSK only exposes that device, not the whole network — no shared skeleton-key passphrase
+    - Reduced footprint: fewer broadcast SSIDs in a residential area, less to draw casual attention
+    - Open decision: confirm AP hardware/firmware actually supports RADIUS-driven MPSK before committing — support varies by vendor
+- MAB (MAC Authentication Bypass) for wired port authentication on MikroTik (reinforced by strict inter-VLAN firewall limits to mitigate MAC spoofing)
+- Certificate authority for device certificates
+- Tighten inter-VLAN firewall rules (replace temporary allow-all rules based on observed traffic patterns)
+
+### Network Visibility
+- NetFlow/sFlow collection from MikroTik
+- IPFIX export to SIEM for network/host event correlation
+- IDS/IPS (Suricata plugin on OPNsense)
+- SNMP polling — OPNsense, MikroTik, iDRAC, UPS — for hardware/interface health metrics feeding Grafana/Prometheus
+
+### SIEM & Threat Detection
+- SIEM (Wazuh)
+- Endpoint Detection & Response (Wazuh agents for HIDS and Active Response)
+- Deep Kernel Telemetry (Sysmon for Windows / Auditd for Linux integrated into SIEM)
+- Open-Source Antivirus Engine (ClamAV integrated with Wazuh FIM for real-time malware scanning)
+- Live Digital Forensics & Incident Response (Velociraptor for active threat hunting)
+- **Index Lifecycle Management (ILM):** Explicit policy for rolling high-speed "Hot" log data (local NVMe) to "Warm/Cold" archival storage (TrueNAS dataset) to prevent disk exhaustion from NetFlow/Suricata telemetry.
+
+### Deception & Active Defence
+- Honeypots on isolated VLANs
+- Network-based honeypots — fake servers on unused IPs in each VLAN that should never receive traffic, any connection is an immediate alert
+- Active Deception & Tarpits (Endlessh to trap automated scanners)
+- DNS Sinkhole Shaming (Redirecting banned traffic to a local "VLAN Violation" landing page)
+- Digital Landmines (Deploying Canarytokens in sensitive directories and repos)
+
+### Identity & Access
+- Authentik IDP deployment
+- SSO across all internal services via OIDC/SAML
+- PKI and cert management
+    - SSH certificates and local CA for *.local.eddiequinn.casa
+- Service account standardisation
+    - Naming convention: `svc-[system]-[purpose]`
+
+### Secrets Management
+- **Declarative Secrets Management:** Migrate from Infisical to OpenBao. High-value keys, RADIUS secrets, and API tokens will be vault-gated rather than stored in standard environment variables.
+- GitLab secret consumption via OpenBao-backed workflow rather than long-lived repo/project variables where avoidable
+- Ansible secret consumption via OpenBao-backed lookup or equivalent runtime retrieval
+- Break-glass, unseal, and recovery design documented before wider dependency sprawl sets in
+
+### Monitoring & Alerting
+- Vulnerability scanning (OpenVAS/Greenbone Community Edition — GPL)
+- rsyslog — log shipping for non-agent sources (OPNsense, MikroTik) into Wazuh
+- Physical Alert Escalation (Home Assistant webhooks for high-severity event tracking)
+- **Out-of-Band Environmental Alerting:** A low-power node (e.g., Raspberry Pi) placed directly on the UPS with an independent heartbeat channel to an external cloud monitor, ensuring alerts still fire if the main network or host completely drops.
+- "Quis Custodiet" Guard (Dead Man's Switch monitoring via external heartbeat)
+- Thermal Panic Automation (IPMI-driven graceful VM shutdowns during ambient heat spikes)
+
+### Hardening & Compliance
+- Incident response runbooks
+- OpenSCAP for automated compliance checking against a baseline
+- Automated config backups for OPNsense and MikroTik with diff alerting
+- Log Apocalypse Mitigation (Logrotate and retention policy execution)
+- Tighten DevSecOps pipelines (Implement Gitleaks as a native gate to prevent secret leakage into infrastructure definitions)
+- Improve backups (Restic or Borgbackup — encrypted, deduplicated, scriptable; enforce 3-2-1: local + offsite copy)
+- **"Schrödinger’s Backup" Verification:** Automated lifecycle scripts to periodically pull a random backup chunk, spin it up as an isolated clone VM in Proxmox, execute a basic service check, and tear it down.
+- Get a UPS
+
+### Remote Access Hardening
+- Pangolin Private Resources — move sensitive admin UIs (Proxmox, NAS, switch/firewall mgmt) off public Pangolin resources onto client-gated private resources
+    - No public hostname, no TLS cert, no Traefik route — nothing exposed until the Pangolin client establishes a tunnel
+    - Evaluate Private HTTP (1.18+) for anything that still wants a friendly domain without public exposure
+
+### Detection Engineering & Validation
+- Custom Wazuh/Sigma detection rules mapped to MITRE ATT&CK techniques (managed via GitOps, not GUI edits)
+- Atomic Red Team — simulate specific techniques and validate detections actually fire, document time-to-alert
+- Log source coverage matrix — what's logged vs. what should be (auth, DNS, firewall, DHCP, process creation); identify and close blind spots
+- MISP (AGPL) — aggregate and correlate threat intel feeds (AbuseIPDB, Suricata community rules) rather than consuming them ad hoc
+- Track basic program metrics over time — mean time to detect, alert volume, false-positive rate trend
+- Documented incident writeup (real or red-team-simulated) — timeline, root cause, containment, lessons learned
+- Tabletop exercise — walk a scenario (e.g. ransomware on an isolated VLAN) end to end on paper
+
+### Orchestration & Response
+- Tracecat (AGPL core, free) — workflow automation + built-in case management (triage, notes, evidence locker) in one tool; automate response off Wazuh alerts (e.g. auto-block an IP in OPNsense, isolate a switch port on the MikroTik) and track investigations through to resolution
+    - Chosen over TheHive — TheHive 5 moved to a freemium/license-key model (community tier requires registration, reverts to read-only after a 14-day trial without one)
+    - Younger project (founded 2023), smaller ecosystem than established SOAR tools — acceptable here; homelab risk tolerance favours trying newer open-source tooling over the safest enterprise pick
+    - Note: evaluated n8n as a workflow alternative — ruled out, fair-code/Sustainable Use License is source-available, not OSI open source
+    - Note: Shuffle (AGPL SOAR) considered separately but likely redundant if Tracecat covers both workflow + case management
+- Patch management — track and action what OpenSCAP flags rather than just reporting on it
