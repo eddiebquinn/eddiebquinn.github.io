@@ -310,5 +310,26 @@
       <guid>https://eddiequinn.xyz/posts/drafts/project-argus/data/argus-phase1-digest/</guid>
       <description>Project Argus — Phase 1 Consolidated Digest Generated: 2026-07-07T23:30:00Z&#xA;Sources opnsense_filter_rules: /tmp/opnsense-filter-rules.json&#xA;mikrotik_state: /tmp/mikrotik-state.json&#xA;compose_files: GitLab group compose-files (30 repos)&#xA;traefik_config: compose-files/traefik data/config.yml&#xA;ansible_inventory: machines/ansible-playbooks inventory/hosts.yml&#xA;network_flows_job: 5173 — success&#xA;VLAN Inventory VLAN Name Subnet 10 Services 10.67.10.0/24 20 Storage 10.67.20.0/24 30 DMZ 10.67.30.0/24 40 Infrastructure 10.67.40.0/24 45 Management 10.67.45.0/24 50 Guest 10.67.50.0/24 60 Endpoints 10.67.60.0/24 70 IoT 10.67.70.0/24 71 ISPRouter 10.67.71.0/24 Host Inventory Host IP VLAN Groups MAC matrix-1 10.</description>
     </item>
+    <item>
+      <title></title>
+      <link>https://eddiequinn.xyz/posts/drafts/project-argus/evidence/phase1/implementation-log/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/drafts/project-argus/evidence/phase1/implementation-log/</guid>
+      <description>Phase 1 Firewall Rule Implementation Log Card 217 — Replace broad inter-VLAN allow rules with documented policy Last updated: 2026-07-08&#xA;Status at a glance VLAN Rules Applied Temp Disabled DHCP Fixed Verified WAN ✅ (no new) N/A N/A ✅ Endpoints (vlan07) ✅ ⬜ N/A ⬜ Guest (vlan06) ✅ ✅ ✅ (1.1.1.1) ✅ IoT (vlan08) ✅ ⬜ ⬜ ⬜ Services (vlan01) ✅ ⬜ N/A ⬜ Storage (vlan02) ✅ ⬜ N/A ⬜ DMZ (vlan03) ✅ ⬜ N/A ⬜ Infrastructure (vlan04) ✅ ⬜ N/A ⬜ Management (vlan05) ✅ ⬜ N/A ⬜ ISPRouter (vlan09) ✅ N/A N/A ⬜ Tracking: Nextcloud Deck Card 309 — Phase 1 staged temp rule removal</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://eddiequinn.xyz/posts/drafts/project-argus/planning/phase1/firewall-rules/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/drafts/project-argus/planning/phase1/firewall-rules/</guid>
+      <description>Project Argus — Phase 1 Firewall Rules Planning Card: 217 — Replace broad inter-VLAN allow rules with documented policy&#xA;Milestone: Access &amp;amp; Segmentation&#xA;Generated: 2026-07-08T05:55:34.474694+00:00&#xA;Source: Live Pangolin Integration API resource list, network-flows CI artifacts, OPNsense filter rules&#xA;Required Port Aliases Create these BEFORE adding rules that reference them:&#xA;TRUENAS_SVC: 443, 445, 2049 TRUENAS_NFS: 443, 445, 2049, 3260 TRUENAS_BACKUP: 443, 445, 2049 PANGOLIN_SVC: 80, 443, 2283, 2424, 3737, 7476, 7878, 8082, 8086, 8087, 8096, 8384, 8989, 9119, 9120, 9696, 11000, 13378 PANGOLIN_INFRA: 443, 3000, 3050, 8080, 9000 Proposed Firewall Rules (27 rules) # Action Iface Dir Proto Source Destination Port Description 10 pass vlan07 in tcp 10.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://eddiequinn.xyz/posts/drafts/project-argus/planning/phase1/verification-checklist/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://eddiequinn.xyz/posts/drafts/project-argus/planning/phase1/verification-checklist/</guid>
+      <description>Project Argus — Phase 1 Verification Checklist &amp;amp; Evidence Pack Card: 226 — Define Phase 1 verification checklist and evidence pack&#xA;Milestone: Access &amp;amp; Segmentation&#xA;Generated: 2026-07-07T23:50:04.929331+00:00&#xA;Status: 4/18 items complete (22.2%)&#xA;Phase Objective Tighten the loose inter-VLAN rules, get MAB and MPSK live, stand up the CA. Ensure MAB-allowed ports are strictly bound by OPNsense firewall constraints.&#xA;How to use this document Work through each PENDING item top to bottom.</description>
+    </item>
   </channel>
 </rss>

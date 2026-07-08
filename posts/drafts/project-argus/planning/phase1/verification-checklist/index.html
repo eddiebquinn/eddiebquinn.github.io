@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1></h1>
+    </header>
+    <div class="content__body">
+        <h1 id="project-argus--phase-1-verification-checklist--evidence-pack">Project Argus — Phase 1 Verification Checklist &amp; Evidence Pack</h1>
+<p><strong>Card:</strong> 226 — Define Phase 1 verification checklist and evidence pack<br>
+<strong>Milestone:</strong> Access &amp; Segmentation<br>
+<strong>Generated:</strong> 2026-07-07T23:50:04.929331+00:00<br>
+<strong>Status:</strong> 4/18 items complete (22.2%)</p>
+<h2 id="phase-objective">Phase Objective</h2>
+<p>Tighten the loose inter-VLAN rules, get MAB and MPSK live, stand up the CA. Ensure MAB-allowed ports are strictly bound by OPNsense firewall constraints.</p>
+<h2 id="how-to-use-this-document">How to use this document</h2>
+<ol>
+<li>Work through each PENDING item top to bottom.</li>
+<li>For each item, capture the listed evidence under <code>posts/drafts/project-argus/evidence/phase1/&lt;id&gt;-*.{md,json,csv,pem,log}</code>.</li>
+<li>Update the item status in <code>verification-checklist.json</code> once the evidence is captured.</li>
+<li>Re-run the Section F audit jobs after Phase 1 cutover to confirm no regressions.</li>
+<li>Raise a Phase 1 close-out MR with this checklist + the evidence pack as the body once every item is COMPLETE.</li>
+</ol>
+<h2 id="a-discovery--planning">A. Discovery &amp; Planning</h2>
+<h3 id="a1-live-network-flows-captured">A1: Live network flows captured</h3>
+<p><strong>Status:</strong> <code>COMPLETE</code><br>
+<strong>Source:</strong> Card 216 (Done)</p>
+<p><strong>What:</strong> Run ansible-discover-network-flows CI job and produce per-host artifacts covering listening sockets, established connections, Docker containers, komodo stacks, and TrueNAS shares.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>GitLab CI job URL: &lt;run-job&gt;</code></li>
+<li><code>evidence/network-flows/*.json artifacts in CI job</code></li>
+<li><code>posts/drafts/project-argus/data/argus-phase1-digest.json contains aggregated live state</code></li>
+</ul>
+<p><strong>Verification:</strong> Job status=success; 11 host JSON files present with non-empty raw, listening, and komodo_stacks fields.</p>
+<hr>
+<h3 id="a2-inferred-allowlist-produced">A2: Inferred allowlist produced</h3>
+<p><strong>Status:</strong> <code>COMPLETE</code><br>
+<strong>Source:</strong> Phase 1 prep</p>
+<p><strong>What:</strong> Pre-audit allowlist derived from source configs and design docs.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>posts/drafts/project-argus/data/argus-phase1-allowlist.md</code></li>
+</ul>
+<p><strong>Verification:</strong> File exists with sections for required inter-VLAN paths.</p>
+<hr>
+<h3 id="a3-live-opnsense--mikrotik-state-captured">A3: Live OPNsense + MikroTik state captured</h3>
+<p><strong>Status:</strong> <code>COMPLETE</code><br>
+<strong>Source:</strong> Card 216 (Done)</p>
+<p><strong>What:</strong> OPNsense REST API audit of filter rules, interfaces, routes, DHCP; MikroTik API-SSL audit of VLAN ports, bridge, IPs.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>posts/drafts/project-argus/data/opnsense-filter-rules.json</code></li>
+<li><code>posts/drafts/project-argus/data/mikrotik-state.json</code></li>
+<li><code>posts/drafts/project-argus/data/argus-phase1-diff.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Both files exist; diff document identifies every temporary/broad rule and legacy bridge IP.</p>
+<hr>
+<h3 id="a4-firewall-rules-plan-written">A4: Firewall rules plan written</h3>
+<p><strong>Status:</strong> <code>COMPLETE</code><br>
+<strong>Source:</strong> Card 217 (Done — closed by user, work retained)</p>
+<p><strong>What:</strong> Documented the proposed per-service ruleset to replace the broad temporary rules, plus a roll-out sequence and inter-VLAN matrix.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>posts/drafts/project-argus/planning/phase1/firewall-rules.md</code></li>
+<li><code>posts/drafts/project-argus/planning/phase1/firewall-rules.json</code></li>
+</ul>
+<p><strong>Verification:</strong> Files exist; 43 proposed rules covering 31 public services and 12 inter-VLAN paths.</p>
+<hr>
+<h2 id="b-firewall-policy-implementation">B. Firewall Policy Implementation</h2>
+<h3 id="b1-all-broad-temporary-rules-removed">B1: All broad TEMPORARY rules removed</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> A4<br>
+<strong>Source:</strong> planning/phase1/firewall-rules.md</p>
+<p><strong>What:</strong> Every &ldquo;Temporary allow all - migration&rdquo; rule on every internal interface in OPNsense is deleted. Explicit allowlist rules are in their place.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>OPNsense API: GET /api/firewall/filter/searchRule — must return zero rules with description containing &quot;temporary&quot; or &quot;migration&quot;</code></li>
+<li><code>OPNsense API diff: rule count drops by 8 (the broad rules)</code></li>
+</ul>
+<p><strong>Verification:</strong> <code>curl -sk -u $OPN_KEY:$OPN_SECRET https://10.67.45.1/api/firewall/filter/searchRule | jq &quot;[.rows[] | select(.description | test(&quot;temporary|migration&quot;; &quot;i&quot;))] | length&quot;</code> returns 0</p>
+<hr>
+<h3 id="b2-all-31-public-services-still-respond-200">B2: All 31 public services still respond 200</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> B1<br>
+<strong>Source:</strong> planning/phase1/firewall-rules.md#proposed-firewall-rules</p>
+<p><strong>What:</strong> Each public hostname exposed via Traefik returns 200 OK over HTTPS after the new rules take effect.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>Reachability matrix CSV: 31 rows, all status=200</code></li>
+<li><code>Curl commands: for host in traefik-routers; do curl -sI -o /dev/null -w &quot;%{http_code} $host\n&quot; https://$host; done</code></li>
+</ul>
+<p><strong>Verification:</strong> Reachability test script exits 0; log archived under evidence/phase1/b2-reachability.csv</p>
+<hr>
+<h3 id="b3-inter-vlan-reachability-matrix-passes">B3: Inter-VLAN reachability matrix passes</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> B1<br>
+<strong>Source:</strong> planning/phase1/firewall-rules.md#inter-vlan-matrix</p>
+<p><strong>What:</strong> Each required inter-VLAN path in the proposed ruleset succeeds; each non-allowed path is denied.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>evidence/phase1/b3-inter-vlan-matrix.csv — 12 positive rows (allowed) all PASS, 6 negative rows (denied) all FAIL</code></li>
+</ul>
+<p><strong>Verification:</strong> nmap/nc from each source VLAN to each destination/port matches the matrix.</p>
+<hr>
+<h3 id="b4-mikrotik-untagged-vlan-45-ports-reviewed">B4: MikroTik untagged VLAN 45 ports reviewed</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Source:</strong> argus-phase1-diff.md observations</p>
+<p><strong>What:</strong> VLAN 45 (Management) has 4 untagged access ports (ether1, ether5, ether9, ether12). Confirm they are intentional, not legacy. Document the decision per port.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>mikrotik-state.json — /interface/bridge/vlan/print section</code></li>
+<li><code>evidence/phase1/b4-mikrotik-vlan-45-decision.md — per-port decision table</code></li>
+</ul>
+<p><strong>Verification:</strong> Each of the 4 ports is annotated as &ldquo;intentional management access&rdquo; or &ldquo;remove and reassign&rdquo;.</p>
+<hr>
+<h3 id="b5-mikrotik-legacy-bridge-ip-removed">B5: MikroTik legacy bridge IP removed</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Source:</strong> argus-phase1-diff.md observations</p>
+<p><strong>What:</strong> The 10.0.1.34/16 address on the MikroTik bridge is non-routable legacy config. Remove or reassign.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>mikrotik-state.json — /ip/address/print</code></li>
+<li><code>OPNsense API: confirm no host route for 10.0.1.0/16</code></li>
+</ul>
+<p><strong>Verification:</strong> <code>/ip/address/print</code> shows no 10.0.1.34/16 entry.</p>
+<hr>
+<h3 id="b6-hermes-read-only-users-created-on-opnsense--mikrotik">B6: Hermes read-only users created on OPNsense + MikroTik</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Source:</strong> Card 308 (Backlog)</p>
+<p><strong>What:</strong> A dedicated <code>hermes</code> user exists on each device with read-only/API-read permissions so future audits do not need temporary admin access.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>evidence/phase1/b6-hermes-users.md — creation steps + credentials location in OpenBao</code></li>
+</ul>
+<p><strong>Verification:</strong> Login as <code>hermes</code> to each device with the read-only API; confirm a write attempt is rejected with permission error.</p>
+<hr>
+<h3 id="b7-opnsense-live-log-shows-zero-unexpected-denies-over-7-days">B7: OPNsense live log shows zero unexpected denies over 7 days</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> B1, B2, B3<br>
+<strong>Source:</strong> planning/phase1/firewall-rules.md#evidence-required</p>
+<p><strong>What:</strong> After the new rules are live, watch the OPNsense live log for 7 days. Any &ldquo;default deny&rdquo; hit on the new ruleset indicates a missing rule or a service not yet documented.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>OPNsense API: GET /api/diagnostics/log/firewall?limit=... filtered by 7-day window</code></li>
+<li><code>evidence/phase1/b7-deny-analysis.md — table of every deny hit, root cause, rule added or marked-as-acceptable</code></li>
+</ul>
+<p><strong>Verification:</strong> Every deny hit in the 7-day window has a documented disposition in b7-deny-analysis.md.</p>
+<hr>
+<h2 id="c-wired-nac-mab">C. Wired NAC (MAB)</h2>
+<h3 id="c1-first-mikrotik-mab-protected-wired-port-profile-implemented">C1: First MikroTik MAB-protected wired port profile implemented</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> B1<br>
+<strong>Source:</strong> Card 222 (Backlog)</p>
+<p><strong>What:</strong> At least one MikroTik port uses MAB (MAC Authentication Bypass). The port authenticates devices via RADIUS fallback to VLAN assignment.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>MikroTik config snippet: /interface bridge port print, /radius configuration</code></li>
+<li><code>evidence/phase1/c1-mab-port-config.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Plug a test device into the chosen port; it lands in the expected VLAN within 30s. Disconnect/reconnect: re-auth succeeds.</p>
+<hr>
+<h3 id="c2-mab-connected-ports-are-demonstrably-constrained-by-firewall-policy">C2: MAB-connected ports are demonstrably constrained by firewall policy</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> C1, B3<br>
+<strong>Source:</strong> project-argus.md Phase 1 exit criteria</p>
+<p><strong>What:</strong> MAC checks alone are not trusted. Even on MAB-authenticated ports, OPNsense must restrict which subnets the port can reach.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>OPNsense ruleset snippet showing per-MAB-VLAN restrictions</code></li>
+<li><code>evidence/phase1/c2-mab-firewall-constraints.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Test device in MAB VLAN cannot reach a subnet it should not (e.g. Storage from a Guest MAB port).</p>
+<hr>
+<h2 id="d-wireless-radius--mpsk">D. Wireless (RADIUS / MPSK)</h2>
+<h3 id="d1-validate-wireless-ap-support-for-radius-driven-mpsk">D1: Validate wireless AP support for RADIUS-driven MPSK</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Source:</strong> Card 218 (To Do)</p>
+<p><strong>What:</strong> Confirm whether the current AP platform (Omada) supports the intended RADIUS-driven MPSK design. Record any limitations.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>evidence/phase1/d1-ap-radius-support.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Document records Omada controller version, RADIUS support, and any vendor quirks/fallbacks.</p>
+<hr>
+<h3 id="d2-first-radius-backed-wireless-authentication-path-validated">D2: First RADIUS-backed wireless authentication path validated</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> D1<br>
+<strong>Source:</strong> project-argus.md Phase 1 exit criteria / Card 219</p>
+<p><strong>What:</strong> At least one wireless client successfully authenticates via RADIUS and lands in the intended VLAN.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>RADIUS server log: 1 successful auth + VLAN assignment</code></li>
+<li><code>Client device: 1 wifi connection + 1 ip in expected VLAN</code></li>
+<li><code>evidence/phase1/d2-radius-wireless-test.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Test client gets an IP in the expected RADIUS-assigned VLAN within 30s of association.</p>
+<hr>
+<h2 id="e-pki--certificate-authority">E. PKI / Certificate Authority</h2>
+<h3 id="e1-certificate-authority-is-operational-for-the-first-intended-use-case">E1: Certificate authority is operational for the first intended use case</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Source:</strong> project-argus.md Phase 1 exit criteria / Card 225</p>
+<p><strong>What:</strong> Stand up the CA (OpenBao PKI or step-ca) and issue at least one certificate to a real service that uses it.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>CA cert chain (root + intermediate) in evidence/phase1/e1-ca-chain.pem</code></li>
+<li><code>Issued cert + service consuming it (e.g. Traefik dashboard, dbackup, or Infisical)</code></li>
+<li><code>evidence/phase1/e1-ca-first-use.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Service successfully serves HTTPS with a certificate issued by the new CA, verifiable via openssl s_client -showcerts.</p>
+<hr>
+<h2 id="f-audit--verification-automation">F. Audit &amp; Verification Automation</h2>
+<h3 id="f1-re-run-ansible-discover-network-flows-to-confirm-no-new-unexplained-ports">F1: Re-run ansible-discover-network-flows to confirm no new unexplained ports</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> B1, B7<br>
+<strong>Source:</strong> planning/phase1/firewall-rules.md#evidence-required</p>
+<p><strong>What:</strong> After Phase 1 firewall changes are live, re-run the discovery job. Diff the new artifacts against the baseline; any new port must have a documented owner.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>GitLab CI job URL: &lt;re-run&gt;</code></li>
+<li><code>evidence/phase1/f1-port-diff.md — table of new vs removed ports</code></li>
+</ul>
+<p><strong>Verification:</strong> Every new listening port in the post-cutover job has an entry in f1-port-diff.md explaining its purpose.</p>
+<hr>
+<h3 id="f2-opnsense-api-audit-job-flags-any-new-broad-rules-within-24h">F2: OPNsense API audit job flags any new broad rules within 24h</h3>
+<p><strong>Status:</strong> <code>PENDING</code><br>
+<strong>Depends on:</strong> B6<br>
+<strong>Source:</strong> planning/phase1/firewall-rules.md#next-steps</p>
+<p><strong>What:</strong> A scheduled job (cron + ansible) checks OPNsense for any rules matching &ldquo;any any&rdquo;, &ldquo;allow all&rdquo;, or &ldquo;temporary&rdquo; patterns. Alert via ntfy if found.</p>
+<p><strong>Evidence to capture:</strong></p>
+<ul>
+<li><code>Cron job config + last 7 days of &quot;clean&quot; runs</code></li>
+<li><code>evidence/phase1/f2-audit-job-config.md</code></li>
+</ul>
+<p><strong>Verification:</strong> A test that re-adds a broad rule is detected and reported within 24h.</p>
+<hr>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Total items: 18</li>
+<li>Complete: 4</li>
+<li>Pending: 14</li>
+<li>Blocked: 0</li>
+<li>Percent complete: 22.2%</li>
+</ul>
+<h2 id="tools--credentials-required">Tools &amp; Credentials Required</h2>
+<ul>
+<li>ansible-playbook (machines/ansible-playbooks)</li>
+<li>OPNsense REST API credentials (in OpenBao after Card 308)</li>
+<li>MikroTik API-SSL credentials (in OpenBao after Card 308)</li>
+<li>OpenBao or equivalent secret store for new credentials</li>
+</ul>
+<h2 id="remediation-workflow">Remediation Workflow</h2>
+<ol>
+<li>For each PENDING item: run the verification step, capture evidence under evidence/phase1/<!-- raw HTML omitted -->-*.{md,json,csv,pem,log}</li>
+<li>Update the item status to COMPLETE in this file once evidence is captured</li>
+<li>Re-run Section F audit jobs to confirm no regressions</li>
+<li>Once all items COMPLETE, raise the Phase 1 close-out MR with this checklist + evidence pack as the body</li>
+</ol>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/drafts/project-argus/planning/phase1/verification-checklist.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

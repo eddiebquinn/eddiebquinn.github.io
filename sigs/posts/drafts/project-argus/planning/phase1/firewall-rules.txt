@@ -1,0 +1,61 @@
+# Project Argus — Phase 1 Firewall Rules Planning
+
+**Card:** 217 — Replace broad inter-VLAN allow rules with documented policy  
+**Milestone:** Access & Segmentation  
+**Generated:** 2026-07-08T05:55:34.474694+00:00  
+**Source:** Live Pangolin Integration API resource list, network-flows CI artifacts, OPNsense filter rules
+
+## Required Port Aliases
+
+Create these BEFORE adding rules that reference them:
+- **TRUENAS_SVC**: 443, 445, 2049
+- **TRUENAS_NFS**: 443, 445, 2049, 3260
+- **TRUENAS_BACKUP**: 443, 445, 2049
+- **PANGOLIN_SVC**: 80, 443, 2283, 2424, 3737, 7476, 7878, 8082, 8086, 8087, 8096, 8384, 8989, 9119, 9120, 9696, 11000, 13378
+- **PANGOLIN_INFRA**: 443, 3000, 3050, 8080, 9000
+
+## Proposed Firewall Rules (27 rules)
+
+| # | Action | Iface | Dir | Proto | Source | Destination | Port | Description |
+|--:|--------|-------|-----|-------|--------|-------------|-----:|-------------|
+| 10 | pass | vlan07 | in | tcp | `10.67.60.0/24` | `10.67.40.25` | 443 | Endpoints HTTPS to Traefik |
+| 20 | pass | vlan07 | in | tcp | `10.67.60.0/24` | `10.67.20.24` | TRUENAS_SVC | Endpoints to TrueNAS web/SMB/NFS |
+| 30 | pass | vlan07 | in | tcp | `10.67.60.0/24` | `10.67.40.27` | 3000 | Endpoints to Grafana |
+| 40 | block | vlan07 | in | any | `10.67.60.0/24` | `10.67.45.0/24` | - | Endpoints block Management |
+| 50 | pass | vlan06 | in | any | `10.67.50.0/24` | `!RFC1918` | - | Guest internet only |
+| 60 | block | vlan06 | in | any | `10.67.50.0/24` | `RFC1918` | - | Guest block RFC1918 |
+| 70 | pass | vlan08 | in | any | `10.67.70.0/24` | `!RFC1918` | - | IoT internet only |
+| 80 | block | vlan08 | in | any | `10.67.70.0/24` | `RFC1918` | - | IoT block RFC1918 |
+| 90 | pass | vlan01 | in | tcp | `10.67.10.0/24` | `10.67.40.25` | 443 | Services HTTPS to Traefik |
+| 100 | pass | vlan01 | in | tcp | `10.67.10.0/24` | `10.67.20.24` | TRUENAS_NFS | Services to TrueNAS |
+| 110 | block | vlan01 | in | any | `10.67.10.0/24` | `10.67.45.0/24` | - | Services block Management |
+| 120 | block | vlan02 | in | any | `10.67.20.0/24` | `10.67.45.0/24` | - | Storage block Management |
+| 130 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.10.0/24` | PANGOLIN_SVC | DMZ to Services backends via Pangolin |
+| 140 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.40.0/24` | PANGOLIN_INFRA | DMZ to Infra backends via Pangolin |
+| 150 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.20.24` | 443 | DMZ to TrueNAS via Pangolin |
+| 160 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.45.1` | 443 | DMZ to OPNsense via Pangolin |
+| 170 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.45.2` | 80 | DMZ to MikroTik via Pangolin |
+| 180 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.45.26` | 443 | DMZ to PDU via Pangolin |
+| 190 | pass | vlan03 | in | tcp | `10.67.30.0/24` | `10.67.45.27` | 443 | DMZ to Proxmox via Pangolin |
+| 200 | block | vlan03 | in | any | `10.67.30.0/24` | `10.67.45.0/24` | - | DMZ block Management (except Pangolin backends) |
+| 210 | pass | vlan04 | in | tcp | `10.67.40.0/24` | `10.67.10.0/24` | 22,80,443,8080,9120 | Infra to Services for orchestration |
+| 220 | pass | vlan04 | in | tcp | `10.67.40.0/24` | `10.67.20.0/24` | TRUENAS_BACKUP | Infra to Storage for backup |
+| 230 | pass | vlan04 | in | tcp | `10.67.40.0/24` | `10.67.30.0/24` | 22,443 | Infra to DMZ for management |
+| 240 | pass | vlan04 | in | tcp | `10.67.40.0/24` | `10.67.45.0/24` | 22,443,8006,8729 | Infra to Management control plane |
+| 250 | block | vlan05 | in | any | `10.67.45.0/24` | `any` | - | Management is a sink |
+| 260 | block | vlan09 | in | any | `10.67.71.0/24` | `RFC1918` | - | ISPRouter block RFC1918 |
+| 270 | pass | vlan09 | in | any | `10.67.71.0/24` | `!RFC1918` | - | ISPRouter internet only |
+
+## What gets DELETED
+
+8 "Temporary allow all - migration" rules on internal interfaces.
+
+## Roll-out Sequence
+
+1. Backup current OPNsense ruleset
+2. Create all port aliases
+3. Add new rules with Log=Enabled on all interfaces
+4. Disable temp rules one at a time (Guest → IoT → Endpoints → ... → Management), 24-48h gap
+5. Delete all disabled temp rules after 7d stable
+6. Re-run ansible-discover-network-flows
+7. Monitor OPNsense live log for 7 days

@@ -1,0 +1,116 @@
+# Phase 1 Firewall Rule Implementation Log
+
+**Card 217** — Replace broad inter-VLAN allow rules with documented policy
+**Last updated:** 2026-07-08
+
+## Status at a glance
+
+| VLAN | Rules Applied | Temp Disabled | DHCP Fixed | Verified |
+|------|:------------:|:------------:|:----------:|:--------:|
+| WAN | ✅ (no new) | N/A | N/A | ✅ |
+| Endpoints (vlan07) | ✅ | ⬜ | N/A | ⬜ |
+| Guest (vlan06) | ✅ | ✅ | ✅ (1.1.1.1) | ✅ |
+| IoT (vlan08) | ✅ | ⬜ | ⬜ | ⬜ |
+| Services (vlan01) | ✅ | ⬜ | N/A | ⬜ |
+| Storage (vlan02) | ✅ | ⬜ | N/A | ⬜ |
+| DMZ (vlan03) | ✅ | ⬜ | N/A | ⬜ |
+| Infrastructure (vlan04) | ✅ | ⬜ | N/A | ⬜ |
+| Management (vlan05) | ✅ | ⬜ | N/A | ⬜ |
+| ISPRouter (vlan09) | ✅ | N/A | N/A | ⬜ |
+
+Tracking: Nextcloud Deck **Card 309** — Phase 1 staged temp rule removal
+
+---
+
+## Rules applied by interface
+
+### WAN
+No new rules. Existing Matrix HTTPS/Federation, Syncthing, and WireGuard rules are correct.
+
+### Endpoints (vlan07) — 4 rules
+- 140: pass TCP 10.67.60.0/24 -> 10.67.40.25:443 (Traefik)
+- 160: pass TCP 10.67.60.0/24 -> 10.67.20.24:TRUENAS_SVC (TrueNAS)
+- 170: pass TCP 10.67.60.0/24 -> 10.67.40.27:3000 (Grafana)
+- 180: block 10.67.60.0/24 -> 10.67.45.0/24 (Management)
+
+### Guest (vlan06) — 2 rules
+- 190: pass 10.67.50.0/24 -> !RFC1918 (internet only)
+- 200: block 10.67.50.0/24 -> RFC1918
+- DHCP DNS changed to 1.1.1.1, 1.0.0.1, 8.8.8.8
+- **Temp rule disabled ✅**
+
+### IoT (vlan08) — 2 rules
+- 210: pass 10.67.70.0/24 -> !RFC1918 (internet only)
+- 220: block 10.67.70.0/24 -> RFC1918
+- DHCP DNS needs to be changed to 1.1.1.1 (same as Guest)
+- Temp rule still active
+
+### Services (vlan01) — 3 rules
+- 240: pass TCP 10.67.10.0/24 -> 10.67.40.25:443 (Traefik)
+- 280: pass TCP 10.67.10.0/24 -> 10.67.20.24:TRUENAS_NFS (TrueNAS)
+- 290: block 10.67.10.0/24 -> 10.67.45.0/24
+
+### Storage (vlan02) — 1 rule
+- 310: block 10.67.20.0/24 -> 10.67.45.0/24
+
+### DMZ (vlan03) — 8 rules (from Pangolin Integration API)
+- 330: pass TCP 10.67.30.0/24 -> 10.67.10.0/24:PANGOLIN_SVC
+- 340: pass TCP 10.67.30.0/24 -> 10.67.40.0/24:PANGOLIN_INFRA
+- 350: pass TCP 10.67.30.0/24 -> 10.67.20.24:443 (TrueNAS)
+- 360: pass TCP 10.67.30.0/24 -> 10.67.45.1:443 (OPNsense)
+- 370: pass TCP 10.67.30.0/24 -> 10.67.45.2:80 (MikroTik)
+- 380: pass TCP 10.67.30.0/24 -> 10.67.45.26:443 (PDU)
+- 390: pass TCP 10.67.30.0/24 -> 10.67.45.27:443 (Proxmox)
+- 400: block 10.67.30.0/24 -> 10.67.45.0/24
+
+### Infrastructure (vlan04) — 4 rules
+- 370: pass TCP 10.67.40.0/24 -> 10.67.10.0/24:INFRA_TO_SERVICES
+- 380: pass TCP 10.67.40.0/24 -> 10.67.20.0/24:TRUENAS_SVC
+- 390: pass TCP 10.67.40.0/24 -> 10.67.30.0/24:INFRA_TO_DMZ
+- 400: pass TCP 10.67.40.0/24 -> 10.67.45.0/24:INFRA_TO_MGMT
+
+### Management (vlan05) — 1 rule
+- 410: block 10.67.45.0/24 -> any (sink)
+
+### ISPRouter (vlan09) — 2 rules
+- 420: block 10.67.81.0/24 -> RFC1918
+- 430: pass 10.67.81.0/24 -> !RFC1918
+
+---
+
+## Port aliases created
+
+- RFC1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
+- TRUENAS_SVC: 443, 445, 2049
+- TRUENAS_NFS: 443, 445, 2049, 3260
+- PANGOLIN_SVC: 80, 443, 2283, 2424, 3737, 7476, 7878, 8082, 8086, 8087, 8096, 8384, 8989, 9119, 9120, 9696, 11000, 13378
+- PANGOLIN_INFRA: 443, 3000, 3050, 8080, 9000
+- INFRA_TO_SERVICES: 22, 80, 443, 8080, 9120
+- INFRA_TO_DMZ: 22, 443
+- INFRA_TO_MGMT: 22, 443, 8006, 8729
+
+---
+
+## Design decisions
+
+- Guest + IoT use public DNS (1.1.1.1/8.8.8.8) via DHCP, not Unbound/Bind9
+- DNS exception rules not needed — same-subnet gateway IP resolves DNS at L2
+- DMZ -> Management has explicit per-service exceptions before blanket block (Pangolin proxies OPNsense/MikroTik/PDU/Proxmox)
+- Services -> Traefik (443) covers all app-level access; no per-service port rules needed
+- Pangolin Integration API data is the source of truth for DMZ backend rules (31 resources)
+
+---
+
+## Known issues (cleanup during Step 11)
+
+- Matrix HTTPS/Federation rules duplicated on DMZ
+- ISPRouter has per-RFC-range block rules duplicated by RFC1918 alias
+- Pangolin has 1 unhealthy target: Hermes (ai.eddiequinn.casa -> 10.67.10.25:9119)
+
+---
+
+## Artifacts
+
+- Plan: posts/drafts/project-argus/planning/phase1/firewall-rules.json
+- Checklist: posts/drafts/project-argus/planning/phase1/verification-checklist.json
+- MR: https://gitlab.eddiequinn.casa/my-blog/blog-posts/-/merge_requests/8

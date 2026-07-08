@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>eddiequinn.xyz</title>
+<meta name="description" content="Systems should be predictable. People rarely are.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
+<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
+
+
+
+
+
+
+
+
+
+
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><nav class="page__nav main-nav">
+    <ul>
+      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
+    
+    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1></h1>
+    </header>
+    <div class="content__body">
+        <h1 id="phase-1-firewall-rule-implementation-log">Phase 1 Firewall Rule Implementation Log</h1>
+<p><strong>Card 217</strong> — Replace broad inter-VLAN allow rules with documented policy
+<strong>Last updated:</strong> 2026-07-08</p>
+<h2 id="status-at-a-glance">Status at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th style="text-align:center">Rules Applied</th>
+<th style="text-align:center">Temp Disabled</th>
+<th style="text-align:center">DHCP Fixed</th>
+<th style="text-align:center">Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WAN</td>
+<td style="text-align:center">✅ (no new)</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td>Endpoints (vlan07)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>Guest (vlan06)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅ (1.1.1.1)</td>
+<td style="text-align:center">✅</td>
+</tr>
+<tr>
+<td>IoT (vlan08)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>Services (vlan01)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>Storage (vlan02)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>DMZ (vlan03)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>Infrastructure (vlan04)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>Management (vlan05)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">⬜</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+<tr>
+<td>ISPRouter (vlan09)</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">N/A</td>
+<td style="text-align:center">⬜</td>
+</tr>
+</tbody>
+</table>
+<p>Tracking: Nextcloud Deck <strong>Card 309</strong> — Phase 1 staged temp rule removal</p>
+<hr>
+<h2 id="rules-applied-by-interface">Rules applied by interface</h2>
+<h3 id="wan">WAN</h3>
+<p>No new rules. Existing Matrix HTTPS/Federation, Syncthing, and WireGuard rules are correct.</p>
+<h3 id="endpoints-vlan07--4-rules">Endpoints (vlan07) — 4 rules</h3>
+<ul>
+<li>140: pass TCP 10.67.60.0/24 -&gt; 10.67.40.25:443 (Traefik)</li>
+<li>160: pass TCP 10.67.60.0/24 -&gt; 10.67.20.24:TRUENAS_SVC (TrueNAS)</li>
+<li>170: pass TCP 10.67.60.0/24 -&gt; 10.67.40.27:3000 (Grafana)</li>
+<li>180: block 10.67.60.0/24 -&gt; 10.67.45.0/24 (Management)</li>
+</ul>
+<h3 id="guest-vlan06--2-rules">Guest (vlan06) — 2 rules</h3>
+<ul>
+<li>190: pass 10.67.50.0/24 -&gt; !RFC1918 (internet only)</li>
+<li>200: block 10.67.50.0/24 -&gt; RFC1918</li>
+<li>DHCP DNS changed to 1.1.1.1, 1.0.0.1, 8.8.8.8</li>
+<li><strong>Temp rule disabled ✅</strong></li>
+</ul>
+<h3 id="iot-vlan08--2-rules">IoT (vlan08) — 2 rules</h3>
+<ul>
+<li>210: pass 10.67.70.0/24 -&gt; !RFC1918 (internet only)</li>
+<li>220: block 10.67.70.0/24 -&gt; RFC1918</li>
+<li>DHCP DNS needs to be changed to 1.1.1.1 (same as Guest)</li>
+<li>Temp rule still active</li>
+</ul>
+<h3 id="services-vlan01--3-rules">Services (vlan01) — 3 rules</h3>
+<ul>
+<li>240: pass TCP 10.67.10.0/24 -&gt; 10.67.40.25:443 (Traefik)</li>
+<li>280: pass TCP 10.67.10.0/24 -&gt; 10.67.20.24:TRUENAS_NFS (TrueNAS)</li>
+<li>290: block 10.67.10.0/24 -&gt; 10.67.45.0/24</li>
+</ul>
+<h3 id="storage-vlan02--1-rule">Storage (vlan02) — 1 rule</h3>
+<ul>
+<li>310: block 10.67.20.0/24 -&gt; 10.67.45.0/24</li>
+</ul>
+<h3 id="dmz-vlan03--8-rules-from-pangolin-integration-api">DMZ (vlan03) — 8 rules (from Pangolin Integration API)</h3>
+<ul>
+<li>330: pass TCP 10.67.30.0/24 -&gt; 10.67.10.0/24:PANGOLIN_SVC</li>
+<li>340: pass TCP 10.67.30.0/24 -&gt; 10.67.40.0/24:PANGOLIN_INFRA</li>
+<li>350: pass TCP 10.67.30.0/24 -&gt; 10.67.20.24:443 (TrueNAS)</li>
+<li>360: pass TCP 10.67.30.0/24 -&gt; 10.67.45.1:443 (OPNsense)</li>
+<li>370: pass TCP 10.67.30.0/24 -&gt; 10.67.45.2:80 (MikroTik)</li>
+<li>380: pass TCP 10.67.30.0/24 -&gt; 10.67.45.26:443 (PDU)</li>
+<li>390: pass TCP 10.67.30.0/24 -&gt; 10.67.45.27:443 (Proxmox)</li>
+<li>400: block 10.67.30.0/24 -&gt; 10.67.45.0/24</li>
+</ul>
+<h3 id="infrastructure-vlan04--4-rules">Infrastructure (vlan04) — 4 rules</h3>
+<ul>
+<li>370: pass TCP 10.67.40.0/24 -&gt; 10.67.10.0/24:INFRA_TO_SERVICES</li>
+<li>380: pass TCP 10.67.40.0/24 -&gt; 10.67.20.0/24:TRUENAS_SVC</li>
+<li>390: pass TCP 10.67.40.0/24 -&gt; 10.67.30.0/24:INFRA_TO_DMZ</li>
+<li>400: pass TCP 10.67.40.0/24 -&gt; 10.67.45.0/24:INFRA_TO_MGMT</li>
+</ul>
+<h3 id="management-vlan05--1-rule">Management (vlan05) — 1 rule</h3>
+<ul>
+<li>410: block 10.67.45.0/24 -&gt; any (sink)</li>
+</ul>
+<h3 id="isprouter-vlan09--2-rules">ISPRouter (vlan09) — 2 rules</h3>
+<ul>
+<li>420: block 10.67.81.0/24 -&gt; RFC1918</li>
+<li>430: pass 10.67.81.0/24 -&gt; !RFC1918</li>
+</ul>
+<hr>
+<h2 id="port-aliases-created">Port aliases created</h2>
+<ul>
+<li>RFC1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16</li>
+<li>TRUENAS_SVC: 443, 445, 2049</li>
+<li>TRUENAS_NFS: 443, 445, 2049, 3260</li>
+<li>PANGOLIN_SVC: 80, 443, 2283, 2424, 3737, 7476, 7878, 8082, 8086, 8087, 8096, 8384, 8989, 9119, 9120, 9696, 11000, 13378</li>
+<li>PANGOLIN_INFRA: 443, 3000, 3050, 8080, 9000</li>
+<li>INFRA_TO_SERVICES: 22, 80, 443, 8080, 9120</li>
+<li>INFRA_TO_DMZ: 22, 443</li>
+<li>INFRA_TO_MGMT: 22, 443, 8006, 8729</li>
+</ul>
+<hr>
+<h2 id="design-decisions">Design decisions</h2>
+<ul>
+<li>Guest + IoT use public DNS (1.1.1.1/8.8.8.8) via DHCP, not Unbound/Bind9</li>
+<li>DNS exception rules not needed — same-subnet gateway IP resolves DNS at L2</li>
+<li>DMZ -&gt; Management has explicit per-service exceptions before blanket block (Pangolin proxies OPNsense/MikroTik/PDU/Proxmox)</li>
+<li>Services -&gt; Traefik (443) covers all app-level access; no per-service port rules needed</li>
+<li>Pangolin Integration API data is the source of truth for DMZ backend rules (31 resources)</li>
+</ul>
+<hr>
+<h2 id="known-issues-cleanup-during-step-11">Known issues (cleanup during Step 11)</h2>
+<ul>
+<li>Matrix HTTPS/Federation rules duplicated on DMZ</li>
+<li>ISPRouter has per-RFC-range block rules duplicated by RFC1918 alias</li>
+<li>Pangolin has 1 unhealthy target: Hermes (ai.eddiequinn.casa -&gt; 10.67.10.25:9119)</li>
+</ul>
+<hr>
+<h2 id="artifacts">Artifacts</h2>
+<ul>
+<li>Plan: posts/drafts/project-argus/planning/phase1/firewall-rules.json</li>
+<li>Checklist: posts/drafts/project-argus/planning/phase1/verification-checklist.json</li>
+<li>MR: <a href="https://gitlab.eddiequinn.casa/my-blog/blog-posts/-/merge_requests/8">https://gitlab.eddiequinn.casa/my-blog/blog-posts/-/merge_requests/8</a></li>
+</ul>
+
+        <hr>
+
+<strong>Verify this post</strong>
+<p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
+
+<pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
+curl -fsSL 'https://eddiequinn.xyz/sigs/posts/drafts/project-argus/evidence/phase1/implementation-log.txt' | gpg --verify</code></pre>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+    
+<h1 class="about__title">whoami</h1>
+<p class="about__description">Systems should be predictable. People rarely are.</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p>
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+    
+    
+      
+      
+          
+            
+            
+                <br/><span class="active"><b></b></span><br/>
+            
+          
+      
+    
+</p>
+<br /><br />
+<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
