@@ -1,6 +1,3 @@
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
-
 ## Executive Summary
 
 Project Blackwall was a ground-up network overhaul: replacing a flat, single-subnet 10.0.0.0/16 network with a fully segmented, zero-trust infrastructure built on MikroTik switching, a bare-metal OPNsense firewall, Bind9 split-horizon DNS, and Authentik identity management — all on second-hand enterprise hardware with a budget of approximately £750.
@@ -8,13 +5,15 @@ Project Blackwall was a ground-up network overhaul: replacing a flat, single-sub
 Named after the ICE barrier from the Cyberpunk universe, Blackwall serves as a literal digital wall: isolating network zones so that a compromise in one area cannot cascade into the rest of the infrastructure. The project represents not just a router upgrade but a complete architectural rethink of how traffic, trust, and identity interact within a homelab environment.
 
 **Key outcomes:**
-* 8 VLANs replacing a flat 10.0.0.0/16 network
-* Bare-metal OPNsense running on a Dell PowerEdge R330
-* MikroTik CRS328-24P-4S+RM as top-of-rack L2 switch with hardware offloaded forwarding
-* Bind9 split-horizon DNS with version-controlled plaintext zone files
-* Authentik SSO, OIDC, and RADIUS integration across the service stack
-* MPSK WiFi with per-SSID VLAN assignment via TP-Link Omada EAP
-* Comprehensive post-mortem published as a candid blog post
+- 8 VLANs replacing a flat 10.0.0.0/16 network
+- Bare-metal OPNsense running on a Dell PowerEdge R330
+- MikroTik CRS328-24P-4S+RM as top-of-rack L2 switch with hardware offloaded forwarding
+- Bind9 split-horizon DNS with version-controlled plaintext zone files
+- Authentik SSO, OIDC, and RADIUS integration across the service stack
+- MPSK WiFi with per-SSID VLAN assignment via TP-Link Omada EAP
+- Comprehensive post-mortem published as a candid blog post
+
+---
 
 ## Architecture
 
@@ -67,10 +66,10 @@ Purchased with a budget of approximately £750:
 ### Wireless Architecture
 
 WiFi is handled by a TP-Link Omada WiFi 7 access point with MPSK (Multiple Pre-Shared Key), allowing multiple SSIDs mapped to different VLANs from a single AP:
-* **Primary SSID** — Endpoints VLAN (60)
-* **Guest SSID** — Guest VLAN (50)
-* **IoT SSID** — IoT VLAN (70)
-* **Management SSID** — Management VLAN (45, emergency out-of-band access)
+- **Primary SSID** — Endpoints VLAN (60)
+- **Guest SSID** — Guest VLAN (50)
+- **IoT SSID** — IoT VLAN (70)
+- **Management SSID** — Management VLAN (45, emergency out-of-band access)
 
 ### DNS Architecture
 
@@ -79,10 +78,12 @@ Bind9 was chosen over graphical DNS management tools (AdGuard, Pi-hole) for its 
 ### Identity and Authentication
 
 Authentik provides centralised identity management with:
-* **OIDC/OAuth2** — SSO for web applications (Grafana, Jellyfin, etc.)
-* **RADIUS** — network-level authentication
-* **LDAP outpost** — legacy protocol support for non-SSO-capable services
-* **Forward auth via Traefik** — per-application authentication for anything lacking native OIDC
+- **OIDC/OAuth2** — SSO for web applications (Grafana, Jellyfin, etc.)
+- **RADIUS** — network-level authentication
+- **LDAP outpost** — legacy protocol support for non-SSO-capable services
+- **Forward auth via Traefik** — per-application authentication for anything lacking native OIDC
+
+---
 
 ## Implementation
 
@@ -107,10 +108,10 @@ Existing infrastructure was migrated from the flat 10.0.0.0/16 network onto the 
 ### Step 5 — Firewall Policy
 
 OPNsense firewall rules were designed from first principles:
-* **Default deny** — no inter-VLAN traffic permitted unless explicitly allowed
-* **Least privilege** — each rule grants only the specific protocol and destination required
-* **Egress-only for untrusted zones** — Guest and IoT VLANs have internet access only
-* **Management isolation** — VLAN 45 is a sink; no outbound traffic initiated from Management is permitted
+- **Default deny** — no inter-VLAN traffic permitted unless explicitly allowed
+- **Least privilege** — each rule grants only the specific protocol and destination required
+- **Egress-only for untrusted zones** — Guest and IoT VLANs have internet access only
+- **Management isolation** — VLAN 45 is a sink; no outbound traffic initiated from Management is permitted
 
 ### Step 6 — Bind9 DNS
 
@@ -119,6 +120,8 @@ Bind9 was configured for split-horizon DNS with direct zone files managed via Gi
 ### Step 7 — Authentik and Service Integration
 
 Authentik was deployed as a Docker container on the Infrastructure VLAN. Initial integrations included Grafana (smooth OIDC flow), Jellyfin (required a scheme override for redirect URI), and Traefik forward auth. The integration work continues as a background task across the remaining service stack.
+
+---
 
 ## Challenges and Lessons
 
@@ -138,6 +141,8 @@ Physical rack layout was designed with future expansion in mind: two WAN connect
 
 Moving to split-horizon DNS broke every Pangolin resource using domain names as targets. A full audit and manual update of Pangolin resources was required. The lesson: when changing the DNS architecture, expect all reverse proxy configurations that reference DNS names to need updating.
 
+---
+
 ## Conclusion
 
 Project Blackwall successfully transformed a flat home network into a segmented, zero-trust infrastructure on a sub-£1000 budget using second-hand enterprise hardware and open-source software. The network has been stable since deployment with no segmentation-related incidents.
@@ -145,10 +150,3 @@ Project Blackwall successfully transformed a flat home network into a segmented,
 The project demonstrates that enterprise-grade network design principles are achievable at homelab scale when design decisions are driven by understanding rather than vendor convenience. The explicit policy model — default deny with least-privilege allowances — provides a foundation that can be audited, documented, and reasoned about.
 
 Remaining work identified during Blackwall is being addressed in Project Argus: replacing the remaining broad "allow all" migration rules with explicit policies, adding network flow monitoring, detection engineering, and formalised change management.
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCalDUzwAKCRBy4AiZROfD
-Z3DCAQDNn+ZPw76ojNos5mJMFqG6ZrfePeW2zTDzDiufmvNsgAEAsUzr1mQ6rXEZ
-ujDm3VlHLd4CDmxTRqtgUgPBlz4Ligk=
-=lUvs
------END PGP SIGNATURE-----

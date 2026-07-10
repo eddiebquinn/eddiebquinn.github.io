@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Blackwall — Network Segmentation</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project Blackwall — Network Segmentation | eddiequinn.xyz</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/whitepaper.css" />
+  </head>
 
-<div class="neofetch-container">
-  <a href="/" class="neofetch-logo">//</a>
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">home</a></li>
+      
+      <li><a href="/posts/">posts</a></li>
+      
+      <li><a href="/projects/">projects</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
 
-  <div class="neofetch-info">
-    <div class="neofetch-title"><span class="user">guest</span>@<span class="host">eddiequinn.xyz</span></div>
-    <div class="neofetch-separator">-----------------</div>
-    <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
+    <div class="article-meta">
+    <h1><span class="title">Project Blackwall — Network Segmentation</span></h1>
     
-    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
-    <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
-  </div>
-</div>
+    <p class="date">July 10, 2026</p>
+    </div>
+
     <main>
-        
-<div class="bat-shell">
-<span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">ls project blackwall — network segmentation/</span></span>
-<div class="bat-rule"></div>
-  File: Project Blackwall — Network Segmentation/
-<div class="bat-rule"></div>
-<div class="post-content">
-<h2 id="executive-summary">Executive Summary</h2>
+    <h2 id="executive-summary">Executive Summary</h2>
 <p>Project Blackwall was a ground-up network overhaul: replacing a flat, single-subnet 10.0.0.0/16 network with a fully segmented, zero-trust infrastructure built on MikroTik switching, a bare-metal OPNsense firewall, Bind9 split-horizon DNS, and Authentik identity management — all on second-hand enterprise hardware with a budget of approximately £750.</p>
 <p>Named after the ICE barrier from the Cyberpunk universe, Blackwall serves as a literal digital wall: isolating network zones so that a compromise in one area cannot cascade into the rest of the infrastructure. The project represents not just a router upgrade but a complete architectural rethink of how traffic, trust, and identity interact within a homelab environment.</p>
 <p><strong>Key outcomes:</strong></p>
@@ -41,6 +42,7 @@
 <li>MPSK WiFi with per-SSID VLAN assignment via TP-Link Omada EAP</li>
 <li>Comprehensive post-mortem published as a candid blog post</li>
 </ul>
+<hr>
 <h2 id="architecture">Architecture</h2>
 <h3 id="design-philosophy">Design Philosophy</h3>
 <p>The network is designed around the principle that on a long enough timeline, all systems can and will be compromised. Rather than building a single perimeter and hoping it holds, Blackwall assumes breach and ensures compromise has boundaries. Each VLAN represents a distinct trust boundary with its own traffic role, and inter-VLAN traffic is governed by explicit allow/deny rules at the OPNsense firewall.</p>
@@ -192,6 +194,7 @@
 <li><strong>LDAP outpost</strong> — legacy protocol support for non-SSO-capable services</li>
 <li><strong>Forward auth via Traefik</strong> — per-application authentication for anything lacking native OIDC</li>
 </ul>
+<hr>
 <h2 id="implementation">Implementation</h2>
 <p>The project was executed in seven steps, each building on the previous:</p>
 <h3 id="step-1--switch-retirement-and-rack-planning">Step 1 — Switch Retirement and Rack Planning</h3>
@@ -214,6 +217,7 @@
 <p>Bind9 was configured for split-horizon DNS with direct zone files managed via GitOps. Internal zones (<code>*.local.eddiequinn.casa</code>) resolve to private IPs; external queries are forwarded to public resolvers. The split-horizon setup required updating every Pangolin reverse proxy resource from domain-name targets to direct IP addresses.</p>
 <h3 id="step-7--authentik-and-service-integration">Step 7 — Authentik and Service Integration</h3>
 <p>Authentik was deployed as a Docker container on the Infrastructure VLAN. Initial integrations included Grafana (smooth OIDC flow), Jellyfin (required a scheme override for redirect URI), and Traefik forward auth. The integration work continues as a background task across the remaining service stack.</p>
+<hr>
 <h2 id="challenges-and-lessons">Challenges and Lessons</h2>
 <h3 id="the-mikrotik-learning-curve">The MikroTik Learning Curve</h3>
 <p>MikroTik&rsquo;s RouterOS has a unique resource model that distinguishes between the L2 switch chip (hardware offloaded) and the CPU-driven bridge. Misconfiguring a port&rsquo;s VLAN mode can silently drop all tagged traffic. A methodical, single-port-at-a-time testing approach was essential.</p>
@@ -223,19 +227,16 @@
 <p>Physical rack layout was designed with future expansion in mind: two WAN connections, two routers, and two core switches. By placing the router at U15 and the switch at U20, existing equipment could remain in place without re-racking during the migration.</p>
 <h3 id="dns-migration-surprises">DNS Migration Surprises</h3>
 <p>Moving to split-horizon DNS broke every Pangolin resource using domain names as targets. A full audit and manual update of Pangolin resources was required. The lesson: when changing the DNS architecture, expect all reverse proxy configurations that reference DNS names to need updating.</p>
+<hr>
 <h2 id="conclusion">Conclusion</h2>
 <p>Project Blackwall successfully transformed a flat home network into a segmented, zero-trust infrastructure on a sub-£1000 budget using second-hand enterprise hardware and open-source software. The network has been stable since deployment with no segmentation-related incidents.</p>
 <p>The project demonstrates that enterprise-grade network design principles are achievable at homelab scale when design decisions are driven by understanding rather than vendor convenience. The explicit policy model — default deny with least-privilege allowances — provides a foundation that can be audited, documented, and reasoned about.</p>
 <p>Remaining work identified during Blackwall is being addressed in Project Argus: replacing the remaining broad &ldquo;allow all&rdquo; migration rules with explicit policies, adding network flow monitoring, detection engineering, and formalised change management.</p>
 
-</div>
-<div class="bat-rule"></div><div class="bat-rule"></div>
-</div>
-
     </main>
-<div class="disclaimer">
-Any and all opinions listed here are my own and are not representative
- of any of my employers, past, future, and/or present
-</div>
-</body>
+
+    <footer>
+    
+    </footer>
+  </body>
 </html>

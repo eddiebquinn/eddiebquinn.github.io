@@ -16,7 +16,7 @@
     <div class="neofetch-separator">-----------------</div>
     <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
     
-    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
+    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/">~/home</a> <a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
     <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
   </div>
 </div>
@@ -275,7 +275,7 @@
 </ul>
 <h2 id="remediation-workflow">Remediation Workflow</h2>
 <ol>
-<li>For each PENDING item: run the verification step, capture evidence under evidence/phase1/<!-- raw HTML omitted -->-*.{md,json,csv,pem,log}</li>
+<li>For each PENDING item: run the verification step, capture evidence under evidence/phase1/<id>-*.{md,json,csv,pem,log}</li>
 <li>Update the item status to COMPLETE in this file once evidence is captured</li>
 <li>Re-run Section F audit jobs to confirm no regressions</li>
 <li>Once all items COMPLETE, raise the Phase 1 close-out MR with this checklist + evidence pack as the body</li>

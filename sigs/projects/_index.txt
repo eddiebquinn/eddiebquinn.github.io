@@ -1,39 +1,28 @@
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
-
 ## Project Blackwall
 
 A ground-up network overhaul from a flat 10.0.0.0/16 network to a fully segmented, zero-trust infrastructure. Eight VLANs, MikroTik switching, a bare-metal OPNsense "outer ICE", split-horizon DNS with Bind9, and Authentik as a centralised identity plane — built on a £750 budget with second-hand enterprise hardware.
 
-* **Scope:** VLAN micro-segmentation, OPNsense routing/firewall, MikroTik L2 switching, MPSK WiFi, Bind9 split-horizon DNS, Authentik SSO/RADIUS
-* **Timeline:** 2025–2026
-* **Stack:** OPNsense, MikroTik CRS328, TP-Link Omada, Bind9, Authentik, Dell PowerEdge R330/R730xd
-* **Budget:** ~£750
+- **Scope:** VLAN micro-segmentation, OPNsense routing/firewall, MikroTik L2 switching, MPSK WiFi, Bind9 split-horizon DNS, Authentik SSO/RADIUS
+- **Timeline:** 2025–2026
+- **Stack:** OPNsense, MikroTik CRS328, TP-Link Omada, Bind9, Authentik, Dell PowerEdge R330/R730xd
+- **Budget:** ~£750
 
 [<a href="/posts/2026/june/project-blackwall/">writeup</a>]  [<a href="/projects/blackwall/">whitepaper</a>]
 
-- ---
+---
 
 ## Project Argus
 
 A multi-phase access segmentation, detection, and response programme. Follows Project Blackwall with 6 planned phases: tightening inter-VLAN firewall rules, identity and secrets management, network visibility, detection engineering with Sigma and Atomic Red Team validation, automated orchestration via Tracecat, and ongoing deception and compliance hardening. Defined by a set of design principles: automation over manual toil, version-controlled infrastructure, documentation as a first-class output.
 
-* **Scope:** Firewall rule migration, Authentik RADIUS/SSO/PKI, OpenBao secrets, NetFlow/Suricata visibility, Wazuh SIEM, Sigma/ART detection, Tracecat SOAR, Canarytokens/OpenSCAP hardening
-* **Timeline:** 2026 (ongoing — Phase 1 in progress)
-* **Stack:** OPNsense, Authentik, OpenBao, Wazuh, Suricata, Tracecat, MikroTik, Ansible, GitLab CI
+- **Scope:** Firewall rule migration, Authentik RADIUS/SSO/PKI, OpenBao secrets, NetFlow/Suricata visibility, Wazuh SIEM, Sigma/ART detection, Tracecat SOAR, Canarytokens/OpenSCAP hardening
+- **Timeline:** 2026 (ongoing — Phase 1 in progress)
+- **Stack:** OPNsense, Authentik, OpenBao, Wazuh, Suricata, Tracecat, MikroTik, Ansible, GitLab CI
 
-- ---
+---
 
 ## The 642 Project
 
 A creative writing challenge: 642 prompts, 1000+ words each, totalling over 642,000 words. Because sometimes the unreasonable choice is the right one.
 
 [<a href="/projects/642-project/">project page</a>]
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCalDT8gAKCRBy4AiZROfD
-Z9DWAQC5a03sIYTkrUEzPkc7+HuTs88zoQEd/U4XUPuod9dEOgD+JkdeMMScKc5J
-9RW/fxAcJWjrcL5vmthDm4z3lS5yMwM=
-=1dL0
------END PGP SIGNATURE-----

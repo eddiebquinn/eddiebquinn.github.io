@@ -1,0 +1,112 @@
+/* Whitepaper styles — clean document layout for project pages */
+/* Inspired by Hugo XMin, adapted for dark-themed site */
+
+nav { margin-bottom: 1em; }
+.menu { padding: 0; text-align: center; }
+.menu li { display: inline-block; list-style: none; margin: 0 2px; }
+.menu a {
+  text-decoration: none;
+  background: #2a2a2a;
+  color: #c9d1d9;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.menu a:hover { background: #3a3a3a; }
+
+.article-meta {
+  text-align: center;
+  margin: 2em 0 1.5em;
+}
+.article-meta h1 {
+  font-size: 1.8em;
+  margin-bottom: 0.3em;
+}
+.article-meta .author {
+  font-size: 1em;
+  color: #8b949e;
+  font-weight: normal;
+  margin: 0.3em 0;
+}
+.article-meta .date {
+  color: #8b949e;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+main {
+  hyphens: auto;
+  max-width: 780px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+main h1 { font-size: 1.5em; margin: 1.5em 0 0.5em; border-bottom: 1px solid #333; padding-bottom: 0.3em; }
+main h2 { font-size: 1.3em; margin: 1.5em 0 0.5em; border-bottom: 1px solid #333; padding-bottom: 0.2em; }
+main h3 { font-size: 1.15em; margin: 1.3em 0 0.4em; }
+main h4 { font-size: 1.05em; margin: 1.2em 0 0.3em; }
+
+main p { margin: 0.8em 0; }
+
+main a { color: #58a6ff; }
+main a:hover { text-decoration: underline; }
+
+main hr {
+  border: none;
+  border-top: 1px dashed #444;
+  margin: 2em 0;
+}
+
+main pre {
+  border: 1px solid #444;
+  background: #161b22;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 6px;
+}
+main code {
+  background: #2a2a2a;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+main pre code { background: none; padding: 0; }
+
+main blockquote {
+  background: #161b22;
+  border-left: 4px solid #30363d;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  border-radius: 0 6px 6px 0;
+}
+
+main table {
+  margin: 1.5em auto;
+  border-collapse: collapse;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+}
+main table thead th { border-bottom: 1px solid #444; padding: 6px 10px; }
+main th, main td { padding: 6px 10px; border: none; }
+main thead, main tfoot, main tr:nth-child(even) { background: #161b22; }
+
+main img, main iframe, main video { max-width: 100%; display: block; margin: 1em auto; }
+main ul, main ol { margin: 0.5em 0; padding-left: 1.5em; }
+main li { margin: 0.3em 0; }
+
+footer {
+  text-align: center;
+  color: #8b949e;
+  font-size: 0.85em;
+  margin-top: 3em;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+footer a { color: #58a6ff; text-decoration: none; }
+footer hr {
+  border: none;
+  border-top: 1px dashed #444;
+  margin: 2em 0 1em;
+}
