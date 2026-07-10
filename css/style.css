@@ -1,0 +1,425 @@
+/* Base Terminal Environment */
+:root {
+  --bg-color: #0d0d0d; 
+  --text-main: #c8c8c8; 
+  --accent-sage: #8BB6A2; 
+  --neon-blue: #00D4FF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 3rem 2rem 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: var(--accent-sage);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+  color: var(--accent-sage);
+  font-weight: bold;
+}
+
+/* Neofetch Layout */
+.neofetch-container {
+  display: flex;
+  align-items: center; 
+  gap: 2.5rem; 
+  margin-bottom: 2rem;
+}
+
+.neofetch-logo {
+  color: var(--neon-blue);
+  font-size: 8.5rem; 
+  font-weight: 900; 
+  line-height: 1;
+  letter-spacing: -0.2rem; 
+}
+
+.neofetch-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+}
+
+.neofetch-title .user, 
+.neofetch-title .host,
+.neofetch-stat .key {
+  color: var(--neon-blue);
+  font-weight: bold;
+}
+
+.neofetch-separator {
+  color: #45475a; 
+  margin-bottom: 0.5rem;
+}
+
+.neofetch-stat {
+  display: flex;
+}
+
+.neofetch-stat .key {
+  width: 85px; 
+}
+
+/* Prompt Layout */
+.terminal-prompt {
+  line-height: 1.5;
+  margin-bottom: 2.5rem; 
+}
+
+.terminal-prompt .prompt-user {
+  color: var(--accent-sage);
+  font-weight: bold;
+}
+
+.terminal-prompt .prompt-dir {
+  color: var(--text-main);
+}
+
+/* Prompt output (cat blog_info.md) */
+.prompt-output {
+  color: var(--text-main);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+
+
+
+
+.bat-shell {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
+.bat-rule {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: block;
+  height: 1em;
+}
+
+.bat-rule::before {
+  content: '────────────────────────────────────────────────────────────────────────────────────────────────────';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #6c7086;
+  line-height: 1.5;
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Disclaimer */
+.disclaimer {
+  color: #45475a;
+  font-size: 0.8rem;
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #45475a;
+  line-height: 1.4;
+}
+
+/* Bat-style Output */
+
+
+
+.bat-prompt {
+  color: var(--neon-blue);
+}
+
+.prompt-cmd {
+  color: #45475a;
+}
+
+.bat-frame {
+  color: #45475a;
+  display: block;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.bat-content {
+  color: var(--text-main);
+  display: block;
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+.bat-content h2 {
+  color: var(--accent-sage);
+  font-weight: bold;
+  margin: 1rem 0 0.25rem;
+}
+
+.bat-content h3 {
+  color: var(--accent-sage);
+  font-weight: bold;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.bat-content p {
+  margin: 0 0 0.5rem;
+}
+
+.bat-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 0.5rem;
+}
+
+.bat-content li {
+  margin: 0;
+}
+
+.bat-content a {
+  color: var(--accent-sage);
+}
+
+
+.neofetch-stat .value a {
+  color: var(--neon-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.neofetch-stat .value a:hover {
+  color: var(--accent-sage);
+}
+
+.neofetch-motto {
+  color: var(--accent-sage);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+.bat-file {
+  color: var(--text-main);
+  display: block;
+  margin: 0;
+  line-height: 1.5;
+  padding: 0.25rem 0;
+}
+
+
+
+
+
+.prompt-cmd a {
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.prompt-cmd a:hover {
+  color: var(--neon-blue);
+  text-decoration: underline;
+}
+
+.tree-output {
+  color: var(--text-main);
+  line-height: 1.2;
+  margin: 0;
+  padding: 0.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre;
+  font-size: 0.95rem;
+}
+
+.tree-output a.tree-link {
+  color: var(--neon-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tree-output a.tree-link:hover {
+  color: var(--accent-sage);
+}
+
+.tree-output a.tree-link {
+  color: var(--neon-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tree-output a.tree-link:hover {
+  color: var(--accent-sage);
+}
+/* md-render.html output — markdown-as-text inside cat <slug>.md frame */
+.md-rendered .md-source {
+  display: block;
+  color: var(--text-main);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.md-rendered .md-code-block {
+  display: block;
+  background: #1e1e2e;
+  color: #f8f8f2;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  border-left: 3px solid var(--neon-blue);
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.md-rendered .md-code-block pre.chroma {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  white-space: pre;
+}
+
+.md-rendered .md-code-block code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* spacing between two source blocks split by a code block */
+.md-rendered .md-source + .md-code-block { margin-top: 0.5rem; }
+.md-rendered .md-code-block + .md-source { margin-top: 0.5rem; display: block; }
+
+
+/* post-content — the rendered HTML body of a post (when shellfetch renders
+   .Content instead of md-render.html). Sized to fit inside the bat-shell frame. */
+.post-content {
+  color: var(--text-main);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0;
+}
+.post-content h1, .post-content h2, .post-content h3, .post-content h4 {
+  color: var(--accent-sage);
+  font-weight: bold;
+  margin: 0.85rem 0 0.4rem;
+}
+.post-content h2 { font-size: 1.2rem; border-bottom: 1px solid #313244; padding-bottom: 0.25rem; }
+.post-content h3 { font-size: 1.05rem; }
+.post-content p { margin: 0 0 0.75rem; }
+.post-content > p:first-child { margin-top: 0; }
+.post-content ul, .post-content ol { margin: 0 0 0.5rem 0.5rem; padding-left: 1.5rem; }
+.post-content li { margin: 0 0 0.35rem; }
+.post-content li > p { margin: 0; }
+.post-content li > p + p { margin-top: 0.5rem; }
+/* The "VLAN list" / bullet-diagonal case: <li> directly contains a single <p>.
+   Render the <li> as a flex container with a custom ::before bullet so the
+   marker is vertically centered with the first line of text. This is the
+   ONLY case where we need the flex treatment; all other lists have plain
+   text or mixed structure (bold + text + <br>) and must keep the default
+   list-item rendering or they'll squish.
+
+   Background: with `display: list-item` on the <li> and `display: block` on
+   the inner <p>, the bullet marker hangs in the <li>'s line-box but the
+   <p> opens a new block-formatting context at the same left edge - the
+   bullet appears at the top-left of the item with the first word on a line
+   below it (the "diagonal" look), and there's an extra ~25px (one
+   line-height) of vertical space inside every list item. */
+.post-content li:has(> p:only-child) { display: flex; align-items: flex-start; gap: 0.5rem; }
+.post-content li:has(> p:only-child)::before { content: '\2022'; color: var(--accent-sage); flex: 0 0 auto; margin-top: 0.4em; line-height: 1; }
+.post-content li:has(> p:only-child) > p { display: block; margin: 0; flex: 1 1 auto; }
+.post-content a {
+  color: var(--neon-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.post-content a:hover { color: var(--accent-sage); }
+.post-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.75rem 0;
+  border-radius: 4px;
+}
+.post-content code {
+  background: #1e1e2e;
+  color: var(--accent-sage);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.post-content pre {
+  background: #1e1e2e;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0.5rem 0 0.85rem;
+  border-left: 3px solid var(--neon-blue);
+}
+.post-content pre code { background: transparent; color: var(--text-main); padding: 0; }
+/* Also style <pre> blocks outside .post-content (e.g. the verify-this-post
+   footer inside .bat-shell). Same code-block look for consistency. */
+.bat-shell pre {
+  background: #1e1e2e;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0.5rem 0 0.85rem;
+  border-left: 3px solid var(--neon-blue);
+}
+.bat-shell pre code { background: transparent; color: var(--text-main); padding: 0; }
+.post-content blockquote {
+  border-left: 3px solid var(--accent-sage);
+  padding-left: 1rem;
+  margin: 0.5rem 0 0.85rem;
+  color: #a6adc8;
+  font-style: italic;
+}
+.post-content hr {
+  border: 0;
+  border-top: 1px dashed #313244;
+  margin: 0.75rem 0 0.25rem;
+  opacity: 0.5;
+}

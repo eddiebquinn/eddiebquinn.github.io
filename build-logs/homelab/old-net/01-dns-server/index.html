@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head><title>01 - DNS Server &ndash; eddiequinn.xyz</title>
-<meta name="description" content="Systems should be predictable. People rarely are.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8"/>
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
-
-
-
-
-
-
-
-
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - DNS Server</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+<body>
 
-    <body>
-        <div class="page">
+<div class="neofetch-container">
+  <a href="/" class="neofetch-logo">//</a>
 
-            <header class="page__header"><nav class="page__nav main-nav">
-    <ul>
-      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+  <div class="neofetch-info">
+    <div class="neofetch-title"><span class="user">guest</span>@<span class="host">eddiequinn.xyz</span></div>
+    <div class="neofetch-separator">-----------------</div>
+    <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
     
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
-    
-    </ul>
-</nav>
+    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
+    <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
+  </div>
+</div>
+    <main>
+        
+<div class="bat-shell">
+<span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">cat 01-dns-server.md</span></span>
+<div class="bat-rule"></div>
+  File: 01 - DNS Server.md (07-11-2023)
+<div class="bat-rule"></div>
 
-</header>
 
-            <section class="page__body">
-    <header class="content__header">
-        <h1>01 - DNS Server</h1>
-    </header>
-    <div class="content__body">
-        <p>I had heard about <a href="https://pi-hole.net/">Pi-Hole</a> years ago on a Linus Tech Tips video about it (<a href="https://www.youtube.com/watch?v=KBXTnrD_Zs4">click here</a>). Since that point I have wanted to implement it, however, my first attempt miserably failed.</p>
+<div class="post-content">
+<p>I had heard about <a href="https://pi-hole.net/">Pi-Hole</a> years ago on a Linus Tech Tips video about it (<a href="https://www.youtube.com/watch?v=KBXTnrD_Zs4">click here</a>). Since that point I have wanted to implement it, however, my first attempt miserably failed.</p>
 <p>I want to take this moment to say that BT is a terrible ISP, and if you are able to leave it then you should. Their provided routers are locked down to a degree that Apple would the zealous of, and their predatory business model is that of &ldquo;keep upselling vulnerable customers things they don&rsquo;t need, so if they ever do want to leave they would have to give up all the add ons&rdquo;. The original issue stemmed from the fact that their provided router does not allow you to set a custom DNS server, and this was fairly easily fixed just by buying 3rd party router (currently I use the TP-Link AX5400). The next issue comes from the fact that BT does not allow you to put their router into bridge mode, so currently, my new router is plugged into their router, which is plugged into the demarcation port on the wall. This does not present an issue currently, but I know it will when it comes to when I want to set up wireguard (I&rsquo;ll explain why in that section).</p>
 <p>PiHole is a network-wide ad blocker, and it does this through the power of DNS. DNS is a name resolution process that converts IPs to domain names, and it is both simple and complicated at the same time. Without getting into the rigmoral of root domains and top-level domains, the process of resolving an IP is as follows.</p>
 <ol>
@@ -71,7 +49,8 @@
 <li>In future, especially once I get a K3S cluster going, there is a way to make a high-availability PiHole instance. Something to bear in mind if the time ever comes</li>
 </ul>
 
-        <hr>
+</div>
+<hr>
 
 <strong>Verify this post</strong>
 <p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
@@ -79,90 +58,13 @@
 <pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
 curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/homelab/old-net/01-dns-server.txt' | gpg --verify</code></pre>
 
-    </div>
-    <footer class="content__footer"></footer>
-
-            </section>
-
-            <section class="page__aside">
-                <div class="aside__about">
-<div class="aside__about">
-    
-    
-<h1 class="about__title">whoami</h1>
-<p class="about__description">Systems should be predictable. People rarely are.</p>
+<div class="bat-rule"></div>
 </div>
 
-
-<ul class="aside__social-links">
-    
-    <li>
-        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-</ul>
+    </main>
+<div class="disclaimer">
+Any and all opinions listed here are my own and are not representative
+ of any of my employers, past, future, and/or present
 </div>
-                <hr>
-                <div class="aside__content">
-    
-    
-        <p>
-            
-            2023-11-07
-        </p>
-    
-
-    
-
-                </div>
-            </section>
-
-            <footer class="page__footer"><p>
-    
-    
-    
-    
-    
-    
-      
-    
-      
-    
-    
-    
-      
-      
-          
-            
-            
-                <br/><span class="active"><b></b></span><br/>
-            
-          
-      
-    
-</p>
-<br /><br />
-<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
-<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
-</footer>
-
-        </div>
-    </body>
-
+</body>
 </html>

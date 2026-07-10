@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head><title>Nixos and K3S &ndash; eddiequinn.xyz</title>
-<meta name="description" content="Systems should be predictable. People rarely are.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8"/>
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
-
-
-
-
-
-
-
-
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nixos and K3S</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+<body>
 
-    <body>
-        <div class="page">
+<div class="neofetch-container">
+  <a href="/" class="neofetch-logo">//</a>
 
-            <header class="page__header"><nav class="page__nav main-nav">
-    <ul>
-      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+  <div class="neofetch-info">
+    <div class="neofetch-title"><span class="user">guest</span>@<span class="host">eddiequinn.xyz</span></div>
+    <div class="neofetch-separator">-----------------</div>
+    <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
     
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
-    
-    </ul>
-</nav>
+    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
+    <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
+  </div>
+</div>
+    <main>
+        
+<div class="bat-shell">
+<span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">cat nixos-and-k3s.md</span></span>
+<div class="bat-rule"></div>
+  File: Nixos and K3S.md (09-02-2026)
+<div class="bat-rule"></div>
 
-</header>
 
-            <section class="page__body">
-    <header class="content__header">
-        <h1>Nixos and K3S</h1>
-    </header>
-    <div class="content__body">
-        <p>Hey, been a while&hellip; as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.</p>
+<div class="post-content">
+<p>Hey, been a while&hellip; as usual. This is very much thrown together as a post, but I wanted to document the completion of two pretty big projects. I have finally deployed a K3S cluster in my homelab, and I have successfully moved from Arch to NixOS.</p>
 <blockquote>
 <p>Warning: This is not a tutorial or guide, please run the commands in this post at your own risk.</p>
 </blockquote>
@@ -93,39 +71,39 @@ sub   ed25519/0xBFEEDA71CC19B0C6 2026-02-05 [A] [expires: 2027-02-05]
 <p>From here on began six hours that resulted in a +85 -7 line merge request. The file doing most of the work being this one</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nix" data-lang="nix"><span style="display:flex;"><span>{ config<span style="color:#f92672">,</span> pkgs<span style="color:#f92672">,</span> lib<span style="color:#f92672">,</span> <span style="color:#f92672">...</span> }:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  programs<span style="color:#f92672">.</span>gpg <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>    enable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>    settings <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>      keyserver <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hkps://keys.openpgp.org&#34;</span>;
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  services<span style="color:#f92672">.</span>gpg-agent <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>    enable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>    enableSshSupport <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>    enableZshIntegration <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>    pinentry<span style="color:#f92672">.</span>package <span style="color:#f92672">=</span> pkgs<span style="color:#f92672">.</span>pinentry-gtk2;
-</span></span><span style="display:flex;"><span>    defaultCacheTtl <span style="color:#f92672">=</span> <span style="color:#ae81ff">3600</span>;
-</span></span><span style="display:flex;"><span>    maxCacheTtl <span style="color:#f92672">=</span> <span style="color:#ae81ff">86400</span>;
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  programs<span style="color:#f92672">.</span>zsh<span style="color:#f92672">.</span>initContent <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    export SSH_AUTH_SOCK=&#34;$(</span><span style="color:#e6db74">${</span>pkgs<span style="color:#f92672">.</span>gnupg<span style="color:#e6db74">}</span><span style="color:#e6db74">/bin/gpgconf --list-dirs agent-ssh-socket)&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#39;&#39;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  programs<span style="color:#f92672">.</span>ssh <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>    enable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>    enableDefaultConfig <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    matchBlocks<span style="color:#f92672">.</span><span style="color:#e6db74">&#34;all&#34;</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>      host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;*&#34;</span>;
-</span></span><span style="display:flex;"><span>      identityAgent <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/run/user/1000/gnupg/S.gpg-agent.ssh&#34;</span>;
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nix" data-lang="nix"><span class="line"><span class="cl"><span class="p">{</span> <span class="n">config</span><span class="o">,</span> <span class="n">pkgs</span><span class="o">,</span> <span class="n">lib</span><span class="o">,</span> <span class="o">...</span> <span class="p">}:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">programs</span><span class="o">.</span><span class="n">gpg</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">keyserver</span> <span class="o">=</span> <span class="s2">&#34;hkps://keys.openpgp.org&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">services</span><span class="o">.</span><span class="n">gpg-agent</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enableSshSupport</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enableZshIntegration</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pinentry</span><span class="o">.</span><span class="n">package</span> <span class="o">=</span> <span class="n">pkgs</span><span class="o">.</span><span class="n">pinentry-gtk2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">defaultCacheTtl</span> <span class="o">=</span> <span class="mi">3600</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">maxCacheTtl</span> <span class="o">=</span> <span class="mi">86400</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">programs</span><span class="o">.</span><span class="n">zsh</span><span class="o">.</span><span class="n">initContent</span> <span class="o">=</span> <span class="s1">&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    export SSH_AUTH_SOCK=&#34;$(</span><span class="si">${</span><span class="n">pkgs</span><span class="o">.</span><span class="n">gnupg</span><span class="si">}</span><span class="s1">/bin/gpgconf --list-dirs agent-ssh-socket)&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  &#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">programs</span><span class="o">.</span><span class="n">ssh</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enableDefaultConfig</span> <span class="o">=</span> <span class="no">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">matchBlocks</span><span class="o">.</span><span class="s2">&#34;all&#34;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">host</span> <span class="o">=</span> <span class="s2">&#34;*&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">identityAgent</span> <span class="o">=</span> <span class="s2">&#34;/run/user/1000/gnupg/S.gpg-agent.ssh&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>I am proud of this&hellip; I am proud of this. I do still have some tidying up to do, all of my old posts are still signed with the old key and I need to fix that. I also want to get a NitroKey and use that as my main auth key rather than machine bound keys. The first I likely will not do until I actually get the CICD pipeline running in my blog, the latter requires money.. Soon though.</p>
 <h2 id="i-use-k3s-btw">I use K3S btw</h2>
 <p>So now for the actual reason I started writing this. I am sure you are wondering why I would do this to myself, I recall my friend iron telling me a few years ago &ldquo;just dont&rdquo; when i said i want to do this.</p>
@@ -144,155 +122,155 @@ sub   ed25519/0xBFEEDA71CC19B0C6 2026-02-05 [A] [expires: 2027-02-05]
 <p>Think of it like MySQL vs MariaDB (there probably are differences but I don&rsquo;t care enough to check, and most people will understand what I mean by that).</p>
 <p>The issue is&hellip; I am lazy&hellip; This wasn&rsquo;t an existential laziness that I described a few paragraphs ago, this is &ldquo;I can&rsquo;t be bothered to learn this tech knowledge&rdquo; laziness. I cannot quite explain why I eventually decided to actually do this, I think it came off the coat tails of me doing the reinstall of NixOS and wanting to do another big project, but one night i decided to throw some more coal on the K3S furnace and warm myself next to the embers. With the aid and assistance for a few well placed LLM prompts, youtube, and a case of Hazy Jane I produced the following</p>
 <p><strong>provider.tf</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tf" data-lang="tf"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;proxmox_vm_qemu&#34;</span> <span style="color:#e6db74">&#34;k3s&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">for_each</span> = <span style="color:#a6e22e">local</span>.<span style="color:#a6e22e">nodes</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span>        = <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.<span style="color:#a6e22e">name_prefix</span><span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>each.<span style="color:#a6e22e">key</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">target_node</span> = var.<span style="color:#a6e22e">target_node</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">clone</span>       = var.<span style="color:#a6e22e">clone_template</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">vmid</span>        = each.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">vmid</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">full_clone</span>  = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tags</span>        = <span style="color:#e6db74">&#34;k3s-cluster&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">agent</span>                  = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">define_connection_info</span> = <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">skip_ipv6</span>              = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cpu</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cores</span> = each.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">cpu</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">type</span>  = <span style="color:#e6db74">&#34;host&#34;</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">memory</span>  = each.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">mem</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">os_type</span> = <span style="color:#e6db74">&#34;cloud-init&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">disks</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scsi</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">scsi0</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">disk</span> {
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">storage</span> = var.<span style="color:#a6e22e">storage</span>
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">size</span>    = var.<span style="color:#a6e22e">disk_size</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ide</span> {
-</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">ide2</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cloudinit</span> {
-</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">storage</span> = var.<span style="color:#a6e22e">storage</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>      }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">network</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">id</span>      = <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">model</span>   = <span style="color:#e6db74">&#34;virtio&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bridge</span>  = var.<span style="color:#a6e22e">bridge</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">macaddr</span> = each.<span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">macaddr</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ciuser</span>    = var.<span style="color:#a6e22e">ci_user</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sshkeys</span>   = var.<span style="color:#a6e22e">ssh_public_key</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ipconfig0</span> = var.<span style="color:#a6e22e">ipconfig0</span>
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tf" data-lang="tf"><span class="line"><span class="cl"><span class="kr">resource</span> <span class="s2">&#34;proxmox_vm_qemu&#34;</span> <span class="s2">&#34;k3s&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">for_each</span> = <span class="nx">local</span><span class="p">.</span><span class="nx">nodes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="na">name</span>        = <span class="s2">&#34;</span><span class="si">${</span><span class="nb">var</span><span class="p">.</span><span class="nx">name_prefix</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nb">each</span><span class="p">.</span><span class="nx">key</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">target_node</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">target_node</span>
+</span></span><span class="line"><span class="cl">  <span class="na">clone</span>       = <span class="nb">var</span><span class="p">.</span><span class="nx">clone_template</span>
+</span></span><span class="line"><span class="cl">  <span class="na">vmid</span>        = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">vmid</span>
+</span></span><span class="line"><span class="cl">  <span class="na">full_clone</span>  = <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="na">tags</span>        = <span class="s2">&#34;k3s-cluster&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="na">agent</span>                  = <span class="m">1</span>
+</span></span><span class="line"><span class="cl">  <span class="na">define_connection_info</span> = <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="na">skip_ipv6</span>              = <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">cpu</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">cores</span> = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cpu</span>
+</span></span><span class="line"><span class="cl">    <span class="na">type</span>  = <span class="s2">&#34;host&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="na">memory</span>  = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">mem</span>
+</span></span><span class="line"><span class="cl">  <span class="na">os_type</span> = <span class="s2">&#34;cloud-init&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">disks</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">scsi</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">scsi0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">disk</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">storage</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">storage</span>
+</span></span><span class="line"><span class="cl">          <span class="na">size</span>    = <span class="nb">var</span><span class="p">.</span><span class="nx">disk_size</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ide</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ide2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cloudinit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="na">storage</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">storage</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">network</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">id</span>      = <span class="m">0</span>
+</span></span><span class="line"><span class="cl">    <span class="na">model</span>   = <span class="s2">&#34;virtio&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="na">bridge</span>  = <span class="nb">var</span><span class="p">.</span><span class="nx">bridge</span>
+</span></span><span class="line"><span class="cl">    <span class="na">macaddr</span> = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">macaddr</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="na">ciuser</span>    = <span class="nb">var</span><span class="p">.</span><span class="nx">ci_user</span>
+</span></span><span class="line"><span class="cl">  <span class="na">sshkeys</span>   = <span class="nb">var</span><span class="p">.</span><span class="nx">ssh_public_key</span>
+</span></span><span class="line"><span class="cl">  <span class="na">ipconfig0</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">ipconfig0</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p><strong>variables.tf</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tf" data-lang="tf"><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;control_plane&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Control-plane node map (name =&gt; spec)&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span> = map(<span style="color:#a6e22e">object</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">vmid</span>    = <span style="color:#a6e22e">number</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cpu</span>     = <span style="color:#a6e22e">number</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mem</span>     = <span style="color:#a6e22e">number</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">macaddr</span> = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  }))
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span> = {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cp</span><span style="color:#ae81ff">-1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">611</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">2048</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:9E:CB:35&#34;</span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cp</span><span style="color:#ae81ff">-2</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">612</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">2048</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:DD:46:8D&#34;</span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cp</span><span style="color:#ae81ff">-3</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">613</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">2048</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:30:89:D6&#34;</span> }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;workers&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Worker node map (name =&gt; spec)&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span> = map(<span style="color:#a6e22e">object</span>({
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">vmid</span>    = <span style="color:#a6e22e">number</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cpu</span>     = <span style="color:#a6e22e">number</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mem</span>     = <span style="color:#a6e22e">number</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">macaddr</span> = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  }))
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span> = {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wk</span><span style="color:#ae81ff">-1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">621</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">4096</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:F6:84:1A&#34;</span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wk</span><span style="color:#ae81ff">-2</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">622</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">4096</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:A1:09:03&#34;</span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wk</span><span style="color:#ae81ff">-3</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">623</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">4096</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:1B:7B:E7&#34;</span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wk</span><span style="color:#ae81ff">-4</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">vmid</span> = <span style="color:#ae81ff">624</span>, <span style="color:#a6e22e">cpu</span> = <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">mem</span> = <span style="color:#ae81ff">4096</span>, <span style="color:#a6e22e">macaddr</span> = <span style="color:#e6db74">&#34;BC:24:11:F6:74:82&#34;</span> }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}<span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Defaults (kept variable-driven; override in tfvars if needed)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;name_prefix&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Prefix for VM names (final name is &lt;prefix&gt;-&lt;node_key&gt;)&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;k3s&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;target_node&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Proxmox node to place VMs on&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;arasaka-1&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;clone_template&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Name of the Proxmox VM template to clone&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;cloudinit-base&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;storage&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Proxmox storage target for VM disks and cloud-init&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;datafortress-1&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;disk_size&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Root disk size (e.g. 32G)&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;32G&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;bridge&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Proxmox bridge&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;vmbr0&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;ci_user&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Cloud-init username&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;semaphore-agent&#34;</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;ssh_public_key&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;SSH public key injected via cloud-init&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sensitive</span>   = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;ipconfig0&#34;</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;Cloud-init network config for NIC0&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span>        = <span style="color:#a6e22e">string</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">default</span>     = <span style="color:#e6db74">&#34;ip=dhcp&#34;</span>
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tf" data-lang="tf"><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;control_plane&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Control-plane node map (name =&gt; spec)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span> =<span class="nb"> map</span><span class="p">(</span><span class="nx">object</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="na">vmid</span>    = <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">    <span class="na">cpu</span>     = <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">    <span class="na">mem</span>     = <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">    <span class="na">macaddr</span> = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span> = <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cp</span><span class="m">-1</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">611</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">2048</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:9E:CB:35&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cp</span><span class="m">-2</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">612</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">2048</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:DD:46:8D&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cp</span><span class="m">-3</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">613</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">2048</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:30:89:D6&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;workers&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Worker node map (name =&gt; spec)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span> =<span class="nb"> map</span><span class="p">(</span><span class="nx">object</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="na">vmid</span>    = <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">    <span class="na">cpu</span>     = <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">    <span class="na">mem</span>     = <span class="nx">number</span>
+</span></span><span class="line"><span class="cl">    <span class="na">macaddr</span> = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}))</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span> = <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wk</span><span class="m">-1</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">621</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">4096</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:F6:84:1A&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wk</span><span class="m">-2</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">622</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">4096</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:A1:09:03&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wk</span><span class="m">-3</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">623</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">4096</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:1B:7B:E7&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wk</span><span class="m">-4</span> <span class="o">=</span> <span class="p">{</span> <span class="na">vmid</span> = <span class="m">624</span><span class="p">,</span> <span class="na">cpu</span> = <span class="m">2</span><span class="p">,</span> <span class="na">mem</span> = <span class="m">4096</span><span class="p">,</span> <span class="na">macaddr</span> = <span class="s2">&#34;BC:24:11:F6:74:82&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1"># Defaults (kept variable-driven; override in tfvars if needed)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">variable</span> <span class="s2">&#34;name_prefix&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Prefix for VM names (final name is &lt;prefix&gt;-&lt;node_key&gt;)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;k3s&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;target_node&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Proxmox node to place VMs on&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;arasaka-1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;clone_template&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Name of the Proxmox VM template to clone&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;cloudinit-base&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;storage&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Proxmox storage target for VM disks and cloud-init&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;datafortress-1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;disk_size&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Root disk size (e.g. 32G)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;32G&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;bridge&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Proxmox bridge&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;vmbr0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;ci_user&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Cloud-init username&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;semaphore-agent&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;ssh_public_key&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;SSH public key injected via cloud-init&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">sensitive</span>   = <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kr">
+</span></span></span><span class="line"><span class="cl"><span class="kr">variable</span> <span class="s2">&#34;ipconfig0&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">description</span> = <span class="s2">&#34;Cloud-init network config for NIC0&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">type</span>        = <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">  <span class="na">default</span>     = <span class="s2">&#34;ip=dhcp&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>There are other files, i have not included them - if you want to see the full repo ask. What this effectively does is create seven virtual machines, cloning from a premade template (i made this by hand, i don&rsquo;t see the point in implementing packer yet), applying a pre reserved mac address - I may be able to automate the MAC reservation process, but I haven&rsquo;t touched that yet. I then provision it further using an ansible playbook which I will not share, because it is long and I feel like you already would have stopped reading after the previous wall of code (if you want to see it ask). What I ended up with was seven vm&rsquo;s ready for the sauce.</p>
 <h2 id="i-use-k3sup-btw">I use k3sup btw</h2>
 <p>K3sup is a lightweight cli tool that installs and manages k3s over ssh. It allows you to quickly bootstrap and manage Kubernetes control planes or worker joined nodes without manually handling installation scripts, tokens, kubeconfig files. The lethargy of this application sickens me, and yet I have grown to love it&hellip; in a &ldquo;it can fix me&rdquo; sort of way.</p>
 <p>The first command was fairly simple. It installs the first master control plane node on 10.0.6.11.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>k3sup install <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--ip 10.0.6.11 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--tls-san 10.0.6.10 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--cluster <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--user k3s-agent <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--local-path ~/.kube/config <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--context k3s-ha <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	--k3s-extra-args <span style="color:#e6db74">&#34;disable servicelb --node-ip 10.0.6.11&#34;</span><span style="color:#e6db74">`</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">k3sup install <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--ip 10.0.6.11 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--tls-san 10.0.6.10 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--user k3s-agent <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--local-path ~/.kube/config <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--context k3s-ha <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	--k3s-extra-args <span class="s2">&#34;disable servicelb --node-ip 10.0.6.11&#34;</span><span class="sb">`</span>
 </span></span></code></pre></div><p>This does a couple of interesting things, the main ones you should focus on are the following</p>
 <ul>
 <li>tls-san tells it to also generate a certificate for 10.0.6.10 (more on this later)</li>
@@ -300,39 +278,39 @@ sub   ed25519/0xBFEEDA71CC19B0C6 2026-02-05 [A] [expires: 2027-02-05]
 </ul>
 <p>Now that 10.0.6.10 ip is important. I was going for a HA cluster, meaning that I could not afford to have my kubectl bound to just one IP, and this is where kubevip comes in. Kubevip in this use case spins up a virtual IP that loadbalances requests across the three control plane nodes&hellip; I just had to set it up first</p>
 <p>First i needed to install the rbac manifest</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl apply -f https://kube-vip.io/manifests/rbac.yaml<span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">kubectl apply -f https://kube-vip.io/manifests/rbac.yaml<span class="se">\
 </span></span></span></code></pre></div><p>Then i needed to ssh into the control node I just made, pull the latest version of kubevip, and set up an alias</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ctr image pull docker.io/plndr/kube-vip:latest
-</span></span><span style="display:flex;"><span>alias kube-vip<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&#39;</span>ctr run -rm --net-host docker.io/plndr/kube-vip:latest vip /kube-vip
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ctr image pull docker.io/plndr/kube-vip:latest
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> kube-vip<span class="o">=</span><span class="err">&#39;</span>ctr run -rm --net-host docker.io/plndr/kube-vip:latest vip /kube-vip
 </span></span></code></pre></div><p>THEN i needed to create the kubevip daemonset</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kube-vip manifest deamonset 
-</span></span><span style="display:flex;"><span>- --arp 
-</span></span><span style="display:flex;"><span>- -- interface eth0 
-</span></span><span style="display:flex;"><span>- -- address 10.0.6.10
-</span></span><span style="display:flex;"><span>- -- controlplane 
-</span></span><span style="display:flex;"><span>- -- leaderElection 
-</span></span><span style="display:flex;"><span>- -- taint 
-</span></span><span style="display:flex;"><span>- -- inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">kube-vip manifest deamonset 
+</span></span><span class="line"><span class="cl">- --arp 
+</span></span><span class="line"><span class="cl">- -- interface eth0 
+</span></span><span class="line"><span class="cl">- -- address 10.0.6.10
+</span></span><span class="line"><span class="cl">- -- controlplane 
+</span></span><span class="line"><span class="cl">- -- leaderElection 
+</span></span><span class="line"><span class="cl">- -- taint 
+</span></span><span class="line"><span class="cl">- -- inCluster <span class="p">|</span> tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
 </span></span></code></pre></div><p>and from here the 10.0.6.10 IP was live. From here I edited my local .kube/config to use 10.0.6.10 rather than 10.0.6.11 and set up the rest of the cluster using the following commands, swapping out IP&rsquo;s and removing the &ndash;server flag when doing worker nodes.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>k3sup join 
-</span></span><span style="display:flex;"><span>- -- ip 10.0.6.12 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>- --user k3s-agent <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>- -- sudo <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>- -- k3s-channel stable <span style="color:#ae81ff">\ </span>
-</span></span><span style="display:flex;"><span>- -- server <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>- -- server-ip 10.0.6.10 <span style="color:#ae81ff">\ </span>
-</span></span><span style="display:flex;"><span>- -- server-user k3s-agent <span style="color:#ae81ff">\ </span>
-</span></span><span style="display:flex;"><span>- -- k3s-extra-args <span style="color:#e6db74">&#34;disable servicelb --node-ip 10.0.6.12&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">k3sup join 
+</span></span><span class="line"><span class="cl">- -- ip 10.0.6.12 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>- --user k3s-agent <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>- -- sudo <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>- -- k3s-channel stable <span class="se">\ </span>
+</span></span><span class="line"><span class="cl">- -- server <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>- -- server-ip 10.0.6.10 <span class="se">\ </span>
+</span></span><span class="line"><span class="cl">- -- server-user k3s-agent <span class="se">\ </span>
+</span></span><span class="line"><span class="cl">- -- k3s-extra-args <span class="s2">&#34;disable servicelb --node-ip 10.0.6.12&#34;</span>
 </span></span></code></pre></div><p>And this left me with the following</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">[</span>eddie@blackhand<span style="color:#f92672">]</span>:~ $ kubectl get nodes -o wide
-</span></span><span style="display:flex;"><span>NAME       STATUS   ROLES                AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
-</span></span><span style="display:flex;"><span>k3s-cp-1   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.11     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
-</span></span><span style="display:flex;"><span>k3s-cp-2   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.12     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
-</span></span><span style="display:flex;"><span>k3s-cp-3   Ready    control-plane,etcd   9h    v1.34.3+k3s1   10.0.6.13     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
-</span></span><span style="display:flex;"><span>k3s-wk-1   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.21     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
-</span></span><span style="display:flex;"><span>k3s-wk-2   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.22     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
-</span></span><span style="display:flex;"><span>k3s-wk-3   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.23     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
-</span></span><span style="display:flex;"><span>k3s-wk-4   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.24     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="o">[</span>eddie@blackhand<span class="o">]</span>:~ $ kubectl get nodes -o wide
+</span></span><span class="line"><span class="cl">NAME       STATUS   ROLES                AGE   VERSION        INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+</span></span><span class="line"><span class="cl">k3s-cp-1   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.11     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+</span></span><span class="line"><span class="cl">k3s-cp-2   Ready    control-plane,etcd   10h   v1.34.3+k3s1   10.0.6.12     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+</span></span><span class="line"><span class="cl">k3s-cp-3   Ready    control-plane,etcd   9h    v1.34.3+k3s1   10.0.6.13     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+</span></span><span class="line"><span class="cl">k3s-wk-1   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.21     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+</span></span><span class="line"><span class="cl">k3s-wk-2   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.22     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+</span></span><span class="line"><span class="cl">k3s-wk-3   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.23     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
+</span></span><span class="line"><span class="cl">k3s-wk-4   Ready    &lt;none&gt;               9h    v1.34.3+k3s1   10.0.6.24     &lt;none&gt;        Ubuntu 24.04.3 LTS   6.8.0-100-generic   containerd://2.1.5-k3s1
 </span></span></code></pre></div><p>And now I have a K3S cluster which I need to actually utilise. My plan is to try and implement Gitops first, and from there slowly move over my homelab services.</p>
 <h2 id="aftercare">Aftercare</h2>
 <p>Would I recommend this? Absolutely not.
@@ -342,7 +320,8 @@ Jokes aside, you will fall into three camps after reading this</p>
 “This sounds pointless”: That&rsquo;s just like… your opinion man?</p>
 <p>Anyway… I&rsquo;m signing off… See you in nine months when I post again.</p>
 
-        <hr>
+</div>
+<hr>
 
 <strong>Verify this post</strong>
 <p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
@@ -350,90 +329,13 @@ Jokes aside, you will fall into three camps after reading this</p>
 <pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
 curl -fsSL 'https://eddiequinn.xyz/sigs/posts/2026/feb/nixos-and-k3s.txt' | gpg --verify</code></pre>
 
-    </div>
-    <footer class="content__footer"></footer>
-
-            </section>
-
-            <section class="page__aside">
-                <div class="aside__about">
-<div class="aside__about">
-    
-    
-<h1 class="about__title">whoami</h1>
-<p class="about__description">Systems should be predictable. People rarely are.</p>
+<div class="bat-rule"></div>
 </div>
 
-
-<ul class="aside__social-links">
-    
-    <li>
-        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-</ul>
+    </main>
+<div class="disclaimer">
+Any and all opinions listed here are my own and are not representative
+ of any of my employers, past, future, and/or present
 </div>
-                <hr>
-                <div class="aside__content">
-    
-    
-        <p>
-            
-            2026-02-09
-        </p>
-    
-
-    
-
-                </div>
-            </section>
-
-            <footer class="page__footer"><p>
-    
-    
-    
-    
-    
-    
-      
-    
-      
-    
-    
-    
-      
-      
-          
-            
-            
-                <br/><span class="active"><b></b></span><br/>
-            
-          
-      
-    
-</p>
-<br /><br />
-<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
-<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
-</footer>
-
-        </div>
-    </body>
-
+</body>
 </html>

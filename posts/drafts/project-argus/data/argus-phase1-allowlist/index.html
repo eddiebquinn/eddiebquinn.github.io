@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head><title>eddiequinn.xyz</title>
-<meta name="description" content="Systems should be predictable. People rarely are.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8"/>
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
-
-
-
-
-
-
-
-
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+<body>
 
-    <body>
-        <div class="page">
+<div class="neofetch-container">
+  <a href="/" class="neofetch-logo">//</a>
 
-            <header class="page__header"><nav class="page__nav main-nav">
-    <ul>
-      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+  <div class="neofetch-info">
+    <div class="neofetch-title"><span class="user">guest</span>@<span class="host">eddiequinn.xyz</span></div>
+    <div class="neofetch-separator">-----------------</div>
+    <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
     
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
-    
-    </ul>
-</nav>
+    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
+    <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
+  </div>
+</div>
+    <main>
+        
+<div class="bat-shell">
+<span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">cat .md</span></span>
+<div class="bat-rule"></div>
+  File: .md (01-01-0001)
+<div class="bat-rule"></div>
 
-</header>
 
-            <section class="page__body">
-    <header class="content__header">
-        <h1></h1>
-    </header>
-    <div class="content__body">
-        <h1 id="project-argus--phase-1-inter-vlan-flow-audit--required-allowlist">Project Argus — Phase 1: Inter-VLAN Flow Audit &amp; Required Allowlist</h1>
+<div class="post-content">
+<h1 id="project-argus--phase-1-inter-vlan-flow-audit--required-allowlist">Project Argus — Phase 1: Inter-VLAN Flow Audit &amp; Required Allowlist</h1>
 <blockquote>
 <p>Status: <strong>Inferred/required allowlist</strong> — built from source-of-truth configs (DNS, Traefik, Ansible inventory, Blackwall design post) and a no-credential port scan. Must be validated against live OPNsense + MikroTik firewall rules before policy is changed.</p>
 </blockquote>
@@ -641,23 +619,23 @@
 <p>Run these commands and save outputs into a <code>argus-phase1-evidence/</code> directory. This is the evidence needed to turn the inferred matrix above into a validated allowlist.</p>
 <h3 id="71-opnsense-blackice-1-1067451">7.1 OPNsense (blackice-1, 10.67.45.1)</h3>
 <p>Via SSH or console as a read-only admin:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Firewall rules (filter + nat)</span>
-</span></span><span style="display:flex;"><span>pfctl -sr
-</span></span><span style="display:flex;"><span>pfctl -sn
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Stateful table and interface list</span>
-</span></span><span style="display:flex;"><span>pfctl -ss | head -n <span style="color:#ae81ff">500</span>
-</span></span><span style="display:flex;"><span>ifconfig -a
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Routes</span>
-</span></span><span style="display:flex;"><span>netstat -rn
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># DHCP leases (shows client VLAN assignment)</span>
-</span></span><span style="display:flex;"><span>cat /var/dhcpd/var/db/dhcpd.leases
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Config backup (XML) — inspect offline for rules, aliases, interfaces</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># WebUI: System &gt; Configuration &gt; Backups</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or CLI: cp /conf/config.xml /tmp/config.xml and pull via scp</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Firewall rules (filter + nat)</span>
+</span></span><span class="line"><span class="cl">pfctl -sr
+</span></span><span class="line"><span class="cl">pfctl -sn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Stateful table and interface list</span>
+</span></span><span class="line"><span class="cl">pfctl -ss <span class="p">|</span> head -n <span class="m">500</span>
+</span></span><span class="line"><span class="cl">ifconfig -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Routes</span>
+</span></span><span class="line"><span class="cl">netstat -rn
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># DHCP leases (shows client VLAN assignment)</span>
+</span></span><span class="line"><span class="cl">cat /var/dhcpd/var/db/dhcpd.leases
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Config backup (XML) — inspect offline for rules, aliases, interfaces</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WebUI: System &gt; Configuration &gt; Backups</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Or CLI: cp /conf/config.xml /tmp/config.xml and pull via scp</span>
 </span></span></code></pre></div><h3 id="72-mikrotik-crs328-gridlink-1-1067452">7.2 MikroTik CRS328 (gridlink-1, 10.67.45.2)</h3>
 <p>Via SSH/Winbox/console:</p>
 <pre tabindex="0"><code class="language-rsc" data-lang="rsc"># Layer-2 / VLAN fabric
@@ -685,35 +663,35 @@
 /interface bridge host print
 </code></pre><h3 id="73-linux-service-hosts">7.3 Linux service hosts</h3>
 <p>Run on every managed host (Ansible can do this once SSH keys are available):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Listening sockets</span>
-</span></span><span style="display:flex;"><span>ss -tlnp
-</span></span><span style="display:flex;"><span>ss -ulnp
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Established inter-VLAN conversations (run during active period)</span>
-</span></span><span style="display:flex;"><span>ss -tn state established <span style="color:#e6db74">&#39;( dport != :22 )&#39;</span> | head -n <span style="color:#ae81ff">200</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Local firewall rules (if host-level filtering exists)</span>
-</span></span><span style="display:flex;"><span>sudo iptables -L -n -v
-</span></span><span style="display:flex;"><span>sudo nft list ruleset 2&gt;/dev/null
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Active Docker networks / published ports</span>
-</span></span><span style="display:flex;"><span>sudo docker network ls
-</span></span><span style="display:flex;"><span>sudo docker ps --format <span style="color:#e6db74">&#39;table {{.Names}}\t{{.Ports}}&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Listening sockets</span>
+</span></span><span class="line"><span class="cl">ss -tlnp
+</span></span><span class="line"><span class="cl">ss -ulnp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Established inter-VLAN conversations (run during active period)</span>
+</span></span><span class="line"><span class="cl">ss -tn state established <span class="s1">&#39;( dport != :22 )&#39;</span> <span class="p">|</span> head -n <span class="m">200</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Local firewall rules (if host-level filtering exists)</span>
+</span></span><span class="line"><span class="cl">sudo iptables -L -n -v
+</span></span><span class="line"><span class="cl">sudo nft list ruleset 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Active Docker networks / published ports</span>
+</span></span><span class="line"><span class="cl">sudo docker network ls
+</span></span><span class="line"><span class="cl">sudo docker ps --format <span class="s1">&#39;table {{.Names}}\t{{.Ports}}&#39;</span>
 </span></span></code></pre></div><h3 id="74-truenas-datafortress-1">7.4 TrueNAS (datafortress-1)</h3>
 <ul>
 <li>WebUI: Network → Interfaces, Sharing → SMB/NFS, Services → list active services.</li>
 <li>CLI (if root SSH enabled):
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ifconfig
-</span></span><span style="display:flex;"><span>netstat -rn
-</span></span><span style="display:flex;"><span>midclt call sharing.smb.query
-</span></span><span style="display:flex;"><span>midclt call sharing.nfs.query
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ifconfig
+</span></span><span class="line"><span class="cl">netstat -rn
+</span></span><span class="line"><span class="cl">midclt call sharing.smb.query
+</span></span><span class="line"><span class="cl">midclt call sharing.nfs.query
 </span></span></code></pre></div></li>
 </ul>
 <h3 id="75-proxmox-arasaka-1">7.5 Proxmox (arasaka-1)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># VM network attachments per bridge/VLAN</span>
-</span></span><span style="display:flex;"><span>qm config &lt;vmid&gt; | grep -E <span style="color:#e6db74">&#39;net|bridge|tag&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or bulk:</span>
-</span></span><span style="display:flex;"><span>pvesh get /nodes/arasaka-1/qemu --output-format json | jq <span style="color:#e6db74">&#39;.[] | {vmid,name}&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># VM network attachments per bridge/VLAN</span>
+</span></span><span class="line"><span class="cl">qm config &lt;vmid&gt; <span class="p">|</span> grep -E <span class="s1">&#39;net|bridge|tag&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Or bulk:</span>
+</span></span><span class="line"><span class="cl">pvesh get /nodes/arasaka-1/qemu --output-format json <span class="p">|</span> jq <span class="s1">&#39;.[] | {vmid,name}&#39;</span>
 </span></span></code></pre></div><h2 id="8-recommended-phase-1-execution-order">8. Recommended Phase 1 execution order</h2>
 <ol>
 <li><strong>Collect evidence</strong> — run section 7 commands and store in <code>argus-phase1-evidence/</code>.</li>
@@ -749,7 +727,8 @@
 <p>The single most useful thing to do next is pull the live OPNsense and MikroTik configs. Without them, section 4 remains a design document. With them, it becomes a migration plan.</p>
 <p>If you can place an SSH key into this session or run the section 7 commands and paste the outputs, I can turn the inferred matrix into a concrete rule-by-rule diff.</p>
 
-        <hr>
+</div>
+<hr>
 
 <strong>Verify this post</strong>
 <p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
@@ -757,85 +736,13 @@
 <pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
 curl -fsSL 'https://eddiequinn.xyz/sigs/posts/drafts/project-argus/data/argus-phase1-allowlist.txt' | gpg --verify</code></pre>
 
-    </div>
-    <footer class="content__footer"></footer>
-
-            </section>
-
-            <section class="page__aside">
-                <div class="aside__about">
-<div class="aside__about">
-    
-    
-<h1 class="about__title">whoami</h1>
-<p class="about__description">Systems should be predictable. People rarely are.</p>
+<div class="bat-rule"></div>
 </div>
 
-
-<ul class="aside__social-links">
-    
-    <li>
-        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-</ul>
+    </main>
+<div class="disclaimer">
+Any and all opinions listed here are my own and are not representative
+ of any of my employers, past, future, and/or present
 </div>
-                <hr>
-                <div class="aside__content">
-    
-    
-
-    
-
-                </div>
-            </section>
-
-            <footer class="page__footer"><p>
-    
-    
-    
-    
-    
-    
-      
-    
-      
-    
-    
-    
-      
-      
-          
-            
-            
-                <br/><span class="active"><b></b></span><br/>
-            
-          
-      
-    
-</p>
-<br /><br />
-<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
-<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
-</footer>
-
-        </div>
-    </body>
-
+</body>
 </html>

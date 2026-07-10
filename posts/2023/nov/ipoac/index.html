@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head><title>IPoAC &ndash; eddiequinn.xyz</title>
-<meta name="description" content="Systems should be predictable. People rarely are.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8"/>
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
-
-
-
-
-
-
-
-
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPoAC</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+<body>
 
-    <body>
-        <div class="page">
+<div class="neofetch-container">
+  <a href="/" class="neofetch-logo">//</a>
 
-            <header class="page__header"><nav class="page__nav main-nav">
-    <ul>
-      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+  <div class="neofetch-info">
+    <div class="neofetch-title"><span class="user">guest</span>@<span class="host">eddiequinn.xyz</span></div>
+    <div class="neofetch-separator">-----------------</div>
+    <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
     
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
-    
-    </ul>
-</nav>
+    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
+    <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
+  </div>
+</div>
+    <main>
+        
+<div class="bat-shell">
+<span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">cat ipoac.md</span></span>
+<div class="bat-rule"></div>
+  File: IPoAC.md (25-11-2023)
+<div class="bat-rule"></div>
 
-</header>
 
-            <section class="page__body">
-    <header class="content__header">
-        <h1>IPoAC</h1>
-    </header>
-    <div class="content__body">
-        <p>I have been studying for my Network+ for the last few months. In doing so I have learnt to appreciate the inner workings of networking infrastructure, and how the modern-day internet functions and came to be. Truly, just for you to be reading this page is nothing short of a miracle - There is an incredibly noisy world just out of the scope of our senses that most people will never get a chance to learn about.</p>
+<div class="post-content">
+<p>I have been studying for my Network+ for the last few months. In doing so I have learnt to appreciate the inner workings of networking infrastructure, and how the modern-day internet functions and came to be. Truly, just for you to be reading this page is nothing short of a miracle - There is an incredibly noisy world just out of the scope of our senses that most people will never get a chance to learn about.</p>
 <p>What I did not anticipate is learning about is <code>IPoAC</code>. This <em>(thank god)</em> does not fall into the curriculum of Network+. It is not even really taken at all seriously as an actual standard, for obvious reasons. It is however something that made me chuckle, and I want to share it.</p>
 <h2 id="in-the-beginning">In the beginning</h2>
 <p>Allow me to introduce Columba Liva domestica or the humble Domestic Pigeon.</p>
@@ -79,35 +57,36 @@
 <p>In later revisions i.e <a href="https://datatracker.ietf.org/doc/html/rfc2549">RFC 2549</a> and <a href="https://datatracker.ietf.org/doc/html/rfc6214">RFC 6214</a> this original RFC is built upon. Mostly with more bird puns that are also related to networking.</p>
 <h2 id="the-beak-ernet">The <em>beak</em>-ernet</h2>
 <p>This, obviously, was written as a joke. It is one of the many examples of nerds making nerdy jokes about serious subjects. All this being said this has been proven to work, and can even provide very fast data transfer speeds under the right circumstances. On the 28th of April 2001, this was implemented by the Bergen Linux user group, where they sends night packets over a distance of 5km. This was rather beautifully represented by the below terminal output</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Script started on Sat Apr <span style="color:#ae81ff">28</span> 11:24:09 <span style="color:#ae81ff">2001</span>
-</span></span><span style="display:flex;"><span>$ /sbin/ifconfig tun0
-</span></span><span style="display:flex;"><span>tun0      Link encap: Point-to-Point Protocol
-</span></span><span style="display:flex;"><span>          inet addr:10.0.3.2  P-t-P:10.0.3.1  Mask:255.255.255.255
-</span></span><span style="display:flex;"><span>          UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:150  Metric:1
-</span></span><span style="display:flex;"><span>          RX packets:1 errors:0 dropped:0 overruns:0 frame:0
-</span></span><span style="display:flex;"><span>          TX packets:2 errors:0 dropped:0 overruns:0 carrier:0
-</span></span><span style="display:flex;"><span>          collisions:0
-</span></span><span style="display:flex;"><span>          RX bytes:88 <span style="color:#f92672">(</span>88.0 b<span style="color:#f92672">)</span>  TX bytes:168 <span style="color:#f92672">(</span>168.0 b<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$ ping -c <span style="color:#ae81ff">9</span> -i <span style="color:#ae81ff">900</span> 10.0.3.1
-</span></span><span style="display:flex;"><span>PING 10.0.3.1 <span style="color:#f92672">(</span>10.0.3.1<span style="color:#f92672">)</span>: <span style="color:#ae81ff">56</span> data bytes
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>6165731.1 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>3211900.8 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>5124922.8 ms
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">64</span> bytes from 10.0.3.1: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span> time<span style="color:#f92672">=</span>6388671.9 ms
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- --- 10.0.3.1 ping statistics ---
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span> packets transmitted, <span style="color:#ae81ff">4</span> packets received, 55% packet loss
-</span></span><span style="display:flex;"><span>round-trip min/avg/max <span style="color:#f92672">=</span> 3211900.8/5222806.6/6388671.9 ms
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Script <span style="color:#66d9ef">done</span> on Sat Apr <span style="color:#ae81ff">28</span> 14:14:28 <span style="color:#ae81ff">2001</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Script started on Sat Apr <span class="m">28</span> 11:24:09 <span class="m">2001</span>
+</span></span><span class="line"><span class="cl">$ /sbin/ifconfig tun0
+</span></span><span class="line"><span class="cl">tun0      Link encap: Point-to-Point Protocol
+</span></span><span class="line"><span class="cl">          inet addr:10.0.3.2  P-t-P:10.0.3.1  Mask:255.255.255.255
+</span></span><span class="line"><span class="cl">          UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:150  Metric:1
+</span></span><span class="line"><span class="cl">          RX packets:1 errors:0 dropped:0 overruns:0 frame:0
+</span></span><span class="line"><span class="cl">          TX packets:2 errors:0 dropped:0 overruns:0 carrier:0
+</span></span><span class="line"><span class="cl">          collisions:0
+</span></span><span class="line"><span class="cl">          RX bytes:88 <span class="o">(</span>88.0 b<span class="o">)</span>  TX bytes:168 <span class="o">(</span>168.0 b<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ ping -c <span class="m">9</span> -i <span class="m">900</span> 10.0.3.1
+</span></span><span class="line"><span class="cl">PING 10.0.3.1 <span class="o">(</span>10.0.3.1<span class="o">)</span>: <span class="m">56</span> data bytes
+</span></span><span class="line"><span class="cl"><span class="m">64</span> bytes from 10.0.3.1: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">0</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">255</span> <span class="nv">time</span><span class="o">=</span>6165731.1 ms
+</span></span><span class="line"><span class="cl"><span class="m">64</span> bytes from 10.0.3.1: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">4</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">255</span> <span class="nv">time</span><span class="o">=</span>3211900.8 ms
+</span></span><span class="line"><span class="cl"><span class="m">64</span> bytes from 10.0.3.1: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">255</span> <span class="nv">time</span><span class="o">=</span>5124922.8 ms
+</span></span><span class="line"><span class="cl"><span class="m">64</span> bytes from 10.0.3.1: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">255</span> <span class="nv">time</span><span class="o">=</span>6388671.9 ms
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- --- 10.0.3.1 ping statistics ---
+</span></span><span class="line"><span class="cl"><span class="m">9</span> packets transmitted, <span class="m">4</span> packets received, 55% packet loss
+</span></span><span class="line"><span class="cl">round-trip min/avg/max <span class="o">=</span> 3211900.8/5222806.6/6388671.9 ms
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Script <span class="k">done</span> on Sat Apr <span class="m">28</span> 14:14:28 <span class="m">2001</span>
 </span></span></code></pre></div><p>I do want to say that despite my fondness for this joke, I do not take it seriously. I think a lot of people think I am quirk bordering on nuts with the projects I take on. My friend <a href="https://ironsm4sh.nl/">Iron</a> politely told me to touch grass the other day when I told him I was thinking about coding my own static site generator (he likely had a point).</p>
 <p><em>However</em> I will say this for IPoAC, *it can be a reasonable way to send massive amounts of data. There is a reason why Amazon has its <a href="https://aws.amazon.com/snowmobile/">AWS Snowmobile</a> or Microsoft the <a href="https://azure.microsoft.com/en-gb/products/databox">Azure Databox</a>. When the sheer amount of data you need to send is that massive, sometimes the sneakernet is the best way to do it. If two hackerspaces within a reasonable distance of one another decided to set up a pigeon coop and periodically drove a &ldquo;homed&rdquo; pigeon to one another, then they could set up (I am so sorry about this) a &ldquo;beakernet&rdquo;. Am I saying this is a practical way of communication? Absolutely not. I am however saying this would be incredibly funny.</p>
 <p>Also, and I am not quite sure if this is more or less nerdy than the last suggestion, this also works in Dungeons and Dragons. I play Dungeons and Dragons every week at my local pub, which is a shock to absolutely nobody that fat arch user plays DND. In our last session, we found ourselves in a position where we had acquired a tavern, by scaring the previous owner away and declaring it now belonged to us. We then had an issue, how can we run a bar while staying on our adventures? We theoretically have a semi-soviet workforce of bugbears extracting minerals from Wave Echo Cave, and if we managed to get a message to them Gunk the foreman could send a bugbear over to man the bar. Of course, then I realised, what if we set up an ad-hoc internet across our DND world using IPoAC. If we set up a pigeon-post in every town we visited the network would grow, and before we knew it we had a DNDesk ISP on our hands. I assure you, I was wetting myself with laughter at this thought.</p>
 <p>I suppose my overarching point in this post is this - Pigeons have an incredible knack for being funny when appropriately paired with networking technology.</p>
 
-        <hr>
+</div>
+<hr>
 
 <strong>Verify this post</strong>
 <p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
@@ -115,90 +94,13 @@
 <pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
 curl -fsSL 'https://eddiequinn.xyz/sigs/posts/2023/nov/ipoac.txt' | gpg --verify</code></pre>
 
-    </div>
-    <footer class="content__footer"></footer>
-
-            </section>
-
-            <section class="page__aside">
-                <div class="aside__about">
-<div class="aside__about">
-    
-    
-<h1 class="about__title">whoami</h1>
-<p class="about__description">Systems should be predictable. People rarely are.</p>
+<div class="bat-rule"></div>
 </div>
 
-
-<ul class="aside__social-links">
-    
-    <li>
-        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-</ul>
+    </main>
+<div class="disclaimer">
+Any and all opinions listed here are my own and are not representative
+ of any of my employers, past, future, and/or present
 </div>
-                <hr>
-                <div class="aside__content">
-    
-    
-        <p>
-            
-            2023-11-25
-        </p>
-    
-
-    
-
-                </div>
-            </section>
-
-            <footer class="page__footer"><p>
-    
-    
-    
-    
-    
-    
-      
-    
-      
-    
-    
-    
-      
-      
-          
-            
-            
-                <br/><span class="active"><b></b></span><br/>
-            
-          
-      
-    
-</p>
-<br /><br />
-<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
-<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
-</footer>
-
-        </div>
-    </body>
-
+</body>
 </html>

@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head><title>5- Progress? &ndash; eddiequinn.xyz</title>
-<meta name="description" content="Systems should be predictable. People rarely are.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8"/>
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" integrity="sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/palettes/base16-dark.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/risotto.css">
-<link rel="stylesheet" href="https://eddiequinn.xyz/css/custom.css">
-
-
-
-
-
-
-
-
-
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5- Progress?</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+<body>
 
-    <body>
-        <div class="page">
+<div class="neofetch-container">
+  <a href="/" class="neofetch-logo">//</a>
 
-            <header class="page__header"><nav class="page__nav main-nav">
-    <ul>
-      <li class="nomarker"><h1 class="page__logo"><a href="https://eddiequinn.xyz/" class="page__logo-inner">eddiequinn.xyz</a></h1></li>
+  <div class="neofetch-info">
+    <div class="neofetch-title"><span class="user">guest</span>@<span class="host">eddiequinn.xyz</span></div>
+    <div class="neofetch-separator">-----------------</div>
+    <div class="neofetch-motto">Systems should be predictable. People rarely are.</div>
     
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/posts/" title="">posts</a></li>
-    
-    <li class="main-nav__item"><a class="nav-main-item" href="https://eddiequinn.xyz/projects/" title="">projects</a></li>
-    
-    </ul>
-</nav>
+    <div class="neofetch-stat"><span class="key">Dirs</span>  <span class="value"><a href="/posts/">~/posts</a> <a href="/projects/">~/projects</a></span></div>
+    <div class="neofetch-stat"><span class="key">Socials</span> <span class="value">[<a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796">Public Key</a>] [<a href="https://github.com/eddiebquinn/">Git</a>] [<a href="mailto:eddie@b-quinn.com">Mail</a>] [<a href="https://www.linkedin.com/in/edward-b-quinn/">In</a>] [<a href="https://eddiequinn.xyz/posts/index.xml">RSS</a>] </span></div>
+  </div>
+</div>
+    <main>
+        
+<div class="bat-shell">
+<span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">cat 5-progress.md</span></span>
+<div class="bat-rule"></div>
+  File: 5- Progress?.md (17-11-2023)
+<div class="bat-rule"></div>
 
-</header>
 
-            <section class="page__body">
-    <header class="content__header">
-        <h1>5- Progress?</h1>
-    </header>
-    <div class="content__body">
-        <p>My friend has an API that if called will return a picture of an anime girl, and will return a new one every 24 hours (I think that&rsquo;s how it works, truthfully I&rsquo;ve never curl&rsquo;d it). Thinking about that combined with a rant Luke Smith once made about fixing pull requests on his GitHub, I wish there was an API I could call to give me a random picture of a Pink Wojack every 24 hours. It would help me get across my current&hellip; mood? Is mood the right word?</p>
+<div class="post-content">
+<p>My friend has an API that if called will return a picture of an anime girl, and will return a new one every 24 hours (I think that&rsquo;s how it works, truthfully I&rsquo;ve never curl&rsquo;d it). Thinking about that combined with a rant Luke Smith once made about fixing pull requests on his GitHub, I wish there was an API I could call to give me a random picture of a Pink Wojack every 24 hours. It would help me get across my current&hellip; mood? Is mood the right word?</p>
 <p>I&rsquo;ve made progress - I am even at a point where I could have this finished tonight. Needless to say, the route we were taking has changed.</p>
 <h2 id="previous-plan">Previous plan</h2>
 <p>For more details on this, I would recommend reading the post before this <em>but</em> for a summary&hellip; The plan was to use Hugo OutputFormats to generate two outputs from the same markdown file, one regular and one plaintext. I would then use a Python script to strip the PGP artefacts from the content.</p>
@@ -65,68 +43,69 @@
 <h2 id="applying-separate-themes-to-texthtml-outputs">Applying separate themes to <code>text/html</code> outputs</h2>
 <p>Is this possible? No. I&rsquo;m sure with enough fiddling it is possible, however, I ideally wanted to do this with minimal edits to the theme I am using. I have been avoiding learning HTML and CSS for 25 years, and I want to have a long happy life without ever breaking this streak.</p>
 <p>What I did instead of using separate themes is read the documentation (and reach out for help on one or two Discord servers). So as I mentioned before, Hugo can support separate OutputFormats. By default, it uses <code>text/html</code> for pages, but within the <code>text</code> category there is also <code>text/plain</code>. Now I made the mistake originally of assuming declaring <code>isPlainText = false</code> in my <code>hugo.toml</code> file would have the same effect - I was wrong (I don&rsquo;t know what that flag does). Given this, I edited my <code>hugo.toml</code> file so it now looks like this</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">outputFormats</span>]
-</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">outputFormats</span>.<span style="color:#a6e22e">standardFormat</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;standard-format&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">baseName</span> = <span style="color:#e6db74">&#34;index&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">isPlainText</span> = <span style="color:#66d9ef">false</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mediaType</span> = <span style="color:#e6db74">&#34;text/html&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">permalinkable</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">outputFormats</span>.<span style="color:#a6e22e">sigFormat</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;sig-format&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">baseName</span> = <span style="color:#e6db74">&#34;index&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">isPlainText</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mediaType</span> = <span style="color:#e6db74">&#34;text/plain&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">path</span> = <span style="color:#e6db74">&#34;sigs&#34;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">permalinkable</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">outputFormats</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nx">outputFormats</span><span class="p">.</span><span class="nx">standardFormat</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;standard-format&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">baseName</span> <span class="p">=</span> <span class="s2">&#34;index&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">isPlainText</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">mediaType</span> <span class="p">=</span> <span class="s2">&#34;text/html&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">path</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">permalinkable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">weight</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nx">outputFormats</span><span class="p">.</span><span class="nx">sigFormat</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;sig-format&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">baseName</span> <span class="p">=</span> <span class="s2">&#34;index&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">isPlainText</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">mediaType</span> <span class="p">=</span> <span class="s2">&#34;text/plain&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">path</span> <span class="p">=</span> <span class="s2">&#34;sigs&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">permalinkable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">weight</span> <span class="p">=</span> <span class="mi">2</span>
 </span></span></code></pre></div><p>What also needs to be done is you need to make a template for this <code>.txt</code> file. So I made a file called <code>layouts/_default/single.sig-format.txt</code> which contained the following</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ .Plain }}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ .Plain }}
 </span></span></code></pre></div><p>With these changes theoretically, these two pages should be made - The top one being regular, and the second being a plaintext version with the signature.</p>
 <ul>
 <li><a href="https://eddiequinn.xyz/test/">https://eddiequinn.xyz/test/</a></li>
 <li><a href="https://eddiequinn.xyz/sigs/test/index.txt">https://eddiequinn.xyz/sigs/test/index.txt</a></li>
 </ul>
 <p>Of course, it wasn&rsquo;t that simple. You see <code>.Plain</code> is meant to return the rendered content of the given page, removing all HTML tags&hellip; This is not what I wanted, and even if it was it still doesn&rsquo;t remove all the html <em>artefacts</em> i.e. <code>Microsoft&amp;rsquo;s</code> will appear rather than <code>Microsoft's</code>. Encountering this problem I did some googling and encountered <a href="https://discourse.gohugo.io/t/generating-custom-text-output-from-markdown-with-regular-expressions/27707">this post</a> which detailed how she was having a similar issue, with <a href="https://github.com/Princeton-CDH/startwords/blob/main/themes/startwords/layouts/article/single.txt">a link to GH</a> and how she solved it. So I used her code, and <code>single.sig-format-txt</code> became the following</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{- $rawContent := .RawContent -}}
-</span></span><span style="display:flex;"><span>{{- range .Site.Data.article_txt_replace.args -}}
-</span></span><span style="display:flex;"><span>  {{- if not .skip -}}
-</span></span><span style="display:flex;"><span>    {{- $rawContent = $rawContent | replaceRE .pattern .replacement -}}
-</span></span><span style="display:flex;"><span>  {{- end -}}
-</span></span><span style="display:flex;"><span>{{- end -}}
-</span></span><span style="display:flex;"><span>{{ $rawContent }}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{- $rawContent := .RawContent -}}
+</span></span><span class="line"><span class="cl">{{- range .Site.Data.article_txt_replace.args -}}
+</span></span><span class="line"><span class="cl">  {{- if not .skip -}}
+</span></span><span class="line"><span class="cl">    {{- $rawContent = $rawContent | replaceRE .pattern .replacement -}}
+</span></span><span class="line"><span class="cl">  {{- end -}}
+</span></span><span class="line"><span class="cl">{{- end -}}
+</span></span><span class="line"><span class="cl">{{ $rawContent }}
 </span></span></code></pre></div><p>Following this I signed a post using <code>gpg --clearsign</code>, and used <code>hugo server</code> to generate it. I then <code>curl</code>&rsquo;d down the content, and used <code>gpg --verify</code> to confirm it works - No errors, so looks like <em>for now</em> are good. I should probably initiate an automated test to confirm the sig checks out, but that will be a job for once this is done.</p>
 <h2 id="content-filter"><code>.Content</code> filter</h2>
 <p>So this one is a tad annoying, but not as much as it could have been. The original plan was to use something like this to filter out the <code>Content</code> data during the build process, by editing the theme. See if you can spot the issue.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ $content := .Content }}
-</span></span><span style="display:flex;"><span>{{ $filteredContent := printf &#34;%s&#34; $content | exec &#34;python filter.py&#34; }}
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class </span><span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;content&#34;</span>&gt; {{ $filteredContent | safeHTML }} &lt;/<span style="color:#f92672">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ $content := .Content }}
+</span></span><span class="line"><span class="cl">{{ $filteredContent := printf &#34;%s&#34; $content | exec &#34;python filter.py&#34; }}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class </span><span class="o">=</span> <span class="s">&#34;content&#34;</span><span class="p">&gt;</span> {{ $filteredContent | safeHTML }} <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>If you didn&rsquo;t know and don&rsquo;t worry if you didn&rsquo;t, it&rsquo;s the use of <code>exec</code>. Hugo doesn&rsquo;t let you do this, and I was an idiot for assuming that I would.</p>
 <p>What is even more potentially idiotic is I write the Python script to strip the PGP first. I say this is idiotic because if it turned out I wasted time writing that, I could have risked rage quitting this whole endeavour (luckily I think I have found a workaround). Regardless, for the sake of people not thinking I am a total idiot with Python, based on my potential code last post, here is the new script that works</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
-</span></span><span style="display:flex;"><span>    raw_data <span style="color:#f92672">=</span> RawData(file<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)<span style="color:#f92672">.</span>string
-</span></span><span style="display:flex;"><span>    gpg_client <span style="color:#f92672">=</span> Gpg_client()
-</span></span><span style="display:flex;"><span>    message <span style="color:#f92672">=</span> gpg_client<span style="color:#f92672">.</span>extract_content(raw_data)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> message
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Gpg_client</span>:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extract_content</span>(self, signed_message:str):
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">## Strip out begining</span>
-</span></span><span style="display:flex;"><span>        content_start_index <span style="color:#f92672">=</span> signed_message<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> content_start_index <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>            content <span style="color:#f92672">=</span> signed_message[content_start_index <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>:]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">## Strip out signature at the end</span>
-</span></span><span style="display:flex;"><span>        sig_start_index <span style="color:#f92672">=</span> content<span style="color:#f92672">.</span>rfind(<span style="color:#e6db74">&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">RawData</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">string</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gpg_client</span> <span class="o">=</span> <span class="n">Gpg_client</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span> <span class="o">=</span> <span class="n">gpg_client</span><span class="o">.</span><span class="n">extract_content</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">message</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Gpg_client</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">extract_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signed_message</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">## Strip out begining</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content_start_index</span> <span class="o">=</span> <span class="n">signed_message</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">content_start_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">content</span> <span class="o">=</span> <span class="n">signed_message</span><span class="p">[</span><span class="n">content_start_index</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">## Strip out signature at the end</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sig_start_index</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&#34;</span>
 </span></span></code></pre></div>
-        <hr>
+</div>
+<hr>
 
 <strong>Verify this post</strong>
 <p>This page is published as a PGP clearsigned document. You can verify it like this:</p>
@@ -134,90 +113,13 @@
 <pre><code>gpg --keyserver hkps://keys.openpgp.org --recv-keys CA98D5946FA3A374BA7E2D8FB254FBF3F060B796
 curl -fsSL 'https://eddiequinn.xyz/sigs/build-logs/eddiequinn.xyz/signing-posts/progress.txt' | gpg --verify</code></pre>
 
-    </div>
-    <footer class="content__footer"></footer>
-
-            </section>
-
-            <section class="page__aside">
-                <div class="aside__about">
-<div class="aside__about">
-    
-    
-<h1 class="about__title">whoami</h1>
-<p class="about__description">Systems should be predictable. People rarely are.</p>
+<div class="bat-rule"></div>
 </div>
 
-
-<ul class="aside__social-links">
-    
-    <li>
-        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/CA98D5946FA3A374BA7E2D8FB254FBF3F060B796" rel="me" aria-label="Public Key" title="Public Key"><i class="fa-solid fa-key" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://github.com/eddiebquinn/" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="mailto:eddie@b-quinn.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://www.linkedin.com/in/edward-b-quinn/" rel="me" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-    <li>
-        <a href="https://eddiequinn.xyz/posts/index.xml" rel="me" aria-label="RSS" title="RSS"><i class="fa-solid fa-square-rss" aria-hidden="true"></i></a>&nbsp;
-    </li>
-    
-</ul>
+    </main>
+<div class="disclaimer">
+Any and all opinions listed here are my own and are not representative
+ of any of my employers, past, future, and/or present
 </div>
-                <hr>
-                <div class="aside__content">
-    
-    
-        <p>
-            
-            2023-11-17
-        </p>
-    
-
-    
-
-                </div>
-            </section>
-
-            <footer class="page__footer"><p>
-    
-    
-    
-    
-    
-    
-      
-    
-      
-    
-    
-    
-      
-      
-          
-            
-            
-                <br/><span class="active"><b></b></span><br/>
-            
-          
-      
-    
-</p>
-<br /><br />
-<p class="copyright">Any and all opinions listed here are my own and are not representative of any of my employers, past, future, and/or present</p>
-<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
-</footer>
-
-        </div>
-    </body>
-
+</body>
 </html>
