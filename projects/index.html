@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>projects</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -25,8 +25,34 @@
 <div class="bat-shell">
 <span class="bat-prompt"><span class="prompt-pref">guest@eddiequinn.xyz ~ $</span> <span class="prompt-cmd">ls projects/</span></span>
 <div class="bat-rule"></div>
-  File: Projects/
+  File: projects/
 <div class="bat-rule"></div>
+<div class="post-content">
+<h2 id="project-blackwall">Project Blackwall</h2>
+<p>A ground-up network overhaul from a flat 10.0.0.0/16 network to a fully segmented, zero-trust infrastructure. Eight VLANs, MikroTik switching, a bare-metal OPNsense &ldquo;outer ICE&rdquo;, split-horizon DNS with Bind9, and Authentik as a centralised identity plane — built on a £750 budget with second-hand enterprise hardware.</p>
+<ul>
+<li><strong>Scope:</strong> VLAN micro-segmentation, OPNsense routing/firewall, MikroTik L2 switching, MPSK WiFi, Bind9 split-horizon DNS, Authentik SSO/RADIUS</li>
+<li><strong>Timeline:</strong> 2025–2026</li>
+<li><strong>Stack:</strong> OPNsense, MikroTik CRS328, TP-Link Omada, Bind9, Authentik, Dell PowerEdge R330/R730xd</li>
+<li><strong>Budget:</strong> ~£750</li>
+</ul>
+<p>[<!-- raw HTML omitted -->writeup<!-- raw HTML omitted -->]  [<!-- raw HTML omitted -->whitepaper<!-- raw HTML omitted -->]</p>
+<hr>
+<h2 id="project-argus">Project Argus</h2>
+<p>A multi-phase access segmentation, detection, and response programme. Follows Project Blackwall with 6 planned phases: tightening inter-VLAN firewall rules, identity and secrets management, network visibility, detection engineering with Sigma and Atomic Red Team validation, automated orchestration via Tracecat, and ongoing deception and compliance hardening. Defined by a set of design principles: automation over manual toil, version-controlled infrastructure, documentation as a first-class output.</p>
+<ul>
+<li><strong>Scope:</strong> Firewall rule migration, Authentik RADIUS/SSO/PKI, OpenBao secrets, NetFlow/Suricata visibility, Wazuh SIEM, Sigma/ART detection, Tracecat SOAR, Canarytokens/OpenSCAP hardening</li>
+<li><strong>Timeline:</strong> 2026 (ongoing — Phase 1 in progress)</li>
+<li><strong>Stack:</strong> OPNsense, Authentik, OpenBao, Wazuh, Suricata, Tracecat, MikroTik, Ansible, GitLab CI</li>
+</ul>
+<hr>
+<h2 id="the-642-project">The 642 Project</h2>
+<p>A creative writing challenge: 642 prompts, 1000+ words each, totalling over 642,000 words. Because sometimes the unreasonable choice is the right one.</p>
+<p>[<!-- raw HTML omitted -->project page<!-- raw HTML omitted -->]</p>
+
+</div>
+<div class="bat-rule"></div>
+<a href="/projects/blackwall/">Project Blackwall — Network Segmentation</a>
 
 <a href="/projects/642-project/">The 642 Project</a>
 <div class="bat-rule"></div>

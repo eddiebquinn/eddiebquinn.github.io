@@ -1,0 +1,154 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+## Executive Summary
+
+Project Blackwall was a ground-up network overhaul: replacing a flat, single-subnet 10.0.0.0/16 network with a fully segmented, zero-trust infrastructure built on MikroTik switching, a bare-metal OPNsense firewall, Bind9 split-horizon DNS, and Authentik identity management — all on second-hand enterprise hardware with a budget of approximately £750.
+
+Named after the ICE barrier from the Cyberpunk universe, Blackwall serves as a literal digital wall: isolating network zones so that a compromise in one area cannot cascade into the rest of the infrastructure. The project represents not just a router upgrade but a complete architectural rethink of how traffic, trust, and identity interact within a homelab environment.
+
+**Key outcomes:**
+* 8 VLANs replacing a flat 10.0.0.0/16 network
+* Bare-metal OPNsense running on a Dell PowerEdge R330
+* MikroTik CRS328-24P-4S+RM as top-of-rack L2 switch with hardware offloaded forwarding
+* Bind9 split-horizon DNS with version-controlled plaintext zone files
+* Authentik SSO, OIDC, and RADIUS integration across the service stack
+* MPSK WiFi with per-SSID VLAN assignment via TP-Link Omada EAP
+* Comprehensive post-mortem published as a candid blog post
+
+## Architecture
+
+### Design Philosophy
+
+The network is designed around the principle that on a long enough timeline, all systems can and will be compromised. Rather than building a single perimeter and hoping it holds, Blackwall assumes breach and ensures compromise has boundaries. Each VLAN represents a distinct trust boundary with its own traffic role, and inter-VLAN traffic is governed by explicit allow/deny rules at the OPNsense firewall.
+
+### Physical Topology
+
+The network is anchored by a Dell PowerEdge R330 running OPNsense as a bare-metal router/firewall — the "outer ICE" of the Blackwall architecture. A MikroTik CRS328-24P-4S+RM (24-port PoE gigabit with 4x 10GbE SFP+) operates as a pure Layer 2 top-of-rack switch. A Dell R730xd provides NAS storage via TrueNAS Scale. Wireless access is handled by a TP-Link Omada WiFi 7 access point.
+
+The MikroTik switch is configured as a pure Layer 2 device — all inter-VLAN routing and firewall enforcement is delegated to OPNsense. This design choice centralises all security policy at a single enforcement point.
+
+### Hardware
+
+Purchased with a budget of approximately £750:
+
+| Item | Cost | Purpose |
+|------|-----:|---------|
+| MikroTik CRS328-24P-4S+RM | £200 | Top-of-rack L2 PoE switch |
+| Dell PowerEdge R330 | £250 | Bare-metal OPNsense router |
+| DrayTek Vigor 166 | £125 | VDSL modem |
+| TP-Link WiFi 7 AP | £90 | Wireless access point |
+
+### VLAN Design
+
+| VLAN | Name | Subnet | Group | Purpose | Allowed Connections | Rate Limit |
+|------|------|--------|-------|---------|-------------------|:----------:|
+| 10 | Services | 10.67.10.0/24 | Core Services | Application and service traffic | Infrastructure, Storage, DMZ | Unlimited |
+| 20 | Storage | 10.67.20.0/24 | Core Services | Storage and data-plane traffic | Services, Endpoints | Unlimited |
+| 30 | DMZ | 10.67.30.0/24 | Perimeter Security | Public ingress and external connectors | WAN, explicitly allowed Services | Unlimited |
+| 40 | Infrastructure | 10.67.40.0/24 | Core Services | Internal infrastructure and operational services | Services, Storage, DMZ, Management | Unlimited |
+| 45 | Management | 10.67.45.0/24 | Network Admin | Administrative interfaces and device management | No direct access from user VLANs | Unlimited |
+| 50 | Guest | 10.67.50.0/24 | User Devices | Untrusted endpoint devices | Internet only | 15/1 Mb/s |
+| 60 | Endpoints | 10.67.60.0/24 | User Devices | Trusted user devices | Services, Storage, Infrastructure | Unlimited |
+| 70 | IoT | 10.67.70.0/24 | IoT | IoT devices isolated from the rest of the network | Internet only | 15/1 Mb/s |
+
+### Zone Breakdown
+
+**The Application & Data Plane (VLAN 10 & 20):** VLAN 10 hosts the actual service layer — Nextcloud, GitLab, Jellyfin, reverse proxies, and eventually Kubernetes workloads. VLAN 20 exists purely for storage traffic (TrueNAS NFS/SMB), isolated from the service layer itself. Separating compute from storage means a compromised application container cannot immediately access underlying datasets.
+
+**The Sandbox (VLAN 30):** The DMZ is the external ingress VLAN. Unlike the common assumption that a DMZ is "the reverse proxy VLAN", Blackwall's DMZ is for anything maintaining external connectivity or accepting unsolicited inbound traffic — Pangolin tunnel connectors and future internet-facing ingress points. The DMZ can only communicate with explicitly approved internal services.
+
+**The Brains (VLAN 40):** The operational nervous system of Blackwall. Bind9 split-horizon DNS, Authentik, monitoring stacks, orchestration platforms, and eventually NetBox live here. These are not end-user applications but the systems that make the rest of the environment function. A key architectural realisation was that infrastructure and management are distinct concepts: infrastructure services are consumed by systems, management interfaces are consumed by administrators.
+
+**The Control Plane (VLAN 45):** Administrative interfaces only — Proxmox, MikroTik, OPNsense, iDRAC, switch management, AP management. This is the crown-jewel enclave: it cannot be routed into from guest, IoT, or application zones. Even if a server or endpoint is compromised, lateral movement into the control plane is dramatically more difficult.
+
+**Human & Trash Subnets (VLAN 50, 60, 70):** Endpoints (VLAN 60) for trusted devices requiring legitimate access to services and storage. Guest (VLAN 50) provides internet-only access with strict bandwidth limits and zero visibility into the internal network. IoT (VLAN 70) is the quarantine zone for smart devices — internet-only, rate-limited, with client isolation at the switch layer so even devices on the same subnet cannot communicate with each other.
+
+### Wireless Architecture
+
+WiFi is handled by a TP-Link Omada WiFi 7 access point with MPSK (Multiple Pre-Shared Key), allowing multiple SSIDs mapped to different VLANs from a single AP:
+* **Primary SSID** — Endpoints VLAN (60)
+* **Guest SSID** — Guest VLAN (50)
+* **IoT SSID** — IoT VLAN (70)
+* **Management SSID** — Management VLAN (45, emergency out-of-band access)
+
+### DNS Architecture
+
+Bind9 was chosen over graphical DNS management tools (AdGuard, Pi-hole) for its version-control-friendly plaintext zone files and split-horizon capability. Internal DNS resolves `*.local.eddiequinn.casa` to internal IPs; external queries are forwarded to public resolvers. The configuration is managed via GitOps, making DNS changes auditable and reproducible.
+
+### Identity and Authentication
+
+Authentik provides centralised identity management with:
+* **OIDC/OAuth2** — SSO for web applications (Grafana, Jellyfin, etc.)
+* **RADIUS** — network-level authentication
+* **LDAP outpost** — legacy protocol support for non-SSO-capable services
+* **Forward auth via Traefik** — per-application authentication for anything lacking native OIDC
+
+## Implementation
+
+The project was executed in seven steps, each building on the previous:
+
+### Step 1 — Switch Retirement and Rack Planning
+
+The old unmanaged Netgear switch was retired and replaced with the MikroTik CRS328. A Rackula diagram was created to plan the physical layout, accounting for future expansion: the R330 was placed at U15 to preserve a clean cabling flow from the top-of-rack switch, while the existing R730 and R730xd remained undisturbed.
+
+### Step 2 — OPNsense Deployment
+
+OPNsense was deployed on the bare-metal PowerEdge R330 with multiple VLAN interfaces. Initial configuration covered WAN/LAN setup, DHCP (via Kea), firewall rules, and Unbound DNS per-VLAN listening.
+
+### Step 3 — MikroTik VLAN Configuration
+
+The CRS328 was configured with 802.1Q VLAN tagging. Ports were assigned as trunks (tagged) or access (untagged) depending on the connected device. The OPNsense VM received tagged VLAN interfaces for routing. Hardware offloading was enabled to maintain line-rate performance.
+
+### Step 4 — Migration Scripting
+
+Existing infrastructure was migrated from the flat 10.0.0.0/16 network onto the new VLAN topology. A bash script orchestrated the cutover, coordinating DHCP lease handoffs, DNS record updates, and service connectivity checks.
+
+### Step 5 — Firewall Policy
+
+OPNsense firewall rules were designed from first principles:
+* **Default deny** — no inter-VLAN traffic permitted unless explicitly allowed
+* **Least privilege** — each rule grants only the specific protocol and destination required
+* **Egress-only for untrusted zones** — Guest and IoT VLANs have internet access only
+* **Management isolation** — VLAN 45 is a sink; no outbound traffic initiated from Management is permitted
+
+### Step 6 — Bind9 DNS
+
+Bind9 was configured for split-horizon DNS with direct zone files managed via GitOps. Internal zones (`*.local.eddiequinn.casa`) resolve to private IPs; external queries are forwarded to public resolvers. The split-horizon setup required updating every Pangolin reverse proxy resource from domain-name targets to direct IP addresses.
+
+### Step 7 — Authentik and Service Integration
+
+Authentik was deployed as a Docker container on the Infrastructure VLAN. Initial integrations included Grafana (smooth OIDC flow), Jellyfin (required a scheme override for redirect URI), and Traefik forward auth. The integration work continues as a background task across the remaining service stack.
+
+## Challenges and Lessons
+
+### The MikroTik Learning Curve
+
+MikroTik's RouterOS has a unique resource model that distinguishes between the L2 switch chip (hardware offloaded) and the CPU-driven bridge. Misconfiguring a port's VLAN mode can silently drop all tagged traffic. A methodical, single-port-at-a-time testing approach was essential.
+
+### The Ubiquiti Decision
+
+The original plan was to use Ubiquiti UniFi equipment — the default choice for prosumer homelabs. The decision to switch to MikroTik + OPNsense was driven by a desire to understand networking at a deeper level rather than relying on a vendor's proprietary abstraction layer. This trade-off means more manual configuration but also more genuine learning and control.
+
+### Rack Planning for the Long Term
+
+Physical rack layout was designed with future expansion in mind: two WAN connections, two routers, and two core switches. By placing the router at U15 and the switch at U20, existing equipment could remain in place without re-racking during the migration.
+
+### DNS Migration Surprises
+
+Moving to split-horizon DNS broke every Pangolin resource using domain names as targets. A full audit and manual update of Pangolin resources was required. The lesson: when changing the DNS architecture, expect all reverse proxy configurations that reference DNS names to need updating.
+
+## Conclusion
+
+Project Blackwall successfully transformed a flat home network into a segmented, zero-trust infrastructure on a sub-£1000 budget using second-hand enterprise hardware and open-source software. The network has been stable since deployment with no segmentation-related incidents.
+
+The project demonstrates that enterprise-grade network design principles are achievable at homelab scale when design decisions are driven by understanding rather than vendor convenience. The explicit policy model — default deny with least-privilege allowances — provides a foundation that can be audited, documented, and reasoned about.
+
+Remaining work identified during Blackwall is being addressed in Project Argus: replacing the remaining broad "allow all" migration rules with explicit policies, adding network flow monitoring, detection engineering, and formalised change management.
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQT2PKczXr7LvRlhryhy4AiZROfDZwUCalDUzwAKCRBy4AiZROfD
+Z3DCAQDNn+ZPw76ojNos5mJMFqG6ZrfePeW2zTDzDiufmvNsgAEAsUzr1mQ6rXEZ
+ujDm3VlHLd4CDmxTRqtgUgPBlz4Ligk=
+=lUvs
+-----END PGP SIGNATURE-----
