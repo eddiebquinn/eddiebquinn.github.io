@@ -1,0 +1,35 @@
+And so I sat there rolling a cigar between fingers in one hand, the other nestling a book. Such had become a small habbit in recent weeks, looking out over the town square in quiet serenity. Nicotinic bliss washing over me, sheilding me from the leviathan I had summoned. That humid summer warmth tapping at my skin and the wasp attempting to drown itself in my beer told me it was time to return to finish what I had started.
+
+In June I had created the Blackwall - A ground-up network overhaul from a flat `10.0.0.0/16` network to a fully segmented, zero-trust infrastructure. Eight VLANs, MikroTik switching, a bare-metal OPNsense “outer ICE”, split-horizon DNS with Bind9, and Authentik as a centralised identity plane. I finished its construction knowing it was only the begining, and this its inception was just  precursor to siring Argus, a multi-phase access segmentation, detection, and response programme. Yet nearly a month on limited ground had been surveyed, much less captured. Phase one had stalled...
+
+## Objective 1: Tighten the Loose VLAN rules
+In the theatre of war boundires shift, objectives are rewritten, and todays enemy can become tommorows ally within a heartbeat. The first objective was to address the loose "Allow All" firewall rules set out in the original Blackwall, with construction starting almost immedietly. It was only after a few of the rule sets that were put in place we found outselves in a Quagmire.
+
+The Blackwall had a fatal flaw that was missed - When you have a firewall on your network, all traffic flows through it. In a small network this is not a problem, but as you scale you will hit issues. I had hit a point where my entire network's traffic was being hairpinned from my switch to my firewall, saturating the link.
+
+> "But you bought a layer 3 switch? that doesnt make sense"
+
+No, it does make sense - When I originally designed the blackwall, for some reason I assumed that the layer three capabilties of the switch would just work with no config.It is only now, having finished a CCNA course, that i understand now niaeve this was. The objective of tightening the vlan rules now had a madatory side quest of enable Layer 3 Routing on the MikroTik switch also.
+
+### Side Quest: Route Clearance
+
+I sat with the problem for a while, rolling it around in my head the same way I rolled that cigar between my fingers while looking out onto the town square. The root cause was obvious, my CRS328 is a layer 3 switch doing layer 2 work. Every packet between VLANs was climbing up to OPNsense, getting inspected, and climbing back down. Double the traversal, half the bandwidth. The fix was equally obvious on paper, turn on layer 3 routing on the switch. Move the inter-VLAN gateways from OPNsense to the CRS328. Let the switch's Marvell ASIC do what it was built to do - route packets at wire speed in silicon, not in software.
+
+But here's where the CCNA course caught up with me. In a CCNA world you have a router and a switch - clean lines, clear responsibilities. The switch routes locally, the router handles inter-VLAN policy and WAN. In a homelab running OPNsense as your router, and with Project Argus's explicit firewall policies already in play, it's not that clean.
+
+If I move ALL routing to the switch, OPNsense never sees inter-VLAN traffic again. The firewall rules become decoration. They'd sit catching nothing but WAN-bound traffic, while inter-VLAN flow control falls to the MikroTik's simpler ACL engine.
+
+If I move NOTHING, the hairpin stays, and the network gets worse as more rules are added.
+
+So the answer was selective - Traffic that's high-volume and low-risk gets routed at wire speed on the switch ASIC. Example include endpoints hitting web apps, services mounting storage, infrastructure polling metrics. Traffic that's a red flag gets punted to OPNsense for the full Argus treatment, this being SSH, DNS, ICMP, and every packet touching the DMZ or Management VLANs. A handful of mangle rules on the MikroTik mark the red-flag traffic and a policy-based route sends it through OPNsense. The switch barely notices the CPU load because the mangle rules only catch low-volume control-plane traffic; everything else is hardware offloaded.
+
+It turns out I'd stumbled into standard practice without realising it. Enterprise networks don't hairpin everything through a firewall either, they'd saturate their uplinks just as fast. 
+
+* Cisco calls it distribution-layer firewall insertion.
+* Palo Alto calls it zone-based segmentation.
+
+The principle is the same: route at the switch, inspect at the firewall. Group VLANs into trust zones and only force traffic through the firewall when it crosses a zone boundary. My "benign" flows were just the VLANs that live in the same trust zone. My "red flags" were the zone transitions. I hadn't broken from best practice, I'd just discovered it through iteration, which is a far better teacher than any textbook.
+
+So how was I going to do this? Anyone who knows me and my technical architecture philosophy knows it can be summed up as "config is doctrine" and "if it is not git tracked then it is not real." I had learnt during Project Blackwall that I could no longer take it for granted that switches would just fall in line and behave. They are their own entities whose config must sing from the same hymn sheet as the firewall. IaC-driven network config was always the long-term solution to this, but as I now found myself having to configure routing on my switch in such a way that it would work harmoniously with the firewall, I knew long-term had to become short-term.
+
+A new Ansible role. A new CI job. A single source of truth for the VLAN topology. State drift doesn't stand a chance. This is what I should have done from the start — but the naive assumption that layer 3 "just works" is exactly the kind of thing I built the Blackwall to protect against. Turns out I needed protecting from myself.
